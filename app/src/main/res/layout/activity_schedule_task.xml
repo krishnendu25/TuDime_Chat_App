@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="obj.quickblox.sample.chat.java.ui.activity.ScheduleTaskActivity">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/toolbar"
+        android:background="@color/sky_blue">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back_button_icon"
+            android:padding="10dp"
+            android:id="@+id/back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="@string/schedule_event"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+       <!-- <CalendarView
+            android:id="@+id/Calender_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>-->
+
+
+
+
+      <!--  <com.imanoweb.calendarview.CustomCalendarView
+            android:id="@+id/Calender_view"
+            android:layout_width="match_parent"
+            android:layout_height=""
+            app:calendarTitleTextColor="@color/black"
+            app:currentDayOfMonthColor="@color/blue"
+            app:dayOfMonthTextColor="@color/black"
+            app:dayOfWeekTextColor="@color/black"
+            app:disabledDayTextColor="@color/grey"
+            app:selectedDayBackgroundColor="@color/blue"
+            app:titleLayoutBackgroundColor="@color/white"
+            app:weekLayoutBackgroundColor="@color/white">
+        </com.imanoweb.calendarview.CustomCalendarView>-->
+
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/Calender_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_showOtherDates="all"
+            app:mcv_selectionColor="#8A03A9F4"
+            />
+
+
+
+
+
+        <ListView
+            android:id="@+id/Event_List"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

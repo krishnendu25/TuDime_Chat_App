@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.TuDime_CAN">
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey"
+                android:text="@string/enter_phone_text"
+                android:id="@+id/note"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="4"
+                    android:orientation="horizontal"
+                    android:background="@drawable/box_icon">
+                    <EditText
+                        android:id="@+id/editText_to_call"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="@string/ph_number"
+                        android:fontFamily="@font/manrope_extrabold"
+                        android:maxLength="15"
+                        android:background="@null"
+                        android:cursorVisible="true"
+                        android:paddingLeft="10dp"
+                        android:textColor="@color/active_fonts"
+                        android:textColorHint="@color/grey"
+                        android:textSize="20sp"
+                        />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:src="@drawable/add_member"
+                        android:layout_gravity="center_vertical"
+                        android:paddingLeft="7dp"
+                        android:id="@+id/add_contacts"
+                        android:paddingRight="7dp"
+                        />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/edit_number"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="x"
+                    android:fontFamily="@font/avenirnext_heavy"
+                    android:background="@drawable/bg_dialog_stroke"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txt_1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:focusableInTouchMode="true"
+                        android:gravity="center"
+                        android:text="1"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="2"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="3"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txt_4"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="4"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_5"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:text="5"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_6"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="6"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txt_7"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:text="7"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_8"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="8"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_9"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="9"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/txt_12"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="+"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_0"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="0"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:id="@+id/txt_11"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/dialpad_foucus_textview"
+                        android:gravity="center"
+                        android:text="#"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="18dp" />
+                </TableRow>
+
+
+            </TableLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/call_btn"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/icon_call" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_10"
+                android:textSize="14sp"
+                android:id="@+id/call_rates"
+                android:paddingBottom="10dp"
+                android:fontFamily="@font/manrope_extrabold"
+                android:textColor="@color/sky_blue"
+                android:text="@string/price_rates"
+                android:textStyle="bold"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

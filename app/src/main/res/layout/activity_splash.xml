@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="obj.quickblox.sample.chat.java.ui.activity.SplashActivity" android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <LinearLayout
+        style="@style/WrapContent"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/text_splash_app_title"
+            style="@style/SplashAppTitleStyle"
+            android:visibility="gone"
+            tools:text="AppName" />
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/text_splash_app_version"
+            style="@style/SplashAppVersionStyle"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            tools:text="1.0.0" />
+    </LinearLayout>
+
+    <ImageView
+        style="@style/SplashLogoStyle"
+        android:visibility="gone"
+        android:layout_marginBottom="40dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ssplash"/>
+
+<ProgressBar
+    android:layout_width="@dimen/dimen_30dp"
+    android:layout_height="@dimen/dimen_30dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginBottom="150dp"/>
+
+</RelativeLayout>

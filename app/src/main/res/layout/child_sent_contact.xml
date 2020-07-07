@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:background="@color/transparent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/transparent"
+      >
+
+        <LinearLayout
+            android:id="@+id/Select_Contact_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/transparent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/Contact_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:clickable="false"
+                android:paddingRight="20dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+               />
+            <TextView
+                android:id="@+id/Contact_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:singleLine="true"
+                android:paddingRight="20dp"
+                android:clickable="false"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height=".8dp"
+            android:background="@color/white"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</LinearLayout>

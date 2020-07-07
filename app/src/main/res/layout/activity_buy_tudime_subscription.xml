@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.activity.Buy_TuDime_Subscription">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/verification_logo_tudime"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_extrabold"
+                android:gravity="center"
+                android:padding="@dimen/padding_5"
+                android:text="@string/best_chat_app_in_the_world_more_features_than_any_other"
+                android:textColor="#2196F3"
+                android:textSize="@dimen/dimen_14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/dimen_30dp"
+                android:layout_marginEnd="@dimen/dimen_30dp"
+                android:layout_marginBottom="@dimen/padding_10"
+                android:elevation="@dimen/padding_5"
+                app:cardBackgroundColor="#75ECE7E7"
+                app:cardCornerRadius="@dimen/padding_10"
+                app:cardElevation="2dp"
+                app:cardMaxElevation="@dimen/dimen_20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="5">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3.7"
+                        android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+
+                                android:gravity="center"
+                                android:text="@string/_15"
+                                android:fontFamily="@font/avenirnext_heavy"
+                                android:layout_marginTop="@dimen/padding_10"
+                                android:textColor="#2196F3"
+                                android:textSize="32dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="2dp"
+                                android:layout_marginTop="@dimen/padding_10"
+                                android:layout_marginStart="@dimen/dimen_25dp"
+                                android:layout_marginEnd="@dimen/dimen_25dp"
+                                android:background="#88BCAFAF" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/avenirnextbold"
+                            android:gravity="center"
+                            android:text="@string/_25_discount_if_you_join_with_in_n15_days_11_25"
+                           android:layout_margin="@dimen/padding_10"
+                            android:textColor="#2196F3"
+                            android:textSize="@dimen/dimen_18dp" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginStart="@dimen/dimen_20dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dimen_20dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:text="@string/fet"
+                                android:gravity="center|start"
+                                android:textColor="#2196F3"
+                                android:fontFamily="@font/manrope_extrabold"
+                                android:textSize="@dimen/dimen_18dp"
+                                android:layout_height="match_parent"/>
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1.3"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_marginStart="@dimen/dimen_25dp"
+                            android:layout_marginEnd="@dimen/dimen_25dp"
+                            android:background="#88BCAFAF" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/manrope_extrabold"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_10"
+                            android:text="@string/_1_year_tudime_membership"
+                            android:textColor="#2196F3"
+                            android:textSize="@dimen/dimen_18dp" />
+
+
+                        <Button
+                            android:id="@+id/Buy_subscribe"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dimen_40dp"
+                            android:layout_marginStart="@dimen/padding_15"
+                            android:layout_marginTop="@dimen/padding_15"
+                            android:layout_marginEnd="@dimen/padding_15"
+                            android:background="@drawable/bg_btn_white"
+                            android:text="@string/subscribe"
+                            android:fontFamily="@font/avenirnext_heavy"
+                            android:textColor="#fff"
+                            android:textSize="@dimen/dimen_16dp"/>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

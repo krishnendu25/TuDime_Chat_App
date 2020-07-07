@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "184656604055",
+    "firebase_url": "https://tudime-c65c6.firebaseio.com",
+    "project_id": "tudime-c65c6",
+    "storage_bucket": "tudime-c65c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184656604055:android:7df64f09e063cda8e772d2",
+        "android_client_info": {
+          "package_name": "obj.quickblox.sample.chat.java"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184656604055-o93cfgp7taj4rvfv5fvt4up55s6f2tff.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "obj.quickblox.sample.chat.java",
+            "certificate_hash": "2cb12737ab1e47e6fe312d58e65ce8a778522c91"
+          }
+        },
+        {
+          "client_id": "184656604055-351no5v2tbv2s8e1hg9at58fh1226ooc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrgnoXryGGoCfhbKaPaNhPl0jVINnzaxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184656604055-351no5v2tbv2s8e1hg9at58fh1226ooc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

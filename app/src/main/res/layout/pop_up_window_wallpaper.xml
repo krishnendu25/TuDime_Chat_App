@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary"
+    android:orientation="vertical">
+
+    <GridView
+        android:id="@+id/grdWallpapers"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:cacheColorHint="@android:color/transparent"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:id="@+id/my_theme"
+        android:text="@string/my_themes"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:visibility="visible"
+        android:textStyle="italic"
+        android:typeface="serif"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/grey" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="10dp"
+        android:visibility="gone"
+        android:text="@string/chat_theme_info"
+        android:textColor="@color/white"
+        android:textSize="12dp" />
+
+    <include
+        layout="@layout/included_button_view"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

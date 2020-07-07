@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.Email_Signup_Process">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:background="@color/sky_blue"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:minHeight="?attr/actionBarSize"
+        app:titleTextColor="@color/white">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/back_button"
+            android:src="@drawable/back_button_icon"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:text="@string/verification"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="22sp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <ImageView
+        android:id="@+id/imgHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:src="@drawable/verification_logo_tudime" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/box">
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/llPhone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/please_enter_your_email_address_for_registration"/>
+
+            <EditText
+                android:id="@+id/login_with_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="fill"
+                android:textSize="17sp"
+                android:layout_marginTop="20dp"
+                android:hint="@string/enter_your_email_id"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/active_fonts"
+                android:textColorHint="#676767"
+                android:textCursorDrawable="@null" />
+
+            <EditText
+                android:id="@+id/login_with_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="fill"
+                android:textSize="17sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/enter_your_nickname"
+                android:inputType="textPersonName"
+                android:textColor="@color/active_fonts"
+                android:textColorHint="#676767"
+                android:textCursorDrawable="@null" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_tudime"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:layout_below="@id/relarive"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btnAgree_email"
+            android:background="@color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/sky_blue"
+            android:textSize="18dp"
+            android:text="@string/CONT" />
+    </LinearLayout>
+
+</LinearLayout>

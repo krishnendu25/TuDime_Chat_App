@@ -1,0 +1,364 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0e2e3"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sky_blue"
+        android:elevation="8dp"
+        app:titleTextColor="@color/primary_grey_dark"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back_button_icon"
+            android:id="@+id/back_image"
+            android:visibility="gone"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile1"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:id="@+id/complete_profile"
+            android:text="@string/updtae_profile"
+            android:gravity="right"
+            android:visibility="gone"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                >
+
+                <ImageView
+                    android:id="@+id/Profile_BACK_PIC"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"/>
+
+                <TextView
+                    android:id="@+id/Profile_BACK_PIC_BTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_5"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:textSize="@dimen/padding_15"
+                    android:fontFamily="@font/manrope_extrabold"
+                    android:drawableStart="@drawable/camera_icon" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfileUpdate"
+                    android:layout_width="170dp"
+                    android:layout_height="170dp"
+                    app:civ_border_color="@color/gray"
+                    app:civ_border_width="2dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pro_pic_default_icon" />
+
+                <ImageView
+                    android:id="@+id/imgPhotoEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/imgProfileUpdate"
+                    android:layout_alignRight="@id/imgProfileUpdate"
+                    android:padding="10dp"
+                    android:src="@drawable/camera_icon" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txvAudioTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="00:00"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_toRightOf="@id/txvAudioTimer"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/swipe_to_delete"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/name_label"
+                    android:id="@+id/pripub_photo"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/profile_name"
+                        android:layout_weight="0.3"
+                        android:layout_gravity="center_vertical"
+                        android:singleLine="true"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/public_profile"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:layout_gravity="center_vertical"
+                        android:textColor="#676767"
+                        android:textColorHint="#676767"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_toRightOf="@id/tvProfile"
+                        android:background="#939393"
+                        android:visibility="gone"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/name_label"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/imgNameEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/edit_icon"
+                        android:layout_centerVertical="true"
+                        android:tint="@color/gray_background" />
+
+                    <TextView
+                        android:id="@+id/tvNickName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/imgNameEdit"
+                        android:hint="@string/full_name"
+                        android:singleLine="true"
+                        android:textColor="@color/active_fonts"
+                        android:textColorHint="#676767"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="5dp"
+                        android:layout_height="5dp"
+                        android:layout_toLeftOf="@id/imgNameEdit"
+                        android:layout_toRightOf="@id/tvNickName"
+                        android:background="#939393" />
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/name_label"
+                    android:id="@+id/notification"
+                    android:visibility="gone"
+                    android:padding="10dp">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/notification_secret_chat"
+                        android:textColor="@color/active_fonts"
+                        android:textSize="16sp" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txvInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvNickName"
+                android:layout_margin="10dp"
+                android:textColor="@color/active_fonts"
+                android:text="@string/update_profile_text_hint"
+                android:textSize="14sp" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/status_and_phone">
+
+                    <TextView
+                        android:id="@+id/txvLabelPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="10dp"
+                        android:text="@string/status1"
+                        android:textSize="16sp"
+                        android:textColor="@color/active_fonts"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/status"
+                        android:textSize="16sp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:id="@+id/txvStatus"
+                        android:layout_below="@id/txvLabelPhone"
+                        android:textColor="@color/active_fonts"
+                        />
+
+                    <ImageView
+                        android:id="@+id/imgStatusEdit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:padding="10dp"
+                        android:layout_centerVertical="true"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/edit_icon"
+                        android:tint="@color/gray_background" />
+
+                    <View
+                        android:id="@+id/separator4"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:layout_below="@id/txvStatus"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/active_fonts"
+                        android:layout_marginTop="5dp"/>
+
+                    <ImageView
+                        android:id="@+id/imgCall"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:padding="10dp"
+                        android:visibility="gone"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="5dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/separator4"
+                        android:src="@drawable/call_icon_white_inactive" />
+
+                    <!--<ImageView-->
+                    <!--android:id="@+id/imgPhoneEdit"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:src="@drawable/edit_icon"-->
+                    <!--android:layout_alignParentBottom="true"-->
+                    <!--android:tint="@color/gray_background" />-->
+
+                    <TextView
+                        android:id="@+id/txvPhoneNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/separator4"
+                        android:gravity="center_vertical"
+                        android:layout_toLeftOf="@id/imgCall"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:text="9717921050"
+                        android:textColor="@color/active_fonts" />
+
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

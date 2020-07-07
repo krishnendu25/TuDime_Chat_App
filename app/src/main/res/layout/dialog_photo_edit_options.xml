@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:padding="15dp" >
+
+        <Button
+            android:id="@+id/btnCamera"
+            style="@style/style_photo_options_dialog_btn"
+            android:text="@string/take_photo" />
+
+        <Button
+            android:id="@+id/btnCamcorder"
+            style="@style/style_photo_options_dialog_btn"
+            android:layout_marginTop="1dp"
+            android:text="@string/take_video" />
+
+        <Button
+            android:id="@+id/btnGallery"
+            style="@style/style_photo_options_dialog_btn"
+            android:layout_marginTop="1dp"
+            android:text="@string/pick_image" />
+
+        <Button
+            android:id="@+id/btnGalleryVideo"
+            style="@style/style_photo_options_dialog_btn"
+            android:layout_marginTop="1dp"
+            android:text="@string/pick_video" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            style="@style/style_dialog_btn_cancel"
+            android:layout_marginTop="10dp"
+            android:text="@string/cancel"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</RelativeLayout>

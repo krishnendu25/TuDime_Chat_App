@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="RtlHardcoded,RtlSymmetry">
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipy_refresh_layout_fragments"
+        style="@style/MatchParent"
+        app:srl_direction="top">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/dimen_40dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/Select_Contact_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:textSize="@dimen/dimen_18dp"
+            android:textStyle="bold"
+            android:textColor="@color/text_color_black"
+           />
+
+        <ListView
+            android:id="@+id/list_dialogs_chats_fragments"
+            style="@style/ListViewWithoutDividerStyle"
+            />
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="@dimen/dimen_40dp">
+        <TextView
+            android:id="@+id/Archive_Chat_Go"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_primary"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/padding_10"
+            android:fontFamily="@font/avenirnextbold"
+            android:textSize="@dimen/dimen_16dp"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+</RelativeLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_chat_empty_fragments"
+        style="@style/MatchWidth"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:onClick="onStartNewChatClick"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <TextView
+            style="@style/WrapContent"
+            android:text="@string/chat_empty_you_are_alone_here"
+            android:textColor="@color/normal_text"
+            android:textSize="20sp"
+            android:gravity="center" />
+
+        <TextView
+            style="@style/WrapContent"
+            android:textColor="@color/text_color_green"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/Shimmer_Effect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        >
+        <include layout="@layout/list_effect" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

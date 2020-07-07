@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:weightSum="2"
+    android:background="#fff">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dip" >
+                <TextView
+                    android:id="@+id/Start_Chat_People"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/create_group_chat"
+                    android:layout_gravity="end|top"
+                    android:layout_margin="10dp"
+                    android:textSize="17dp"
+                    android:visibility="gone"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:background="@color/random_color_2"
+                    android:padding="10dp"/>
+                <ListView
+                    android:id="@+id/list_select_users_fr"
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="wrap_content" />
+                <ListView
+                    android:id="@+id/See_all_contact_without_Friend"
+                    android:layout_width="match_parent"
+                    android:visibility="visible"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+            <ProgressBar
+                android:id="@+id/progress_select_users_fr"
+                android:visibility="gone"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                style="@style/CenterProgressBarStyle" />
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/Shimmer_Effect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                >
+            <include layout="@layout/list_effect" />
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <TextView
+                android:id="@+id/txvEmptyView_frg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:paddingBottom="40dp"
+                android:layout_gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:text="@string/empty_view_contacts"
+                android:textColor="@color/normal_text"
+                android:textSize="18sp"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_weight=".8">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:text="@string/tudime_users"
+            android:background="@color/primary"
+            android:textColor="@color/white"
+            android:padding="5dp"
+            android:gravity="fill"
+            android:visibility="gone"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_margin="5dp"
+            android:layout_height="wrap_content"
+            android:text="@string/invite_your_friends"
+            android:textColor="@color/white"
+            android:background="@color/pink_tudime"
+            android:gravity="fill"
+            android:padding="5dp"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
+
+
+        <TextView
+            android:id="@+id/txvEmptyView_frg_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="10dp"
+            android:gravity="center"
+            android:paddingBottom="40dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/empty_view_contacts"
+            android:textColor="@color/normal_text"
+            android:textSize="18sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>

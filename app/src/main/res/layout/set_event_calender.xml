@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@color/sky_blue"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/set_events"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/remove_icon"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/remove"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_edit">
+
+        <EditText
+            android:id="@+id/event_name_edit"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:hint="@string/event_name"
+            android:singleLine="true"
+            android:background="@null"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/active_fonts"
+            android:textColorHint="#674767"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_edit">
+
+        <TextView
+            android:id="@+id/enter_edt_time"
+            android:layout_width="260dp"
+            android:layout_height="40dp"
+            android:hint="@string/enter_time"
+            android:paddingLeft="10dp"
+            android:gravity="center_vertical"
+            android:paddingRight="10dp"
+            android:drawableRight="@drawable/time"
+            android:drawablePadding="10dp"
+            android:textColor="@color/active_fonts"
+            android:textColorHint="#674767"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="260dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_edit">
+
+        <EditText
+            android:id="@+id/enter_edt_desc"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:hint="@string/enter_description"
+            android:singleLine="true"
+            android:background="@null"
+            android:gravity="top"
+            android:padding="10dp"
+            android:textColor="@color/active_fonts"
+            android:textColorHint="#674767"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/enter_edt_date"
+        android:layout_width="260dp"
+        android:layout_height="25dp"
+        android:hint="@string/enter_time"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Wed , Sep 13, 2017"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/active_fonts"
+        android:textSize="18sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/save"
+        android:id="@+id/save"
+        android:background="@color/sky_blue"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="right"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="20dp"/>
+
+</LinearLayout>

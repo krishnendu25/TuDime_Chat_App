@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#fff"
+        android:layout_margin="20dp"
+
+        app:cardCornerRadius="10dp"
+        app:cardElevation="10dp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/close_dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" X "
+            android:textSize="18dp"
+            android:textColor="@color/red"
+            android:layout_gravity="end"
+            android:padding="10dp"/>
+        <EditText
+            android:id="@+id/msg_box"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:background="#EDE3ED"
+            android:paddingLeft="10dp"
+            android:textColor="@color/active_fonts"
+            android:textColorHint="#674767"
+            android:textSize="18sp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="@string/resend"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/resend_msg"
+            android:layout_gravity="center"
+            android:layout_below="@id/lin_sec_ans1"
+            android:background="@color/sky_blue"
+            android:layout_marginTop="20dp"/>
+
+
+    </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ProgressBar
+            android:id="@+id/progress_chat"
+            style="@style/CenterProgressBarStyle" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

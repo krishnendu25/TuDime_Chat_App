@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="@color/sky_blue">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translation"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:id="@+id/heading"
+            android:layout_centerInParent="true"
+            />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/heading"
+            android:src="@drawable/remove_icon"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="20dp"
+            android:paddingLeft="10dp"
+            android:id="@+id/dismiss"
+            android:paddingRight="10dp"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/select_language123"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:textColor="@color/active_fonts"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/box_with_arrow">
+
+        <Spinner
+            android:id="@+id/spin_translate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            android:layout_height="match_parent"
+            android:singleLine="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/active_fonts"
+            android:textColorHint="#676767"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/enter_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/active_fonts"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp"
+            android:padding="5dp"
+            android:id="@+id/text"
+            android:text=""
+            android:hint="@string/enter_text_here"
+            android:textColorHint="#676767"
+            android:textSize="18sp"
+            android:textColor="@color/active_fonts"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp"
+            android:id="@+id/speech_to_text"
+            android:paddingRight="5dp"
+            android:src="@drawable/speec_text"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/transted"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            android:padding="5dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/active_fonts"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="5dp"
+            android:editable="false"
+            android:visibility="visible"
+            android:hint="@string/enter_text_here"
+            android:textColorHint="#676767"
+            android:textSize="18sp"
+            android:layout_marginTop="2dp"
+            android:textColor="@color/active_fonts"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translate"
+            android:id="@+id/tranlate_btn"
+            android:background="@color/sky_blue"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:visibility="visible"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/send"
+            android:visibility="gone"
+            android:background="@color/sky_blue"
+            android:layout_toLeftOf="@id/tranlate_btn"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:textSize="18sp"
+            android:textColor="@color/active_fonts"
+            android:textStyle="bold"
+            android:layout_marginBottom="10dp"/>
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+</LinearLayout>

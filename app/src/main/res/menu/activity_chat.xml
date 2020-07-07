@@ -1,0 +1,62 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/send_ecard"
+        android:title="@string/send_ecards"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/Serect_Chat"
+        android:title="@string/secret_chat"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_Block_user"
+        android:title="@string/block"
+
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_clear_chat"
+        android:title="@string/clear_chat"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menu_chat_action_info"
+        android:title="@string/details_view"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_chat_action_add"
+        android:title="@string/menu_add_users_to_chat"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_chat_action_leave"
+        android:title="@string/menu_leave_chat"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_chat_action_delete"
+        android:title="@string/menu_delete_chat"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/google_translator_call"
+        android:icon="@drawable/google_translater_icon"
+        android:title="@string/google_translator"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/menu_start_audio_call"
+        android:icon="@drawable/ic_call"
+        android:title="@string/voice_call"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+    <item
+        android:id="@+id/attachedment_btn"
+        android:icon="@drawable/attachment_icon"
+        android:title="@string/action_start_video_call"
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction" />
+
+</menu>

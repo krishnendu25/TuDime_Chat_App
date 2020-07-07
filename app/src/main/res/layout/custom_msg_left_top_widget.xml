@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchWidth"
+    android:orientation="horizontal">
+
+    <com.devspark.robototextview.widget.RobotoTextView
+        android:id="@+id/opponent_name_text_view"
+        style="@style/MessageAuthorStyle"
+        tools:text="Opponent Name" />
+
+    <TextView
+        android:id="@+id/custom_msg_text_time_message"
+        style="@style/WrapContent"
+        tools:text="12:42" />
+</LinearLayout>

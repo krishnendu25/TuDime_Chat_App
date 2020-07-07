@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardBackgroundColor="#fff"
+            android:layout_margin="20dp"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical"
+                >
+
+
+            <TextView
+                android:id="@+id/Application_Close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X"
+                android:textSize="@dimen/dimen_16dp"
+                android:fontFamily="@font/avenirnext_heavy"
+                android:textColor="#be0202"
+                android:padding="@dimen/padding_10"
+                android:layout_gravity="end"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/No_Subscription_Yet"
+                android:textSize="@dimen/dimen_25dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:textColor="#be0202"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/avenirnext_heavy"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:background="@drawable/no_sub"/>
+
+                    <TextView
+                        android:id="@+id/buy_membership"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/padding_10"
+                        android:layout_marginEnd="@dimen/padding_10"
+                        android:layout_marginTop="@dimen/dimen_30dp"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/avenirnext_heavy"
+                        android:text="@string/buy_tudime_membership"
+                        android:padding="@dimen/padding_10"
+                        android:layout_marginBottom="30dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bg_btn_white"
+                        android:textSize="@dimen/dimen_18dp" />
+
+</LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>
+
+</RelativeLayout>

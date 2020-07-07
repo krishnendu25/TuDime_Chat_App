@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.Settings_Tudime">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/edit_profile_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/edit_profile_icon"
+            android:drawableLeft="@drawable/edit_profile_icon"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="@string/edit_profile"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+        <TextView
+            android:id="@+id/accounts_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/accounts_icon"
+            android:drawableLeft="@drawable/accounts_icon"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="@string/accounts"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+        <TextView
+            android:id="@+id/notifications_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/notifications_icon"
+            android:drawableLeft="@drawable/notifications_icon"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:visibility="gone"
+            android:padding="10dp"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="@string/notifications"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:visibility="gone"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+        <TextView
+            android:id="@+id/contact_us"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/contact_us"
+            android:drawableLeft="@drawable/contact_us"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="@string/Contact_Us"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+        <TextView
+            android:id="@+id/about_amp_help_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/contacts_help_icon"
+            android:drawableLeft="@drawable/contacts_help_icon"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="@string/about_amp_help"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

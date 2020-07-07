@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer_box"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/tvPicker"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@+id/tvText"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:drawableTop="@drawable/doodle_emoji_picker"
+            android:gravity="center"
+            android:text="@string/clipart"
+            android:textColor="@color/primary_grey_dark" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="-10dp"/>
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@+id/ivPencil"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/doodle_text_button"
+            android:gravity="center"
+            android:layout_marginTop="19dp"
+            android:textColor="@color/white"
+            android:text="@string/text" />
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="-10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tvOpenCamera"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_marginTop="17dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/ivPencil"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/doodle_preview_color_picker_button"
+                android:text="@string/brush"
+                android:textColor="@color/primary_grey_dark"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/brush"
+                android:textColor="@color/primary_grey_dark" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-10dp"/>
+
+        <TextView
+            android:id="@+id/tvOpenCamera"
+            android:layout_width="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/doodle_upload"
+            android:gravity="center"
+            android:text="@string/gallery"
+            android:textColor="@color/primary_grey_dark"
+            android:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/tvIconClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/icon"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlHeader"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/header_ecards"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="0dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:paddingBottom="20dp"
+            android:src="@drawable/back_button_icon" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/header_logo"
+            android:layout_toRightOf="@id/imgBack"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/imge"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imge"
+            android:layout_marginLeft="15dp"
+            android:text="@string/doodle"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="17dp"/>
+
+        <TextView
+            android:id="@+id/tvUndoDoodleDraw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_toLeftOf="@+id/ivDelete"
+            android:background="@color/transparent"
+            android:drawableTop="@drawable/doodle_undo"
+            android:gravity="center"
+            android:textColor="@color/primary_grey_dark"
+            android:visibility="invisible"
+            android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/ivSavePhoto"
+            android:src="@drawable/delete_icon"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivSavePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:padding="10dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/doodle_go"
+            android:visibility="invisible" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llFooter"
+        android:layout_below="@+id/rlHeader">
+
+        <FrameLayout
+            android:id="@+id/flUploadedPic"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/ivUploadProfilePic"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="centerCrop" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+    
+    <LinearLayout
+        android:id="@+id/tap_to_call"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:weightSum="5"
+        android:layout_marginTop="@dimen/padding_5"
+        android:layout_marginRight="@dimen/padding_10"
+        android:layout_marginEnd="@dimen/padding_10"
+        android:layout_marginBottom="@dimen/padding_5"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_weight="1">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="60dp"
+                app:civ_border_color="@color/trans_ecards_sig"
+                app:civ_border_width="2dp"
+                android:layout_margin="2dp"
+                android:layout_height="60dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_weight="3.4">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="4"
+                android:orientation="horizontal"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/caller_name"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/dimen_16dp"
+                    android:textColor="@color/black"
+                    android:singleLine="true"
+                    android:gravity="center|start"
+                    android:textStyle="bold"
+                    android:layout_weight="4"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:weightSum="4"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/call_status"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="@dimen/dimen_12sp"
+                    android:gravity="center|top|left"
+                    android:textAllCaps="true"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color_dark_grey"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1.5"/>
+                <TextView
+                    android:id="@+id/calling_date"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.5"
+                    android:textSize="12dp"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:ellipsize="marquee"
+                    android:gravity="center|top"
+                    android:layout_marginTop="2dp"
+                    android:textColor="@color/text_color_dark_grey"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight=".6">
+
+            <ImageView
+                android:id="@+id/call_optiion_ic"
+                android:layout_width="25dp"
+                android:layout_height="25dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2px"
+        android:background="@color/primary_dark" />
+</LinearLayout>

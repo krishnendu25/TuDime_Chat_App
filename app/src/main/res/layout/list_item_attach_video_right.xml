@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/ListItemAttachMessage.Right">
+
+    <RelativeLayout
+        android:id="@+id/msg_bubble_background"
+        style="@style/BubbleAttachFrame.Right">
+
+
+
+
+
+        <ProgressBar style="@style/ProgressBarAttach.Right" />
+
+        <ImageView
+            android:id="@+id/msg_image_attach"
+            style="@style/ImageViewAttach.Right"
+            tools:background="@color/black" />
+
+        <include layout="@layout/widget_item_attach_right" />
+
+        <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+            style="@style/LinearAttachWidgetFrame.Right"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_bottom_small">
+
+            <TextView
+                android:id="@+id/msg_attach_status_message"
+                style="@style/TextViewAttach.Right"
+                android:textSize="9sp"
+               />
+        </LinearLayout>
+
+
+        <ImageButton
+            android:id="@+id/video_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@color/transparent"
+            android:src="@drawable/video_play"/>
+    </RelativeLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/msg_image_avatar"
+        style="@style/AvatarImageViewStyle.Right" />
+</LinearLayout>

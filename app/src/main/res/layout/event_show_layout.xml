@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:paddingTop="16dp">
+
+    <ImageView
+        android:id="@+id/saved_event_imageView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:contentDescription="@string/saved_event_image"
+        android:scaleType="fitCenter"/>
+
+    <TextView
+        android:id="@+id/saved_event_title_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/saved_event_imageView"
+        android:layout_toLeftOf="@+id/saved_event_imageView"
+        android:ellipsize="end"
+        android:layout_marginLeft="16dp"
+        android:textSize="18sp"
+        android:maxLines="1"
+        android:textColor="@color/active_fonts"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/saved_event_about_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/active_fonts"
+        android:textSize="16sp"
+        android:layout_toLeftOf="@+id/saved_event_imageView"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_below="@+id/saved_event_title_textView"
+        android:layout_alignLeft="@+id/saved_event_title_textView"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linear_time"
+        android:layout_toLeftOf="@+id/saved_event_imageView"
+        android:layout_below="@+id/saved_event_about_textView"
+        android:layout_alignLeft="@+id/saved_event_title_textView">
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:textColor="@color/active_fonts"
+            android:text="@string/time"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            />
+
+        <TextView
+            android:id="@+id/saved_event_time_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/active_fonts"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/saved_event_imageView"
+        android:layout_below="@+id/linear_time"
+        android:layout_alignLeft="@+id/saved_event_title_textView">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:textColor="@color/active_fonts"
+            android:text="@string/date"
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            />
+
+        <TextView
+            android:id="@+id/saved_event_date_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/active_fonts"
+            android:layout_marginTop="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="100dp"
+        android:background="@android:color/darker_gray"/>
+</RelativeLayout>

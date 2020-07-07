@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="obj.quickblox.sample.chat.java">
+
+    <uses-permission android:name="com.quickblox.sample.chat.java.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="com.quickblox.sample.messages.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-feature
+        android:name="android.hardware.microphone"
+        android:required="false" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:clearTaskOnLaunch="true"
+        android:hardwareAccelerated="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.activity.Webview"/>
+        <activity
+            android:name=".ui.activity.Video_Player"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="landscape"></activity>
+        <activity android:name=".ui.activity.TuDime_Membership" />
+        <activity android:name=".Internet_Calling.quickstart.VoiceActivity"/>
+        <activity android:name=".Internet_Calling.Internet_Calling_Activity"/>
+        <activity android:name=".ui.activity.PriceRatesWebView" />
+        <activity android:name=".ui.activity.TuDime_CAN" />
+        <activity android:name=".ui.activity.Buy_TuDime_Subscription" />
+        <activity android:name=".ui.activity.Contact_Us" />
+        <activity android:name=".ui.activity.Add_Participants" />
+        <activity android:name=".ui.activity.Group_Details_View" />
+        <activity android:name=".ui.activity.Secret_Chat" />
+        <activity android:name=".ui.activity.Archive_Chat" />
+        <activity android:name=".ui.activity.Chat_profile" />
+        <activity android:name=".ui.activity.PrivacyActivity" />
+        <activity android:name=".ui.activity.FeedbackActivity" />
+        <activity android:name=".ui.activity.ExtraFaqActivity" />
+        <activity android:name=".ui.activity.NotificationsSettingsActivity" />
+        <activity android:name=".ui.activity.AccountSettingsActivity" />
+        <activity android:name=".ui.activity.AboutAndHelpSetting" />
+        <activity android:name=".ui.activity.Settings_Tudime" />
+        <activity android:name=".doodle.utils.views.DoodleActivity" />
+        <activity android:name=".doodle.utils.doodleutils.photosortr.PhotoSortrActivity" />
+        <activity android:name=".doodle.utils.doodleutils.visualizer2.MultiTouchVisualizerActivity" />
+        <activity android:name=".doodle.utils.views.EditTextViewActivity" />
+        <activity android:name=".ui.activity.MapSendLocationActivity" />
+        <activity android:name=".ui.activity.StatusEditActivity" />
+        <activity android:name=".ui.activity.StatusChangeActivity" />
+        <activity android:name=".ui.activity.AddSignatureEcards" />
+        <activity android:name=".ui.activity.Ecards_EditPage" />
+        <activity android:name=".ui.activity.EcardsWebView" />
+        <activity android:name=".ui.activity.Ecards3D_Activity" />
+        <activity android:name=".ui.activity.Email_Signup_Process" />
+        <activity android:name=".ui.activity.Choose_Sign_Up_type" />
+        <activity android:name=".ui.activity.UpdateProfileNameActivity" />
+        <activity android:name=".ui.activity.Terms_And_Conditions" />
+        <activity android:name=".ui.activity.InitialTermsActivity" />
+        <activity android:name=".ui.activity.Encounter_Yes_or_no" />
+        <activity android:name=".ui.activity.EncountersActivity" />
+        <activity android:name=".ui.activity.PapPallIntegration" />
+        <activity android:name=".ui.activity.SetLanguage" />
+        <activity android:name=".ui.activity.ScheduleTaskActivity" />
+        <activity android:name=".ui.activity.NotificationCenterActivity" />
+        <activity android:name=".ui.activity.UpdateProfileActivity" />
+        <activity
+            android:name=".ui.activity.DashBoard"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".ui.activity.ShowCountryList" />
+        <activity android:name=".ui.activity.SignUpVerificationActivity" />
+        <activity
+            android:name=".ui.activity.SplashActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.activity.SignUpActivity"
+            android:label="@string/login_title"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SelectUsersActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.DialogsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ChatActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ChatActivityTheme"
+            />
+        <activity
+            android:name=".ui.activity.ChatInfoActivity"
+            android:label="@string/chat_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AttachmentImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Dark" />
+        <activity
+            android:name=".ui.activity.AppInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.OpponentsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PermissionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CallActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/BaseAppTheme" />
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".services.LoginService" />
+        <service android:name=".services.CallService" />
+        <service android:name=".services.fcm.PushListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".fcm.PushListenerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.quickblox.messages.services.fcm.QBFcmPushListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name="com.quickblox.messages.services.fcm.QBFcmPushInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="firebase_performance_logcat_enabled"
+            android:value="true" />
+
+        <receiver android:name=".services.OnAlarmReceiver" />
+
+        <service android:name=".services.AlarmService" />
+
+        <meta-data
+            android:name="com.quickblox.messages.TYPE"
+            android:value="FCM" />
+        <meta-data
+            android:name="com.quickblox.messages.SENDER_ID"
+            android:value="184656604055" />
+        <meta-data
+            android:name="com.quickblox.messages.QB_ENVIRONMENT"
+            android:value="DEVELOPMENT" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!--
+ <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="4b96a3f33893a42103eae91d2166d0c517b833d3" />
+        -->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <receiver android:name=".util.NetworkChangeReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+       <!-- Relese -->
+        <service
+            android:name=".utils.NotifyService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDuAiQ17474Bq7BOAZTwS3jCcR4UHJv7uk" /> <!-- DEBUG -->
+        <!--
+   <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDjl2LKFfzPUuFlVPARbS0-01rGHgCJhfE" />
+        -->
+        <receiver
+            android:name=".util.MySMSBroadcastReceiver"
+            android:exported="true"
+            android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

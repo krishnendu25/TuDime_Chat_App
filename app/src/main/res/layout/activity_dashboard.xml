@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/app_background">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar1"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:background="@color/sky_blue"
+                android:elevation="8dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:minHeight="?attr/actionBarSize"
+                app:titleTextColor="@color/white">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:visibility="gone">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/notification_icon" />
+
+                        <TextView
+                            android:layout_width="13dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="top|right"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:textSize="10dp"
+                            android:visibility="gone" />
+                    </FrameLayout>
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/toolbar"
+                android:background="@color/sky_blue"
+                android:minHeight="?attr/actionBarSize"
+                app:tabTextColor="#fff"
+                app:tabSelectedTextColor="#fff"
+                app:tabIndicatorColor="@color/white"
+                android:elevation="8dp" />
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparent_gray_shade_darkest"
+            android:visibility="gone" />
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/FloatingActionMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="15dp"
+            android:visibility="visible"
+            fab:menu_animationDelayPerItem="50"
+            fab:menu_backgroundColor="@android:color/transparent"
+            fab:menu_colorNormal="@color/primary"
+            fab:menu_colorPressed="@color/primary"
+            fab:menu_labels_textColor="@color/primary"
+            fab:menu_colorRipple="@color/primary"
+            fab:menu_icon="@drawable/fab_add"
+            fab:menu_labels_colorNormal="@color/transparent"
+            fab:menu_labels_colorPressed="@color/transparent"
+            fab:menu_labels_colorRipple="@color/transparent"
+            fab:menu_openDirection="up">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/new_group_icon"
+                android:visibility="gone"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/primary"
+                fab:fab_colorRipple="@color/white"
+                fab:fab_label="@string/new_group"
+                fab:fab_size="normal"
+                fab:menu_backgroundColor="@android:color/transparent"
+                fab:menu_labels_textColor="@color/primary" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/action_secret_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/secret_chat_icon"
+                android:visibility="gone"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/primary"
+                fab:fab_colorRipple="@color/white"
+                fab:fab_label="@string/action_secret_chat"
+                fab:fab_size="normal"
+                fab:menu_labels_textColor="@color/primary" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/add_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/ic_addddd_contact"
+                fab:fab_label="@string/Add_contact"
+                android:background="@color/primary"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/primary"
+                fab:fab_colorRipple="@color/white"
+                fab:menu_labels_textColor="@color/primary"
+                fab:fab_size="normal" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/Refresh_contact"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/refresh_contact"
+                android:visibility="visible"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/primary"
+                fab:fab_colorRipple="@color/white"
+                android:background="@color/primary"
+                fab:fab_label="@string/Refresh_contact"
+                fab:fab_size="normal"
+                fab:menu_labels_textColor="@color/primary" />
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/Refresh_chat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:src="@drawable/refresh_contact"
+                android:visibility="visible"
+                fab:fab_colorNormal="@color/primary"
+                fab:fab_colorPressed="@color/primary"
+                fab:fab_colorRipple="@color/white"
+                android:background="@color/primary"
+                fab:fab_label="@string/Refresh_chat"
+                fab:fab_size="normal"
+                fab:menu_labels_textColor="@color/primary" />
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+
+
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

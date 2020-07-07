@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sky_blue"
+        android:contentInsetLeft="0dp"
+        android:contentInsetStart="0dp"
+        android:elevation="10dp"
+        android:minHeight="?attr/actionBarSize"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="5dp" >
+
+            <ImageView
+                android:id="@+id/imgBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:paddingBottom="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:src="@drawable/back_button_icon" />
+
+            <EditText
+                android:id="@+id/edtLocationSearch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/bg_edit"
+                android:drawableLeft="@drawable/search_gray"
+                android:drawablePadding="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:dropDownVerticalOffset="10dp"
+                android:gravity="center_vertical"
+                android:hint="@string/pick_location"
+                android:textColorHint="@color/grey"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:textColor="@color/black_dark" />
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ListView
+        android:id="@+id/listviewLocations"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:cacheColorHint="@android:color/transparent" />
+
+    <TextView
+        android:id="@+id/txvShowLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/listviewLocations"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/location_show"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="@string/show_locations"
+        android:textColor="@color/blue_button_color" />
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_above="@id/txvShowLocation"
+        android:layout_marginLeft="50dp"
+        android:background="@color/gray_btn" />
+
+    <TextView
+        android:id="@+id/txvSendLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/separator"
+        android:background="@color/white"
+        android:drawableLeft="@drawable/location_send"
+        android:drawablePadding="20dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:text="@string/send_your_location"
+        android:textColor="@color/blue_button_color" />
+
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map_frame"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/txvSendLocation"
+        android:layout_below="@id/toolbar"
+        tools:context=".ui.activity.MapSendLocationActivity" />
+
+
+
+</RelativeLayout>

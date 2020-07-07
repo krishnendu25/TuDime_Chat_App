@@ -1,0 +1,934 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sender_id" translatable="false">1</string>
+
+    <string name="app_name">तुडीम</string>
+    <string name="chat_sample">तुडीम</string>
+
+    <string name="menu_chat_info">डेटाइस व्ई</string>
+    <string name="menu_add_users_to_chat">गप्पांमध्ये वापरकर्ते जोडा चॅट सोडा</string>
+    <string name="menu_leave_chat">गप्पा हटवा</string>
+    <string name="menu_delete_chat">लॉगआउट</string>
+    <string name="menu_dialogs_logout">हटवा</string>
+    <string name="menu_dialogs_delete">अॅप माहिती</string>
+    <string name="menu_dialogs_app_info">झाले</string>
+    <string name="menu_select_people_done">%1$s मध्ये रिक्त स्थानांशिवाय 3 - %2$s अल्फान्यूमेरिक लॅटिन वर्ण असणे आवश्यक आहे, प्रथम वर्ण एक अक्षर असणे आवश्यक आहे</string>
+
+    <string name="error_name_must_not_contain_special_characters_from_app">वापरकर्त्याचे नाव</string>
+    <string name="field_name_user_login">वापरकर्त्याचे पूर्ण नाव</string>
+    <string name="field_name_user_fullname">लोड करीत आहे चॅट सत्र पुनर्संचयित करीत आहे ...</string>
+
+    <string name="dlg_loading">गप्पा तयार करत आहे…</string>
+    <string name="dlg_restoring_chat_session">लॉगिन…</string>
+    <string name="create_chat">% s ने नवीन चॅट तयार केली</string>
+    <string name="dlg_login">% s जोडले% s</string>
+    <string name="new_chat_created">%s created new chat </string>
+    <string name="occupant_added">आपण चॅट थीम बदला</string>
+    <string name="occupant_left">संदेश पाठवू शकत नाही, आपण चॅटशी कनेक्ट केलेले नाही % s (आपण)</string>
+    <string name="change_theam">लॉगिन चॅट त्रुटी</string>
+
+    <string name="chat_error_send_message">आपण संदेश पाठवू शकत नाही, आपण गप्पांमध्ये कनेक्ट केलेले नाहीी</string>
+
+    <string name="placeholder_username_you">लॉगिन चॅट त्रुटी. कृपया पुन्हा प्रयत्न करा. त्रुटी</string>
+    <string name="error_recreate_session">साइन अप त्रुटी.</string>
+
+    <string name="login_title">% S</string>
+
+    <string name="login_chat_login_error">म्हणून लॉग इन केले आपण% s</string>
+    <string name="login_sign_up_error">संवादातून सोडू शकत नाही संवाद निर्मिती त्रुटी</string>
+
+    <string name="dialogs_logged_in_as">संवाद हटविण्याच्या त्रुटी</string>
+    <string name="dialogs_cannot_delete_chat">चॅट करण्यासाठी संवाद निवडा आपण गप्पा मारू इच्छित वापरकर्ते निवडा नवीन गप्पा तयार करा चॅट करण्यासाठी वापरकर्त्यांना जोडा वापरकर्त्यांच्या चुका मिळवा</string>
+    <string name="dialogs_creation_error">सर्व्हरकडून संवाद मिळवताना त्रुटी सर्व्हर वरून वापरकर्त्यांचा संवाद मिळवताना त्रुटी कृपया, किमान एक सहभागी निवडा</string>
+    <string name="dialogs_deletion_error">पाठवा</string>
+    <string name="dialogs_list_hint">संदेश</string>
+
+    <string name="select_users_list_hint">लोड गप्पा वापरकर्त्यांच्या चुका</string>
+    <string name="select_users_create_chat">जोड</string>
+    <string name="select_users_edit_chat">Contacts n ट्यूडाइम असलेल्या संपर्कांशी चॅट सुरू करण्यासाठी, स्क्रीनच्या शीर्षस्थानी संपर्क टॅब टॅप करा नवीन गप्पा सुरू करा.</string>
+    <string name="select_users_get_users_error">सर्व संलग्नक अपलोड होण्याची प्रतीक्षा करा TuDime गप्पा अधिसूचना</string>
+    <string name="select_users_get_dialog_error">गप्पा कनेक्शन सोडले गेले आहे</string>
+    <string name="select_users_get_users_dialog_error">संवाद त्रुटी अद्यतनित करा % S सेकंदात पुन्हा कनेक्ट करत आहे</string>
+    <string name="select_users_choose_users">कमाल संलग्नक क्रमांक:% d</string>
+
+    <string name="chat_send">वापरकर्ते जोडले गेले आहेत</string>
+    <string name="chat_edit_text_hint">गप्पा माहिती</string>
+    <string name="chat_load_users_error">लोक चुका जोडा</string>
+    <string name="chat_attachment">सार्वजनिक गट चॅट केवळ मालकाद्वारेच हटविली जाऊ शकते खोली सोडताना त्रुटी</string>
+    <string name="chat_empty_you_are_alone_here">वितरित</string>
+    <string name="chat_empty_start_new_chat">वाचा</string>
+    <string name="chat_wait_for_attachments_to_upload">पाठविला</string>
+    <string name="notification_title">चॅट नाव प्रविष्ट करा ओके</string>
+    <string name="connection_error">रद्द करा</string>
+    <string name="update_dialog_error">पुन्हा प्रयत्न करा पासून फोटो निवडा…</string>
+    <string name="reconnect_alert">इंटरनेट कनेक्शन नाही त्रुटी</string>
+
+    <string name="restriction_upload_files">बदला नंबर</string>
+
+    <string name="added_users">गोपनीयता</string>
+
+    <string name="chat_info">आपली सद्यस्थिती</string>
+    <string name="chat_info_add_people_error">आपली स्थिती निवडा</string>
+
+    <string name="public_group_chat_cannot_be_deleted">रद्द करा</string>
+    <string name="error_leave_chat" translatable="false">आनंदी आणि सुंदर रहा</string>
+
+
+    <string name="statuses_delivered">सर्वांपासून लपवा</string>
+    <string name="statuses_read">विशिष्ट वापरकर्त्यापासून लपवा</string>
+    <string name="statuses_sent">वापरकर्ता अवरोधित करा</string>
+
+    <string name="dialog_enter_chat_name">\'अंतिम वेळा पाहिले\' चे मुद्रांक काढा एनकॉन्टर उघडण्यासाठी संकेतशब्द सेट करा</string>
+    <string name="dialog_OK">एनकॉन्टरमध्ये संकेतशब्द बदला सेटिंग्ज</string>
+    <string name="dialog_Cancel">अवरोधित</string>
+    <string name="dialog_retry">नवीन गट तयार करा टूडाइम मेसेंजर एक वेळ एसएमएस पाठवेल. आपला फोन नंबर सामायिक केला जाणार नाही. It n हा केवळ सत्यापन हेतूसाठी वापरला जाईल.</string>
+    <string name="dialog_choose_image_from">फोन नंबर प्रविष्ट करा झाले</string>
+
+    <string name="error_credentials_empty">Credentials are wrong or empty. You have to set:
+        Application ID, Authentification Key, Authentification Secret, Account Key in constants in App.java
+        and you have to set Sender ID in the string resources to launch application.
+        If you haven\'t them you can register new account and application at https://admin.quickblox.com
+        then put Application credentials from Overview page + Account key from https://admin.quickblox.com/account/settings</string>
+    <string name="no_internet_connection">आम्ही</string>
+    <string name="error">वर एक सत्यापन कोड पाठविला आहे एक्सएक्सएक्स एक्सएक्सएक्सएक्सएक्स .00</string>
+
+
+    <string name="changenumber">कृपया प्राप्त केलेला सत्यापन कोड प्रविष्ट करा.</string>
+    <string name="privacy1">सत्यापन कोड प्रविष्ट करा सुरू ठेवा</string>
+    <string name="your_current_status">पडताळणी सत्यापन कोड</string>
+    <string name="select_your_status">फोटो घ्या</string>
+    <string name="cancel">प्रतिमा निवडा</string>
+    <string name="Stay_hapy" translatable="false">पूर्ण नाव</string>
+    <string name="hide_from_all">आपले वय प्रविष्ट करा</string>
+    <string name="hide_from_specific_user">एक निवडा:</string>
+    <string name="block_user">सूचना टोन</string>
+    <string name="remove_time_stamp">रिंगटोन</string>
+    <string name="set_pass_encounter">Set password to open Encounters </string>
+    <string name="change_password_encounter"><u> एनकाउंटर प्रोफाइल </u></string>
+
+    <string-array name="CountryCodes">
+        <item>93,AF</item>
+        <item>355,AL</item>
+        <item>213,DZ</item>
+        <item>376,AD</item>
+        <item>244,AO</item>
+        <item>672,AQ</item>
+        <item>54,AR</item>
+        <item>374,AM</item>
+        <item>297,AW</item>
+        <item>61,AU</item>
+        <item>43,AT</item>
+        <item>994,AZ</item>
+        <item>973,BH</item>
+        <item>880,BD</item>
+        <item>375,BY</item>
+        <item>32,BE</item>
+        <item>501,BZ</item>
+        <item>229,BJ</item>
+        <item>975,BT</item>
+        <item>591,BO</item>
+        <item>387,BA</item>
+        <item>267,BW</item>
+        <item>55,BR</item>
+        <item>673,BN</item>
+        <item>359,BG</item>
+        <item>226,BF</item>
+        <item>95,MM</item>
+        <item>257,BI</item>
+        <item>855,KH</item>
+        <item>237,CM</item>
+        <item>1,CA</item>
+        <item>238,CV</item>
+        <item>236,CF</item>
+        <item>235,TD</item>
+        <item>56,CL</item>
+        <item>86,CN</item>
+        <item>61,CX</item>
+        <item>61,CC</item>
+        <item>57,CO</item>
+        <item>269,KM</item>
+        <item>242,CG</item>
+        <item>243,CD</item>
+        <item>682,CK</item>
+        <item>506,CR</item>
+        <item>385,HR</item>
+        <item>53,CU</item>
+        <item>357,CY</item>
+        <item>420,CZ</item>
+        <item>45,DK</item>
+        <item>253,DJ</item>
+        <item>670,TL</item>
+        <item>593,EC</item>
+        <item>20,EG</item>
+        <item>503,SV</item>
+        <item>240,GQ</item>
+        <item>291,ER</item>
+        <item>372,EE</item>
+        <item>251,ET</item>
+        <item>500,FK</item>
+        <item>298,FO</item>
+        <item>679,FJ</item>
+        <item>358,FI</item>
+        <item>33,FR</item>
+        <item>689,PF</item>
+        <item>241,GA</item>
+        <item>220,GM</item>
+        <item>995,GE</item>
+        <item>49,DE</item>
+        <item>233,GH</item>
+        <item>350,GI</item>
+        <item>30,GR</item>
+        <item>299,GL</item>
+        <item>502,GT</item>
+        <item>224,GN</item>
+        <item>245,GW</item>
+        <item>592,GY</item>
+        <item>509,HT</item>
+        <item>504,HN</item>
+        <item>852,HK</item>
+        <item>36,HU</item>
+        <item>91,IN</item>
+        <item>62,ID</item>
+        <item>98,IR</item>
+        <item>964,IQ</item>
+        <item>353,IE</item>
+        <item>44,IM</item>
+        <item>972,IL</item>
+        <item>39,IT</item>
+        <item>225,CI</item>
+        <item>81,JP</item>
+        <item>962,JO</item>
+        <item>7,KZ</item>
+        <item>254,KE</item>
+        <item>686,KI</item>
+        <item>965,KW</item>
+        <item>996,KG</item>
+        <item>856,LA</item>
+        <item>371,LV</item>
+        <item>961,LB</item>
+        <item>266,LS</item>
+        <item>231,LR</item>
+        <item>218,LY</item>
+        <item>423,LI</item>
+        <item>370,LT</item>
+        <item>352,LU</item>
+        <item>853,MO</item>
+        <item>389,MK</item>
+        <item>261,MG</item>
+        <item>265,MW</item>
+        <item>60,MY</item>
+        <item>960,MV</item>
+        <item>223,ML</item>
+        <item>356,MT</item>
+        <item>692,MH</item>
+        <item>222,MR</item>
+        <item>230,MU</item>
+        <item>262,YT</item>
+        <item>52,MX</item>
+        <item>691,FM</item>
+        <item>373,MD</item>
+        <item>377,MC</item>
+        <item>976,MN</item>
+        <item>382,ME</item>
+        <item>212,MA</item>
+        <item>258,MZ</item>
+        <item>264,NA</item>
+        <item>674,NR</item>
+        <item>977,NP</item>
+        <item>31,NL</item>
+        <item>599,AN</item>
+        <item>687,NC</item>
+        <item>64,NZ</item>
+        <item>505,NI</item>
+        <item>227,NE</item>
+        <item>234,NG</item>
+        <item>683,NU</item>
+        <item>850,KP</item>
+        <item>47,NO</item>
+        <item>968,OM</item>
+        <item>92,PK</item>
+        <item>680,PW</item>
+        <item>507,PA</item>
+        <item>675,PG</item>
+        <item>595,PY</item>
+        <item>51,PE</item>
+        <item>63,PH</item>
+        <item>870,PN</item>
+        <item>48,PL</item>
+        <item>351,PT</item>
+        <item>1,PR</item>
+        <item>974,QA</item>
+        <item>40,RO</item>
+        <item>7,RU</item>
+        <item>250,RW</item>
+        <item>590,BL</item>
+        <item>685,WS</item>
+        <item>378,SM</item>
+        <item>239,ST</item>
+        <item>966,SA</item>
+        <item>221,SN</item>
+        <item>381,RS</item>
+        <item>248,SC</item>
+        <item>232,SL</item>
+        <item>65,SG</item>
+        <item>421,SK</item>
+        <item>386,SI</item>
+        <item>677,SB</item>
+        <item>252,SO</item>
+        <item>27,ZA</item>
+        <item>82,KR</item>
+        <item>34,ES</item>
+        <item>94,LK</item>
+        <item>290,SH</item>
+        <item>508,PM</item>
+        <item>249,SD</item>
+        <item>597,SR</item>
+        <item>268,SZ</item>
+        <item>46,SE</item>
+        <item>41,CH</item>
+        <item>963,SY</item>
+        <item>886,TW</item>
+        <item>992,TJ</item>
+        <item>255,TZ</item>
+        <item>66,TH</item>
+        <item>228,TG</item>
+        <item>690,TK</item>
+        <item>676,TO</item>
+        <item>216,TN</item>
+        <item>90,TR</item>
+        <item>993,TM</item>
+        <item>688,TV</item>
+        <item>971,AE</item>
+        <item>256,UG</item>
+        <item>44,GB</item>
+        <item>380,UA</item>
+        <item>598,UY</item>
+        <item>1,US</item>
+        <item>998,UZ</item>
+        <item>678,VU</item>
+        <item>39,VA</item>
+        <item>58,VE</item>
+        <item>84,VN</item>
+        <item>681,WF</item>
+        <item>967,YE</item>
+        <item>260,ZM</item>
+        <item>263,ZW</item>
+    </string-array>
+
+    <string name="settings">आपले नाव प्रविष्ट करा</string>
+    <string name="blocked">आपल्या संपर्कांमध्ये प्रवेश करण्यासाठी \\ \'ट्यूडाइम?\' ला अनुमती द्यायची?</string>
+    <string name="new_group">Take \'ट्यूडाइम \\\' ला छायाचित्रे आणि व्हिडिओ रेकॉर्ड करण्यास अनुमती द्यायची?</string>
+    <string name="app_info">गॅलरीमधून आपले फोटो / व्हिडिओ वापरण्यासाठी \\ \'ट्यूडाइम?\' ला अनुमती द्यायची?</string>
+    <string name="ph_number">TuDime मध्ये आपले स्वागत आहे ट्यूडाइम चॅट अॅप - इतर कोणत्याही वैशिष्ट्यांपेक्षा अधिक वैशिष्ट्ये!</string>
+    <string name="done">आपल्या सोयीसाठी एक भाषा निवडा कॉल क्रेडिट रक्कम</string>
+    <string name="verfication_code">परवानगी द्या</string>
+    <string name="xx">नकार</string>
+    <string name="code_below">वय</string>
+    <string name="Enter_verification_code" translatable="false">कॉल</string>
+    <string name="CONT" translatable="false">स्थितीः अहो! मी TuDime</string>
+    <string name="RESEND_VERIFICATION_CODE" translatable="false">वापरत आहे स्थान</string>
+    <string name="take_photo">नवीन स्थिती जोडा</string>
+    <string name="pick_image">अहो! मी TuDime वापरत आहे उपलब्ध</string>
+    <string name="full_name">व्यस्त</string>
+    <string name="enter_age">शाळेत</string>
+    <string name="choose_one">कामावर</string>
+
+    <string name="new_message">बॅटरी मरणार आहे</string>
+    <string name="call_ringtone">बोलू शकत नाही, केवळ TuDime</string>
+    <string name="profile1">झोपा</string>
+    <string name="updtae_profile">एका सभेत</string>
+    <string name="enter_your_name" translatable="false">फक्त तातडीचे कॉल</string>
+    <string name="access_contacts_dialog" translatable="false">1. वैशिष्ट्य फोनसह, मी ही सेवा वापरू शकतो?</string>
+    <string name="access_camera_dialog" translatable="false">२. ट्यूडाइम म्हणजे काय?</string>
+    <string name="access_gallery_dialog" translatable="false">3. सेवा पॅकेजेस?</string>
+    <string name="welocome_tudime">Tu. प्रत्येकजण TuDime वापरू शकतो?</string>
+    <string name="get_ready">Service. सेवा कशी घ्यावी?</string>
+    <string name="select_langAGE">6. माझा मित्र माझा फोन नंबर पाहू शकतो?</string>
+    <string name="call_credit">ID. आयडी म्हणजे काय?</string>
+    <string name="Allow" translatable="false">8. आयडी आणि टोपणनाव दरम्यान फरक?</string>
+    <string name="deny">9. मित्र कसे शोधायचे?</string>
+    <string name="age">१०. मी हटविलेले संदेश मी पुनर्संचयित करू शकतो?</string>
+    <string name="call">नक्की. एसएमएस, आयव्हीआर, वेब, अॅपवर ट्यूडाइम प्रदान केले. वैशिष्ट्य फोनसह, वापरकर्ता एसएमएस आणि आयव्हीआरद्वारे सेवा अनुभवू शकतो.</string>
+    <string name="status">ट्यूडाइम हा एक प्रीमियम उपाय आहे, व्हिएतलचे ग्राहक सहजपणे प्रवेश करू शकतात आणि मित्रांशी गप्पा मारू शकतात किंवा एसएमएस, वेब, andप आणि आयव्हीआरद्वारे त्वरित मित्र बनवू शकतात. एसएमएस आणि आयव्हीआर वर, वापरकर्ता इतरांना शोधू आणि त्यांच्याशी संवाद साधू शकतो किंवा प्रोफाइल तयार करू शकतो त्यांच्यासाठी. अ‍ॅप टुडाइम व्हॉईस संदेश, व्हिडिओ, चित्रे आणि मजकूर पाठविण्यास समर्थन देते. आपण गटावर देखील गप्पा मारू शकता किंवा आपल्याला मित्र सापडतील. ट्यूडाइम अ‍ॅप सर्व आयओएस डिव्हाइस, अँड्रॉइड, विंडोज फोन, सिम्बियन आणि ब्लॅकबेरीवर कार्य करते.</string>
+    <string name="location">1. दररोज: 1.500 दि / दिवस 2. साप्ताहिक: 7.000 दि / आठवडा 3. मासिक: 22.000 दि / महिना</string>
+    <string name="status_add">सर्व व्हिएटेल ग्राहक सेवा वापरू शकतात.</string>
+    <!-- status -->
+    <string name="status_default_ciaom">अ. एसएमएस आज्ञा: डीके 1 1517 वर पाठवा: दैनिक पॅकेज डीके 3 1515 वर पाठवा: साप्ताहिक पॅकेज डीके 30 पाठवा 1515: मासिक पॅकेज बी. आयव्हीआर: 1517 वर कॉल करा, सूचना ऐका आणि त्यांचे अनुसरण करा सी. वेब / अ‍ॅप: सूचनांचे अनुसरण करा नाही. एसएमएस, अॅप, वेबवर: मित्र केवळ आपले टोपणनाव पाहू शकतात. आयव्हीआर वर: मित्र केवळ आपला आयडी पाहू शकतात.</string>
+    <string name="status_available">आयडी चॅटमध्ये एक कोड आहे 7 अंक, ट्यूडाइममध्ये सामील असलेल्या प्रत्येक वापरकर्त्यास 1 आयडी प्रदान केला जाईल जो बदलू शकत नाही.</string>
+    <string name="status_busy">ID: वापरकर्ता बदलू शकत नाही, तो सिस्टमद्वारे प्रदान केला गेला आहे. टोपणनाव: वापरकर्ता बदलू शकतो, तो वापरकर्त्याने तयार केला आहे.</string>
+    <string name="status_at_school">आपण याद्वारे मित्र शोधू शकता: -एसएमएस: मजकूर टीआयएम 1517 वर पाठवा आयव्हीआर: सदस्यता घेतल्यानंतर, 1517 वर कॉल करा, नवीन मित्र शोधण्यासाठी 1 दाबा, ऐका आणि सूचनांचे अनुसरण करा अ‍ॅप / वेब: वैशिष्ट्याभोवती पहा</string>
+    <string name="status_at_work">क्रमांक</string>
+    <string name="status_battery_about_to_die">एक ट्यूडाइम कॉल करण्यासाठी, चॅट उघडा आणि शीर्षस्थानी टॅप करा.</string>
+    <string name="status_can_t_talk_vchat_only">तुडीम</string>
+    <string name="status_sleeping">वर आपले कोणतेही संपर्क अस्तित्वात नाहीत लोड करीत आहे ...</string>
+    <string name="status_in_a_meeting">पाठवा</string>
+    <string name="status_urgent_calls_only">नोंदणी</string>
+    <string name="ques1">हे आपल्यासाठी आणि आपल्या मित्रासाठी थीम बदलेल.</string>
+    <string name="ques2">प्रतिमा</string>
+    <string name="ques3">फायली</string>
+    <string name="ques4">संपर्क</string>
+    <string name="ques5">डूडल</string>
+    <string name="ques6">6. माझा मित्र माझा फोन नंबर पाहू शकतो?</string>
+    <string name="ques7">पाठविण्यासाठी व्हॉईस मेमो रेकॉर्ड करा होल्ड आणि टॉक</string>
+    <string name="ques8">पिन काढा सुरक्षा प्रश्न:</string>
+    <string name="ques9"><b> टीपः </b> सुरक्षा प्रश्न आणि उत्तर पिन</string>
+    <string name="ques10">सेट करण्यासाठी प्रथमच प्रविष्ट केल्याप्रमाणेच असावे सुरक्षा ए</string>
+    <string name="ans1">नक्की. एसएमएस, आयव्हीआर, वेब, अॅपवर ट्यूडाइम प्रदान केले. वैशिष्ट्य फोनसह, वापरकर्ता एसएमएस आणि आयव्हीआरद्वारे सेवा अनुभवू शकतो.</string>
+    <string name="ans2">ट्यूडाइम हा एक प्रीमियम उपाय आहे, व्हिएतलचे ग्राहक सहजपणे प्रवेश करू शकतात आणि मित्रांशी गप्पा मारू शकतात किंवा एसएमएस, वेब, andप आणि आयव्हीआरद्वारे त्वरित मित्र बनवू शकतात. एसएमएस आणि आयव्हीआर वर, वापरकर्ता इतरांना शोधू आणि त्यांच्याशी संवाद साधू शकतो किंवा प्रोफाइल तयार करू शकतो त्यांच्यासाठी. अ‍ॅप टुडाइम व्हॉईस संदेश, व्हिडिओ, चित्रे आणि मजकूर पाठविण्यास समर्थन देते. आपण गटावर देखील गप्पा मारू शकता किंवा आपल्याला मित्र सापडतील. ट्यूडाइम अ‍ॅप सर्व आयओएस डिव्हाइस, अँड्रॉइड, विंडोज फोन, सिम्बियन आणि ब्लॅकबेरीवर कार्य करते.</string>
+    <string name="ans3">1. दररोज: 1.500 दि / दिवस 2. साप्ताहिक: 7.000 दि / आठवडा 3. मासिक: 22.000 दि / महिना</string>
+    <string name="ans4">सर्व व्हिएटेल ग्राहक सेवा वापरू शकतात.</string>
+    <string name="ans5">अ. एसएमएस आज्ञा: डीके 1 1517 वर पाठवा: दैनिक पॅकेज डीके 3 1515 वर पाठवा: साप्ताहिक पॅकेज डीके 30 पाठवा 1515: मासिक पॅकेज बी. आयव्हीआर: 1517 वर कॉल करा, सूचना ऐका आणि त्यांचे अनुसरण करा सी. वेब / अ‍ॅप: सूचनांचे अनुसरण करा नाही. एसएमएस, अॅप, वेबवर: मित्र केवळ आपले टोपणनाव पाहू शकतात. आयव्हीआर वर: मित्र केवळ आपला आयडी पाहू शकतात.</string>
+    <string name="ans6">आयडी चॅटमध्ये एक कोड आहे 7 अंक, ट्यूडाइममध्ये सामील असलेल्या प्रत्येक वापरकर्त्यास 1 आयडी प्रदान केला जाईल जो बदलू शकत नाही.</string>
+    <string name="ans7">ID: वापरकर्ता बदलू शकत नाही, तो सिस्टमद्वारे प्रदान केला गेला आहे. टोपणनाव: वापरकर्ता बदलू शकतो, तो वापरकर्त्याने तयार केला आहे.</string>
+    <string name="ans8">आपण याद्वारे मित्र शोधू शकता: -एसएमएस: मजकूर टीआयएम 1517 वर पाठवा आयव्हीआर: सदस्यता घेतल्यानंतर, 1517 वर कॉल करा, नवीन मित्र शोधण्यासाठी 1 दाबा, ऐका आणि सूचनांचे अनुसरण करा अ‍ॅप / वेब: वैशिष्ट्याभोवती पहा</string>
+    <string name="ans9">आपण याद्वारे मित्र शोधू शकता: -एसएमएस: मजकूर टीआयएम 1517 आयव्हीआर वर पाठवा: सदस्यता घेतल्यानंतर, 1517 वर कॉल करा, नवीन मित्र शोधण्यासाठी 1 दाबा, ऐका आणि सूचनांचे अनुसरण करा अ‍ॅप / वेब: वैशिष्ट्य पहा </string>
+    <string name="ans10">एक ट्यूडाइम कॉल करण्यासाठी, चॅट उघडा आणि शीर्षस्थानी टॅप करा.</string>
+    <string name="empty_view_call">तुडीम</string>
+    <string name="empty_view_contacts">वर आपले कोणतेही संपर्क अस्तित्वात नाहीत लोड करीत आहे ...</string>
+    <string name="load">पाठवा</string>
+
+    <string name="send">नोंदणी</string>
+    <string name="verification">हे आपल्यासाठी आणि आपल्या मित्रासाठी थीम बदलेल.</string>
+    <string name="chat_theme_info">प्रतिमा</string>
+    <string name="gallery_image">फायली</string>
+    <string name="files">संपर्क</string>
+    <string name="contact">डूडल</string>
+    <string name="doodle">स्थिती आणि फोन</string>
+    <string name="status1">पाठविण्यासाठी व्हॉईस मेमो रेकॉर्ड करा होल्ड आणि टॉक</string>
+    <string name="record_voice_memo_to_send">पिन काढा सुरक्षा प्रश्न:</string>
+    <string name="hold_amp_talk"><b> टीपः </b> सुरक्षा प्रश्न आणि उत्तर पिन</string>
+    <string name="remove_password">सेट करण्यासाठी प्रथमच प्रविष्ट केल्याप्रमाणेच असावे सुरक्षा उत्तरः</string>
+    <string name="sec_ques">पिन:</string>
+    <string name="sec_ques_ans_change">पिन कन्फर्म करा:</string>
+    <string name="sec_ans">सुरक्षा प्रश्न प्रविष्ट करा</string>
+    <string name="passw">सुरक्षा उत्तर प्रविष्ट करा</string>
+    <string name="confirm_passw"><u> पिन बदला </u></string>
+    <string name="sec_ques1">पिन प्रविष्ट करा पिन कन्फर्म करा ऑडिओ रेकॉर्ड केला जाऊ शकला नाही</string>
+    <string name="sec_ans1">नवीन सीक्रेट चॅट</string>
+    <string name="change_pass">नवीन प्रसारण</string>
+    <string name="pass">स्थाने लपवा</string>
+    <string name="confirm_pass">स्थाने दर्शवा</string>
+    <string name="audio_could_not_be_recorded">संदेश सूचना</string>
+
+    <!-- level 2 localization -->
+    <string name="action_secret_chat">गट सूचना</string>
+    <string name="new_broadcast">कॉल नोटिफिकेशन्स</string>
+    <string name="hide_locations">कंप</string>
+    <string name="show_locations">कॉलवर देखील:</string>
+    <!-- cropping util -->
+    <string name="message_notifications">रेझोल्यूशन_प्रीफरन्स</string>
+    <string name="group_notifications">व्हिडिओ रिझोल्यूशन.</string>
+    <string name="call_notifications">आरटीसी स्थानिक व्हिडिओ रिझोल्यूशन प्रविष्ट करा.</string>
+    <string name="vibrate">डीफॉल्ट व्हिडिओ कोडेक.</string>
+
+    <string name="also_on_call">Startbitratevalue_preferences</string>
+
+
+    <!-- Dialogs strings. -->
+
+    <!-- Settings strings. -->
+
+    <string name="pref_resolution_key">व्हिडिओ एन्कोडर प्रारंभ बिटरेट.</string>
+    <string name="pref_resolution_title">Hwcodec_preferences</string>
+    <string name="pref_resolution_dlg">व्हिडिओकोडेक_प्रेफरन्स</string>
+    <string name="pref_resolution_default">0</string>
+
+    <string name="pref_startbitratevalue_key">डीफॉल्ट व्हिडिओ कोडेक निवडा.</string>
+    <string name="pref_startbitratevalue_title">Pref_audio_codec</string>
+    <string name="pref_startbitratevalue_default">1000</string>
+
+    <string name="pref_videocodec_key">व्हिडिओ कोडेक हार्डवेअर प्रवेग.</string>
+    <string name="pref_videocodec_title">खरे</string>
+    <string name="pref_videocodec_dlg">सेटिंग्ज</string>
+    <string name="pref_videocodec_default">2</string>
+
+    <string name="pref_hwcodec_key">डीफॉल्ट ऑडिओ कोडेक</string>
+    <string name="pref_hwcodec_title">आयएसएसी</string>
+    <string name="pref_hwcodec_default">डीफॉल्ट ऑडिओ कोडेक निवडा स्वीकारले</string>
+
+    <string name="action_settings">सह सामायिक करा सत्यापन कोड मिळविण्यासाठी कॉल करा आपला मजकूर येथे प्रविष्ट करा Ag \'सहमत आहात आणि सुरू ठेवा \\\' टॅप करून आपण आमच्या</string>
+    <string name="pref_audiocodec_key">सहमती दिली <u> अटी आणि धोरणे </u></string>
+    <string name="pref_audiocodec_title">होय</string>
+    <string name="pref_audiocodec_def">मजकूर संदेशाद्वारे आपल्याला एक कोड पाठविला गेला. Not n नसल्यास या दुव्यावर क्लिक करा.</string>
+    <string name="pref_audiocodec_dlg">उपलब्ध</string>
+    <string name="accepted" translatable="false">स्वीकारले</string>
+
+
+    <string name="share_with">सह सामायिक करा सत्यापन कोड मिळविण्यासाठी कॉल करा आपला मजकूर येथे प्रविष्ट करा Ag \'सहमत आहात आणि सुरू ठेवा \\\' टॅप करून आपण आमच्या</string>
+
+
+    <string name="call_to_get_verification_code">सहमती दिली <u> अटी आणि धोरणे </u></string>
+    <string name="enter_your_text_here">होय</string>
+    <string name="terms1">By tapping \"Agree &amp; Continue\" you agree to our </string>
+    <string name="terms2">उपलब्ध</string>
+    <string name="yes">सहमत आणि चालू ठेवा</string>
+    <string name="code_msg">हे आपले वापरकर्तानाव किंवा पिन नाही. हे नाव आपल्या ट्यूडाइम संपर्कांना दृश्यमान असेल सामना</string>
+
+    <!-- 18th April. -->
+
+    <string name="available">भाषा सेट करा अनुप्रयोग आवृत्ती</string>
+
+
+    <!-- 19th April. -->
+    <string name="agree_and_continue">सामान्य प्रश्न</string>
+    <string name="update_profile_text_hint">अभिप्राय</string>
+    <string name="encounters">कृपया आपला अभिप्राय द्या</string>
+    <string name="set_lang">नाही</string>
+    <string name="version">प्रतिमा समर्थित नाही</string>
+    <string name="FAQ" translatable="false">आपल्या स्मार्टफोनसाठी ट्यूडाइम पहा. आज ते डाउनलोड करा टायपिंग…</string>
+    <string name="feedback">प्रतिमा नाव त्रुटी, एकतर पुनर्नामित करा किंवा अन्य</string>
+    <string name="feedback_write">जीपीएस सेटिंग्ज.</string>
+
+    <!-- 20th April-->
+
+    <string name="no">जीपीएस सक्षम केलेला नाही. आपण सेटिंग्ज मेनूवर जाऊ इच्छिता?</string>
+
+    <string name="image_not_supported">Image not supported  </string>
+    <string name="check_out_tudime_for_your_smartphone"> Check out TuDime for your smartphone. Download it today from</string>
+    <string name="typing">अटी व गोपनीयता धोरण</string>
+
+    <!-- 21st April-->
+    <string name="image_name_error">मुख्यपृष्ठ</string>
+    <string name="GPS_settings" translatable="false">व्हिडिओ निवडा</string>
+    <string name="GPS_is_not_enabled_do_you_want_to" translatable="false">व्हिडिओ घ्या</string>
+
+
+    <!-- 25th April-->
+    <string name="pick_location">नाव रिक्त असू शकत नाही</string>
+    <string name="send_your_location">फोटो जोडा</string>
+    <string name="terms10">थीम</string>
+
+    <!-- 26th April-->
+    <string name="home">ब्रश</string>
+    <!-- 27h April-->
+    <string name="pick_video">क्लिपार्ट</string>
+    <string name="take_video"> Take Video</string>
+    <string name="name_cannot_be_empty"> Name can\'t be empty</string>
+    <string name="add_photos">नेव्हिगेशन ड्रॉवर</string>
+    <string name="theme">नेव्हिगेशन ड्रॉवर बंद करा आपला देश निवडा यासाठी येथे क्लिक करा सत्यापित</string>
+    <string name="brush">इंग्रजी</string>
+    <string name="clipart">बंगाली</string>
+    <string name="text">तेलगू</string>
+    <string name="gallery">मराठी</string>
+
+    <string name="navigation_drawer_open">फ्रेंच</string>
+    <string name="navigation_drawer_close">चिनी</string>
+
+    <string name="terms3">TuDime provides messaging, calling directly on phone, and other services to users around the world.
+        Please read our Terms of Service so you understand the use of TuDime.</string>
+
+    <string name="select_your_country">कोरियन</string>
+    <string name="verify">तागालोग</string>
+    <string name="eng">अरबी</string>
+
+
+
+
+    <string name="Ben">जपानी</string>
+    <string name="Tel">मलय</string>
+    <string name="Mar">पोर्तुगीज</string>
+    <string name="Fre">व्हिएतनामी</string>
+    <string name="Chi">स्पॅनिश</string>
+    <string name="Kor">कृपया सर्व तपशील भरा</string>
+    <string name="Ara">खाजगी</string>
+    <string name="Jap">प्रोफाइल</string>
+    <string name="Mal">जतन करा</string>
+    <string name="Por">डीफॉल्ट</string>
+    <string name="Vie">टुडीम आउट</string>
+
+
+
+
+
+
+
+    <string name="spanish">साइन आउट</string>
+    <string name="selct_lang_camt_be_null">नेटवर्क त्रुटी… कृपया पुन्हा प्रयत्न करा व्हिडिओ</string>
+    <string name="password_already_set">सबमिट</string>
+    <string name="public_profile">आपली भाषा निवडा अभिप्राय दिल्याबद्दल धन्यवाद!…</string>
+    <string name="private_profile">टूडाइम उघडण्यासाठी पिन सेट करा TuDime उघडण्यासाठी पिन बदला ओल्ड पिन प्रविष्ट करा गूगल ट्रान्सलेटर</string>
+    <string name="profile_name">आपण ज्या भाषेत मजकूर रूपांतरित करू इच्छित आहात ती भाषा निवडा मजकूर प्रविष्ट करा:</string>
+    <string name="save">येथे मजकूर प्रविष्ट करा भाषांतर</string>
+    <string name="default_notification">TuDime भाषांतर</string>
+    <string name="call_mobile">अनुवादित मजकूर:</string>
+    <string name="sign_out">ECards</string>
+    <string name="network_error">मजकूर संवाद</string>
+    <string name="videos">सामना</string>
+    <string name="submit"><b> आपण एन्काऊंटर (डेटिंग अनुप्रयोग) वैशिष्ट्य वापरू इच्छिता? </b> you n \\ n आपण डाउनलोड करून ट्यूडाइमसह \\ \'एनकॉन्टर \\\' वैशिष्ट्य डाउनलोड करण्याचा निर्णय घेतल्यास आपण सहमत आहात की आपण कमीतकमी 18 वर्षे आहात वयाची वर्षे. तरुण वयोगटातील मित्र / डेटिंग अ‍ॅप्स शोधण्याची शिफारस केलेली नाही.</string>
+    <string name="select_your_language">ट्यूडाइम एन्काउंटर वैशिष्ट्य वापरण्यासाठी वय 18 किंवा त्यापेक्षा अधिक असावे क्षमस्व… आपण या अनुप्रयोगावरील एनकाउंटर वैशिष्ट्य वापरू शकत नाही</string>
+    <string name="feedback_received">तारीख:</string>
+    <string name="set_pass_tudime">एन्काउंटर सूचना</string>
+    <string name="change_password_tudime">TuDime eCards!</string>
+    <string name="enter_old_pass">कॅटेगरीज</string>
+    <string name="google_translator">अहो!, \\ N मला निवडा</string>
+    <string name="select_language123">आपले कार्ड निवडा…</string>
+    <string name="enter_text" translatable="false">प्रेम</string>
+    <string name="enter_text_here" translatable="false">भाषेचे मॉडेल डाउनलोड करा ....</string>
+    <string name="translate">वाढदिवस</string>
+    <string name="translation">मैत्री</string>
+    <string name="transted">सम 1 विशेष</string>
+    <string name="ecards">मिस यू</string>
+    <string name="text_dialog">अभिनंदन</string>
+    <string name="Encounters_verificatiion" translatable="false">शुभेच्छा</string>
+    <string name="encounter_use">लवकर ठीक व्हा</string>
+    <string name="age_value">सुट्ट्या</string>
+    <string name="cant_use_encounters">आमंत्रणे</string>
+    <string name="date">धन्यवाद</string>
+    <string name="encounters_notification">माफ करा</string>
+    <string name="tudime_from_heart">लव्ह कार्डे</string>
+    <string name="categories">बर्थडे कार्ड्स</string>
+    <string name="pick_me_up">मिस यू कार्डे</string>
+    <string name="choose_wish_card">मैत्री क्रॅड्स</string>
+    <string name="love">अभिनंदन कार्ड</string>
+    <string name="Downloadi">शुभेच्छा कार्डे</string>
+
+
+    <string name="bday">हॉलिडे कार्डे</string>
+    <string name="friendship">काही 1 विशेष कार्डे</string>
+    <string name="some_special">आमंत्रण पत्रके</string>
+    <string name="missing">धन्यवाद कार्ड्स</string>
+    <string name="congraxx">सॉरी कार्ड्स</string>
+    <string name="good_luck">वेल सून कार्ड्स</string>
+    <string name="get_well">वैयक्तिकृत</string>
+    <string name="holidays">हे वैयक्तिक करा!</string>
+    <string name="invitations">चांगला पर्याय! \\ N आता या सुंदर कार्डद्वारे आपल्या भावना व्यक्त करा! N!</string>
+    <string name="thanking">पूर्वावलोकन</string>
+    <string name="sooryy">जा!</string>
+    <string name="love_cards">मजकूर जोडा</string>
+    <string name="bday_cards">स्वाक्षरी जोडा</string>
+    <string name="miss_you_cards">स्वाक्षरी</string>
+    <string name="friendship_cards">फ्रेम्स जोडा हिंदी</string>
+    <string name="congrax_cards">थाई</string>
+    <string name="good_luck_cards">माझ्या थीम्ससाठी येथे क्लिक करा व्हॉईस जोडा</string>
+    <string name="holidays_cards">ऑडिओ प्ले करा</string>
+    <string name="some_special_cards">विराम द्या ऑडिओ</string>
+    <string name="invitation_cards">ऑडिओ हटवा</string>
+    <string name="thanku_cards">संदेश सूचना</string>
+    <string name="sorry_cards">गुप्त गप्पा सूचना पिन</string>
+    <string name="get_well_soon_cards">ईकार्ड सानुकूलित करा सर्वत्र सामायिक करा TuDime वर सामायिक करा स्वयं पाठवा</string>
+    <string name="personalize">वेळः</string>
+    <string name="make_it_persoanl">कार्यक्रमाचे वेळापत्रक</string>
+    <string name="persoanl_data">Good Choice !\n Now, express your feelings\n through this beautiful card ! </string>
+    <string name="preview">नवीन कार्यक्रम</string>
+    <string name="go123">कार्यक्रमाचे नाव प्रविष्ट करा वेळ प्रविष्ट करा</string>
+    <string name="add_txt">वर्णन प्रविष्ट करा कार्यक्रम हटवा</string>
+    <string name="add_sig">भाषा बदला</string>
+    <string name="add_signature">अनुप्रयोग भाषा यशस्वीरित्या बदलली गेली</string>
+    <string name="add_frames">अधिक डाउनलोड करा लोड करण्यासाठी आणखी ईकार्ड्स नाहीत. इतर ईकार्ड शक्य तितक्या लवकर जोडले जातील.</string>
+    <string name="hindi">वैयक्तिक गप्पांवर पिन सेट करा <u> कोड पुन्हा पाठवा </u></string>
+    <string name="Thai">विरोधक लोड करीत आहे…</string>
+    <string name="my_themes">परवानगी द्या</string>
+    <string name="add_voice">व्हॉईस जोडा</string>
+    <string name="play_audio">ऑडिओ प्ले करा</string>
+    <string name="pause_audio">विराम द्या ऑडिओ</string>
+    <string name="delete_audio">ऑडिओ हटवा</string>
+    <string name="notification_secret_chat"> Message Notifications</string>
+    <string name="scret_chat_pass">गुप्त गप्पा सूचना पिन</string>
+    <string name="customize_ecards">ईकार्ड सानुकूलित करा सर्वत्र सामायिक करा TuDime वर सामायिक करा स्वयं पाठवा</string>
+    <string name="share_everywhere">वेळः</string>
+    <string name="share_on_tudime">कार्यक्रमाचे वेळापत्रक</string>
+    <string name="autosend">अधिक ईकार्ड ठेवल्याने अॅपची गती कमी होऊ शकते जतन केलेली कार्यक्रम प्रतिमा</string>
+    <string name="time">नवीन कार्यक्रम</string>
+    <string name="schedule_event">कार्यक्रमाचे नाव प्रविष्ट करा वेळ प्रविष्ट करा</string>
+    <string name="ecards_msg">वर्णन प्रविष्ट करा कार्यक्रम हटवा</string>
+    <string name="saved_event_image">भाषा बदला</string>
+    <string name="set_events">अनुप्रयोग भाषा यशस्वीरित्या बदलली गेली</string>
+    <string name="event_name">अधिक डाउनलोड करा लोड करण्यासाठी आणखी ईकार्ड्स नाहीत. इतर ईकार्ड शक्य तितक्या लवकर जोडले जातील.</string>
+    <string name="enter_time" translatable="false">वैयक्तिक गप्पांवर पिन सेट करा <u> कोड पुन्हा पाठवा </u></string>
+    <string name="enter_description">विरोधक लोड करीत आहे…</string>
+    <string name="delete_event">परवानगी द्या</string>
+    <string name="change_lang">स्पर्श आपल्याला %1$s</string>
+    <string name="lang_change_success">कॉलवर परत घेऊन जातो आपण% d विरोधक निवडू शकता संपर्क खंडित. कृपया आपले इंटरनेट कनेक्शन तपासा.</string>
+    <string name="load_more">प्रत्युत्तर कालबाह्य नाही प्रतिसाद प्राप्त</string>
+    <string name="no_more_ecards">आपण कॅमेर्‍याची परवानगी द्यावी</string>
+    <string name="set_pass_individually">आपण मायक्रोफोन परवानगी परवानगी द्यावी</string>
+    <string name="resend_code">वापरकर्त्यांची त्रुटी लोड करीत आहे. त्रुटी</string>
+
+
+    <string name="dlg_loading_opponents">% s आता उपलब्ध नाही!</string>
+    <string name="dlg_allow">स्क्रीन शेअर</string>
+
+    <string name="notification_text">विरोधकांची यादी अद्यतनित करा लॉगआउट</string>
+
+
+    <string name="error_max_opponents_count">व्हिडिओ कॉल</string>
+    <string name="no_connection_error">अॅप माहिती</string>
+    <string name="no_responce_timeout">सेटिंग्ज</string>
+
+    <string name="error_permission_video">% S</string>
+    <string name="error_permission_audio">म्हणून लॉग इन केले % s वापरकर्ता निवडला</string>
+    <string name="loading_users_error">% s वापरकर्ते निवडले</string>
+
+    <string name="permission_unavailable">वापरकर्ता 1, वापरकर्ता 2, वापरकर्ता 3, वापरकर्ता 4, वापरकर्ता 5, वापरकर्ता 6</string>
+
+    <!-- menu -->
+    <string name="action_screen_share">प्रलंबित</string>
+    <string name="action_update_opponens_list">बंद</string>
+    <string name="action_logout">इनकमिंग ऑडिओ कॉल</string>
+    <string name="action_start_video_call">इनकमिंग व्हिडिओ कॉल</string>
+    <string name="action_dialogs_app_info">कनेक्ट करा…</string>
+
+    <!-- action bar -->
+    <string name="actionbar_title_settings">तपासत आहे…</string>
+    <string name="subtitle_text_logged_in_as">जोडलेले</string>
+    <string name="title_one_user_selected">खंडित</string>
+    <string name="tile_many_users_selected">नाकारले</string>
+
+    <string name="user_list_on_call">उत्तर नाही</string>
+
+    <string name="opponent_pending">हँग अप</string>
+    <string name="opponent_closed">बंद</string>
+    <string name="text_incoming_audio_call">\'% S आपल्याला कॉल करीत आहे\'</string>
+    <string name="text_incoming_video_call">व्हिडिओ</string>
+    <string name="text_status_connect">कॉल सेटिंग्ज</string>
+    <string name="text_status_checking">फ्रेम_रेट</string>
+    <string name="text_status_connected">फ्रेम दर (0–30)</string>
+    <string name="text_status_disconnected">मॅनेज_स्पीकरफोन_बाई_प्रॅक्सिमिटी_प्रीफरन्स</string>
+
+    <string name="text_status_rejected">अक्षम करा_बिलिट_इन_एक_प्रेफरन्स</string>
+    <string name="text_status_no_answer">एईसी अंगभूत अंगभूत अक्षम करा एईसी अंगभूत अंगभूत अक्षम करा खोटा</string>
+    <string name="text_status_hang_up">Opensles_preferences</string>
+    <string name="text_status_closed">ऑडिओ प्लेबॅक</string>
+
+    <string name="text_push_notification_message">साठी ओपनएसएल ईएस वापरा ऑडिओ प्लेबॅक</string>
+
+    <!-- Settings strings. -->
+    <string name="title_video_category">साठी ओपनएसएल ईएस वापरा खोटा</string>
+    <string name="title_call_settings_category">ऑडिओप्रोसेसींग_प्रेफरन्स</string>
+
+    <integer name="pref_default_int_value">0</integer>
+
+    <string name="pref_frame_rate_key">ऑडिओ प्रक्रिया अक्षम करा</string>
+    <string name="pref_frame_rate_title">ऑडिओ प्रक्रिया पाइपलाइन अक्षम करा खोटा</string>
+    <string name="pref_frame_rate_default">0</string>
+    <integer name="pref_frame_rate_min_value">0</integer>
+    <integer name="pref_frame_rate_max_value">30</integer>
+    <integer name="pref_frame_rate_stepSize">5</integer>
+
+
+    <integer name="pref_startbitratevalue_min_value">0</integer>
+    <integer name="pref_startbitratevalue_max_value">2000</integer>
+    <integer name="pref_startbitratevalue_step_size">100</integer>
+
+    <string name="pref_disable_built_in_aec_key">प्रॉक्सिमिटी सेन्सर द्वारे स्पीकर फोन व्यवस्थापित करा प्रॉक्सिमिटी सेन्सर द्वारे स्पीकर फोन व्यवस्थापित करा ऑडिओ कॉलसाठी प्रॉक्सिमिटी सेन्सरद्वारे स्पीकर फोनचे व्यवस्थापन सक्षम करते खोटे</string>
+    <string name="pref_disable_built_in_aec_title">एईसी अंगभूत अंगभूत अक्षम करा एईसी अंगभूत अंगभूत अक्षम करा खोटा</string>
+    <string name="pref_disable_built_in_aec_dlg">Opensles_preferences</string>
+    <string name="pref_disable_built_in_aec_default">ऑडिओ प्लेबॅक</string>
+
+    <string name="pref_opensles_key">साठी ओपनएसएल ईएस वापरा ऑडिओ प्लेबॅक</string>
+    <string name="pref_opensles_title">साठी ओपनएसएल ईएस वापरा खोटा</string>
+    <string name="pref_opensles_dlg">ऑडिओप्रोसेसींग_प्रेफरन्स</string>
+    <string name="pref_opensles_default">ऑडिओ प्रक्रिया अक्षम करा</string>
+
+    <string name="pref_noaudioprocessing_key">ऑडिओ प्रक्रिया पाइपलाइन अक्षम करा खोटा</string>
+    <string name="pref_noaudioprocessing_title">मॅनेज_स्पीकरफोन_बाई_प्रॅक्सिमिटी_प्रीफरन्स</string>
+    <string name="pref_noaudioprocessing_dlg">प्रॉक्सिमिटी सेन्सर द्वारे स्पीकर फोन व्यवस्थापित करा प्रॉक्सिमिटी सेन्सर द्वारे स्पीकर फोन व्यवस्थापित करा ऑडिओ कॉलसाठी प्रॉक्सिमिटी सेन्सरद्वारे स्पीकर फोनचे व्यवस्थापन सक्षम करते खोटा</string>
+    <string name="pref_noaudioprocessing_default">उत्तर_समय_इंटरवल</string>
+
+    <string name="pref_manage_speakerphone_by_proximity_key">उत्तर वेळ अंतराल (15-90)</string>
+    <string name="pref_manage_speakerphone_by_proximity_title">कनेक्शन गमावले</string>
+    <string name="pref_manage_speakerphone_by_proximity_dlg">डिस्कनेक्ट_टाइम_इंटरवल</string>
+    <string name="pref_manage_speakerphone_by_proximity_summary">वेळ मध्यांतर (10-90) डिस्कनेक्ट करा 10</string>
+    <string name="pref_manage_speakerphone_by_proximity_default">डायलिंग_टाइम_इंटरवल</string>
+
+    <!--Call Settings-->
+    <string name="pref_answer_time_interval_key">डायलिंग टाइम मध्यांतर (3-10)</string>
+    <string name="pref_answer_time_interval_title">क्विकब्लॉक्स एसडीके आवृत्ती:</string>
+    <string name="pref_answer_time_interval_default_value">60</string>
+    <integer name="pref_answer_time_interval_min_value">15</integer>
+    <integer name="pref_answer_time_interval_max_value">90</integer>
+    <integer name="pref_answer_time_interval_step_size">5</integer>
+
+    <string name="pref_disconnect_time_interval_key">आणि% s इतर</string>
+    <string name="pref_disconnect_time_interval_title">आणि% S</string>
+    <string name="pref_disconnect_time_interval_default_value">रिंगिंग .....</string>
+    <integer name="pref_disconnect_time_interval_min_value">10</integer>
+    <integer name="pref_disconnect_time_interval_max_value">90</integer>
+    <integer name="pref_disconnect_time_interval_step_size">5</integer>
+
+    <string name="pref_dialing_time_interval_key">थांबा</string>
+    <string name="pref_dialing_time_interval_title">अनुप्रयोग आवृत्ती:</string>
+    <string name="pref_dialing_time_interval_default_value">5</string>
+    <integer name="pref_dialing_time_interval_min_value">3</integer>
+    <integer name="pref_dialing_time_interval_max_value">10</integer>
+    <integer name="pref_dialing_time_interval_step_size">1</integer>
+
+
+    <string name="connection_was_lost">अर्ज आयडी:</string>
+
+    <string name="opponents">प्राधिकृत की:</string>
+    <string name="opponent">and %s </string>
+    <string name="ringing">खाते की:</string>
+    <string name="stop_share">एपीआय डोमेन:</string>
+
+    <!-- App info -->
+    <string name="appinfo_application_version">गप्पा डोमेन:</string>
+    <string name="appinfo_qbsdk_version">अॅप माहिती</string>
+    <string name="appinfo_application_id">QA आवृत्ती:</string>
+    <string name="appinfo_authorization_key">प्राधिकृत की:</string>
+    <string name="appinfo_authorization_secret">प्राधिकृत रहस्य:</string>
+    <string name="appinfo_account_key">खाते की:</string>
+    <string name="appinfo_api_domain">एपीआय डोमेन:</string>
+    <string name="appinfo_chat_domain">गप्पा डोमेन:</string>
+    <string name="appinfo_title">अॅप माहिती</string>
+    <string name="appinfo_qa_verion">क्यूए आवृत्ती:</string>
+    <string name="invite_your_friends">आपल्या मित्रांना आमंत्रित करा</string>
+    <string name="choose_a_way_to_verify">सत्यापित करण्यासाठी एक मार्ग निवडा TuDime वापरकर्ते</string>
+    <string name="tudime_users">खाते</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="accounts">प्रोफाइल संपादित करा सूचना</string>
+    <string name="edit_profile">सीडीएटा [बद्दल आणि मदत</string>
+    <string name="notifications"><u> विसरला पिन </u></string>
+    <string name="about_amp_help" translatable="false">सुरक्षा उत्तर</string>
+    <string name="forgot_password">ग्रुप चॅट तयार करा नमस्कार कोरा तुकडा</string>
+    <string name="security_answer">निर्गमन गट</string>
+    <string name="create_group_chat">सहभागी जोडा</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">तपशील पहा</string>
+    <string name="exit_group">स्पष्ट गप्पा</string>
+    <string name="add_participants">ब्लॉक</string>
+    <string name="details_view">अहो! मी TuDime वापरत आहे आवृत्ती क्रमांक: \\ T \'</string>
+    <string name="clear_chat">आपली हटविण्यात आलेली यशस्वीरित्या</string>
+    <string name="block">थीम यशस्वीपणे सेट करा टाइमर</string>
+    <string name="using_TuDime">कृपया सुरक्षा उत्तर प्रविष्ट करा. कृपया कमीतकमी 4 अंक / वर्ण संकेतशब्द प्रविष्ट करा</string>
+    <string name="Version_no">आपला संकेतशब्द काढला यशस्वीरित्या</string>
+    <string name="DELETED_SUCCESSFULLY">संकेतशब्द दूर करण्यासाठी अचूक तपशील प्रविष्ट करा</string>
+    <string name="Theme_Set_Successfully">संकेतशब्द जुळत नाही ... कृपया सुरक्षा उत्तर प्रविष्ट करा. गटाचे नाव प्रविष्ट करा. ओटीपी पाठविला अयशस्वी</string>
+    <string name="clipboard">ओटीपी यशस्वीरित्या पाठविला</string>
+    <string name="Select_one_language">ओटीपी किमान लांबी 6 आहे. आपला ओटीपी प्रविष्ट करा. ओटपी वैध नव्हता</string>
+    <string name="feedback_">ओटीपी सत्यापित यशस्वीरित्या</string>
+    <string name="Instructions">आपला संकेतशब्द सेट यशस्वीपणे</string>
+    <string name="Enter_Your_Message">चुकीचे सुरक्षा उत्तर</string>
+    <string name="Update_Message_Successful">कृपया सुरक्षितता प्रश्न निवडा</string>
+    <string name="First_password">प्रथम आपला संकेतशब्द सेट करा</string>
+    <string name="timer">टाइमरद्वारे कॉल थांबविला गेला</string>
+    <string name="Entersecurity_answer">कृपया सुरक्षा उत्तर प्रविष्ट करा कृपया किमान 4 अंक / वर्ण संकेतशब्द प्रविष्ट करा आपला संकेतशब्द यशस्वीपणे काढला</string>
+    <string name="digite">कृपया पासवर्ड दूर करण्यासाठी अचूक तपशील प्रविष्ट करा संकेतशब्द जुळत नाही ...</string>
+    <string name="remove_password_scu">कृपया सुरक्षा उत्तर प्रविष्ट करा गट नाव प्रविष्ट करा ओटीपी कालबाह्य</string>
+    <string name="REMOVE_PASSWORD">ओटपी पाठवलेली असुरक्षित</string>
+    <string name="Mismatch">ओटपी यशस्वीरित्या पाठविला</string>
+    <string name="security_answer_security_answer">ओटीपी किमान लांबी 6</string>
+    <string name="Group_Name">आपला ओटीपी प्रविष्ट करा ओटपी वैध नव्हते ओटपी वैध नव्हते ओटपी यशस्वीपणे सत्यापित</string>
+    <string name="OTP_Time_out">आपला संकेतशब्द सेट यशस्वीपणे</string>
+    <string name="Otp_Sent_UnSuccessfully">चुकीचे सुरक्षा उत्तर</string>
+    <string name="Otp_Sent_Successfully">कृपया सुरक्षा प्रश्न निवडा</string>
+    <string name="OTP_minimum">ओटीपी किमान लांबी 6</string>
+    <string name="Enter_Your_OTP">आपला ओटीपी प्रविष्ट करा ओटपी वैध नव्हते ओटपी वैध नव्हते ओटपी यशस्वीपणे सत्यापित</string>
+    <string name="Not_Valid">आपला संकेतशब्द सेट यशस्वीपणे</string>
+    <string name="_notValid">चुकीचे सुरक्षा उत्तर</string>
+    <string name="Otp_Verified_Successfully">कृपया सुरक्षा प्रश्न निवडा</string>
+    <string name="YOUR_PASSWORD_SET_SUCCESSFULLY">आपला संकेतशब्द सेट यशस्वीपणे</string>
+    <string name="Wrong_Security_answer">चुकीचे सुरक्षा उत्तर</string>
+    <string name="security_question">कृपया सुरक्षा प्रश्न निवडा</string>
+    <string name="email">ईमेल</string>
+    <string name="phone_no">फोन नंबर</string>
+    <string name="address">पत्ता</string>
+    <string name="country">देश</string>
+    <string name="pincode">पिनकोड</string>
+    <string name="comments">टिप्पण्या</string>
+    <string name="valid_mail">वैध ईमेल प्रविष्ट करा</string>
+    <string name="no_mobile">कृपया तुमचा मोबाईल क्रमांक</string>
+    <string name="entermail">कृपया आपला ईमेल प्रविष्ट करा</string>
+    <string name="comments_enter">आपल्या टिप्पण्या प्रविष्ट करा</string>
+    <string name="pincode_enter">आपला पिन कोड प्रविष्ट करा Your "आपला देश प्रविष्ट करा \"</string>
+    <string name="country_enter">आपला पत्ता प्रविष्ट करा</string>
+    <string name="adress_enter">आपला ईमेल प्रविष्ट करा</string>
+    <string name="enter_mail">आमच्याशी संपर्क साधा</string>
+    <string name="Contact_Us">संग्रह चॅट</string>
+    <string name="archive_chat">खाते काढा</string>
+    <string name="remove_account">विनंती अयशस्वी</string>
+    <string name="Request_Failed">धन्यवाद</string>
+    <string name="Thank_You">Ecard पाठविण्यासाठी संपर्क निवडा गप्पा अग्रेषित करण्यासाठी संपर्क निवडा सदस्यता घ्या</string>
+    <string name="Send_Ecard">कॉल क्रेडिट दर</string>
+    <string name="Forward_chat">आपण join n15 दिवसांमध्ये सामील झाल्यास 25% सवलत $ 11.25</string>
+    <string name="subscribe"><u> कॉल क्रेडिट दर तपासण्यासाठी येथे क्लिक करा </u></string>
+    <string name="fet">"27 u2713 व्हिडिओ चॅट
+Text u2713 मजकूर गप्पा
+27 u2713 जगातील कोणत्याही क्रमांकावर कॉल करा
+27 u2713 ग्रीटिंग्ज कार्ड पाठवा
+भाषांतर अंगभूत
+20 u2713 सुमारे 20 अन्य अविश्वसनीय वैशिष्ट्ये! "
+</string>
+    <string name="call_credit_rates">कृपया लक्षात घ्या की आपला नंबर \ "+ \" आणि आपल्या देशाच्या कोडसह प्रारंभ केला जावा. उदा. + "+ 14155522233 \". येथे \ "+ \" उपसर्ग आवश्यक आहे, \ "1 \" यूएस कंट्री कोड</string>
+    <string name="_25_discount_if_you_join_with_in_n15_days_11_25">ऑडिओ डिव्हाइस</string>
+    <string name="price_rates">क्लायंट ओळख किंवा फोन नंबर आहे. उत्तर</string>
+    <string name="enter_phone_text">Please note that your number should be started with \"+\" and your Country Code. E.g. \“+14155522233\". Here \"+\" is required prefix, \"1\" is US Country Code </string>
+    <string name="audio_device">रिंगिंग</string>
+    <string name="callee">कनेक्ट केलेले</string>
+    <string name="answer">कॉल संपला</string>
+    <string name="decline">कॉल करण्यासाठी आपल्याकडे पुरेसा क्रेडिट बॅलन्स नाही. कृपया आपले ट्युडाइम खाते ताबडतोब रिचार्ज करा. क्लायंटचे नाव किंवा फोन नंबर डायल करा. फील्ड रिक्त निकाल स्वयंचलित प्रतिसादामध्ये मिळेल. स्थिती यशस्वीरित्या अद्यतनित झाली.</string>
+    <string name="select_device">ऑडिओ डिव्हाइस निवडा कनेक्ट करीत आहे ...</string>
+    <string name="call_connecting">रिंगिंग</string>
+    <string name="call_ringing">जोडलेले</string>
+    <string name="call_connected1">कॉल संपला</string>
+    <string name="call_ended1">आपल्याकडे कॉल करण्यासाठी पुरेसा क्रेडिट शिल्लक नाही. कृपया आपले TuDime खाते त्वरित रीचार्ज करा क्लायंटचे नाव किंवा फोन नंबर डायल करा. फील्ड रिक्त सोडल्यास स्वयंचलित प्रतिसादाचा परिणाम होतो.</string>
+    <string name="dont_have_enough_credit_balance">स्थिती यशस्वीरित्या अद्यतनित केली</string>
+    <string name="callHint">क्लायंटचे नाव किंवा फोन नंबर डायल करा. फील्ड रिक्त सोडल्यास स्वयंचलित प्रतिसादाचा परिणाम होतो.</string>
+    <string name="Status_Updated_Successfully">स्थिती यशस्वीरित्या अद्यतनित केली</string>
+    <string name="please_select_to_continue_tudime_registration_with_your_email_mobile_no">Please select to continue Tudime registration with your Email/Mobile No</string>
+    <string name="please_enter_your_email_address_for_registration">Please enter your email address for registration</string>
+    <string name="enter_your_email_id">आपला ईमेल आयडी प्रविष्ट करा आपले टोपणनाव प्रविष्ट करा कॉल</string>
+    <string name="enter_your_nickname">चॅट्स</string>
+    <string name="CALLS">संपर्क</string>
+    <string name="CHATS">संग्रहित</string>
+    <string name="CONTACTS">संग्रहित चॅट</string>
+    <string name="Archived">ईकार्ड पाठवा</string>
+    <string name="Archived_Chat">गुप्त गप्पा</string>
+    <string name="send_ecards">अराजक</string>
+    <string name="secret_chat">हटवा</string>
+    <string name="unarchive">कॉपी</string>
+    <string name="delete">पुढे</string>
+    <string name="copy">संदेश संपादित करा</string>
+    <string name="forward">माझ्यासाठी हटवा</string>
+    <string name="edit_message">प्रत्येकासाठी हटवा</string>
+    <string name="delete_for_me">बदला अनुवाद</string>
+    <string name="delete_for_everyone">काढा</string>
+    <string name="reverse_translate">शोध</string>
+    <string name="remove">सदस्यता व्यवस्थापक</string>
+    <string name="search">जगातील सर्वोत्कृष्ट गप्पा अ‍ॅप - इतर कोणत्याहीपेक्षा जास्त वैशिष्ट्ये!</string>
+    <string name="subscription_manager">$ 15</string>
+    <string name="best_chat_app_in_the_world_more_features_than_any_other">1 वर्ष टूडाइम सदस्यता</string>
+    <string name="_15">व्हॉईस कॉल</string>
+    <string name="_1_year_tudime_membership">व्हिडिओ कॉल</string>
+    <string name="voice_call">फोन / ईमेल</string>
+    <string name="video_call">आमच्या मित्रांना पाहून आम्हाला आनंद झाला!</string>
+    <string name="phone_email">आम्हाला एक ओळ ड्रॉप करा किंवा एक कप कॉफीसाठी भेट द्या!</string>
+    <string name="we_glad_to_see_our_friends">स्पर्श करा</string>
+    <string name="drop_us_a_line_or_visit_for_a_cup_of_coffee">गट चिन्ह बदलण्यासाठी टॅप करा माझे संतुलन</string>
+    <string name="get_in_touch">रक्कम प्रविष्ट करा खरेदी करा कॉल</string>
+    <string name="tap_to_change_group_icon">अ‍ॅक्टिव्ह टूडाइम पिन</string>
+    <string name="my_balance">*** स्थिती नाही ***</string>
+    <string name="enter_amount">तपशीलांमधील कोणत्याही बदलांसाठी, कृपया समर्थनाशी संपर्क साधा</string>
+    <string name="buy_call_credit">योजनेचा प्रकार</string>
+    <string name="active_tudime_pin">योजनेचा तपशील</string>
+    <string name="no_status">TuDime सदस्यता खरेदी</string>
+    <string name="for_any_changes_in_details_please_contact_support">हटविण्यासाठी स्वाइप करा प्रतीक</string>
+    <string name="plan_type">पुन्हा पाठवा</string>
+    <string name="plan_details">स्पीकर</string>
+    <string name="buy_tudime_membership">नि: शब्द</string>
+    <string name="swipe_to_delete">Tudime उघडण्यासाठी संकेतशब्द प्रविष्ट करा</string>
+    <string name="icon">जा</string>
+    <string name="resend">आपला सुरक्षा प्रश्न:</string>
+    <string name="speaker">सुरक्षा उत्तर प्रविष्ट करा</string>
+    <string name="mute">नवीन संकेतशब्द</string>
+    <string name="enter_password_to_open_tudime">नवीन कन्फर्म पासवर्ड</string>
+    <string name="go">आमंत्रित करा</string>
+    <string name="your_security_question">नवीन गट नाव प्रविष्ट करा</string>
+    <string name="enter_security_answer">सुरक्षा उत्तर प्रविष्ट करा</string>
+    <string name="new_password">नवीन संकेतशब्द</string>
+    <string name="new_confirm_password">नवीन कन्फर्म पासवर्ड</string>
+    <string name="invite">आमंत्रित करा</string>
+    <string name="enter_new_groupe_name">नवीन गट नाव प्रविष्ट करा</string>
+    <string name="set_password">SET PASSWORD</string>
+    <string name="Both_Side">थीम सेट दोन्ही बाजू</string>
+    <string name="Refresh_contact">रीफ्रेश संपर्क</string>
+    <string name="Refresh_chat">रीफ्रेश संपर्क जोडा</string>
+    <string name="Add_contact">संपर्क जोडा</string>
+    <string name="Free_Trial_Expired">विनामूल्य चाचणी कालबाह्य</string>
+    <string name="Premium_Features">प्रीमियम वैशिष्ट्यांची विनामूल्य चाचणी</string>
+    <string name="Annual_Membership">TuDime वार्षिक सदस्यता</string>
+    <string name="TuDime_Annual">-डेय टूडाइम वार्षिक सदस्यता</string>
+    <string name="Free_Trial">विनामूल्य चाचणी</string>
+    <string name="No_Subscription_Yet">अद्याप सदस्यता नाही</string>
+</resources>

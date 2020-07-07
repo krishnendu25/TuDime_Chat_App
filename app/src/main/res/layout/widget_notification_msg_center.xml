@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/NotificationMessage">
+
+    <LinearLayout style="@style/LinearWidgetTextMsg.Left">
+
+        <LinearLayout
+            android:id="@+id/msg_custom_widget_frame_top"
+            style="@style/CustomWidgetFrame.Center" />
+
+        <TextView
+            android:id="@+id/msg_text_time_message"
+            style="@style/TextViewTimeMsg.Center"
+            tools:text="August 16" />
+
+        <TextView
+            android:id="@+id/msg_text_message"
+            android:textIsSelectable="false"
+            style="@style/TextViewTextMsg.Center"
+            tools:text="User QB added Mask" />
+    </LinearLayout>
+</LinearLayout>

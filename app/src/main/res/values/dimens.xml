@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="chat_author_text_size">16sp</dimen>
+    <dimen name="chat_attachment_preview_size">80dp</dimen>
+
+    <dimen name="chat_message_content_margin">4dp</dimen>
+    <dimen name="chat_message_username_margin">@dimen/chat_message_content_margin</dimen>
+
+    <dimen name="list_item_side_margin">@dimen/padding_common_twice</dimen>
+
+    <dimen name="padding_common_twice">16dp</dimen>
+
+    <dimen name="fab_margin_right">16dp</dimen>
+    <dimen name="fab_margin_bottom">16dp</dimen>
+
+    <dimen name="splash_main_text_size">32sp</dimen>
+    <dimen name="splash_version_text_size">12sp</dimen>
+
+    <dimen name="padding_common">8dp</dimen>
+
+    <dimen name="chat_attach_width">200dp</dimen>
+    <dimen name="chat_attach_height">200dp</dimen>
+    <dimen name="chat_babble_margin">4dp</dimen>
+
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">@dimen/padding_common</dimen>
+    <dimen name="padding_big">16dp</dimen>
+    <dimen name="margin_bottom_small">4dp</dimen>
+
+    <dimen name="text_size_medium">18sp</dimen>
+    <dimen name="text_size_link_preview_title">14sp</dimen>
+    <dimen name="text_size_link_preview_description">12sp</dimen>
+    <dimen name="text_size_link_preview_host">12sp</dimen>
+
+    <dimen name="attach_image_width_preview">80dp</dimen>
+    <dimen name="attach_image_height_preview">80dp</dimen>
+
+    <dimen name="corners_small_value">3dp</dimen>
+    <dimen name="image_view_small_avatar_layout_width">48dp</dimen>
+    <dimen name="avatar_border_width">1dp</dimen>
+
+    <dimen name="host_icon_width">12dp</dimen>
+    <dimen name="host_icon_height">12dp</dimen>
+
+    <dimen name="link_preview_width">240dp</dimen>
+    <dimen name="link_preview_imaga_min_height">120dp</dimen>
+
+
+    <!--
+        <dimen name="activity_horizontal_margin">16dp</dimen>
+        <dimen name="activity_vertical_margin">16dp</dimen>
+    -->
+
+    <dimen name="fab_size_normal">56dp</dimen>
+    <dimen name="fab_size_mini">40dp</dimen>
+    <dimen name="labels_text_size">14sp</dimen>
+
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="grid_item_divider">1dp</dimen>
+
+    <dimen name="toolbar_elevation">4dp</dimen>
+    <dimen name="item_height">136dp</dimen>
+    <dimen name="action_bar_height">80dp</dimen>
+
+    <dimen name="toggle_button_params">60dp</dimen>
+    <dimen name="element_fragment_margin">30dp</dimen>
+    <dimen name="element_fragment_margin_small">8dp</dimen>
+
+    <dimen name="margin_common">16dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_very_small">3dp</dimen>
+
+    <dimen name="text_size">20sp</dimen>
+
+    <dimen name="incoming_call_type_text_size">16sp</dimen>
+    <dimen name="also_on_call_text_size">16sp</dimen>
+    <dimen name="other_inc_users_text_size">16sp</dimen>
+
+    <dimen name="call_buttons_diameter">50dp</dimen>
+    <dimen name="call_buttons_padding">10dp</dimen>
+    <dimen name="income_call_buttons_margin">88dp</dimen>
+
+    <dimen name="call_avatar_diameter">78dp</dimen>
+
+    <!--Pager fragment-->
+    <dimen name="pager_image_width">400dp</dimen>
+    <dimen name="pager_image_height">500dp</dimen>
+    <dimen name="ten">10sp</dimen>
+    <dimen name="sistyfive">65dp</dimen>
+    <dimen name="activityPadding">16dp</dimen>
+    <dimen name="placeholderImage">70dp</dimen>
+    <dimen name="placeholderTextHeight">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_20dp">20dp</dimen>
+    <dimen name="dimen_50dp">50dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="dimen_20sp">20dp</dimen>
+    <dimen name="dimen_25dp">25dp</dimen>
+    <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="dimen_18dp">18dp</dimen>
+    <dimen name="dimen_12dp">12dp</dimen>
+    <dimen name="dimen_14sp">14dp</dimen>
+    <dimen name="dimen_70dp">70dp</dimen>
+    <dimen name="dimen_30dp">30dp</dimen>
+    <dimen name="dimen_40dp">40dp</dimen>
+    <dimen name="dimen_0dp">0dp</dimen>
+    <dimen name="dimen_12sp">12sp</dimen>
+    <dimen name="dimen_emi_tenure_margin2">2dp</dimen>
+    <dimen name="TEE">10dp</dimen>
+
+</resources>

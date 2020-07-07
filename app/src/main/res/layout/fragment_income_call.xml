@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/MatchParent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_dark">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:weightSum="6"
+            android:orientation="vertical">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:orientation="vertical"
+    android:gravity="center|top"
+    android:layout_weight="1">
+
+    <TextView
+        android:id="@+id/text_caller_name"
+        style="@style/WrapContent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textAllCaps="true"
+        android:textColor="@color/text_color_caller_name"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/call_type"
+        style="@style/WrapContent"
+        android:textAllCaps="true"
+        android:padding="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:text="@string/text_incoming_audio_call"
+        android:textColor="@color/text_color_caller_name"
+        android:textSize="@dimen/incoming_call_type_text_size" />
+
+</RelativeLayout>
+            <ImageView
+                android:id="@+id/image_caller_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:scaleType="fitXY"
+                android:layout_weight="4"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:layout_weight="1">
+                <RelativeLayout
+                    style="@style/WrapContent"
+                    android:gravity="center">
+
+                    <ImageButton
+                        android:id="@+id/image_button_reject_call"
+                        style="@style/EndCallImageButton" />
+
+                    <ImageButton
+                        android:id="@+id/image_button_accept_call"
+                        style="@style/TakeCallImageButton"
+                        android:layout_marginStart="@dimen/income_call_buttons_margin"
+                        android:layout_toEndOf="@id/image_button_reject_call"
+                        tools:ignore="RtlCompat"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progress_bar_opponent_name"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        tools:visibility="gone" />
+
+
+
+
+    <TextView
+        android:id="@+id/text_also_on_call"
+        style="@style/WrapContent"
+        android:layout_marginTop="48dp"
+        android:text="@string/also_on_call"
+        android:visibility="gone"
+        android:textColor="@color/text_color_also_on_call"
+        android:textSize="@dimen/also_on_call_text_size" />
+
+    <TextView
+        android:id="@+id/text_other_inc_users"
+        style="@style/WrapContent"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textColor="@color/text_color_other_inc_users"
+        android:textSize="@dimen/other_inc_users_text_size"
+        tools:text="@string/user_list_on_call" />
+</RelativeLayout>

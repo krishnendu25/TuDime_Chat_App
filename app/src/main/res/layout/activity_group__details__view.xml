@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.activity.Chat_profile">
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#6B0091FF">
+                <ImageView
+                    android:id="@+id/profile_picture_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY" />
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/User_Name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:drawableEnd="@drawable/ic_edit"
+                android:paddingEnd="@dimen/padding_10"
+                android:drawablePadding="@dimen/padding_10"
+                android:layout_marginBottom="20dp"
+                android:inputType="textCapSentences"
+                android:textColor="@color/white"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:paddingRight="@dimen/padding_10"
+                android:drawableRight="@drawable/ic_edit" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/chat_bubble_date_color"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/Change_icon_groupe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:text="@string/tap_to_change_group_icon"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:drawableStart="@drawable/upload_photo"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:textColor="@color/color_primary"
+                        android:drawableLeft="@drawable/upload_photo" />
+
+                    <TextView
+                        android:id="@+id/Perticipants_count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:textColor="@color/color_primary"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/add_participants"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:drawableStart="@drawable/add_member"
+                        android:padding="10dp"
+                        android:gravity="center|start"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:text="@string/add_participants"
+                        android:textColor="@color/color_primary"
+                        android:drawableLeft="@drawable/add_member" />
+
+                    <ListView
+                        android:id="@+id/participants_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/chat_bubble_date_color"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/exit_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:text="@string/exit_group"
+                        android:drawablePadding="@dimen/padding_10"
+                        android:drawableStart="@drawable/exit_groupe"
+                        android:textStyle="bold"
+                        android:padding="10dp"
+                        android:textColor="@color/color_primary"
+                        android:drawableLeft="@drawable/exit_groupe" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>
+
+
+</LinearLayout>
