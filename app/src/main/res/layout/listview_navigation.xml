@@ -30,6 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/profile1"
+            android:singleLine="true"
+            android:fontFamily="@font/manrope_extrabold"
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
@@ -89,6 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:fontFamily="@font/manrope_extrabold"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:text="@string/ecards"
@@ -131,6 +135,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
+            android:singleLine="true"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:ellipsize="marquee"
+            android:fontFamily="@font/manrope_extrabold"
             android:layout_gravity="center_vertical"
             android:paddingLeft="10dp"
             android:text="@string/schedule_event"
@@ -172,6 +180,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:singleLine="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/manrope_extrabold"
                 android:layout_gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="@string/subscription_manager"
@@ -382,9 +394,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:ellipsize="marquee"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
                 android:text="@string/change_lang"
+                android:singleLine="true"
+                android:fontFamily="@font/manrope_extrabold"
                 android:textColor="@color/active_fonts"
                 android:textSize="18dp" />
 
@@ -425,7 +441,8 @@
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
             android:text="@string/settings"
-
+            android:singleLine="true"
+            android:fontFamily="@font/manrope_extrabold"
             android:textColor="@color/active_fonts"
             android:textSize="18dp" />
 
@@ -467,15 +484,13 @@
             android:paddingLeft="10dp"
             android:gravity="center_vertical"
             android:text="@string/sign_out"
+            android:singleLine="true"
+            android:fontFamily="@font/manrope_extrabold"
             android:textColor="@color/active_fonts"
             android:textSize="18dp" />
 
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="10dp"
-        android:background="@color/lines_color" />
+   
         </LinearLayout>
         </LinearLayout>
     <LinearLayout

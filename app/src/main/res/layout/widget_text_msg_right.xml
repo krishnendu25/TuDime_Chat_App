@@ -21,6 +21,7 @@
                 style="@style/TextViewTextMsg.Right"
                 android:textIsSelectable="false"
                 android:gravity="end"
+                android:fontFamily="@font/manrop_regular"
                 android:clickable="false"
                 tools:text="message the long one message" />
 
@@ -34,6 +35,7 @@
                     android:id="@+id/msg_text_time_message"
                     style="@style/TextViewTimeMsg.Right"
                     android:textSize="12dp"
+                    android:fontFamily="@font/manrope_extrabold"
                     tools:text="current time August" />
                 <TextView
                     android:id="@+id/msg_text_status_message"

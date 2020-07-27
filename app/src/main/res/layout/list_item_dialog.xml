@@ -35,12 +35,14 @@
                 android:id="@+id/text_dialog_name"
                 style="@style/DialogNameStyle"
                 android:textSize="@dimen/dimen_16dp"
+                android:fontFamily="@font/manrope_extrabold"
                 android:textStyle="bold"
                 tools:text="Room name" />
 
             <TextView
                 android:id="@+id/text_dialog_last_message"
                 style="@style/DialogLastMessageStyle"
+                android:fontFamily="@font/manrop_regular"
                 tools:text="Long last message to see how margin on the right side works" />
         </LinearLayout>
 

@@ -558,6 +558,8 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
                 return;
 
             case R.id.tvPicker /*2131624629*/:
+                isPencilDoodle = false;
+                this.ivPencil.setBackgroundColor(getResources().getColor(R.color.transparent));
                 if (THEAME_VIEW_DODO.getVisibility() == View.GONE) {
                     THEAME_VIEW_DODO.setVisibility(View.VISIBLE);
                 } else {
@@ -565,11 +567,12 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
                 }
                 return;
             case R.id.tvText /*2131624630*/:
-                isPencilDoodle = false;
-                this.pencilClickCount = 0;
-                this.ivPencil.setImageDrawable(this.pencilDrawable);
-                this.ivPencil.setBackgroundColor(getResources().getColor(R.color.transparent));
-                handleTextClick();
+                try{
+                    isPencilDoodle = false;
+                    this.ivPencil.setBackgroundColor(getResources().getColor(R.color.transparent));
+                    this.editClickCount = 0;
+                    handleTextClick();
+                }catch (Exception e){}
                 return;
             case R.id.ivPencil /*2131624631*/:
                 if (!isPencilDoodle || this.pencilClickCount != 0) {
@@ -585,13 +588,14 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
                 this.ivPencil.setBackgroundColor(getResources().getColor(R.color.transparent));
                 return;
             case R.id.tvOpenCamera /*2131624632*/:
+                isPencilDoodle = false;
+                this.ivPencil.setBackgroundColor(getResources().getColor(R.color.transparent));
                 animateView(this.tvOpenCamera);
                 showPhotoOptionsDialog();
                 return;
             case R.id.tvUndoDoodleDraw /*2131624636*/:
                 animateView(this.tvUndoDoodleDraw);
                 isPencilDoodle = true;
-                this.pencilClickCount = 0;
                 this.tvUndoDoodleDraw.setVisibility(View.INVISIBLE);
                 this.photoSorter.clearCanvas();
                 setSendIconVisibility();
@@ -650,10 +654,9 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
         switch (this.editClickCount) {
             case 0:
                 if (this.imgObject != null) {
-                    int i = 0;
-                    while (true) {
+
+                   for (int i=0;i< PhotoSortrView.DOODLE_IMAGE.size();i++){
                         PhotoSortrView photoSortrView = this.photoSorter;
-                        if (i < PhotoSortrView.DOODLE_IMAGE.size()) {
                             PhotoSortrView photoSortrView2 = this.photoSorter;
                             if (((PhotoSortrView.Img) PhotoSortrView.DOODLE_IMAGE.get(i)).getisEditiable()) {
                                 PhotoSortrView photoSortrView3 = this.photoSorter;
@@ -664,9 +667,6 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
                                 PhotoSortrView photoSortrView6 = this.photoSorter;
                                 PhotoSortrView.DOODLE_IMAGE.remove(i);
                                 this.openTextInEditableMode = false;
-                            } else {
-                                i++;
-                            }
                         }
                     }
 
@@ -689,10 +689,9 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
             case 2:
                 this.editClickCount = 0;
                 if (this.imgObject != null) {
-                    int i2 = 0;
-                    while (true) {
+
+                    for (int i2=0 ;i2<PhotoSortrView.DOODLE_IMAGE.size();i2++){
                         PhotoSortrView photoSortrView7 = this.photoSorter;
-                        if (i2 < PhotoSortrView.DOODLE_IMAGE.size()) {
                             PhotoSortrView photoSortrView8 = this.photoSorter;
                             if (((PhotoSortrView.Img) PhotoSortrView.DOODLE_IMAGE.get(i2)).getisEditiable()) {
                                 PhotoSortrView photoSortrView9 = this.photoSorter;
@@ -701,14 +700,10 @@ public class DoodleActivity extends BaseActivity implements EmojiconGridFragment
                                 PhotoSortrView photoSortrView11 = this.photoSorter;
                                 PhotoSortrView.DOODLE_IMAGE.remove(i2);
                                 this.openTextInEditableMode = false;
-                            } else {
-                                i2++;
                             }
-                        }
                     }
 
                 }
-
                 this.llFooter.setVisibility(View.GONE);
                 startActivity(new Intent(this, EditTextViewActivity.class));
                 return;

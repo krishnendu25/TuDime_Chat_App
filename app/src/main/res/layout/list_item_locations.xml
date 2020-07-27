@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/location"
         android:textSize="16sp"
+        android:fontFamily="@font/manrope_extrabold"
         android:textColor="@color/bold_text" />
 
     <TextView
@@ -18,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="10000m"
+        android:fontFamily="@font/manrop_regular"
         android:textColor="@color/normal_text"/>
 
 </LinearLayout>

@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Italy"
+        android:fontFamily="@font/manrope_extrabold"
         android:textColor="@color/black"/>
     
      <TextView 
@@ -30,6 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="+39"
+         android:fontFamily="@font/manrope_extrabold"
          android:clickable="false"
         android:textColor="@color/black"/>
 

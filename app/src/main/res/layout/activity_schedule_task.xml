@@ -64,7 +64,14 @@
             app:titleLayoutBackgroundColor="@color/white"
             app:weekLayoutBackgroundColor="@color/white">
         </com.imanoweb.calendarview.CustomCalendarView>-->
-
+<TextView
+    android:layout_width="match_parent"
+    android:gravity="center"
+    android:text="@string/long_tap_on_date_to_set_schedule"
+    android:fontFamily="@font/avenirnextbold"
+    android:textColor="@color/random_color_2"
+    android:layout_height="@dimen/dimen_40dp"
+    android:textSize="@dimen/dimen_16dp"/>
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/Calender_view"

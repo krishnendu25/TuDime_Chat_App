@@ -26,6 +26,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/dimen_14sp"
             android:textStyle="bold"
+            android:fontFamily="@font/manrope_extrabold"
             android:gravity="center|start"
             android:padding="10dp"
             android:textColor="@color/color_primary"/>

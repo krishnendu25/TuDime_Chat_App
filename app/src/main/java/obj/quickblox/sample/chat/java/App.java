@@ -3,12 +3,10 @@ package obj.quickblox.sample.chat.java;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
 import com.quickblox.auth.session.QBSettings;
-import obj.quickblox.sample.chat.java.R;
 
 import obj.quickblox.sample.chat.java.managers.BackgroundListener;
-import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
 import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
 import obj.quickblox.sample.chat.java.util.QBResRequestExecutor;
 import obj.quickblox.sample.chat.java.utils.ActivityLifecycle;
@@ -54,8 +52,7 @@ public class App extends Application {
         checkChatSettings();
         initCredentials();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new BackgroundListener());
-
-        Thread.setDefaultUncaughtExceptionHandler(
+       Thread.setDefaultUncaughtExceptionHandler(
                 new Thread.UncaughtExceptionHandler() {
                     @Override
                     public void uncaughtException(Thread thread, Throwable e) {

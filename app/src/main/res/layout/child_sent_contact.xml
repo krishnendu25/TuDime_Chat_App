@@ -28,6 +28,7 @@
                 android:textStyle="bold"
                 android:clickable="false"
                 android:paddingRight="20dp"
+                android:fontFamily="@font/manrope_extrabold"
                 android:singleLine="true"
                 android:textColor="@color/white"
                />
@@ -39,6 +40,7 @@
                 android:singleLine="true"
                 android:paddingRight="20dp"
                 android:clickable="false"
+                android:fontFamily="@font/manrop_regular"
                 android:layout_marginTop="5dp"
                 android:textColor="@color/white"/>
 

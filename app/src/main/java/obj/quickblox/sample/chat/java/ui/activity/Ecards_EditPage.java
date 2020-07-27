@@ -271,6 +271,13 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                   startActivity(intent);
                     return;
+                }else if (value.equals("tudime_sms")) {
+                    String shareBody = jsonObject.getString("msg");
+                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                    sendIntent.setData(Uri.parse("sms:"));
+                    sendIntent.putExtra("sms_body", shareBody);
+                    startActivity(sendIntent);
+                    return;
                 } else {
                     return;
                 }
@@ -364,6 +371,32 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                     e.printStackTrace();
                     value="tudime";
                     hitApi(file_imaage, "tudime");
+                }
+                dialog.dismiss();
+            }
+        });
+
+
+
+
+        dialog.findViewById(R.id.share_on_sms).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (!imageEncoded.equals("")) {
+                        value="tudime_sms";
+                        hitSignatureApi(file, "tudime_sms");
+                    } else if (file_voice != null) {
+                        value="tudime_sms";
+                        hitUploadFileApiRequest(file_voice, "tudime_sms");
+                    } else {
+                        value="tudime_sms";
+                        hitApi(file_imaage, "tudime_sms");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    value="tudime_sms";
+                    hitApi(file_imaage, "tudime_sms");
                 }
                 dialog.dismiss();
             }
@@ -598,8 +631,11 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         if (file != null) {
             saveLocation = FileUtils.SENT_DIRECTORY_VOICE;
         }
-        String copiedFileLocation = Environment.getExternalStorageDirectory(
-) + saveLocation;
+
+        File storageDir = new File(Environment.getExternalStorageDirectory().toString(), saveLocation);
+        storageDir.mkdirs();
+        String copiedFileLocation = storageDir.getAbsolutePath();
+
         boolean isCopied = FileUtils.copyFile(file.getAbsolutePath(), copiedFileLocation);
         if (!isCopied) {
             return;

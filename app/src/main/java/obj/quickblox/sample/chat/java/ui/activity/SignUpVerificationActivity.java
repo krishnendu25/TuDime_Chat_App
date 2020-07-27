@@ -139,7 +139,7 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
             if (User_PhoneNo == null) {
                 QBUser qbUser = new QBUser();
                 qbUser.setLogin(User_Email);
-                qbUser.setPhone(User_Email);
+                qbUser.setEmail(User_Email);
                 qbUser.setFullName(Nick_Name);
                 qbUser.setPassword(App.USER_DEFAULT_PASSWORD);
                 signIn(qbUser);

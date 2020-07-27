@@ -9,6 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:padding="8dip"
+        android:fontFamily="@font/manrop_regular"
         android:textColor="@color/grey"
         android:textSize="14sp" />
 

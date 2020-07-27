@@ -54,7 +54,6 @@ public class EcardsWebView   extends BaseActivity implements IJSONParseListener 
         }catch(Exception e){
             e.printStackTrace();
         }
-//        web.loadUrl("http://ritaraapps.com/cards45/index.html");
 
         findViewById(R.id.remove_image).setOnClickListener(new View.OnClickListener() {
             @Override

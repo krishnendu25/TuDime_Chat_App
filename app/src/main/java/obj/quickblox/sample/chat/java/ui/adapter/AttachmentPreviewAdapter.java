@@ -114,14 +114,14 @@ public class AttachmentPreviewAdapter extends BaseAdapter {
         Log.e("Extension",Extension);
         try{
             Glide.with(context)
-                    .load(attachmentFile)
+                    .load(attachmentFile).placeholder(R.drawable.keyboard_gallery_image)
                     .override(ResourceUtils.getDimen(R.dimen.chat_attachment_preview_size),
                             ResourceUtils.getDimen(R.dimen.chat_attachment_preview_size))
                     .into(holder.attachmentImageView);
         }catch (Exception e)
         {
             Glide.with(context)
-                 .load(R.drawable.file_ic)
+                 .load(R.drawable.keyboard_gallery_image)
                     .into(holder.attachmentImageView);
         }
 

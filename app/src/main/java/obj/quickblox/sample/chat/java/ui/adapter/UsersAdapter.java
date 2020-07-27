@@ -17,6 +17,7 @@ import obj.quickblox.sample.chat.java.ui.Callback.Go_to_Chat;
 import obj.quickblox.sample.chat.java.utils.ResourceUtils;
 
 import com.quickblox.users.model.QBUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,9 @@ public class UsersAdapter extends BaseAdapter {
         }
 
         if (isUserMe(user)) {
-          holder.loginTextView.setText(context.getString(R.string.placeholder_username_you, user.getLogin()));
+          holder.loginTextView.setText(user.getFullName()+"   "+context.getString(R.string.placeholder_username_you));
+            holder.text_loginid.setText(user.getLogin());
+            convertView.setVisibility(View.GONE);
         } else {
             holder.loginTextView.setText(user.getFullName());
             holder.text_loginid.setText(user.getLogin());
@@ -89,10 +92,21 @@ public class UsersAdapter extends BaseAdapter {
         if (isAvailableForSelection(user)) {
             holder.loginTextView.setTextColor(ResourceUtils.getColor(R.color.text_color_black));
         } else {
-            holder.loginTextView.setTextColor(ResourceUtils.getColor(R.color.text_color_medium_grey));
+            holder.loginTextView.setTextColor(ResourceUtils.getColor(R.color.text_color_dark_grey));
+            holder.text_loginid.setTextColor(ResourceUtils.getColor(R.color.text_color_dark_grey));
         }
 
-        holder.userImageView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.default_user_image));
+        try{
+            Picasso.get().load(user.getWebsite()).placeholder(R.drawable.default_user_image).into(holder.userImageView);
+        }catch (Exception e)
+        {
+            holder.userImageView.setBackgroundDrawable(context.getResources().getDrawable(R.drawable.default_user_image));
+        }
+
+
+
+
+
         holder.userCheckBox.setVisibility(View.GONE);
 
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {

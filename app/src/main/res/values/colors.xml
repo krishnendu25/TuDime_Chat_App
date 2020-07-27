@@ -19,7 +19,7 @@
     <color name="color_accent">@color/sky_blue</color>
     <color name="color_blue_qb">#046ad0</color>
     <color name="color_light_blue_qb">#87cefa</color>
-
+    <color name="orange">#FF5722</color>
 
     <color name="dark_gray">#6c6c6c</color>
 

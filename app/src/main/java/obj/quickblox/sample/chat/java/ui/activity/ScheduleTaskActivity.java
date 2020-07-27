@@ -1,30 +1,23 @@
 package obj.quickblox.sample.chat.java.ui.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
 import android.provider.CalendarContract;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.CalendarView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -40,14 +33,12 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Locale;
+import java.util.TimeZone;
 
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.db.QbUsersDbManager;
@@ -56,20 +47,11 @@ import obj.quickblox.sample.chat.java.ui.Model.Calender_Model;
 import obj.quickblox.sample.chat.java.ui.Model.EventDecorator;
 import obj.quickblox.sample.chat.java.ui.adapter.Event_Show_adapter;
 import obj.quickblox.sample.chat.java.ui.adapter.listeners.Clickback;
-import obj.quickblox.sample.chat.java.ui.adapter.listeners.SetclickCallback;
-import obj.quickblox.sample.chat.java.utils.Constant;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.TimeZone;
-
-import obj.quickblox.sample.chat.java.utils.NotifyService;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
-
-import static org.jivesoftware.smackx.xdata.packet.DataForm.Type.form;
 
 public class ScheduleTaskActivity extends BaseActivity implements Clickback {
 
@@ -84,6 +66,9 @@ public class ScheduleTaskActivity extends BaseActivity implements Clickback {
     private Event_Show_adapter event_show_adapter=null;
     private PendingIntent pi;
     private ImageView back;
+    ArrayList<String> Date_Formater = new ArrayList<>();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,9 +101,8 @@ public class ScheduleTaskActivity extends BaseActivity implements Clickback {
             @Override
             public void onDateLongClick(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date) {
 
-
-                     String s=   date.getDay()+"/"+date.getMonth()+"/"+date.getYear();
-                 Show_Event_Dialog( date.getDay()+"/"+date.getMonth()+"/"+date.getYear());
+                String s=   date.getDay()+"/"+date.getMonth()+"/"+date.getYear();
+                Show_Event_Dialog( date.getDay()+"/"+date.getMonth()+"/"+date.getYear());
 
             }
         });
@@ -280,22 +264,14 @@ public class ScheduleTaskActivity extends BaseActivity implements Clickback {
                   } catch (ParseException e) {
                       e.printStackTrace();
                   }
-                    try {
-                        createNotification (date.getTime());
-                    }catch (Exception e)
-                    {
-
-                    }
-
-
-
-
-
-
-
                   Toast.makeText(getApplicationContext(),"Schedule Task Set",Toast.LENGTH_LONG).show();
                   popUpActivate.dismiss();
                   Set_Data_calender(dbManager.get_event_by_user(SharedPrefsHelper.getInstance().getQbUser().getLogin()));
+                  try {
+                      hideSoftKeypad(enter_edt_date);
+                      createNotification (date.getTime(),event_name_edit.getText().toString().trim());
+                  }catch (Exception e)
+                  {}
               }else
               {
                   Toast.makeText(getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
@@ -310,6 +286,13 @@ public class ScheduleTaskActivity extends BaseActivity implements Clickback {
     }
 
     private void Instantiation() {
+        Date_Formater.clear();
+        Date_Formater.add("MM-DD-YYYY");
+        Date_Formater.add("DD-MM-YYYY");
+        Date_Formater.add("YYYY-MM-DD");
+
+
+
         Calender_view = findViewById(R.id.Calender_view);
         //Initialize calendar with date
 
@@ -342,38 +325,64 @@ public class ScheduleTaskActivity extends BaseActivity implements Clickback {
         }
 
     }
+    public void createNotification(long time, String event_name) {
+
+
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Do You Want To Set This Reminder In Your System Calender?");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(Intent.ACTION_EDIT);
+                        intent.setType("vnd.android.cursor.item/event");
+                        intent.putExtra("beginTime", time);
+                        intent.putExtra("allDay", true);
+                        intent.putExtra("rrule", "FREQ=DAILY");
+                        intent.putExtra("endTime", time+60*60*1000);
+                        intent.putExtra("title", event_name);
+                        startActivity(intent);
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
 
 
 
 
-    public void createNotification (long time) {
-        Intent myIntent = new Intent(getApplicationContext() , NotifyService. class ) ;
-        AlarmManager alarmManager = (AlarmManager) getSystemService( ALARM_SERVICE ) ;
-        PendingIntent pendingIntent = PendingIntent. getService ( this, 0 , myIntent , 0 ) ;
-        Calendar calendar = Calendar.getInstance () ;
-        calendar.setTimeInMillis(time);
-        calendar.set(Calendar. SECOND , 0 ) ;
-        calendar.set(Calendar. MINUTE , 0 ) ;
-        calendar.set(Calendar. HOUR , 0 ) ;
-        calendar.set(Calendar. AM_PM , Calendar. AM ) ;
-        calendar.add(Calendar. DAY_OF_MONTH , 1 ) ;
-        alarmManager.setRepeating(AlarmManager. RTC_WAKEUP , calendar.getTimeInMillis() , 1000 * 60 * 60 * 24 , pendingIntent) ;
     }
+
+
+    void Show_Date_Fomatter_Popup()
+    {
+
+    }
+
+
 
 
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
-
     }
 
     @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
-
     }
 
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
-
     }
 
     @Override

@@ -23,7 +23,7 @@
     <string name="occupant_left">has left</string>
     <string name="change_theam">You Change Chat Theme</string>
     <string name="chat_error_send_message">Can\'t send a message, You are not connected to chat</string>
-    <string name="placeholder_username_you">(you)</string>
+    <string name="placeholder_username_you">\t[ ME ]</string>
     <string name="error_recreate_session">Login Chat error</string>
     <string name="login_title">@string/chat_sample</string>
     <string name="login_chat_login_error">Login Chat error. Please relogin. Error</string>
@@ -543,7 +543,7 @@
     <string name="thanking">Thank You</string>
     <string name="sooryy">Sorry</string>
     <string name="love_cards">Love Cards</string>
-    <string name="bday_cards">BirthDay Cards</string>
+    <string name="bday_cards">Birthday Cards</string>
     <string name="miss_you_cards">Miss You Cards</string>
     <string name="friendship_cards">Friendship Crads</string>
     <string name="congrax_cards">Congratulation Cards</string>
@@ -573,8 +573,8 @@
     <string name="notification_secret_chat">Message Notifications</string>
     <string name="scret_chat_pass">Secret Chat Notifications Pin</string>
     <string name="customize_ecards">Customize eCards</string>
-    <string name="share_everywhere">Share everywhere</string>
-    <string name="share_on_tudime">Share on TuDime</string>
+    <string name="share_everywhere">Share Everywhere</string>
+    <string name="share_on_tudime">Share On TuDime</string>
     <string name="autosend">Auto-send</string>
     <string name="time">Time :</string>
     <string name="schedule_event">Schedule Events</string>
@@ -853,4 +853,6 @@
     <string name="TuDime_Annual">-Day TuDime Annual Membership</string>
     <string name="Free_Trial">Free Trial</string>
     <string name="No_Subscription_Yet">No Subscription Yet</string>
+    <string name="share_on_sms">Share On SMS</string>
+    <string name="long_tap_on_date_to_set_schedule">Long Tap On Date To Set Schedule</string>
 </resources>

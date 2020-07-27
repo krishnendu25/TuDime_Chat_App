@@ -276,6 +276,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         vv.findViewById(R.id.text_change_language).setOnClickListener(this);
 
         vv.findViewById(R.id.Subscrption_managment).setOnClickListener(this);
+        vv.findViewById(R.id.Subscrption_managment).setSelected(true);
         vv.findViewById(R.id.call_directly).setOnClickListener(this);
         vv.findViewById(R.id.text_call_credit).setOnClickListener(this);
 

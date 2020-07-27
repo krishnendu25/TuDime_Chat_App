@@ -4,7 +4,6 @@
     style="@style/WrapContent"
     android:orientation="vertical"
     android:padding="@dimen/padding_common"
-    android:background="@color/random_color_2"
     tools:ignore="RtlHardcoded,RtlSymmetry,ContentDescription">
 
     <ImageView

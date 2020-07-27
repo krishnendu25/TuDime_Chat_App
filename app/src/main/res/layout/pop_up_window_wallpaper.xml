@@ -30,6 +30,7 @@
         android:textSize="16dp"
         android:visibility="visible"
         android:textStyle="italic"
+        android:fontFamily="@font/avenirnextbold"
         android:typeface="serif"/>
     <View
         android:layout_width="match_parent"
