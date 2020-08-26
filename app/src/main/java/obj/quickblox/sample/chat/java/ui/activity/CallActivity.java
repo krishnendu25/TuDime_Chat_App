@@ -179,7 +179,11 @@ public class CallActivity extends BaseActivity implements IncomeCallFragmentCall
 
 
     private void startSuitableFragment(boolean isInComingCall) {
-        QBRTCSession session = WebRtcSessionManager.getInstance(this).getCurrentSession();
+        QBRTCSession session=null;
+        try {
+             session = WebRtcSessionManager.getInstance(this).getCurrentSession();
+        }catch (Exception e){}
+
         if (session != null) {
             if (isInComingCall) {
                 initIncomingCallTask();

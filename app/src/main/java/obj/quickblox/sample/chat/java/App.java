@@ -3,10 +3,9 @@ package obj.quickblox.sample.chat.java;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-
 import com.quickblox.auth.session.QBSettings;
-
 import obj.quickblox.sample.chat.java.managers.BackgroundListener;
+import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
 import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
 import obj.quickblox.sample.chat.java.util.QBResRequestExecutor;
 import obj.quickblox.sample.chat.java.utils.ActivityLifecycle;
@@ -47,7 +46,6 @@ public class App extends Application {
         super.onCreate();
         initApplication();
         ActivityLifecycle.init(this);
-
         checkAppCredentials();
         checkChatSettings();
         initCredentials();
@@ -57,9 +55,7 @@ public class App extends Application {
                     @Override
                     public void uncaughtException(Thread thread, Throwable e) {
                         handleUncaughtException (thread,e);
-
-                    }
-                });
+                    }});
     }
 
     private void initApplication()
@@ -68,7 +64,7 @@ public class App extends Application {
     }
 
     private void handleUncaughtException (Thread thread, Throwable e) {
-        Intent intent = new Intent (getApplicationContext(), SplashActivity.class);
+        Intent intent = new Intent (getApplicationContext(), DashBoard.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
@@ -89,12 +85,6 @@ public class App extends Application {
     private void initCredentials() {
         QBSettings.getInstance().init(getApplicationContext(), APPLICATION_ID, AUTH_KEY, AUTH_SECRET);
         QBSettings.getInstance().setAccountKey(ACCOUNT_KEY);
-
-        // Uncomment and put your Api and Chat servers endpoints if you want to point the sample
-        // against your own server.
-        //
-        // QBSettings.getInstance().setEndpoints("https://your_api_endpoint.com", "your_chat_endpoint", ServiceZone.PRODUCTION);
-        // QBSettings.getInstance().setZone(ServiceZone.PRODUCTION);
     }
     public synchronized QBResRequestExecutor getQbResRequestExecutor() {
         return qbResRequestExecutor == null

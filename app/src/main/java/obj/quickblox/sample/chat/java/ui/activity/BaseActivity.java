@@ -204,16 +204,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
         }
 
     }
-
-    public void restartApp(Context context) {
-       /* // Application needs to restart when user declined some permissions at runtime
-        Intent restartIntent = context.getPackageManager().getLaunchIntentForPackage(context.getPackageName());
-        PendingIntent intent = PendingIntent.getActivity(context, 0, restartIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        manager.set(AlarmManager.RTC, System.currentTimeMillis() + RESTART_DELAY, intent);
-        System.exit(0);*/
-    }
-
     @Override
     protected void onResume() {
         super.onResume();

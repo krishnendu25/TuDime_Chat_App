@@ -41,6 +41,9 @@ import static obj.quickblox.sample.chat.java.db.DbHelper.DB_QBChatDialog;
 import static obj.quickblox.sample.chat.java.db.DbHelper.DB_QBChat_USER_ID;
 import static obj.quickblox.sample.chat.java.db.DbHelper.DB_QB_USER_ID;
 import static obj.quickblox.sample.chat.java.db.DbHelper.DB_WEBSITE;
+import static obj.quickblox.sample.chat.java.db.DbHelper.QB_LOCAL_ChatDialog;
+import static obj.quickblox.sample.chat.java.db.DbHelper.QB_LOCAL_DIALOG_ALL;
+import static obj.quickblox.sample.chat.java.db.DbHelper.QB_LOCAL_USER_ID;
 import static obj.quickblox.sample.chat.java.db.DbHelper.SERECT_CHAT_CHAT_DIALOG_ALL;
 import static obj.quickblox.sample.chat.java.db.DbHelper.SERECT_CHAT_QBChatDialog;
 import static obj.quickblox.sample.chat.java.db.DbHelper.SERECT_CHAT_QBChat_USER_ID;
@@ -76,23 +79,18 @@ public class QbUsersDbManager {
             int userPassColIndex = c.getColumnIndex(DbHelper.DB_COLUMN_USER_PASSWORD);
             int userFullNameColIndex = c.getColumnIndex(DbHelper.DB_COLUMN_USER_FULL_NAME);
             int userTagColIndex = c.getColumnIndex(DbHelper.DB_COLUMN_USER_TAG);
-
             do {
                 QBUser qbUser = new QBUser();
-
                 qbUser.setFullName(c.getString(userFullNameColIndex));
                 qbUser.setLogin(c.getString(userLoginColIndex));
                 qbUser.setId(c.getInt(userIdColIndex));
                 qbUser.setPassword(c.getString(userPassColIndex));
-
                 StringifyArrayList<String> tags = new StringifyArrayList<>();
                 tags.add(c.getString(userTagColIndex));
                 qbUser.setTags(tags);
-
                 allUsers.add(qbUser);
             } while (c.moveToNext());
         }
-
         c.close();
         dbHelper.close();
 
@@ -119,7 +117,6 @@ public class QbUsersDbManager {
                     qbUser.setLogin(c.getString(userLoginColIndex));
                     qbUser.setId(c.getInt(userIdColIndex));
                     qbUser.setPassword(c.getString(userPassColIndex));
-
                     StringifyArrayList<String> tags = new StringifyArrayList<>();
                     tags.add(c.getString(userTagColIndex).split(","));
                     qbUser.setTags(tags);
@@ -239,19 +236,41 @@ public class QbUsersDbManager {
         }
     }
 
+    //Insert
+    //Insert Data in QB_LOCAL_TABLE Table
 
-
-
-
-
-
-
-
-
-
-
-
-
+    public boolean insertQB_LOCAL_TABLE( String selectedDialog,String s,String Chat_di) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(QB_LOCAL_USER_ID,s);
+        contentValues.put(QB_LOCAL_ChatDialog,selectedDialog.toString());
+        contentValues.put(QB_LOCAL_DIALOG_ALL,Chat_di);
+        long  result = db.insert("QBlocaltable", null, contentValues);
+        if (result != -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public Integer DeleteQB_LOCAL_TABLE(String selectedDialog) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int i = db.delete("QBlocaltable", "QBlocalchatdialog" + "=?", new String[]{selectedDialog.toString()});
+        return i;
+    }
+    public Cursor getQB_LOCAL_TABLE() {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT DISTINCT * FROM QBlocaltable", null);
+        return c;
+    }
+    public Cursor get_QB_LOCAL_TABLE(String USER_ID) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM QBlocaltable  WHERE QB_LOCAL_USER_ID = '" + USER_ID  + "'", null);
+        return c;
+    }
 
     //Insert
 //insert data in QBChatDialog Table

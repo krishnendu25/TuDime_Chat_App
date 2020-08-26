@@ -265,11 +265,6 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
         } catch (Exception e) {
             is_Serect = "false";
         }
-        Log.v(TAG, "onCreate ChatActivity on Thread ID = " + Thread.currentThread().getId());
-        if (!ChatHelper.getInstance().isLogged()) {
-            Log.w(TAG, "Restarting App...");
-            restartApp(this);
-        }
         Initialization();
         initViews();
         initMessagesRecyclerView();
@@ -562,9 +557,9 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
         switch (view.getId()) {
             case R.id.my_theme:
                 OTHER_SHOW_View.setVisibility(View.GONE);
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, 598);
+                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+                photoPickerIntent.setType("image/*");
+                startActivityForResult(photoPickerIntent, 598);
                 break;
             case R.id.tranlate_btn:
                 if (SelectLang_Code.equalsIgnoreCase(""))

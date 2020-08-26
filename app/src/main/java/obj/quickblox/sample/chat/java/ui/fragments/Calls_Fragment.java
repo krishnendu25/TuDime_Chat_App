@@ -20,6 +20,7 @@ import obj.quickblox.sample.chat.java.db.QbUsersDbManager;
 import obj.quickblox.sample.chat.java.ui.Callback.Search_Fragments;
 import obj.quickblox.sample.chat.java.ui.Model.Call_model;
 import obj.quickblox.sample.chat.java.ui.adapter.Call_Adapter;
+import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.qb.QbUsersHolder;
 
@@ -45,6 +46,7 @@ public class Calls_Fragment extends BaseFragment implements Search_Fragments {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         call_models = new ArrayList<>();
         QbUsersDbManager dbManager = QbUsersDbManager.getInstance(getContext());
         Cursor cursor = dbManager.get_all_call(String.valueOf(SharedPrefsHelper.getInstance().getQbUser().getId()));

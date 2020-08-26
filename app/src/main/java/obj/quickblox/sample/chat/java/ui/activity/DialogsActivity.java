@@ -108,11 +108,6 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
         setContentView(R.layout.activity_dialogs);
         dbManager= QbUsersDbManager.getInstance(this);
         hideActionbar();
-        if (!ChatHelper.getInstance().isLogged()) {
-            Log.w(TAG, "Restarting App...");
-            restartApp(this);
-        }
-
         systemMessagesListener = new SystemMessagesListener();
         dialogsManager = new DialogsManager();
         currentUser = ChatHelper.getCurrentUser();
@@ -326,7 +321,8 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
                     QBPushManager.getInstance().removeListener(this);
                 }
             });
-            SubscribeService.unSubscribeFromPushes(DialogsActivity.this);
+            try{ SubscribeService.unSubscribeFromPushes(DialogsActivity.this);   }catch (Exception e){}
+
         } else {
             logoutREST();
         }
@@ -487,14 +483,7 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
                     listDialogs.remove(j);
                 }
             }
-
-
         }
-
-
-
-
-
         dialogsAdapter.updateList(listDialogs);
     }
 

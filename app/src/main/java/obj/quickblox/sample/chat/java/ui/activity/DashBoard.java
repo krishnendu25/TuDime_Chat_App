@@ -99,9 +99,18 @@ import static obj.quickblox.sample.chat.java.constants.ApiConstants.update_user_
 import static obj.quickblox.sample.chat.java.ui.activity.SignUpActivity.hasPermissions;
 
 public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbacks, NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    //Dialog_Activity
+    private static final String TAG = DashBoard.class.getSimpleName();
+    public static String User_PhoneNo = "", User_Email = "";
+    private static MyPagerAdapter adapterViewPager;
     ImageView image1, image_bg;
     @BindView(R.id.FloatingActionMenu)
     com.github.clans.fab.FloatingActionMenu FloatingActionMenu;
+    int mSelectedTabPosition;
+    FloatingActionButton add_contact, action_secret_chat, Refresh_contact, Refresh_chat;
+    Search_Fragments search_fragments;
+    TextView Subscrption_managment, call_directly, text_call_credit;
+    ArrayList<Subscription_Model> Subscription_Model = new ArrayList<>();
     private DrawerLayout drawer;
     private NavigationView navigationView;
     private AppBarLayout appbar;
@@ -110,19 +119,17 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
     private ViewPager pager;
     private TabLayout tabs;
     private List<Contact_Model> Local_Contact = null;
-    private static MyPagerAdapter adapterViewPager;
     private QBUser qbUser;
-    int mSelectedTabPosition;
-    private String Account_Create="";
-    FloatingActionButton add_contact, action_secret_chat,Refresh_contact,Refresh_chat;
-    public static String User_PhoneNo = "", User_Email = "";
-    //Dialog_Activity
-    private static final String TAG = DashBoard.class.getSimpleName();
+    private String Account_Create = "";
     private String Global_FCM_TOKEN;
     private SearchView searchView;
-    Search_Fragments search_fragments;
-    TextView Subscrption_managment, call_directly, text_call_credit;
-    ArrayList<Subscription_Model> Subscription_Model = new ArrayList<>();
+
+    public static void start(Context context) {
+        Intent intent = new Intent(context, DashBoard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,23 +164,24 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 // Code goes here
-                if (position==2)
-                { action_secret_chat.setVisibility(View.GONE);
+                if (position == 2) {
+                    action_secret_chat.setVisibility(View.GONE);
                     Refresh_chat.setVisibility(View.GONE);
                     Refresh_contact.setVisibility(View.VISIBLE);
                     FloatingActionMenu.setVisibility(View.VISIBLE);
                     add_contact.setVisibility(View.VISIBLE);
-                }else if (position==1)
-                {
+                } else if (position == 1) {
                     add_contact.setVisibility(View.GONE);
                     action_secret_chat.setVisibility(View.GONE);
                     Refresh_contact.setVisibility(View.GONE);
                     FloatingActionMenu.setVisibility(View.VISIBLE);
                     Refresh_chat.setVisibility(View.VISIBLE);
 
-                }else if (position==0)
-                {  FloatingActionMenu.setVisibility(View.GONE); }
+                } else if (position == 0) {
+                    FloatingActionMenu.setVisibility(View.GONE);
+                }
             }
+
             @Override
             public void onPageScrollStateChanged(int state) {
                 // Code goes here
@@ -190,33 +198,29 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         }
     }
 
-
-    public static void start(Context context) {
-        Intent intent = new Intent(context, DashBoard.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.startActivity(intent);
-    }
-
     private void Initialization() {
-
-        FirebaseApp.initializeApp(this);
         try {
-            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
-                @Override
-                public void onSuccess(InstanceIdResult instanceIdResult) {
-                    Global_FCM_TOKEN = instanceIdResult.getToken();
-                    subscribeToPushNotifications(Global_FCM_TOKEN);
-                }
-            });
+            FirebaseApp.initializeApp(this);
+            try {
+                FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        Global_FCM_TOKEN = instanceIdResult.getToken();
+                        try {
+                            subscribeToPushNotifications(Global_FCM_TOKEN);
+                        } catch (Exception e) {
+                        }
 
-        } catch (Exception e) {
+                    }
+                });
 
-        }
+            } catch (Exception e) { }
+        } catch (Exception e) { }
 
         add_contact = findViewById(R.id.add_contact);
         action_secret_chat = findViewById(R.id.action_secret_chat);
-        Refresh_contact= findViewById(R.id.Refresh_contact);
-        Refresh_chat= findViewById(R.id.Refresh_chat);
+        Refresh_contact = findViewById(R.id.Refresh_contact);
+        Refresh_chat = findViewById(R.id.Refresh_chat);
         qbUser = new QBUser();
         qbUser.setLogin(SharedPrefsHelper.getInstance().getQbUser().getLogin());
         qbUser.setPassword(App.USER_DEFAULT_PASSWORD);
@@ -230,12 +234,9 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         tabs = (TabLayout) findViewById(R.id.tabs);
         tabs.setupWithViewPager(pager);
         Local_Contact = new ArrayList<>();
-
-
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-
         toggle.setDrawerIndicatorEnabled(false);
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.menu_icon, this.getTheme());
         toggle.setHomeAsUpIndicator(drawable);
@@ -251,8 +252,6 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         });
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.bringToFront();
         View v = navigationView.getHeaderView(0);
@@ -261,7 +260,6 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         image1 = (ImageView) v.findViewById(R.id.image_drawer);
         image_bg = (ImageView) v.findViewById(R.id.imge_bg);
         v.findViewById(R.id.image_drawer).setOnClickListener(this);
-
         View vv = v.findViewById(R.id.listView1);
         vv.findViewById(R.id.linear_encounter123).setVisibility(View.VISIBLE);
         vv.findViewById(R.id.text_new_gp).setOnClickListener(this);
@@ -274,15 +272,11 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         vv.findViewById(R.id.text_ecards).setOnClickListener(this);
         vv.findViewById(R.id.text_schedule_events).setOnClickListener(this);
         vv.findViewById(R.id.text_change_language).setOnClickListener(this);
-
         vv.findViewById(R.id.Subscrption_managment).setOnClickListener(this);
         vv.findViewById(R.id.Subscrption_managment).setSelected(true);
         vv.findViewById(R.id.call_directly).setOnClickListener(this);
         vv.findViewById(R.id.text_call_credit).setOnClickListener(this);
-
-
         total_credit = (TextView) vv.findViewById(R.id.total_credit);
-
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapterViewPager);
         adapterViewPager.notifyDataSetChanged();
@@ -299,8 +293,8 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         Refresh_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Contact_chat_Refresh contact_chat_refresh = Chat_Fragment.newInstance();
-                    contact_chat_refresh.Reload();
+                Contact_chat_Refresh contact_chat_refresh = Chat_Fragment.newInstance();
+                contact_chat_refresh.Reload();
 
             }
         });
@@ -309,13 +303,11 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         Refresh_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Contact_chat_Refresh contact_chat_refresh = Contact_chat_Fragment.newInstance();
-                    contact_chat_refresh.Reload();
+                Contact_chat_Refresh contact_chat_refresh = Contact_chat_Fragment.newInstance();
+                contact_chat_refresh.Reload();
 
             }
         });
-
-
         action_secret_chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -364,17 +356,20 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
 
     protected void onResume() {
         super.onResume();
-        if (InternetConnection.checkConnection(this)) {
-            try {
-                LoginService.start(getApplicationContext(), sharedPrefsHelper.getQbUser());
-            } catch (Exception e) {
+        try{
+            if (InternetConnection.checkConnection(this)) {
+                try {
+                    LoginService.start(getApplicationContext(), sharedPrefsHelper.getQbUser());
+                } catch (Exception e) {
+                }
             }
-        }
-        Update_Profile_Update(SharedPrefsHelper.getInstance().getUSERID()
-                , SharedPrefsHelper.getInstance().getUserName(),
-                SharedPrefsHelper.getInstance().getQbUser().getId().toString());
-        Fetch_My_Call_Balence(SharedPrefsHelper.getInstance().getUSERID());
-
+        }catch (Exception e){}
+       try{
+           Update_Profile_Update(SharedPrefsHelper.getInstance().getUSERID()
+                   , SharedPrefsHelper.getInstance().getUserName(),
+                   SharedPrefsHelper.getInstance().getQbUser().getId().toString());
+           Fetch_My_Call_Balence(SharedPrefsHelper.getInstance().getUSERID());
+       }catch (Exception e){}
     }
 
     @Override
@@ -390,11 +385,9 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
             case R.id.Subscrption_managment:
                 startActivity(new Intent(DashBoard.this, TuDime_Membership.class));
                 break;
-
             case R.id.text_new_gp:
                 startActivity(new Intent(DashBoard.this, UpdateProfileActivity.class));
                 break;
-
             case R.id.text_new_bd:
                 startActivity(new Intent(DashBoard.this, NotificationCenterActivity.class));
                 break;
@@ -414,11 +407,9 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 break;
             case R.id.text_setting:
                 startActivity(new Intent(DashBoard.this, Settings_Tudime.class));
-                //logOut();
                 break;
             case R.id.text_call_credit:
                 Intent i = new Intent(DashBoard.this, PapPallIntegration.class);
-                // i.putExtra("extra" , "1");
                 startActivity(i);
                 break;
             case R.id.image_drawer:
@@ -437,31 +428,23 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                     QbUsersDbManager dbManager = QbUsersDbManager.getInstance(this);
                     dbManager.deleteall();
                     finish();
-                } catch (Exception e) {
-
-                }
+                } catch (Exception e) {   }
                 break;
             case R.id.text_ecards:
                 Intent intent = new Intent(DashBoard.this, Ecards3D_Activity.class);
                 startActivity(intent);
                 break;
-
-
         }
     }
 
     @Override
-    public void onReceiveNewSession(QBRTCSession qbrtcSession) {
-
-    }
+    public void onReceiveNewSession(QBRTCSession qbrtcSession) { }
 
     @Override
-    public void onUserNoActions(QBRTCSession qbrtcSession, Integer integer) {
-    }
+    public void onUserNoActions(QBRTCSession qbrtcSession, Integer integer) { }
 
     @Override
-    public void onSessionStartClose(QBRTCSession qbrtcSession) {
-    }
+    public void onSessionStartClose(QBRTCSession qbrtcSession) { }
 
     @Override
     public void onUserNotAnswer(QBRTCSession qbrtcSession, Integer integer) {
@@ -533,7 +516,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
             try {
                 if (response.getString("status").equalsIgnoreCase("success")) {
                     Account_Create = response.getJSONArray("data").getJSONObject(0).getString("create_dt_timestamp");
-                    Fetch_Membership_Details(SharedPrefsHelper.getInstance().getUSERID(),"");
+                    Fetch_Membership_Details(SharedPrefsHelper.getInstance().getUSERID(), "");
                     if (response.getJSONArray("data").length() == 0) {
                         try {
                             Picasso.get().load(SharedPrefsHelper.getInstance().getQbUser().getWebsite()).placeholder(R.drawable.navigation_drawer_pro_pic)
@@ -554,32 +537,28 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
 
                         }
                     }
+                } else {
+                    ToastUtils.shortToast("Oops...something went wrong...");
                 }
-                else
-                {ToastUtils.shortToast("Oops...something went wrong...");}
             } catch (JSONException e) {
                 hideProgressDialog();
             }
         }
 
-        if (requestCode==897)
-        {
+        if (requestCode == 897) {
             try {
-                if (response.getString("status").equalsIgnoreCase("success"))
-                {
+                if (response.getString("status").equalsIgnoreCase("success")) {
                     Subscription_Model.clear();
                     JSONArray all_data = response.getJSONArray("data");
 
-                    for (int i=0; i<all_data.length(); i++)
-                    {
+                    for (int i = 0; i < all_data.length(); i++) {
                         Subscription_Model sb = new Subscription_Model();
                         sb.setStart_time(all_data.getJSONObject(i).getString("start_time_unix_timestamp"));
                         sb.setEnd_time(all_data.getJSONObject(i).getString("end_time_unix_timestamp"));
                         Subscription_Model.add(sb);
                     }
                     Filter_Subscription(Account_Create);
-                }else
-                {
+                } else {
                     ToastUtils.shortToast("Oops...something went wrong...");
                 }
             } catch (JSONException e) {
@@ -587,7 +566,6 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
             }
         }
     }
-
 
 
     @Override
@@ -636,37 +614,121 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         mResponse.getResponse(Request.Method.POST, get_user_tudime_fetch_my_call_balence, 715, this, parms, false, false, Params_Object);
     }
 
+    public void subscribeToPushNotifications(String registrationID) {
+        try {
+            QBSubscription subscription = new QBSubscription(QBNotificationChannel.GCM);
+            subscription.setEnvironment(QBEnvironment.DEVELOPMENT);
+            String deviceId = getCurrentDeviceId();
+            subscription.setDeviceUdid(deviceId);
+            subscription.setRegistrationID(registrationID);
+            QBPushNotifications.createSubscription(subscription).performAsync(new QBEntityCallback<ArrayList<QBSubscription>>() {
+                @Override
+                public void onSuccess(ArrayList<QBSubscription> qbSubscriptions, Bundle bundle) {
 
-    //Fragment Adapter
+                }
+
+                @Override
+                public void onError(QBResponseException e) {
+                }
+            });
+        } catch (Exception e) {
+        }
+    }
+
+    private String getCurrentDeviceId() {
+        return Utils.generateDeviceId(this);
+    }
+
+    private void Filter_Subscription(String account_create) {
+
+        String Acount_Create = Constant.Get_back_date(account_create);
+        String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+        Integer Day_Count = (int) Constant.getDateDiff(Acount_Create, timeStamp);
+
+
+        if (Day_Count > 45) {
+            Open_Subscrption_alert(DashBoard.this);
+            return;
+        } else {
+            if (Subscription_Model.size() > 0) {
+                int count = 0;
+                for (int i = 0; i < Subscription_Model.size(); i++) {
+
+                    String Day_Count_v = String.valueOf(Constant.getDateDiff(timeStamp, Constant.Get_back_date(Subscription_Model.get(i).getEnd_time().toString())));
+                    if (Integer.valueOf(Day_Count_v) > 0) {
+                        count++;
+                    }
+                }
+                if (count == 0) {
+                    if (Integer.valueOf(Day_Count) <= 45 && Integer.valueOf(Day_Count) >= 0) {
+                    } else {
+                        Open_Subscrption_alert(DashBoard.this);
+                    }
+                }
+
+            } else {
+                if (Integer.valueOf(Day_Count) <= 45 && Integer.valueOf(Day_Count) >= 0) {
+                } else {
+                    Open_Subscrption_alert(DashBoard.this);
+                }
+            }
+        }
+    }
+
+    private void Open_Subscrption_alert(Activity mActivity) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = (this).getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.no_subscription, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
+        TextView Application_Close = (TextView) dialogView.findViewById(R.id.Application_Close);
+        TextView buy_membership = (TextView) dialogView.findViewById(R.id.buy_membership);
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        Application_Close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    finishAffinity();
+                    alertDialog.dismiss();
+                } else {
+                    finish();
+                    System.exit(0);
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        buy_membership.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+                startActivity(new Intent(DashBoard.this, Buy_TuDime_Subscription.class));
+            }
+        });
+        alertDialog.show();
+    }
     public class MyPagerAdapter extends FragmentPagerAdapter {
         private int NUM_ITEMS = 3;
-
         public MyPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
         }
-
-        // Returns total number of pages
         @Override
         public int getCount() {
             return NUM_ITEMS;
         }
-
-        // Returns the fragment to display for that page
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-                case 0:// Fragment # 0 - This will show Pending
+                case 0:
                     return Calls_Fragment.newInstance();
-                case 1: // Fragment # 1 - This will show Answered
+                case 1:
                     return Chat_Fragment.newInstance();
-                case 2: // Fragment # 1 - This will show Answered
+                case 2:
                     return Contact_chat_Fragment.newInstance();
                 default:
                     return null;
             }
         }
-
-        // Returns the page title for the top indicator
         @Override
         public CharSequence getPageTitle(int position) {
 
@@ -679,114 +741,6 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
             }
 
         }
-    }
-
-    public void subscribeToPushNotifications(String registrationID) {
-        QBSubscription subscription = new QBSubscription(QBNotificationChannel.GCM);
-        subscription.setEnvironment(QBEnvironment.DEVELOPMENT);
-        //
-        String deviceId = getCurrentDeviceId();
-
-        subscription.setDeviceUdid(deviceId);
-        //
-        subscription.setRegistrationID(registrationID);
-        //
-        QBPushNotifications.createSubscription(subscription).performAsync(new QBEntityCallback<ArrayList<QBSubscription>>() {
-            @Override
-            public void onSuccess(ArrayList<QBSubscription> qbSubscriptions, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-            }
-        });
-    }
-
-    private String getCurrentDeviceId() {
-        return Utils.generateDeviceId(this);
-    }
-
-
-
-    private void Filter_Subscription(String account_create) {
-
-        String Acount_Create = Constant.Get_back_date(account_create);
-        String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-        Integer Day_Count = (int)  Constant.getDateDiff(Acount_Create, timeStamp);
-
-
-        if (Day_Count>45) {
-            Open_Subscrption_alert(DashBoard.this);
-            return;
-        }else
-        {
-            if (Subscription_Model.size() > 0) {
-                int count=0;
-                for (int i=0; i<Subscription_Model.size();i++)
-                {
-
-                    String Day_Count_v = String.valueOf(Constant.getDateDiff(timeStamp, Constant.Get_back_date(Subscription_Model.get(i).getEnd_time().toString())));
-                    if (Integer.valueOf(Day_Count_v)>0)
-                    {
-                        count++;
-                    }
-                }
-                if (count==0)
-                {
-                    if (Integer.valueOf(Day_Count) <= 45 && Integer.valueOf(Day_Count)>=0)  {
-                    }else
-                    {
-                        Open_Subscrption_alert(DashBoard.this);
-                    }
-                }
-
-            }else
-            {
-                if (Integer.valueOf(Day_Count) <= 45 &&Integer.valueOf(Day_Count)>=0)  {
-                  }else
-                {  Open_Subscrption_alert(DashBoard.this);
-                }
-            }
-        }
-
-
-
-
-
-    }
-
-    private void Open_Subscrption_alert(Activity mActivity) {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = (this).getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.no_subscription, null);
-        dialogBuilder.setView(dialogView);
-        dialogBuilder.setCancelable(false);
-        TextView Application_Close = (TextView)dialogView.findViewById(R.id.Application_Close);
-        TextView buy_membership = (TextView) dialogView.findViewById(R.id.buy_membership);
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        Application_Close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    finishAffinity();
-                    alertDialog.dismiss();
-                } else{
-                    finish();
-                    System.exit(0);
-                    alertDialog.dismiss();
-                }
-            }
-        });
-        buy_membership.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-                startActivity(new Intent(DashBoard.this,Buy_TuDime_Subscription.class));
-            }
-        });
-        alertDialog.show();
     }
 
 }

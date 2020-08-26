@@ -94,38 +94,27 @@ public class Call_Adapter extends RecyclerView.Adapter<Call_Adapter.ViewHolder> 
             @Override
             public void onClick(View v)
             {
+
                 if (mData.get(position).getDB_CALL_TYPE().equalsIgnoreCase("video"))
-                {
+                {  try{
                     startCall(true,position);
+                }catch (Exception e){}
                 }else
-                {
+                { try{
                     startCall(false,position);
+                }catch (Exception e){}
                 }
 
             }
         });
 
-
-
-
-
-
     }
 
     private void startCall(boolean isVideoCall,int position)
     {
-        Log.d(TAG, "Starting Call");
-
-          /*  if (usersAdapter.getSelectedUsers().size() > Consts.MAX_OPPONENTS_COUNT) {
-            ToastUtils.longToast(String.format(getString(R.string.error_max_opponents_count),
-                    Consts.MAX_OPPONENTS_COUNT));
-            return;
-        }*/
         QbUsersDbManager dbManager = QbUsersDbManager.getInstance(mContext);
         ArrayList<Integer> opponentsList = new ArrayList<>();
-        /* opponentsList.get()*///101331729
         opponentsList.add(Integer.valueOf(mData.get(position).getDB_CALL_RECIPIENTID()));
-        //CollectionsUtils.getIdsSelectedOpponents(usersAdapter.getSelectedUsers());
         QBRTCTypes.QBConferenceType conferenceType = isVideoCall
                 ? QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_VIDEO
                 : QBRTCTypes.QBConferenceType.QB_CONFERENCE_TYPE_AUDIO;

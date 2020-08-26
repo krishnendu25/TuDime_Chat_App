@@ -3,6 +3,7 @@ package obj.quickblox.sample.chat.java.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.provider.Settings;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,13 +18,14 @@ import org.jivesoftware.smack.util.StringUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import static obj.quickblox.sample.chat.java.Prefrences.PrefrenceConstants.*;
 import static obj.quickblox.sample.chat.java.utils.ResourceUtils.getString;
 
 public class SharedPrefsHelper {
     private static final String SHARED_PREFS_NAME = "qb";
-
     private static final String QB_USER_ID = "qb_user_id";
     private static final String QB_USER_LOGIN = "qb_user_login";
     private static final String QB_USER_PASSWORD = "qb_user_password";
@@ -34,18 +36,15 @@ public class SharedPrefsHelper {
     private static SharedPrefsHelper instance;
     private static SharedPreferences sharedPreferences,mPreferences;
     SharedPreferences.Editor mEditor;
-
     private static final String PASSWORD="";
     private static final String PASSWORD_STATUS="true";
     private static final String SECURITY_QUSTION="SECURITY_QUSTION_Q";
     private static final String SECURITY_ANSWER="SECURITY_ANSWER_A";
-
     private static final String E_CARD_URL="ecard_url";
     private static final String FORWARD_sms="sms_for";
     private static final String SERCET_CHAT="0";
-
     private static final String LOGIN_SERVICE_STATUS="stop";
-
+    private static final String QBChatDialog_DB = "QBChatDialog";
 
 
 
@@ -1256,5 +1255,17 @@ public class SharedPrefsHelper {
         mEditor.putBoolean("getAutoEcardSend", age).apply();
     }
 
+    public Collection<QBChatDialog> getQBChatDialog_DB() {
+        Gson gson = new Gson();
+        String json = mPreferences.getString(QBChatDialog_DB, "");
+            Type type = new TypeToken<Collection<QBChatDialog>>() {
+            }.getType();
+            return gson.fromJson(json, type);
 
+    }
+    public void setQBChatDialog_DB(Collection<QBChatDialog> value) {
+        Gson gson = new Gson();
+        String json = gson.toJson(value);
+        mEditor.putString(QBChatDialog_DB,json).apply();
+    }
 }

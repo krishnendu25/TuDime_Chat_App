@@ -17,15 +17,18 @@ public class WebRtcSessionManager extends QBRTCClientSessionCallbacksImpl {
     private static QBRTCSession currentSession;
 
     private WebRtcSessionManager(Context context) {
-        Log.d(TAG,context.getClass().getSimpleName()+ " - WebRtcSessionManager constructor");
         this.context = context;
     }
 
     public static WebRtcSessionManager getInstance(Context context) {
-        if (instance == null) {
-            Log.d(TAG,context.getClass().getSimpleName()+ " - WebRtcSessionManager getInstance");
-            instance = new WebRtcSessionManager(context);
+        try {
+            if (instance == null) {
+                instance = new WebRtcSessionManager(context);
+            }
+        }catch (Exception e){
+
         }
+
 
         return instance;
     }
@@ -40,20 +43,23 @@ public class WebRtcSessionManager extends QBRTCClientSessionCallbacksImpl {
 
     @Override
     public void onReceiveNewSession(QBRTCSession session) {
-        Log.d(TAG, "onReceiveNewSession to WebRtcSessionManager");
+        try{
+            if (currentSession == null && session != null) {
+                setCurrentSession(session);
+                CallActivity.start(context, true);
+            }
+        }catch (Exception e){}
 
-        if (currentSession == null && session != null) {
-            setCurrentSession(session);
-            CallActivity.start(context, true);
-        }
     }
 
     @Override
     public void onSessionClosed(QBRTCSession session) {
-        Log.d(TAG, "onSessionClosed WebRtcSessionManager");
+        try{
+            if (session.equals(getCurrentSession())) {
+                setCurrentSession(null);
+            }
+        }catch (Exception e){}
 
-        if (session.equals(getCurrentSession())) {
-            setCurrentSession(null);
-        }
+
     }
 }

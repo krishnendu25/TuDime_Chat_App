@@ -79,6 +79,7 @@ import obj.quickblox.sample.chat.java.ui.activity.Choose_Sign_Up_type;
 import obj.quickblox.sample.chat.java.ui.activity.SelectUsersActivity;
 import obj.quickblox.sample.chat.java.ui.adapter.DialogsAdapter;
 import obj.quickblox.sample.chat.java.ui.dialog.ProgressDialogFragment;
+import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.Consts;
 import obj.quickblox.sample.chat.java.utils.ErrorUtils;
 import obj.quickblox.sample.chat.java.utils.FcmConsts;
@@ -146,16 +147,17 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         Select_Contact_view = view.findViewById(R.id.Select_Contact_view);
         Archive_Chat_Go = view.findViewById(R.id.Archive_Chat_Go);
         Shimmer_Effect = view.findViewById(R.id.Shimmer_Effect);
-        if (!ChatHelper.getInstance().isLogged()) {
-            restartApp(getActivity());
-        }
 
         systemMessagesListener = new SystemMessagesListener();
         dialogsManager = new DialogsManager();
         currentUser = ChatHelper.getCurrentUser();
         currentUser_qb = SharedPrefsHelper.getInstance().getQbUser();
         initUi(view);
-
+        if (Constant.isOnline(getActivity()))
+        {  if (!ChatHelper.getInstance().isLogged()) {
+            restartApp(getActivity());
+        }}else
+        {updateDialogsAdapter();}
         if (QbDialogHolder.getInstance().getDialogs().size() > 0) {
             loadDialogsFromQb(true, true);
         } else {
@@ -190,53 +192,77 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
 
     @Override
     public void onResumeFinished() {
-        if (ChatHelper.getInstance().isLogged()) {
-            checkPlayServicesAvailable();
-            registerQbChatListeners();
-            loadDialogsFromQb(true, true);
-        } else {
-            showDialog("Loading");
-            ChatHelper.getInstance().loginToChat(SharedPrefsHelper.getInstance().getQbUser(), new QBEntityCallback<Void>() {
-                @Override
-                public void onSuccess(Void aVoid, Bundle bundle) {
+        if (Constant.isOnline(getActivity()) )
+        {
+            try {
+                if (ChatHelper.getInstance().isLogged()) {
                     checkPlayServicesAvailable();
                     registerQbChatListeners();
                     loadDialogsFromQb(true, true);
-                    cancleDialog();
-                }
+                } else {
+                    showDialog("Loading");
+                    ChatHelper.getInstance().loginToChat(SharedPrefsHelper.getInstance().getQbUser(), new QBEntityCallback<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid, Bundle bundle) {
+                            checkPlayServicesAvailable();
+                            registerQbChatListeners();
+                            loadDialogsFromQb(true, true);
+                            cancleDialog();
+                        }
 
-                @Override
-                public void onError(QBResponseException e) {
-                    cancleDialog();
-                    getActivity().finish();
+                        @Override
+                        public void onError(QBResponseException e) {
+                            cancleDialog();
+                          //  getActivity().finish();
+                        }
+                    });
                 }
-            });
+            }catch (Exception e)
+            {
+
+            }
+        }else
+        {
+            loadDialogsFromQb(true, true);
         }
+
+
     }
 
     private void checkPlayServicesAvailable() {
-        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
-        int resultCode = apiAvailability.isGooglePlayServicesAvailable(getContext());
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (apiAvailability.isUserResolvableError(resultCode)) {
-                apiAvailability.getErrorDialog(getActivity(), resultCode, PLAY_SERVICES_REQUEST_CODE).show();
-            } else {
+        try{
+            GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+            int resultCode = apiAvailability.isGooglePlayServicesAvailable(getContext());
+            if (resultCode != ConnectionResult.SUCCESS) {
+                if (apiAvailability.isUserResolvableError(resultCode)) {
+                    apiAvailability.getErrorDialog(getActivity(), resultCode, PLAY_SERVICES_REQUEST_CODE).show();
+                } else {
 
-                getActivity().finish();
+                //    getActivity().finish();
+                }
             }
-        }
+        }catch (Exception e){}
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(pushBroadcastReceiver);
+        if (Constant.isOnline(getActivity()) )
+        {
+            LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(pushBroadcastReceiver);
+        }
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterQbChatListeners();
+        if (Constant.isOnline(getActivity()) )
+        {
+            unregisterQbChatListeners();
+        }
+
     }
 
     private void registerQbChatListeners() {
@@ -277,31 +303,40 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult with ResultCode: " + resultCode + " RequestCode: " + requestCode);
         if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_SELECT_PEOPLE) {
-                ArrayList<QBUser> selectedUsers = (ArrayList<QBUser>) data
-                        .getSerializableExtra(SelectUsersActivity.EXTRA_QB_USERS);
-                String chatName = data.getStringExtra(SelectUsersActivity.EXTRA_CHAT_NAME);
+            if (Constant.isOnline(getActivity()) )
+            {
+                if (requestCode == REQUEST_SELECT_PEOPLE) {
+                    ArrayList<QBUser> selectedUsers = (ArrayList<QBUser>) data
+                            .getSerializableExtra(SelectUsersActivity.EXTRA_QB_USERS);
+                    String chatName = data.getStringExtra(SelectUsersActivity.EXTRA_CHAT_NAME);
 
-                if (isPrivateDialogExist(selectedUsers)) {
-                    selectedUsers.remove(ChatHelper.getCurrentUser());
-                    QBChatDialog existingPrivateDialog = QbDialogHolder.getInstance().getPrivateDialogWithUser(selectedUsers.get(0));
-                    isProcessingResultInProgress = false;
-                    ChatActivity.startForResult(getActivity(), REQUEST_DIALOG_ID_FOR_UPDATE, existingPrivateDialog);
-                } else {
-                    ProgressDialogFragment.show(getActivity().getSupportFragmentManager(), R.string.create_chat);
-                    createDialog(selectedUsers, chatName);
-                }
-            } else if (requestCode == REQUEST_DIALOG_ID_FOR_UPDATE) {
-                if (data != null) {
-                    String dialogId = data.getStringExtra(ChatActivity.EXTRA_DIALOG_ID);
-                    loadUpdatedDialog(dialogId);
-                } else {
-                    isProcessingResultInProgress = false;
-                    updateDialogsList();
+                    if (isPrivateDialogExist(selectedUsers)) {
+                        selectedUsers.remove(ChatHelper.getCurrentUser());
+                        QBChatDialog existingPrivateDialog = QbDialogHolder.getInstance().getPrivateDialogWithUser(selectedUsers.get(0));
+                        isProcessingResultInProgress = false;
+                        ChatActivity.startForResult(getActivity(), REQUEST_DIALOG_ID_FOR_UPDATE, existingPrivateDialog);
+                    } else {
+                        ProgressDialogFragment.show(getActivity().getSupportFragmentManager(), R.string.create_chat);
+                        createDialog(selectedUsers, chatName);
+                    }
+                } else if (requestCode == REQUEST_DIALOG_ID_FOR_UPDATE) {
+                    if (data != null) {
+                        String dialogId = data.getStringExtra(ChatActivity.EXTRA_DIALOG_ID);
+                        loadUpdatedDialog(dialogId);
+                    } else {
+                        isProcessingResultInProgress = false;
+                        updateDialogsList();
+                    }
                 }
             }
+
+
         } else {
-            updateDialogsAdapter();
+            if (Constant.isOnline(getActivity()) )
+            {
+                updateDialogsAdapter();
+            }
+
         }
     }
 
@@ -313,20 +348,25 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
     }
 
     private void loadUpdatedDialog(String dialogId) {
-        ChatHelper.getInstance().getDialogById(dialogId, new QbEntityCallbackImpl<QBChatDialog>() {
-            @Override
-            public void onSuccess(QBChatDialog result, Bundle bundle) {
-                QbDialogHolder.getInstance().addDialog(result);
-                updateDialogsAdapter();
-                isProcessingResultInProgress = false;
 
-            }
+        try{
+            ChatHelper.getInstance().getDialogById(dialogId, new QbEntityCallbackImpl<QBChatDialog>() {
+                @Override
+                public void onSuccess(QBChatDialog result, Bundle bundle) {
+                    QbDialogHolder.getInstance().addDialog(result);
+                    updateDialogsAdapter();
+                    isProcessingResultInProgress = false;
 
-            @Override
-            public void onError(QBResponseException e) {
-                isProcessingResultInProgress = false;
-            }
-        });
+                }
+
+                @Override
+                public void onError(QBResponseException e) {
+                    isProcessingResultInProgress = false;
+                }
+            });
+        }catch (Exception E)
+        {  updateDialogsAdapter(); }
+
     }
 
 
@@ -340,7 +380,10 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
                     QBPushManager.getInstance().removeListener(this);
                 }
             });
-            SubscribeService.unSubscribeFromPushes(getContext());
+            try {
+                SubscribeService.unSubscribeFromPushes(getContext());
+            }catch (Exception E) {   }
+
         } else {
             logoutREST();
         }
@@ -361,28 +404,23 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         emptyHintLayout = view.findViewById(R.id.layout_chat_empty_fragments);
         dialogsListView = view.findViewById(R.id.list_dialogs_chats_fragments);
         setOnRefreshListener = view.findViewById(R.id.swipy_refresh_layout_fragments);
-
-
         Chat_Dialog = new ArrayList<>(QbDialogHolder.getInstance().getDialogs().values());
-
         dialogsAdapter = new DialogsAdapter(getActivity(), Chat_Dialog, Chat_Fragment.this);
-
-        /*TextView listHeader = (TextView) LayoutInflater.from(getActivity())
-                .inflate(R.layout.include_list_hint_header, dialogsListView, false);
-        listHeader.setText(R.string.dialogs_list_hint);*/
-
         dialogsListView.setEmptyView(emptyHintLayout);
-        /*    dialogsListView.addHeaderView(listHeader, null, false);*/
-
         dialogsListView.setAdapter(dialogsAdapter);
         requestBuilder = new QBRequestGetBuilder();
-
 
         setOnRefreshListener.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadDialogsFromQb(true, true);
-                setOnRefreshListener.setRefreshing(false);
+                try{
+                    loadDialogsFromQb(true, true);
+                    setOnRefreshListener.setRefreshing(false);
+                }catch (Exception e)
+                {
+                    setOnRefreshListener.setRefreshing(false);
+                }
+
             }
         });
 
@@ -411,29 +449,33 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
             }
         }
 
-        ChatHelper.getInstance().deleteDialogs(dialogsToDelete, new QBEntityCallback<ArrayList<String>>() {
-            @Override
-            public void onSuccess(ArrayList<String> dialogsIds, Bundle bundle) {
+        if (Constant.isOnline(getActivity()) )
+        {
+            ChatHelper.getInstance().deleteDialogs(dialogsToDelete, new QBEntityCallback<ArrayList<String>>() {
+                @Override
+                public void onSuccess(ArrayList<String> dialogsIds, Bundle bundle) {
 
-                Log.d(TAG, "Dialogs Deleting Successful");
-                QbDialogHolder.getInstance().deleteDialogs(dialogsIds);
-                updateDialogsAdapter();
+                    Log.d(TAG, "Dialogs Deleting Successful");
+                    QbDialogHolder.getInstance().deleteDialogs(dialogsIds);
+                    updateDialogsAdapter();
 
-            }
+                }
 
-            @Override
-            public void onError(QBResponseException e) {
-                cancleDialog();
-                Log.d(TAG, "Deleting Dialogs Error: " + e.getMessage());
-                showErrorSnackbar(R.string.dialogs_deletion_error, e,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                deleteSelectedDialogs();
-                            }
-                        });
-            }
-        });
+                @Override
+                public void onError(QBResponseException e) {
+                    cancleDialog();
+                    Log.d(TAG, "Deleting Dialogs Error: " + e.getMessage());
+                    showErrorSnackbar(R.string.dialogs_deletion_error, e,
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    deleteSelectedDialogs();
+                                }
+                            });
+                }
+            });
+        }
+
     }
 
     public void showErrorSnackbar(@StringRes int resId, Exception e, View.OnClickListener clickListener) {
@@ -460,7 +502,6 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
                         ChatActivity.startForResult(getActivity(), REQUEST_DIALOG_ID_FOR_UPDATE, dialog, true);
                         ProgressDialogFragment.hide(getActivity().getSupportFragmentManager());
                     }
@@ -478,24 +519,30 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
 
     private void loadDialogsFromQb(final boolean silentUpdate, final boolean clearDialogHolder) {
         Archive_Reload();
-        isProcessingResultInProgress = true;
-        if (!silentUpdate) {
-            show_dialog();
+        if (Constant.isOnline(getActivity()) )
+        {
+            isProcessingResultInProgress = true;
+            if (!silentUpdate) {
+                show_dialog();
+            }
+
+            ChatHelper.getInstance().getDialogs(requestBuilder, new QBEntityCallback<ArrayList<QBChatDialog>>() {
+                @Override
+                public void onSuccess(ArrayList<QBChatDialog> dialogs, Bundle bundle) {
+                    DialogJoinerAsyncTask dialogJoinerAsyncTask = new DialogJoinerAsyncTask(Chat_Fragment.this, dialogs, clearDialogHolder);
+                    dialogJoinerAsyncTask.execute();
+                }
+
+                @Override
+                public void onError(QBResponseException e) {
+                    disableProgress();
+                    //ToastUtils.shortToast(e.getMessage());
+                }
+            });
         }
 
-        ChatHelper.getInstance().getDialogs(requestBuilder, new QBEntityCallback<ArrayList<QBChatDialog>>() {
-            @Override
-            public void onSuccess(ArrayList<QBChatDialog> dialogs, Bundle bundle) {
-                DialogJoinerAsyncTask dialogJoinerAsyncTask = new DialogJoinerAsyncTask(Chat_Fragment.this, dialogs, clearDialogHolder);
-                dialogJoinerAsyncTask.execute();
-            }
 
-            @Override
-            public void onError(QBResponseException e) {
-                disableProgress();
-                //ToastUtils.shortToast(e.getMessage());
-            }
-        });
+
     }
 
     private void Archive_Reload() {
@@ -514,36 +561,73 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
     }
 
     public void updateDialogsAdapter() {
-        ArrayList<QBChatDialog> listDialogs = new ArrayList<>(QbDialogHolder.getInstance().getDialogs().values());
-
-        ArrayList<String> temp_dialog = new ArrayList<>();
-        try{
-            Cursor cursor = dbManager.get_QBChat(SharedPrefsHelper.getInstance().getQbUser().getLogin());
-            if (cursor.getCount() != 0) {
-                while (cursor.moveToNext()) {
-                    temp_dialog.add(cursor.getString(1));
-                }
-            }
-            for (int i = 0; i < temp_dialog.size(); i++) {
-                for (int j = 0; j < listDialogs.size(); j++) {
-                    if (listDialogs.get(j).getDialogId().equalsIgnoreCase(temp_dialog.get(i).toString())) {
-                        listDialogs.remove(j);
+        if (Constant.isOnline(getActivity()))
+        {
+            Collection<QBChatDialog> Backup_List = QbDialogHolder.getInstance().getDialogs().values();
+            SharedPrefsHelper.getInstance().setQBChatDialog_DB(Backup_List);
+            ArrayList<QBChatDialog> listDialogs = new ArrayList<>(Backup_List);
+            ArrayList<String> temp_dialog = new ArrayList<>();
+            try{
+                Cursor cursor = dbManager.get_QBChat(SharedPrefsHelper.getInstance().getQbUser().getLogin());
+                if (cursor.getCount() != 0) {
+                    while (cursor.moveToNext()) {
+                        temp_dialog.add(cursor.getString(1));
                     }
                 }
-
-
+                for (int i = 0; i < temp_dialog.size(); i++) {
+                    for (int j = 0; j < listDialogs.size(); j++) {
+                        if (listDialogs.get(j).getDialogId().equalsIgnoreCase(temp_dialog.get(i).toString())) {
+                            listDialogs.remove(j);
+                        }
+                    }
+                }
+                dialogsAdapter.updateList(listDialogs);
+                Chat_Dialog = listDialogs;
+                cancleDialog();
+            }catch (Exception e)
+            {
+                Chat_Dialog = listDialogs;
+                cancleDialog();
             }
 
-
-            dialogsAdapter.updateList(listDialogs);
-            Chat_Dialog = listDialogs;
-            cancleDialog();
-        }catch (Exception e)
+        }else
         {
-            Chat_Dialog = listDialogs;
-            cancleDialog();
-        }
+            Collection<QBChatDialog> Backup_List =SharedPrefsHelper.getInstance().getQBChatDialog_DB();
+            ArrayList<QBChatDialog> listDialogs = new ArrayList<>(Backup_List);
+            ArrayList<String> temp_dialog = new ArrayList<>();
+            try{
+                Cursor cursor = dbManager.get_QBChat(SharedPrefsHelper.getInstance().getQbUser().getLogin());
+                if (cursor.getCount() != 0) {
+                    while (cursor.moveToNext()) {
+                        temp_dialog.add(cursor.getString(1));
+                    }
+                }
+                for (int i = 0; i < temp_dialog.size(); i++) {
+                    for (int j = 0; j < listDialogs.size(); j++) {
+                        if (listDialogs.get(j).getDialogId().equalsIgnoreCase(temp_dialog.get(i).toString())) {
+                            listDialogs.remove(j);
+                        }
+                    }
+                }
+                dialogsAdapter.updateList(listDialogs);
+                Chat_Dialog = listDialogs;
+                cancleDialog();
+            }catch (Exception e)
+            {
+                Chat_Dialog = listDialogs;
+                cancleDialog();
+            }
 
+                if (dialogsAdapter!=null)
+                {
+                    dialogsAdapter.notifyDataSetChanged();
+                }else
+                {
+                    dialogsAdapter = new DialogsAdapter(getActivity(), Chat_Dialog, Chat_Fragment.this);
+                    dialogsListView.setAdapter(dialogsAdapter);
+                }
+
+        }
     }
 
     @Override
@@ -598,12 +682,15 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
     @Override
     public void onResume() {
         super.onResume();
-        Archive_Reload();
-        boolean isIncomingCall = SharedPrefsHelper.getInstance().get(Consts.EXTRA_IS_INCOMING_CALL, false);
-        if (isCallServiceRunning(CallService.class)) {
-            Log.d(TAG, "CallService is running now");
-            CallActivity.start(getActivity(), isIncomingCall);
+        if (Constant.isOnline(getActivity()) )
+        {
+            boolean isIncomingCall = SharedPrefsHelper.getInstance().get(Consts.EXTRA_IS_INCOMING_CALL, false);
+            if (isCallServiceRunning(CallService.class)) {
+                Log.d(TAG, "CallService is running now");
+                CallActivity.start(getActivity(), isIncomingCall);
+            }
         }
+        Archive_Reload();
         clearAppNotifications();
         if (SharedPrefsHelper.getInstance().get_E_CARD_URL() != null) {
             if (SharedPrefsHelper.getInstance().get_E_CARD_URL().equalsIgnoreCase("")) {
@@ -701,20 +788,28 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
 
         @Override
         public Void performInBackground(Void... voids) throws Exception {
-            ChatHelper.getInstance().join(dialogs);
+            try{
+                ChatHelper.getInstance().join(dialogs);
+            }catch (Exception e){}
+
             return null;
         }
 
         @Override
         public void onResult(Void aVoid) {
-            if (activityRef.get() != null) {
-                activityRef.get().disableProgress();
-                if (clearDialogHolder) {
-                    QbDialogHolder.getInstance().clear();
+            try{
+                if (activityRef.get() != null) {
+                    activityRef.get().disableProgress();
+                    if (clearDialogHolder) {
+                        QbDialogHolder.getInstance().clear();
+                    }
+                    QbDialogHolder.getInstance().addDialogs(dialogs);
+                    activityRef.get().updateDialogsAdapter();
                 }
-                QbDialogHolder.getInstance().addDialogs(dialogs);
-                activityRef.get().updateDialogsAdapter();
+            }catch (Exception e){
+
             }
+
         }
 
         @Override

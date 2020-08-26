@@ -56,6 +56,8 @@ public class LoginService extends Service {
     private QBUser currentUser;
 
     public static void start(Context context, QBUser qbUser, PendingIntent pendingIntent) {
+
+
         SharedPrefsHelper.getInstance().set_LOGIN_SERVICE_STATUS("start");
         Intent intent = new Intent(context, LoginService.class);
         intent.putExtra(EXTRA_COMMAND_TO_SERVICE, COMMAND_LOGIN);
@@ -226,9 +228,11 @@ public class LoginService extends Service {
         QBRTCConfig.setDebugEnabled(true);
         SettingsUtil.configRTCTimers(LoginService.this);
 
-        // Add service as callback to RTCClient
-        rtcClient.addSessionCallbacksListener(WebRtcSessionManager.getInstance(this));
-        rtcClient.prepareToProcessCalls();
+        try {
+            rtcClient.addSessionCallbacksListener(WebRtcSessionManager.getInstance(this));
+            rtcClient.prepareToProcessCalls();
+        }catch (Exception e){}
+
 
 
     }

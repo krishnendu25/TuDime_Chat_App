@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.SmsManager;
@@ -78,7 +80,20 @@ public class Constant
 
     }
 
+    public static boolean isOnline(Context context) {
+        ConnectivityManager conMgr = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            /*
+             * Toast.makeText(getActivity(), "No Internet connection!",
+             * Toast.LENGTH_LONG).show();
+             */
+            return false;
+        }
+        return true;
+    }
     public static void showErrorAlert(final Context c, String text) {
         AlertDialog.Builder alertDialogBuilder;
 

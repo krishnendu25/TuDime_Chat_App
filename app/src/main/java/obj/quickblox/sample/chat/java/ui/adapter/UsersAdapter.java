@@ -83,7 +83,6 @@ public class UsersAdapter extends BaseAdapter {
         if (isUserMe(user)) {
           holder.loginTextView.setText(user.getFullName()+"   "+context.getString(R.string.placeholder_username_you));
             holder.text_loginid.setText(user.getLogin());
-            convertView.setVisibility(View.GONE);
         } else {
             holder.loginTextView.setText(user.getFullName());
             holder.text_loginid.setText(user.getLogin());

@@ -28,8 +28,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_QBChatDialog = "DB_QBChatDialog";
     public static final String CHAT_DIALOG_ALL = "chat_dialog_id";
     public static final String DB_CALL_TABLE = "DB_CALL_TABLE";
-
-
     /* RecipientId*/
     public static final String SERECT_CHAT_TABLE = "SERECT_CHAT_TABLE";
     public static final String SERECT_CHAT_QBChat_USER_ID = "SERECT_CHAT_QBChat_USER_ID";
@@ -37,9 +35,11 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String SERECT_CHAT_CHAT_DIALOG_ALL = "SERECT_CHAT_CHAT_DIALOG_ALL";
 
 
-
-
-
+    /* Chat_Dialog*/
+    public static final String QB_LOCAL_TABLE = "QBlocaltable";
+    public static final String QB_LOCAL_USER_ID = "QBlocaluserid";
+    public static final String QB_LOCAL_ChatDialog = "QBlocalchatdialog";
+    public static final String QB_LOCAL_DIALOG_ALL = "QBlocalchatdialogall";
 
 
     public static final String DB_CALL_QBUSER = "DB_CALL_QBUSER";
@@ -51,6 +51,8 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_CALL_START_TIME = "DB_CALL_START_TIME";
     public static final String CALL_STATUS="CALL_STATUS";
 
+
+
     public static final String DB_QB_UPDATE_CONTACT = "DB_QB_UPDATE_CONTACT";
     public static final String DB_FULLNAME = "DB_FULLNAME";
     public static final String DB_EMAIL = "DB_EMAIL";
@@ -59,13 +61,6 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_WEBSITE = "DB_WEBSITE";
     public static final String DB_PASSWORD = "DB_PASSWORD";
     public static final String DB_IS_QBUSER = "DB_IS_QBUSER";
-
-
-
-
-
-
-
 
 
     private static final String DB_NAME = "groupchatwebrtcDB";
@@ -78,7 +73,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        Log.d(TAG, "--- onCreate database ---");
         db.execSQL("create table " + DB_TABLE_NAME + " ("
                 + DB_COLUMN_ID + " integer primary key autoincrement,"
                 + DB_COLUMN_USER_ID + " integer,"
@@ -87,8 +81,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DB_COLUMN_USER_FULL_NAME + " text,"
                 + DB_COLUMN_USER_TAG + " text"
                 + ");");
-
-
         db.execSQL("create table " + DB_QB_TABLE + " ("
                 + DB_COLUMN_ID + " integer primary key autoincrement,"
                 + DB_QB_USER_ID + " text ,"
@@ -98,24 +90,23 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DB_EVENT_DATE + " text,"
                 + DB_EVENT_NOTIFIATION + " text"
                 + ");");
-
-
         db.execSQL("create table " + DB_QBChat_TABLE + " ("
                 + DB_QBChat_USER_ID + " text ,"
                 + DB_QBChatDialog + " text ,"
                 + CHAT_DIALOG_ALL + " text"
                 + ");");
 
-
+        db.execSQL("create table " + QB_LOCAL_TABLE + " ("
+                + QB_LOCAL_USER_ID + " text ,"
+                + QB_LOCAL_ChatDialog + " text ,"
+                + QB_LOCAL_DIALOG_ALL + " text"
+                + ");");
 
         db.execSQL("create table " + SERECT_CHAT_TABLE + " ("
                 + SERECT_CHAT_QBChat_USER_ID + " text ,"
                 + SERECT_CHAT_QBChatDialog + " text ,"
                 + SERECT_CHAT_CHAT_DIALOG_ALL + " text"
                 + ");");
-
-
-
         db.execSQL("create table " + DB_CALL_TABLE + " ("
                 + DB_CALL_ID + " integer primary key autoincrement,"
                 + DB_CALL_QBUSER + " text ,"
@@ -126,10 +117,6 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DB_CALL_START_TIME + " text,"
                 + DB_CALL_TYPE + " text"
                 + ");");
-
-
-
-
         db.execSQL("create table " + DB_QB_UPDATE_CONTACT + " ("
                 + DB_FULLNAME + " text,"
                 + DB_EMAIL + " text ,"
@@ -139,9 +126,7 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DB_PASSWORD + " text,"
                 + DB_IS_QBUSER + " text"
                 + ");");
-
     }
-
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(" DROP TABLE IF EXISTS " + DB_QB_UPDATE_CONTACT);

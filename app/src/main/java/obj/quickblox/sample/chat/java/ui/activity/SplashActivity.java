@@ -56,16 +56,10 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void run() {
                         if (SharedPrefsHelper.getInstance().hasQbUser()) {
-                            //zrestoreChatSession();
                             try{
-                             //   LoginService.start(SplashActivity.this, sharedPrefsHelper.getQbUser());
                                 DashBoard.start(SplashActivity.this);
                             }catch (Exception e)
-                            {
-                                DashBoard.start(SplashActivity.this);
-
-                               
-                            }
+                            {DashBoard.start(SplashActivity.this);}
                         } else {
                             startActivity(new Intent(getApplicationContext(), SetLanguage.class));
                             finish();
@@ -92,15 +86,11 @@ public class SplashActivity extends BaseActivity {
                         @Override
                         public void run() {
                             if (SharedPrefsHelper.getInstance().hasQbUser()) {
-                                //zrestoreChatSession();
                                 try{
-                                 //   LoginService.start(SplashActivity.this, sharedPrefsHelper.getQbUser());
                                     DashBoard.start(SplashActivity.this);
                                     finish();
                                 }catch (Exception e)
-                                {
-                                   
-                                }
+                                { }
                             } else {
                                 startActivity(new Intent(getApplicationContext(), SetLanguage.class));
                                 finish();
@@ -332,15 +322,10 @@ public class SplashActivity extends BaseActivity {
                                 @Override
                                 public void run() {
                                     if (SharedPrefsHelper.getInstance().hasQbUser()) {
-                                        //zrestoreChatSession();
                                         try{
-                                         //   LoginService.start(SplashActivity.this, sharedPrefsHelper.getQbUser());
                                             DashBoard.start(SplashActivity.this);
-                                            finish();
-                                        }catch (Exception e)
-                                        {
-                                           
-                                        }
+                                            finish(); }catch (Exception e)
+                                        { }
 
                                     } else {
                                         startActivity(new Intent(getApplicationContext(), SetLanguage.class));

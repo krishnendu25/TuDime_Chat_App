@@ -111,7 +111,10 @@ public class CallService extends Service {
 
     @Override
     public void onCreate() {
-        currentSession = WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession();
+        try {
+            currentSession = WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession();
+        }catch (Exception e){}
+
         clearButtonsState();
         initNetworkChecker();
         initRTCClient();
@@ -639,24 +642,30 @@ public class CallService extends Service {
 
         @Override
         public void onSessionStartClose(QBRTCSession session) {
-            if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
-                CallService.stop(getApplicationContext());
-            }
+            try {
+                if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
+                    CallService.stop(getApplicationContext());
+                }
+            }catch (Exception e){}
+
         }
 
         @Override
         public void onReceiveHangUpFromUser(QBRTCSession session, Integer userID, Map<String, String> map) {
-            stopRingtone();
-            if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
-                Log.d(TAG, "Initiator HangUp the Call");
-                if (userID.equals(session.getCallerID()) && currentSession != null) {
-                    currentSession.hangUp(new HashMap<>());
-                }
+            try {
+                stopRingtone();
+                if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
+                    Log.d(TAG, "Initiator HangUp the Call");
+                    if (userID.equals(session.getCallerID()) && currentSession != null) {
+                        currentSession.hangUp(new HashMap<>());
+                    }
 
-                QBUser participant = QbUsersDbManager.getInstance(getApplicationContext()).getUserById(userID);
-                String participantName = participant != null ? participant.getFullName() : userID.toString();
-                //   ToastUtils.shortToast("User " + participantName + " " + getString(R.string.text_status_hang_up) + " conversation");
-            }
+                    QBUser participant = QbUsersDbManager.getInstance(getApplicationContext()).getUserById(userID);
+                    String participantName = participant != null ? participant.getFullName() : userID.toString();
+                    //   ToastUtils.shortToast("User " + participantName + " " + getString(R.string.text_status_hang_up) + " conversation");
+                }
+            }catch (Exception e){}
+
         }
 
         @Override

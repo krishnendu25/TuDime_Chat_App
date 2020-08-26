@@ -76,4 +76,5 @@ public interface ConversationFragmentCallback {
     HashMap<Integer, QBRTCVideoTrack> getVideoTrackMap();
 
     QBRTCVideoTrack getVideoTrack(Integer userId);
+
 }

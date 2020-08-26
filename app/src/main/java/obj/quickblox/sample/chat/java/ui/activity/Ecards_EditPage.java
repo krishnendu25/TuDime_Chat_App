@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.provider.Telephony;
 import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.View;
@@ -140,7 +141,7 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                 }
                 break;
             case R.id.preview:
-
+                showShareDialogBox("pre");
                 break;
             case R.id.go:
                     showShareDialogBox();
@@ -224,6 +225,26 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
 
     }
 
+    private void showShareDialogBox(String pre) {
+        try{
+        if (!imageEncoded.equals("")) {
+            value="pre";
+            hitSignatureApi(file, "pre");
+        } else if (file_voice != null) {
+            value="pre";
+            hitUploadFileApiRequest(file_voice, "pre");
+
+        } else {
+            value="pre";
+            hitApi(file_imaage, "pre");
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        value="pre";
+        hitApi(file_imaage, "pre");
+    }
+    }
+
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
     }
@@ -273,10 +294,25 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                     return;
                 }else if (value.equals("tudime_sms")) {
                     String shareBody = jsonObject.getString("msg");
-                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-                    sendIntent.setData(Uri.parse("sms:"));
-                    sendIntent.putExtra("sms_body", shareBody);
-                    startActivity(sendIntent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) //At least KitKat
+                    {
+                        String defaultSmsPackageName = Telephony.Sms.getDefaultSmsPackage(this);
+                        Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                        sendIntent.setType("text/plain");
+                        sendIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
+                        if (defaultSmsPackageName != null)
+                        {
+                            sendIntent.setPackage(defaultSmsPackageName);
+                        }
+                        startActivity(sendIntent);
+                    }
+                    else
+                    {
+                        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                        sendIntent.setData(Uri.parse("sms:"));
+                        sendIntent.putExtra("sms_body",shareBody);
+                        startActivity(sendIntent);
+                    }
                     return;
                 } else {
                     return;
@@ -610,9 +646,6 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         }
     }
 
-
-
-
     private void showVoiceRecorderPopup() {
         VoiceMemoDialog dialog = new VoiceMemoDialog();
         dialog.setOnAudioRecordedListener(new OnAudioRecordedListener() {
@@ -647,11 +680,6 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
             findViewById(R.id.linear_play).setVisibility(View.VISIBLE);
         }
     }
-
-
-
-
-
 
     private void hitUploadFileApiRequest(final File file, final String value)
     {
