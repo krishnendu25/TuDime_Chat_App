@@ -30,8 +30,8 @@ android {
         applicationId "obj.quickblox.sample.chat.java"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 5130
-        versionName '5.13.0'
+        versionCode 6140
+        versionName '6.14.0'
         multiDexEnabled true
         ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
     }

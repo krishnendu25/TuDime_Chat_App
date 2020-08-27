@@ -163,13 +163,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         }
     }
 
-    /**
-     * Sets listener for handling pressed links on message text.
-     *
-     * @param textViewLinkClickListener listener to set. Must to implement {@link MessageLinkClickListener}
-     * @param overrideOnClick           set 'true' if have to himself manage onLinkClick event or set 'false' for delegate
-     *                                  onLinkClick event to {@link android.text.util.Linkify}
-     */
     public void setMessageTextViewLinkClickListener(MessageLinkClickListener textViewLinkClickListener, boolean overrideOnClick) {
         this.messageTextViewLinkClickListener = textViewLinkClickListener;
         this.overrideOnClick = overrideOnClick;
@@ -180,18 +173,27 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     }
 
     public void removeAttachImageClickListener() {
+
         attachImageClickListener = null;
     }
 
     public void addToList(List<QBChatMessage> items) {
-        chatMessages.addAll(0, items);
-        notifyItemRangeInserted(0, items.size());
+        if (Constant.isOnline(context))
+        {
+            chatMessages.addAll(0, items);
+            notifyItemRangeInserted(0, items.size());
+        }
+
     }
 
     public void addList(List<QBChatMessage> items) {
-        chatMessages.clear();
-        chatMessages.addAll(items);
-        notifyDataSetChanged();
+        if (Constant.isOnline(context))
+        {
+            chatMessages.clear();
+            chatMessages.addAll(items);
+            notifyDataSetChanged();
+        }
+
     }
 
     public void add(QBChatMessage item) {
@@ -233,8 +235,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                         R.id.msg_text_time_attach, R.id.msg_signs_attach);
                 return viewHolder;
             default:
-                Log.d(TAG, "onCreateViewHolder case default");
-                // resource must be set manually by creating custom adapter
                 return onCreateCustomViewHolder(parent, viewType);
         }
     }
@@ -248,17 +248,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                 textMessageHolder.linkPreviewLayout.setTag(null);
             }
         }
-
-        //abort loading avatar before setting new avatar to view
         if (containerLayoutRes.get(holder.getItemViewType()) != 0 && holder.avatar != null) {
             Glide.clear(holder.avatar);
         }
-
         super.onViewRecycled(holder);
     }
 
     private MessageViewHolder onCreateCustomViewHolder(ViewGroup parent, int viewType) {
-        Log.e(TAG, "You must create ViewHolder by your own");
         return null;
     }
 
@@ -425,13 +421,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
     private void Show_Edit_Message(int position,Context context, String dialogId, String messagesIds, String body)
     {
-
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.edit_send_message, null);
         dialogBuilder.setView(dialogView);
-
         TextView close_dialog = dialogView.findViewById(R.id.close_dialog);
         EditText msg_box = dialogView.findViewById(R.id.msg_box);
         ProgressBar progress_chat  = dialogView.findViewById(R.id.progress_chat);
@@ -478,21 +471,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
             }
         });
-
-
         close_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 alertDialog.dismiss();
             }
         });
-
         alertDialog.show();
-
-
-
-
-
     }
 
     private void onBindViewMsgLeftHolder(TextMessageHolder holder, QBChatMessage chatMessage, int position) {
@@ -853,45 +838,60 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     }
 
     private boolean isReadByCurrentUser(QBChatMessage chatMessage) {
-        Integer currentUserId = ChatHelper.getCurrentUser().getId();
-        return !CollectionsUtil.isEmpty(chatMessage.getReadIds()) && chatMessage.getReadIds().contains(currentUserId);
+            Integer currentUserId = ChatHelper.getCurrentUser().getId();
+            return !CollectionsUtil.isEmpty(chatMessage.getReadIds()) && chatMessage.getReadIds().contains(currentUserId);
     }
 
     private boolean isRead(QBChatMessage chatMessage) {
         boolean read = false;
-        Integer recipientId = chatMessage.getRecipientId();
-        Integer currentUserId = ChatHelper.getCurrentUser().getId();
-        Collection<Integer> readIds = chatMessage.getReadIds();
-        if (readIds == null) {
-            return false;
+        if (Constant.isOnline(context))
+        {
+            Integer recipientId = chatMessage.getRecipientId();
+            Integer currentUserId = ChatHelper.getCurrentUser().getId();
+            Collection<Integer> readIds = chatMessage.getReadIds();
+            if (readIds == null) {
+                return false;
+            }
+            if (recipientId != null && !recipientId.equals(currentUserId) && readIds.contains(recipientId)) {
+                read = true;
+            } else if (readIds.size() == 1 && readIds.contains(currentUserId)) {
+                read = false;
+            } else if (readIds.size() > 0) {
+                read = true;
+            }
+            return read;
+        }else
+        {
+            return read;
         }
-        if (recipientId != null && !recipientId.equals(currentUserId) && readIds.contains(recipientId)) {
-            read = true;
-        } else if (readIds.size() == 1 && readIds.contains(currentUserId)) {
-            read = false;
-        } else if (readIds.size() > 0) {
-            read = true;
-        }
-        return read;
+
     }
 
     private boolean isDelivered(QBChatMessage chatMessage) {
         boolean delivered = false;
-        Integer recipientId = chatMessage.getRecipientId();
-        Integer currentUserId = ChatHelper.getCurrentUser().getId();
-        Collection<Integer> deliveredIds = chatMessage.getDeliveredIds();
-        if (deliveredIds == null) {
-            return false;
-        }
-        if (recipientId != null && !recipientId.equals(currentUserId) && deliveredIds.contains(recipientId)) {
-            delivered = true;
-        } else if (deliveredIds.size() == 1 && deliveredIds.contains(currentUserId)) {
-            delivered = false;
-        } else if (deliveredIds.size() > 0) {
-            delivered = true;
+        if (Constant.isOnline(context))
+        {
+            Integer recipientId = chatMessage.getRecipientId();
+            Integer currentUserId = ChatHelper.getCurrentUser().getId();
+            Collection<Integer> deliveredIds = chatMessage.getDeliveredIds();
+            if (deliveredIds == null) {
+                return false;
+            }
+            if (recipientId != null && !recipientId.equals(currentUserId) && deliveredIds.contains(recipientId)) {
+                delivered = true;
+            } else if (deliveredIds.size() == 1 && deliveredIds.contains(currentUserId)) {
+                delivered = false;
+            } else if (deliveredIds.size() > 0) {
+                delivered = true;
+            }return delivered;
+        }else
+        {
+            return true;
         }
 
-        return delivered;
+
+
+
     }
 
     public void setPaginationHistoryListener(PaginationHistoryListener paginationListener) {
@@ -1005,8 +1005,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     }
 
     private boolean isIncoming(QBChatMessage chatMessage) {
-        QBUser currentUser = ChatHelper.getCurrentUser();
-        return chatMessage.getSenderId() != null && !chatMessage.getSenderId().equals(currentUser.getId());
+
+            QBUser currentUser = ChatHelper.getCurrentUser();
+            return chatMessage.getSenderId() != null && !chatMessage.getSenderId().equals(currentUser.getId());
     }
 
     private boolean hasAttachments(QBChatMessage chatMessage) {

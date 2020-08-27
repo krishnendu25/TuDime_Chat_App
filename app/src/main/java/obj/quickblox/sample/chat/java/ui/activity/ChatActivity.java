@@ -329,92 +329,95 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
                         DELAY);
             }
         });
-        QBChatDialogTypingListener typingListener = new QBChatDialogTypingListener() {
-            @Override
-            public void processUserIsTyping(String dialogId, Integer senderId) {
-               /* typing_view.setVisibility(View.VISIBLE);
-                String name = QbDialogUtils.getDialogName(qbChatDialog);
-                typing_view.setText("      " + name + " " +);*/
-                setActionbarSubTitle(getResources().getString(R.string.typing));
-            }
 
-            @Override
-            public void processUserStopTyping(String dialogId, Integer senderId) {
-                setActionbarSubTitle("Online");
-            }
-        };
-        qbChatDialog.addIsTypingListener(typingListener);
-        //Online/ofline
-        QBSubscriptionListener subscriptionListener = new QBSubscriptionListener() {
-            @Override
-            public void subscriptionRequested(int userId) {
-                try {
-                    if (chatRoster != null)
-                        chatRoster.confirmSubscription(userId);
-                } catch (SmackException.NotConnectedException e) {
-
-                } catch (SmackException.NotLoggedInException e) {
-
-                } catch (XMPPException e) {
-
-                } catch (SmackException.NoResponseException e) {
-
+        if(Constant.isOnline(this))
+        {
+            QBChatDialogTypingListener typingListener = new QBChatDialogTypingListener() {
+                @Override
+                public void processUserIsTyping(String dialogId, Integer senderId) {
+                    setActionbarSubTitle(getResources().getString(R.string.typing));
                 }
-            }
-        };
-        chatRoster = QBChatService.getInstance().getRoster(QBRoster.SubscriptionMode.mutual, subscriptionListener);
-        // to send subscription request
-        try {
-            chatRoster.subscribe(qbChatDialog.getRecipientId()); //getRecipientId is Opponent UserID
-        } catch (SmackException.NotConnectedException e) {
-            e.printStackTrace();
-        }
-        QBRosterListener rosterListener = new QBRosterListener() {
-            @Override
-            public void entriesDeleted(Collection<Integer> userIds) {
-            }
 
-            @Override
-            public void entriesAdded(Collection<Integer> userIds) {
-            }
+                @Override
+                public void processUserStopTyping(String dialogId, Integer senderId) {
+                    setActionbarSubTitle("Online");
+                }
+            };
+            qbChatDialog.addIsTypingListener(typingListener);
+            //Online/ofline
+            QBSubscriptionListener subscriptionListener = new QBSubscriptionListener() {
+                @Override
+                public void subscriptionRequested(int userId) {
+                    try {
+                        if (chatRoster != null)
+                            chatRoster.confirmSubscription(userId);
+                    } catch (SmackException.NotConnectedException e) {
 
-            @Override
-            public void entriesUpdated(Collection<Integer> userIds) {
-            }
+                    } catch (SmackException.NotLoggedInException e) {
 
-            @Override
-            public void presenceChanged(QBPresence presence1) {
-                try {
-                    int userid = presence1.getUserId();
-                    int recid = qbChatDialog.getRecipientId();//opponent   user id
-                    if (userid == recid) {
+                    } catch (XMPPException e) {
 
-                        if (presence1.getType() == QBPresence.Type.online)
-                            //status.setText(getResources().getString(R.string.online));
-                            setActionbarSubTitle("Online");
-                        else {
-                            setActionbarSubTitle("");
-                            String lastseen = getlastseen();
-                            if (lastseen.length() > 0) {
-                                setActionbarSubTitle(lastseen);
-                            }
-                        }
-                    } else {
+                    } catch (SmackException.NoResponseException e) {
+
                     }
-                } catch (Exception e) {
-
+                }
+            };
+            chatRoster = QBChatService.getInstance().getRoster(QBRoster.SubscriptionMode.mutual, subscriptionListener);
+            // to send subscription request
+            try {
+                chatRoster.subscribe(qbChatDialog.getRecipientId()); //getRecipientId is Opponent UserID
+            } catch (SmackException.NotConnectedException e) {
+                e.printStackTrace();
+            }
+            QBRosterListener rosterListener = new QBRosterListener() {
+                @Override
+                public void entriesDeleted(Collection<Integer> userIds) {
                 }
 
+                @Override
+                public void entriesAdded(Collection<Integer> userIds) {
+                }
+
+                @Override
+                public void entriesUpdated(Collection<Integer> userIds) {
+                }
+
+                @Override
+                public void presenceChanged(QBPresence presence1) {
+                    try {
+                        int userid = presence1.getUserId();
+                        int recid = qbChatDialog.getRecipientId();//opponent   user id
+                        if (userid == recid) {
+
+                            if (presence1.getType() == QBPresence.Type.online)
+                                //status.setText(getResources().getString(R.string.online));
+                                setActionbarSubTitle("Online");
+                            else {
+                                setActionbarSubTitle("");
+                                String lastseen = getlastseen();
+                                if (lastseen.length() > 0) {
+                                    setActionbarSubTitle(lastseen);
+                                }
+                            }
+                        } else {
+                        }
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            };
+            QBPresence presence = chatRoster.getPresence(qbChatDialog.getRecipientId());
+            if (presence.getType() == QBPresence.Type.online) {
+                rosterListener.presenceChanged(presence);
+            } else {
+                rosterListener.presenceChanged(presence);
             }
-        };
-        QBPresence presence = chatRoster.getPresence(qbChatDialog.getRecipientId());
-        if (presence.getType() == QBPresence.Type.online) {
-            rosterListener.presenceChanged(presence);
-        } else {
-            rosterListener.presenceChanged(presence);
+            updateTime();
         }
-        updateTime();
-    }
+        }
+
+
     void updateTime() {
         Handler timerHandler = new Handler();
 
@@ -468,15 +471,22 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
         dialogsManager.addManagingDialogsCallbackListener(this);
         systemMessagesManager = QBChatService.getInstance().getSystemMessagesManager();
         systemMessagesListener = new SystemMessagesListener();
-        qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
-        Log.v(TAG, "Deserialized dialog = " + qbChatDialog);
-        qbChatDialog.initForChat(QBChatService.getInstance());
-        chatMessageListener = new ChatMessageListener();
-        qbChatDialog.addMessageListener(chatMessageListener);
+        try{
+            qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
+        }catch (Exception e){}
+       try{
+           if (Constant.isOnline(this))
+           {
+
+               qbChatDialog.initForChat(QBChatService.getInstance());
+               chatMessageListener = new ChatMessageListener();
+               qbChatDialog.addMessageListener(chatMessageListener);
+           }
+       }catch (Exception e) {  }
+
         layout_chat_container = findViewById(R.id.layout_chat_container);
         layout_chat_container.setOnClickListener(this);
         emojiKeyboard = new EmojiKeyboard(this, layout_chat_container);
-        System.out.println("qqiu    " + qbChatDialog.getUserId());
         checker = new PermissionsChecker(getApplicationContext());
         currentUser = SharedPrefsHelper.getInstance().getQbUser();
         OTHER_SHOW_View = (CardView) findViewById(R.id.OTHER_SHOW_View);
@@ -537,20 +547,26 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
         spin_translate.setAdapter(adapter);
         spin_translate.setOnItemSelectedListener(this);
 
-
-        if (qbChatDialog.getType() != QBDialogType.GROUP) {
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeButtonEnabled(true);
-        } else {
-            setActionbarSubTitle(String.valueOf(qbChatDialog.getOccupants().size()) + "group members");
+        if (Constant.isOnline(this))
+        {
+            if (qbChatDialog.getType() != QBDialogType.GROUP) {
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+            } else {
+                setActionbarSubTitle(String.valueOf(qbChatDialog.getOccupants().size()) + "group members");
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeButtonEnabled(true);
+            }
+        }else
+        {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
-
-
     }
     @Override
     public void onClick(View view) {
@@ -711,27 +727,32 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
     }
     @Override
     public void onResumeFinished() {
-        if (ChatHelper.getInstance().isLogged()) {
-            if (qbChatDialog == null) {
-                qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
-            }
-            returnToChat();
-        } else {
-            showProgressDialog(R.string.dlg_loading);
-            ChatHelper.getInstance().loginToChat(SharedPrefsHelper.getInstance().getQbUser(), new QBEntityCallback<Void>() {
-                @Override
-                public void onSuccess(Void aVoid, Bundle bundle) {
-                    returnToChat();
-                    hideProgressDialog();
+        if (Constant.isOnline(getApplicationContext()))
+        {
+            if (ChatHelper.getInstance().isLogged()) {
+                if (qbChatDialog == null) {
+                    qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
                 }
+                returnToChat();
+            } else {
+                showProgressDialog(R.string.dlg_loading);
+                ChatHelper.getInstance().loginToChat(SharedPrefsHelper.getInstance().getQbUser(), new QBEntityCallback<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid, Bundle bundle) {
+                        returnToChat();
+                        hideProgressDialog();
+                    }
 
-                @Override
-                public void onError(QBResponseException e) {
-                    hideProgressDialog();
-                    finish();
-                }
-            });
+                    @Override
+                    public void onError(QBResponseException e) {
+                        hideProgressDialog();
+                        if (Constant.isOnline(getApplicationContext()))
+                        {finish();}
+                    }
+                });
+            }
         }
+
     }
     private void returnToChat() {
         qbChatDialog.initForChat(QBChatService.getInstance());
@@ -739,7 +760,8 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
             try {
                 qbChatDialog.join(new DiscussionHistory());
             } catch (Exception e) {
-                finish();
+                if (Constant.isOnline(getApplicationContext()))
+                {finish();}
             }
         }
         // Loading unread messages received in background
@@ -758,7 +780,8 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
             try {
                 qbChatDialog.join(new DiscussionHistory());
             } catch (Exception e) {
-                finish();
+                if (Constant.isOnline(getApplicationContext()))
+                {finish();}
             }
         }
         // Loading unread messages received in background
@@ -773,15 +796,18 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
     @Override
     protected void onResume() {
         super.onResume();
-
-        boolean isIncomingCall = SharedPrefsHelper.getInstance().get(Consts.EXTRA_IS_INCOMING_CALL, false);
-        System.out.println("ChatActivity Serivce: " + isCallServiceRunning(CallService.class));
-        if (isCallServiceRunning(CallService.class)) {
-            Log.d(TAG, "CallService is running now " + isIncomingCall);
-            System.out.println("ChatActivity Serivce: " + isIncomingCall);
-            CallActivity.start(this, isIncomingCall);
+        if (Constant.isOnline(getApplicationContext()))
+        {
+            boolean isIncomingCall = SharedPrefsHelper.getInstance().get(Consts.EXTRA_IS_INCOMING_CALL, false);
+            System.out.println("ChatActivity Serivce: " + isCallServiceRunning(CallService.class));
+            if (isCallServiceRunning(CallService.class)) {
+                Log.d(TAG, "CallService is running now " + isIncomingCall);
+                System.out.println("ChatActivity Serivce: " + isIncomingCall);
+                CallActivity.start(this, isIncomingCall);
+            }
+            clearAppNotifications();
         }
-        clearAppNotifications();
+
 
         if (qbChatDialog.getPhoto() != null) {
 
@@ -853,27 +879,39 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
     @Override
     protected void onPause() {
         super.onPause();
-        chatAdapter.removeAttachImageClickListener();
-        ChatHelper.getInstance().removeConnectionListener(chatConnectionListener);
-        qbMessageStatusesManager.removeMessageStatusListener(this);
-        SharedPrefsHelper.getInstance().save(IS_IN_BACKGROUND, true);
+        if (Constant.isOnline(this))
+        {
+            chatAdapter.removeAttachImageClickListener();
+            ChatHelper.getInstance().removeConnectionListener(chatConnectionListener);
+            qbMessageStatusesManager.removeMessageStatusListener(this);
+            SharedPrefsHelper.getInstance().save(IS_IN_BACKGROUND, true);
+        }
+
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (timerHandler != null)
-            timerHandler.removeCallbacks(updater);
-        if (systemMessagesManager != null) {
-            systemMessagesManager.removeSystemMessageListener(systemMessagesListener);
+        if (Constant.isOnline(this))
+        {
+            if (timerHandler != null)
+                timerHandler.removeCallbacks(updater);
+            if (systemMessagesManager != null) {
+                systemMessagesManager.removeSystemMessageListener(systemMessagesListener);
+            }
+            try{
+                qbChatDialog.removeMessageListrener(chatMessageListener);
+                dialogsManager.removeManagingDialogsCallbackListener(this);
+                SharedPrefsHelper.getInstance().delete(IS_IN_BACKGROUND);
+            }catch (Exception e){}
+
         }
-        qbChatDialog.removeMessageListrener(chatMessageListener);
-        dialogsManager.removeManagingDialogsCallbackListener(this);
-        SharedPrefsHelper.getInstance().delete(IS_IN_BACKGROUND);
+
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        qbChatDialog.removeMessageListrener(chatMessageListener);
+        if (Constant.isOnline(getApplicationContext()))
+        {  qbChatDialog.removeMessageListrener(chatMessageListener); }
         sendDialogId();
         finish();
     }
@@ -1179,10 +1217,14 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
         return true;
     }
     private void startLoginService() {
-        if (sharedPrefsHelper.hasQbUser()) {
-            QBUser qbUser = sharedPrefsHelper.getQbUser();
-            LoginService.start(this, qbUser);
+        if (Constant.isOnline(getApplicationContext()))
+        {
+            if (sharedPrefsHelper.hasQbUser()) {
+                QBUser qbUser = sharedPrefsHelper.getQbUser();
+                LoginService.start(this, qbUser);
+            }
         }
+
     }
     @SuppressWarnings("unchecked")
     @Override
@@ -1267,11 +1309,6 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
                 } catch (Exception e) {
 
                 }
-
-
-
-
-
             }
 
         }
@@ -1478,6 +1515,19 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
         layoutManager.setStackFromEnd(true);
         chatMessagesRecyclerView.setLayoutManager(layoutManager);
         messagesList = new ArrayList<>();
+        if (!Constant.isOnline(this))
+        {
+            try{
+                messagesList = (ArrayList<QBChatMessage>) getIntent().getSerializableExtra("AllChat");
+                qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
+                String USER_NAME = getIntent().getStringExtra("USER_NAME");
+                ActionBar ab = getSupportActionBar();
+                ab.setTitle(USER_NAME);
+                setActionbarSubTitle("Offline");
+            }catch (Exception e){
+            }
+        }
+
         chatAdapter = new ChatAdapter(this, qbChatDialog, messagesList);
         chatAdapter.setPaginationHistoryListener(new PaginationListener());
         chatMessagesRecyclerView.addItemDecoration(
@@ -1555,29 +1605,36 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
                 loadDialogUsers();
                 break;
             default:
-                finish();
+                if (Constant.isOnline(this))
+                {finish();}
                 break;
         }
     }
 
     public void joinGroupChat() {
-        show_dialog();
-        ChatHelper.getInstance().join(qbChatDialog, new QBEntityCallback<Void>() {
-            @Override
-            public void onSuccess(Void result, Bundle b) {
-                Log.d(TAG, "Joined to Dialog Successful");
-                notifyUsersAboutCreatingDialog();
-                hideProgressDialog();
-                loadDialogUsers();
-            }
 
-            @Override
-            public void onError(QBResponseException e) {
-                Log.d(TAG, "Joining Dialog Error:" + e.getMessage());
-                hide_dialog();
-                showErrorSnackbar(R.string.connection_error, e, null);
-            }
-        });
+        if (Constant.isOnline(this))
+        {
+            show_dialog();
+            ChatHelper.getInstance().join(qbChatDialog, new QBEntityCallback<Void>() {
+                @Override
+                public void onSuccess(Void result, Bundle b) {
+                    Log.d(TAG, "Joined to Dialog Successful");
+                    notifyUsersAboutCreatingDialog();
+                    hideProgressDialog();
+                    loadDialogUsers();
+                }
+
+                @Override
+                public void onError(QBResponseException e) {
+                    Log.d(TAG, "Joining Dialog Error:" + e.getMessage());
+                    hide_dialog();
+                    showErrorSnackbar(R.string.connection_error, e, null);
+                }
+            });
+        }else{
+            loadDialogUsers();
+        }
     }
 
     private void notifyUsersAboutCreatingDialog() {
@@ -1611,27 +1668,31 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
     }
 
     private void loadDialogUsers() {
-        ChatHelper.getInstance().getUsersFromDialog(qbChatDialog, new QBEntityCallback<ArrayList<QBUser>>() {
-            @Override
-            public void onSuccess(ArrayList<QBUser> users, Bundle bundle) {
-                setChatNameToActionBar();
+        if (Constant.isOnline(this))
+        {
+            ChatHelper.getInstance().getUsersFromDialog(qbChatDialog, new QBEntityCallback<ArrayList<QBUser>>() {
+                @Override
+                public void onSuccess(ArrayList<QBUser> users, Bundle bundle) {
+                    setChatNameToActionBar();
+                    loadChatHistory();
+                }
 
-
-                loadChatHistory();
-            }
-
-            @Override
-            public void onError(QBResponseException e) {
-                hide_dialog();
-                showErrorSnackbar(R.string.chat_load_users_error, e,
-                        new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                loadDialogUsers();
-                            }
-                        });
-            }
-        });
+                @Override
+                public void onError(QBResponseException e) {
+                    hide_dialog();
+                    showErrorSnackbar(R.string.chat_load_users_error, e,
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    loadDialogUsers();
+                                }
+                            });
+                }
+            });
+        }else
+        {
+            loadChatHistory();
+        }
     }
 
     private void setChatNameToActionBar() {
@@ -1644,33 +1705,50 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
     }
 
     public void loadChatHistory() {
-        ChatHelper.getInstance().loadChatHistory(qbChatDialog, skipPagination, new QBEntityCallback<ArrayList<QBChatMessage>>() {
-            @Override
-            public void onSuccess(ArrayList<QBChatMessage> messages, Bundle args) {
-                messages.size();
+        if (Constant.isOnline(this))
+        {
+            ChatHelper.getInstance().loadChatHistory(qbChatDialog, skipPagination, new QBEntityCallback<ArrayList<QBChatMessage>>() {
+                @Override
+                public void onSuccess(ArrayList<QBChatMessage> messages, Bundle args) {
+                    messages.size();
 
-                Collections.reverse(Chat_Filter(messages));
-                if (!checkAdapterInit) {
-                    checkAdapterInit = true;
-                    chatAdapter.addList(messages);
-                    addDelayedMessagesToAdapter();
-                } else {
-                    chatAdapter.addToList(messages);
+                    Collections.reverse(Chat_Filter(messages));
+                    if (!checkAdapterInit) {
+                        checkAdapterInit = true;
+                        chatAdapter.addList(messages);
+                        addDelayedMessagesToAdapter();
+                    } else {
+                        chatAdapter.addToList(messages);
+                    }
+                    if (skipPagination == 0) {
+                        scrollMessageListDown();
+                    }
+                    skipPagination += ChatHelper.CHAT_HISTORY_ITEMS_PER_PAGE;
+                    hide_dialog();
                 }
-                if (skipPagination == 0) {
-                    scrollMessageListDown();
-                }
-                skipPagination += ChatHelper.CHAT_HISTORY_ITEMS_PER_PAGE;
-                hide_dialog();
-            }
 
-            @Override
-            public void onError(QBResponseException e) {
-                Log.d(TAG, "Loading Dialog History Error: " + e.getMessage());
-                hide_dialog();
-                showErrorSnackbar(R.string.connection_error, e, null);
+                @Override
+                public void onError(QBResponseException e) {
+                    Log.d(TAG, "Loading Dialog History Error: " + e.getMessage());
+                    hide_dialog();
+                    showErrorSnackbar(R.string.connection_error, e, null);
+                }
+            });
+        }else
+        {
+            if (!checkAdapterInit) {
+                checkAdapterInit = true;
+                chatAdapter.addList(messagesList);
+                addDelayedMessagesToAdapter();
+            } else {
+                chatAdapter.addToList(messagesList);
             }
-        });
+            if (skipPagination == 0) {
+                scrollMessageListDown();
+            }
+            skipPagination += ChatHelper.CHAT_HISTORY_ITEMS_PER_PAGE;
+        }
+
     }
 
     private List<QBChatMessage> Chat_Filter(ArrayList<QBChatMessage> messagedds) {
@@ -1923,22 +2001,28 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.Do_voice_call:
+                if (Constant.isOnline(getApplicationContext()))
+                {
+                    if (checkIsLoggedInChat()) {
+                        startCall(false);
+                    }
+                    if (checker.lacksPermissions(Consts.PERMISSIONS[1])) {
+                        startPermissionsActivity(true);
+                    }
+                }
 
-                if (checkIsLoggedInChat()) {
-                    startCall(false);
-                }
-                if (checker.lacksPermissions(Consts.PERMISSIONS[1])) {
-                    startPermissionsActivity(true);
-                }
                 break;
             case R.id.Do_Video_Call:
+                if (Constant.isOnline(getApplicationContext()))
+                {
+                    if (checkIsLoggedInChat()) {
+                        startCall(true);
+                    }
+                    if (checker.lacksPermissions(Consts.PERMISSIONS[1])) {
+                        startPermissionsActivity(true);
+                    }
+                }
 
-                if (checkIsLoggedInChat()) {
-                    startCall(true);
-                }
-                if (checker.lacksPermissions(Consts.PERMISSIONS[1])) {
-                    startPermissionsActivity(true);
-                }
                 break;
 
         }
@@ -2107,32 +2191,39 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
 
         protected String doInBackground(Void... arg0) {
 
-            Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            skipPagination = 0;
-                            checkAdapterInit = false;
-                            ChatHelper.getInstance().loadChatHistory(qbChatDialog, skipPagination, new QBEntityCallback<ArrayList<QBChatMessage>>() {
-                                @Override
-                                public void onSuccess(ArrayList<QBChatMessage> messages, Bundle args) {
-                                    messages.size();
-                                    Collections.reverse(Chat_Filter(messages));
-                                    chatAdapter.addList(messages);
-                                    hide_dialog();
-                                }
+            if (Constant.isOnline(getApplicationContext()))
+            {
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(
+                        new Runnable() {
+                            @Override
+                            public void run() {
+                                skipPagination = 0;
+                                checkAdapterInit = false;
+                                ChatHelper.getInstance().loadChatHistory(qbChatDialog, skipPagination, new QBEntityCallback<ArrayList<QBChatMessage>>() {
+                                    @Override
+                                    public void onSuccess(ArrayList<QBChatMessage> messages, Bundle args) {
+                                        messages.size();
+                                        Collections.reverse(Chat_Filter(messages));
+                                        chatAdapter.addList(messages);
+                                        hide_dialog();
+                                    }
 
-                                @Override
-                                public void onError(QBResponseException e) {
-                                    Log.d(TAG, "Loading Dialog History Error: " + e.getMessage());
-                                    hide_dialog();
-                                    showErrorSnackbar(R.string.connection_error, e, null);
-                                }
-                            });
+                                    @Override
+                                    public void onError(QBResponseException e) {
+                                        hide_dialog();
+                                        showErrorSnackbar(R.string.connection_error, e, null);
+                                    }
+                                });
+                            }
                         }
-                    }
-            );
+                );
+
+            }else
+            {
+                chatAdapter.addList(messagesList);
+            }
+
 
 
             return "You are at PostExecute";

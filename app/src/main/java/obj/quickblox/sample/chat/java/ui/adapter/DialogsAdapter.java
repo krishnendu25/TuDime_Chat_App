@@ -23,6 +23,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.quickblox.chat.model.QBChatDialog;
+import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialogType;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
@@ -38,6 +39,7 @@ import obj.quickblox.sample.chat.java.ui.activity.ChatActivity;
 import obj.quickblox.sample.chat.java.ui.activity.Chat_profile;
 import obj.quickblox.sample.chat.java.ui.activity.Group_Details_View;
 import obj.quickblox.sample.chat.java.ui.fragments.Chat_Fragment;
+import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.ResourceUtils;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.UiUtils;
@@ -49,6 +51,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static obj.quickblox.sample.chat.java.ui.activity.ChatActivity.EXTRA_DIALOG_ID;
 import static obj.quickblox.sample.chat.java.ui.activity.Chat_profile.QB_User_Id;
 
 public class DialogsAdapter extends BaseAdapter {
@@ -56,6 +59,7 @@ public class DialogsAdapter extends BaseAdapter {
     private List<QBChatDialog> selectedItems = new ArrayList<>();
     private List<QBChatDialog> dialogs;
     private int REQUEST_DIALOG_ID_FOR_UPDATE=165;
+    private int OFFLINE_REQUEST_DIALOG_ID_FOR_UPDATE=143;
     Chat_Fragment chat_fragment;
     Popup_click_adapter popup_click_adapter;
     public DialogsAdapter(Context context, List<QBChatDialog> dialogs) {
@@ -153,21 +157,45 @@ public class DialogsAdapter extends BaseAdapter {
         holder.rootLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final QBChatDialog selectedDialog = (QBChatDialog) dialogs.get(position);
-                if (ChatHelper.getInstance().isLogged()) {
-                    ChatActivity.startForResult((Activity) context, REQUEST_DIALOG_ID_FOR_UPDATE, selectedDialog);
-                } else {
-                    ChatHelper.getInstance().loginToChat(ChatHelper.getCurrentUser(), new QBEntityCallback<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid, Bundle bundle) {
-                            ChatActivity.startForResult((Activity) context, REQUEST_DIALOG_ID_FOR_UPDATE, selectedDialog);
-                        }
+                if (Constant.isOnline(context))
+                {
+                    final QBChatDialog selectedDialog = (QBChatDialog) dialogs.get(position);
+                    if (ChatHelper.getInstance().isLogged()) {
+                        ChatActivity.startForResult((Activity) context, REQUEST_DIALOG_ID_FOR_UPDATE, selectedDialog);
+                    } else {
+                        ChatHelper.getInstance().loginToChat(ChatHelper.getCurrentUser(), new QBEntityCallback<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid, Bundle bundle) {
+                                ChatActivity.startForResult((Activity) context, REQUEST_DIALOG_ID_FOR_UPDATE, selectedDialog);
+                            }
 
-                        @Override
-                        public void onError(QBResponseException e) {
+                            @Override
+                            public void onError(QBResponseException e) {
+                            }
+                        });
+                    }
+                }else
+                {
+                    ArrayList<QBChatMessage> qbChatMessages = new ArrayList<>();
+                    for (int i=0 ; i<SharedPrefsHelper.getInstance().getQBChatMessage_Offline().size(); i++)
+                    {
+                        if (SharedPrefsHelper.getInstance().getQBChatMessage_Offline().get(i).size()>0)
+                        {
+                            if (SharedPrefsHelper.getInstance().getQBChatMessage_Offline().get(i).get(0).getDialogId().equalsIgnoreCase(dialogs.get(position).getDialogId()))
+                            {
+                                qbChatMessages = SharedPrefsHelper.getInstance().getQBChatMessage_Offline().get(i);
+                                break;
+                            }
                         }
-                    });
+                    }QBChatDialog selectedDialog = (QBChatDialog) dialogs.get(position);
+                    Intent intent_c = new Intent(context,ChatActivity.class);
+                    intent_c.putExtra("AllChat",qbChatMessages);
+                    intent_c.putExtra(EXTRA_DIALOG_ID,selectedDialog);
+                    intent_c.putExtra("USER_NAME",QbDialogUtils.getDialogName(dialog));
+                    context.startActivity(intent_c);
+
                 }
+
             }
         });
 

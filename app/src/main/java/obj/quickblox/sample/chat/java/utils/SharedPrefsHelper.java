@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.quickblox.chat.model.QBChatDialog;
+import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.core.helper.StringifyArrayList;
 import obj.quickblox.sample.chat.java.App;
 import obj.quickblox.sample.chat.java.R;
@@ -45,7 +46,7 @@ public class SharedPrefsHelper {
     private static final String SERCET_CHAT="0";
     private static final String LOGIN_SERVICE_STATUS="stop";
     private static final String QBChatDialog_DB = "QBChatDialog";
-
+    private static final String QBChatMessage_Offline = "QBChatMessage_Offline";
 
 
 
@@ -1268,4 +1269,21 @@ public class SharedPrefsHelper {
         String json = gson.toJson(value);
         mEditor.putString(QBChatDialog_DB,json).apply();
     }
+
+
+
+    public ArrayList<ArrayList<QBChatMessage>> getQBChatMessage_Offline() {
+        Gson gson = new Gson();
+        String json = mPreferences.getString(QBChatMessage_Offline, "");
+        Type type = new TypeToken<ArrayList<ArrayList<QBChatMessage>>>() {
+        }.getType();
+        return gson.fromJson(json, type);
+
+    }
+    public void setQBChatMessage_Offline(ArrayList<ArrayList<QBChatMessage>> value) {
+        Gson gson = new Gson();
+        String json = gson.toJson(value);
+        mEditor.putString(QBChatMessage_Offline,json).apply();
+    }
+
 }

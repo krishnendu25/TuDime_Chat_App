@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -40,6 +41,7 @@ import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.chat.QBIncomingMessagesManager;
+import com.quickblox.chat.QBRestChatService;
 import com.quickblox.chat.QBSystemMessagesManager;
 import com.quickblox.chat.exception.QBChatException;
 import com.quickblox.chat.listeners.QBChatDialogMessageListener;
@@ -47,6 +49,7 @@ import com.quickblox.chat.listeners.QBSystemMessageListener;
 import com.quickblox.chat.model.QBChatDialog;
 import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialogType;
+import com.quickblox.chat.request.QBMessageGetBuilder;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.core.request.QBRequestGetBuilder;
@@ -121,6 +124,9 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
     private QBUser currentUser, currentUser_qb;
     private TextView Select_Contact_view, Archive_Chat_Go;
     private List<QBChatDialog> filteredDataList;
+    private int Offline_Chat_Count=0;
+    private int globalVar = 0;
+    public static ArrayList<ArrayList<QBChatMessage>> Full_Chat;
     public static Chat_Fragment newInstance() {
 
         if (fragmentSec != null) {
@@ -147,7 +153,7 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         Select_Contact_view = view.findViewById(R.id.Select_Contact_view);
         Archive_Chat_Go = view.findViewById(R.id.Archive_Chat_Go);
         Shimmer_Effect = view.findViewById(R.id.Shimmer_Effect);
-
+        Full_Chat = new ArrayList<>();
         systemMessagesListener = new SystemMessagesListener();
         dialogsManager = new DialogsManager();
         currentUser = ChatHelper.getCurrentUser();
@@ -156,13 +162,16 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         if (Constant.isOnline(getActivity()))
         {  if (!ChatHelper.getInstance().isLogged()) {
             restartApp(getActivity());
-        }}else
-        {updateDialogsAdapter();}
-        if (QbDialogHolder.getInstance().getDialogs().size() > 0) {
-            loadDialogsFromQb(true, true);
-        } else {
-            loadDialogsFromQb(false, true);
         }
+            if (QbDialogHolder.getInstance().getDialogs().size() > 0) {
+                loadDialogsFromQb(true, true);
+            } else {
+                loadDialogsFromQb(false, true);
+            }
+        }else
+        {updateDialogsAdapter();}
+
+
 
         Archive_Chat_Go.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -589,7 +598,7 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
                 Chat_Dialog = listDialogs;
                 cancleDialog();
             }
-
+            method1();
         }else
         {
             Collection<QBChatDialog> Backup_List =SharedPrefsHelper.getInstance().getQBChatDialog_DB();
@@ -626,7 +635,6 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
                     dialogsAdapter = new DialogsAdapter(getActivity(), Chat_Dialog, Chat_Fragment.this);
                     dialogsListView.setAdapter(dialogsAdapter);
                 }
-
         }
     }
 
@@ -852,4 +860,30 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
             }
         }
     }
+
+
+
+
+    private void method1(){
+        QBMessageGetBuilder messageGetBuilder = new QBMessageGetBuilder();
+        messageGetBuilder.setLimit(100);
+        QBRestChatService.getDialogMessages(Chat_Dialog.get(globalVar), messageGetBuilder).performAsync(new QBEntityCallback<ArrayList<QBChatMessage>>() {
+            @Override
+            public void onSuccess(ArrayList<QBChatMessage> qbChatMessages, Bundle bundle) {
+                Full_Chat.add(qbChatMessages);
+                if (globalVar < Chat_Dialog.size()-1) {
+                    globalVar++;
+                    method1();
+                }else {
+                    SharedPrefsHelper.getInstance().setQBChatMessage_Offline(Full_Chat);
+                }
+            }
+            @Override
+            public void onError(QBResponseException e) {
+            }
+        });
+
+    }
+
+
 }
