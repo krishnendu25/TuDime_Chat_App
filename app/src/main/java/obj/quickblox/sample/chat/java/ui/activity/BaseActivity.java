@@ -62,6 +62,7 @@ import static obj.quickblox.sample.chat.java.constants.ApiConstants.SMS_URL;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_profile;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_profile_qb_reference;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_tudime_subscription;
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.sendMailUrl;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.update_user_profile;
 
 public abstract class BaseActivity extends AppCompatActivity implements IJSONParseListener {
@@ -362,5 +363,15 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
                 208, this, parms, false,false,Params_Object);
     }
 
-
+    public void hitSendMail(String trim, String OTP) {
+        showProgressDialog(R.string.load);
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("email",trim);
+        parms.putString("text",OTP);
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, sendMailUrl,
+                286, this, parms, false,false,Params_Object);
+    }
 }

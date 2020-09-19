@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.QBUsers;
@@ -24,6 +24,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import obj.quickblox.sample.chat.java.App;
+import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
+import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.services.LoginService;
 import obj.quickblox.sample.chat.java.utils.Constant;
@@ -32,9 +34,13 @@ import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.ToastUtils;
 import obj.quickblox.sample.chat.java.utils.chat.ChatHelper;
 
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_profile_qb_reference;
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.sendMailUrl;
+
 public class Email_Signup_Process extends BaseActivity implements View.OnClickListener {
     private EditText login_with_email,login_with_nickname;
     private Button btnAgree_email;
+    private String OTP_AllRa;
 
 
     @Override
@@ -103,48 +109,15 @@ public class Email_Signup_Process extends BaseActivity implements View.OnClickLi
             return;
         }
 
-        /*String Email_Str = login_with_email.getText().toString().trim();
-        String NickName_Str = login_with_nickname.getText().toString().trim();
-        QBUser qbUser = new QBUser();
-        qbUser.setLogin(Email_Str);
-        qbUser.setFullName(NickName_Str);
-        qbUser.setEmail(Email_Str);
-        qbUser.setPassword(App.USER_DEFAULT_PASSWORD);
-        signIn(qbUser);*/
-
-        String OTP = Constant.generateRandomNumber();
-        showProgressDialog(R.string.load);
-        BackgroundMail.newBuilder(this)
-                .withUsername("otptudime@gmail.com")
-                .withPassword("Dirk2019")
-                .withMailto(login_with_email.getText().toString())
-                .withType(BackgroundMail.TYPE_PLAIN)
-                .withSubject("OTP Verification")
-                .withBody("Your Email Verification OTP is: "+ OTP )
-                .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
-                    @Override
-                    public void onSuccess() {
-                        ToastUtils.shortToast("Otp Sent Successfully");
-                        hideProgressDialog();
-                        SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
-                        SignUpVerificationActivity.OTP = OTP;
-                        SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
-                        startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
-                    }
-                })
-                .withOnFailCallback(new BackgroundMail.OnFailCallback() {
-                    @Override
-                    public void onFail() {
-                        ToastUtils.shortToast("Otp Sent UnSuccessfully");
-                        hideProgressDialog();
-                    }
-                })
-                .send();
-
-
+        OTP_AllRa = Constant.generateRandomNumber();
+        hitSendMail(login_with_email.getText().toString().trim(),OTP_AllRa);
 
 
     }
+
+
+
+
     private void signIn(final QBUser user) {
         showProgressDialog(R.string.dlg_login);
         ChatHelper.getInstance().login(user, new QBEntityCallback<QBUser>() {
@@ -234,21 +207,46 @@ public class Email_Signup_Process extends BaseActivity implements View.OnClickLi
 
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
-
+        hideProgressDialog();
     }
 
     @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
+        if (requestCode==286) {
+            hideProgressDialog();
+            ToastUtils.longToast("Otp Sent Successfully ");
+            hideProgressDialog();
+            SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
+            SignUpVerificationActivity.OTP = OTP_AllRa;
+            SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
+            startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
+        }
 
     }
 
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
-
+        if (requestCode==286) {
+            hideProgressDialog();
+            ToastUtils.longToast("Otp Sent Successfully ");
+            hideProgressDialog();
+            SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
+            SignUpVerificationActivity.OTP = OTP_AllRa;
+            SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
+            startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
+        }
     }
 
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
-
+        if (requestCode==286) {
+            hideProgressDialog();
+            ToastUtils.longToast("Otp Sent Successfully");
+            hideProgressDialog();
+            SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
+            SignUpVerificationActivity.OTP = OTP_AllRa;
+            SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
+            startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
+        }
     }
 }

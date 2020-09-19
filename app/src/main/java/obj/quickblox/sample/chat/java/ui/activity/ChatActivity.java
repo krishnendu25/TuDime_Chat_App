@@ -643,8 +643,6 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
                 break;
             case R.id.Video_Ib:
                 break;
-
-
             case R.id.txvCancel:
                 if (THEAME_VIEW.getVisibility() == View.GONE) {
                     THEAME_VIEW.setVisibility(View.VISIBLE);
@@ -654,7 +652,6 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
                     OTHER_SHOW_View.setVisibility(View.GONE);
                 }
                 break;
-
             case R.id.dismiss:
                 OTHER_SHOW_View.setVisibility(View.GONE);
                 if (Translation_View.getVisibility() == View.VISIBLE) {
@@ -663,7 +660,6 @@ public class ChatActivity extends BaseActivity implements Language_Translator,Ad
                     Translation_View.setVisibility(View.VISIBLE);
                 }
                 break;
-
             case R.id.speech_to_text:
                 displaySpeechRecognizer(1212);
                 break;

@@ -646,10 +646,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         Integer Day_Count = (int) Constant.getDateDiff(Acount_Create, timeStamp);
 
 
-        if (Day_Count > 45) {
-            Open_Subscrption_alert(DashBoard.this);
-            return;
-        } else {
+
             if (Subscription_Model.size() > 0) {
                 int count = 0;
                 for (int i = 0; i < Subscription_Model.size(); i++) {
@@ -672,7 +669,6 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                     Open_Subscrption_alert(DashBoard.this);
                 }
             }
-        }
     }
 
     private void Open_Subscrption_alert(Activity mActivity) {
@@ -688,14 +684,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         Application_Close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    finishAffinity();
                     alertDialog.dismiss();
-                } else {
-                    finish();
-                    System.exit(0);
-                    alertDialog.dismiss();
-                }
             }
         });
         buy_membership.setOnClickListener(new View.OnClickListener() {

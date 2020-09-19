@@ -28,7 +28,6 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.creativityapps.gmailbackgroundlibrary.BackgroundMail;
 import com.quickblox.auth.QBAuth;
 import com.quickblox.auth.session.QBSession;
 import com.quickblox.chat.QBSignaling;
@@ -88,6 +87,8 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
     private String last2Digit = ".com";
     private SmsVerifyCatcher smsVerifyCatcher;
     QBUser user_api;
+    private String OTP_re;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -214,34 +215,8 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
                     875, this, parms, false,false,Params_Object);
         }else
         {
-            showProgressDialog(R.string.load);
-            String OTP_re = Constant.generateRandomNumber();
-            BackgroundMail.newBuilder(this)
-                    .withUsername("otptudime@gmail.com")
-                    .withPassword("Dirk2019")
-                    .withMailto(User_Email)
-                    .withType(BackgroundMail.TYPE_PLAIN)
-                    .withSubject("OTP Verification")
-                    .withBody("Your Email Verification OTP is: "+ OTP_re )
-                    .withOnSuccessCallback(new BackgroundMail.OnSuccessCallback() {
-                        @Override
-                        public void onSuccess() {
-                            ToastUtils.shortToast("Otp Sent Successfully");
-                            hideProgressDialog();
-                            SignUpVerificationActivity.OTP = OTP_re;
-                            hideProgressDialog();
-                        }
-                    })
-                    .withOnFailCallback(new BackgroundMail.OnFailCallback() {
-                        @Override
-                        public void onFail() {
-                            //do some magic
-                            ToastUtils.shortToast("Otp Sent UnSuccessfully");
-                            hideProgressDialog();
-                        }
-                    })
-                    .send();
-
+            OTP_re = Constant.generateRandomNumber();
+            hitSendMail(User_Email,OTP_re);
         }
 
     }
@@ -407,15 +382,33 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
                 e.printStackTrace();
             }
         }
+        if (requestCode==286) {
+            ToastUtils.shortToast("Otp Sent Successfully");
+            hideProgressDialog();
+            SignUpVerificationActivity.OTP = OTP_re;
+            hideProgressDialog();
+        }
 
     }
 
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
+        if (requestCode==286) {
+            ToastUtils.shortToast("Otp Sent Successfully");
+            hideProgressDialog();
+            SignUpVerificationActivity.OTP = OTP_re;
+            hideProgressDialog();
+        }
     }
 
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
+        if (requestCode==286) {
+            ToastUtils.shortToast("Otp Sent Successfully");
+            hideProgressDialog();
+            SignUpVerificationActivity.OTP = OTP_re;
+            hideProgressDialog();
+        }
     }
 
 
