@@ -383,7 +383,7 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
             }
         }
         if (requestCode==286) {
-            ToastUtils.shortToast("Otp Sent Successfully");
+            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
             hideProgressDialog();
             SignUpVerificationActivity.OTP = OTP_re;
             hideProgressDialog();
@@ -394,7 +394,7 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
         if (requestCode==286) {
-            ToastUtils.shortToast("Otp Sent Successfully");
+            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
             hideProgressDialog();
             SignUpVerificationActivity.OTP = OTP_re;
             hideProgressDialog();
@@ -404,7 +404,7 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
         if (requestCode==286) {
-            ToastUtils.shortToast("Otp Sent Successfully");
+            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
             hideProgressDialog();
             SignUpVerificationActivity.OTP = OTP_re;
             hideProgressDialog();

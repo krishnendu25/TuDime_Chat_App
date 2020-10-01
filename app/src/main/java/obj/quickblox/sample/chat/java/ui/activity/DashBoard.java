@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -123,6 +125,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
     private String Account_Create = "";
     private String Global_FCM_TOKEN;
     private SearchView searchView;
+    private TextView showAppVersion;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, DashBoard.class);
@@ -270,12 +273,14 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         vv.findViewById(R.id.txt_schedule_event).setOnClickListener(this);
         vv.findViewById(R.id.total_credit).setOnClickListener(this);
         vv.findViewById(R.id.text_ecards).setOnClickListener(this);
+        showAppVersion =   vv.findViewById(R.id.showAppVersion);
         vv.findViewById(R.id.text_schedule_events).setOnClickListener(this);
         vv.findViewById(R.id.text_change_language).setOnClickListener(this);
         vv.findViewById(R.id.Subscrption_managment).setOnClickListener(this);
         vv.findViewById(R.id.Subscrption_managment).setSelected(true);
         vv.findViewById(R.id.call_directly).setOnClickListener(this);
         vv.findViewById(R.id.text_call_credit).setOnClickListener(this);
+        vv.findViewById(R.id.text_feedback).setOnClickListener(this);
         total_credit = (TextView) vv.findViewById(R.id.total_credit);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapterViewPager);
@@ -315,6 +320,15 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 startActivity(intent);
             }
         });
+
+        try {
+            PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            showAppVersion.setText("Version "+packageInfo.versionName);
+
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            showAppVersion.setText("1.0.0.0 beta");
+        }
     }
 
 
@@ -407,6 +421,9 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 break;
             case R.id.text_setting:
                 startActivity(new Intent(DashBoard.this, Settings_Tudime.class));
+                break;
+            case R.id.text_feedback:
+                startActivity(new Intent(DashBoard.this, FeedbackActivity.class));
                 break;
             case R.id.text_call_credit:
                 Intent i = new Intent(DashBoard.this, PapPallIntegration.class);

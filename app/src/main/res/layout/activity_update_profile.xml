@@ -22,7 +22,7 @@
             android:layout_height="25dp"
             android:src="@drawable/back_button_icon"
             android:id="@+id/back_image"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginRight="10dp"
             />
 

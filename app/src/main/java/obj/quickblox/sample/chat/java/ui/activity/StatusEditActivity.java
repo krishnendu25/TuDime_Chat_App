@@ -35,7 +35,7 @@ public class StatusEditActivity extends BaseActivity implements View.OnClickList
 
     private EditText edtStatus;
     private TextView txvCount;
-    private int MAX_STATUS_LENGTH = 30;
+    private int MAX_STATUS_LENGTH = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -94,6 +94,8 @@
     <dimen name="placeholderTextHeight">8dp</dimen>
     <dimen name="padding_10">10dp</dimen>
     <dimen name="padding_15">15dp</dimen>
+    <dimen name="dimen_14dp">14dp</dimen>
+
     <dimen name="padding_5">5dp</dimen>
     <dimen name="dimen_16dp">16dp</dimen>
     <dimen name="dimen_20dp">20dp</dimen>

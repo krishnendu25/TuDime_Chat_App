@@ -404,7 +404,6 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                         hitApi(file_imaage, "tudime");
                     }
                 } catch (Exception e) {
-                    e.printStackTrace();
                     value="tudime";
                     hitApi(file_imaage, "tudime");
                 }

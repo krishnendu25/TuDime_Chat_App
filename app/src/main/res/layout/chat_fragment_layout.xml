@@ -27,10 +27,25 @@
             android:layout_margin="10dp"
             android:visibility="gone"
             android:textSize="@dimen/dimen_18dp"
+            android:drawableStart="@drawable/active_bullet_icon"
+            android:fontFamily="@font/avenirnext_heavy"
+            android:drawablePadding="@dimen/padding_10"
             android:textStyle="bold"
             android:textColor="@color/text_color_black"
            />
-
+        <TextView
+            android:id="@+id/Select_For_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            android:drawableStart="@drawable/active_bullet_icon"
+            android:textSize="@dimen/dimen_18dp"
+            android:drawablePadding="@dimen/padding_10"
+            android:fontFamily="@font/avenirnext_heavy"
+            android:textStyle="bold"
+            android:textColor="@color/text_color_black"
+            />
         <ListView
             android:id="@+id/list_dialogs_chats_fragments"
             style="@style/ListViewWithoutDividerStyle"
@@ -73,14 +88,14 @@
         <TextView
             style="@style/WrapContent"
             android:text="@string/chat_empty_you_are_alone_here"
-            android:textColor="@color/normal_text"
-            android:textSize="20sp"
+            android:textColor="@color/blue_button_color"
+            android:textSize="14dp"
             android:gravity="center" />
 
         <TextView
             style="@style/WrapContent"
             android:textColor="@color/text_color_green"
-            android:textSize="20sp" />
+            android:textSize="14dp" />
     </LinearLayout>
 
 

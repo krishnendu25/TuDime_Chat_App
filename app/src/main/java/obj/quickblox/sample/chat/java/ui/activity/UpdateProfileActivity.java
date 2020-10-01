@@ -137,10 +137,12 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
 
                 showPhotoSettingChooser();
                 break;
-
-
             case R.id.notification:
 
+                break;
+
+            case R.id.back_image:
+                finish();
                 break;
 
         }

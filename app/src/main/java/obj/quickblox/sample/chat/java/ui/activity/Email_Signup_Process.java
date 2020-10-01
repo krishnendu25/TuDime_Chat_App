@@ -214,7 +214,7 @@ public class Email_Signup_Process extends BaseActivity implements View.OnClickLi
     public void SuccessResponse(JSONObject response, int requestCode) {
         if (requestCode==286) {
             hideProgressDialog();
-            ToastUtils.longToast("Otp Sent Successfully ");
+            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
             hideProgressDialog();
             SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
             SignUpVerificationActivity.OTP = OTP_AllRa;
@@ -228,7 +228,7 @@ public class Email_Signup_Process extends BaseActivity implements View.OnClickLi
     public void SuccessResponseArray(JSONArray response, int requestCode) {
         if (requestCode==286) {
             hideProgressDialog();
-            ToastUtils.longToast("Otp Sent Successfully ");
+            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
             hideProgressDialog();
             SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
             SignUpVerificationActivity.OTP = OTP_AllRa;
@@ -241,7 +241,7 @@ public class Email_Signup_Process extends BaseActivity implements View.OnClickLi
     public void SuccessResponseRaw(String response, int requestCode) {
         if (requestCode==286) {
             hideProgressDialog();
-            ToastUtils.longToast("Otp Sent Successfully");
+            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
             hideProgressDialog();
             SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
             SignUpVerificationActivity.OTP = OTP_AllRa;

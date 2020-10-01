@@ -72,7 +72,6 @@ public class UpdateProfileNameActivity extends BaseActivity implements View.OnCl
         imgOptions = (ImageView) findViewById(R.id.imgOptions);
         imgOptions.setOnClickListener(this);
         edtEmojicon.setText(SharedPrefsHelper.getInstance().getUserName());
-
     }
 
     @Override

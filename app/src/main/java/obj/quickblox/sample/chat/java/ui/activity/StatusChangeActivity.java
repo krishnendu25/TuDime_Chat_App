@@ -10,6 +10,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -48,7 +49,7 @@ public class StatusChangeActivity extends BaseActivity implements IJSONParseList
     public TextView showEditStatus;
     /* access modifiers changed from: private */
     public ArrayList<String> statusList;
-
+    Toolbar toolbar;
     /* access modifiers changed from: protected */
     public void onCreate(Bundle arg0) {
         super.onCreate(arg0);
@@ -56,10 +57,6 @@ public class StatusChangeActivity extends BaseActivity implements IJSONParseList
         setContentView((int) R.layout.activity_status_change);
         hideActionbar();
         this.statusList = SharedPrefsHelper.getInstance().getAllStatus(StatusChangeActivity.this);
-       /* setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator((int) R.drawable.back_button_icon);
-        getSupportActionBar().setTitle((CharSequence) getString(R.string.status_));*/
         findViewById(R.id.imgEdit).setOnClickListener(this);
         this.showEditStatus = (TextView) findViewById(R.id.txvStatus);
         this.showEditStatus.setText(SharedPrefsHelper.getInstance().getCurrentStatus());
@@ -76,6 +73,7 @@ public class StatusChangeActivity extends BaseActivity implements IJSONParseList
                 StatusChangeActivity.this.hitApiStatusUpdate(SharedPrefsHelper.getInstance().getUSERID(),statusList.get(position).trim());
             }
         });
+        toolbar.setTitle("Change Your Status");
     }
 
     /* access modifiers changed from: protected */

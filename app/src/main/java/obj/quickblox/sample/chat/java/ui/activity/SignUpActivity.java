@@ -59,6 +59,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TimeZone;
 import java.util.TreeMap;
 
@@ -109,29 +110,42 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
                 .enableAutoManage(this, this)
                 .addApi(Auth.CREDENTIALS_API)
                 .build();
-        getphonenumber();
-        String[] countriesArray = getApplicationContext().getResources().getStringArray(R.array.CountryCodes);
-        List<String> countriesListComplete  = Arrays.asList(countriesArray);
 
+        try{
+            getphonenumber();
+        }catch (Exception e){}
+
+        try{
+            String[] countriesArray = getApplicationContext().getResources().getStringArray(R.array.CountryCodes);
+            List<String> countriesListComplete  = Arrays.asList(countriesArray);
             for (int i=0;i<countriesListComplete.size();i++)
             {
                 String[] countryInfo   =  (String[]) countriesListComplete.get(i).split(",");
                 String countryname = GetCountryZipCode(countryInfo[1]).trim();
-                Locale l = new Locale("", getUserCountry(this));
-                if (countryname.equalsIgnoreCase(l.getDisplayCountry()))
-                {
-                    country_code="+" + countryInfo[0];
-                    country_name=countryname;
-                    String pngName = countryInfo[1].trim().toLowerCase();
-                  }
-
+                try {
+                    Locale l = new Locale("", Objects.requireNonNull(getUserCountry(this)));
+                    if (countryname.equalsIgnoreCase(l.getDisplayCountry()))
+                    {
+                        country_code="+" + countryInfo[0];
+                        country_name=countryname;
+                        String pngName = countryInfo[1].trim().toLowerCase();
+                    }
+                }catch (Exception e){}
             }
+        }catch (Exception ex)
+        {
+
+        }
+
         try {
             txtCCode.setText(country_code);
             txvCountry.setText(country_name);
         }catch (Exception e)
         {
-            e.printStackTrace();
+            country_code="+91";country_name="India";
+            txtCCode.setText(country_code);
+            txvCountry.setText(country_name);
+
         }
 
         ImageView back_button_icon = findViewById(R.id.back_button);
@@ -195,14 +209,13 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
             if (resultCode == RESULT_OK) {
                 Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
                 if (credential != null) {
-
-
                     if (credential.getId().length() > 10) {
-                        loginEt.setText(credential.getId().substring(credential.getId().length() - 10));
-                    } else {
-                        loginEt.setText(credential.getId());
-                    }
-
+                        try {
+                            String phon = credential.getId().replaceAll(" ","");
+                            loginEt.setText(phon.substring(phon.length() - 10));
+                        }catch (Exception e)
+                        {loginEt.setText(credential.getId().substring(credential.getId().length() - 10));}
+                    } else {loginEt.setText(credential.getId()); }
                 } else {
                     Toast.makeText(this, "err", Toast.LENGTH_SHORT).show();
                 }

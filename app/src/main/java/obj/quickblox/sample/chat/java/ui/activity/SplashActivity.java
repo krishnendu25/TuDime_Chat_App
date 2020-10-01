@@ -11,9 +11,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,13 +42,18 @@ public class SplashActivity extends BaseActivity {
     private static final int SPLASH_DELAY = 4000;
 
     private static final String TAG = SplashActivity.class.getSimpleName();
-
+    ImageView UpeerICIv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         SharedPrefsHelper.getInstance().set_LOGIN_SERVICE_STATUS("stop");
     hideActionbar();
+        UpeerICIv = findViewById(R.id.UpeerICIv);
+        Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
+        UpeerICIv.startAnimation(animSlide);
+
+
         if (SharedPrefsHelper.getInstance().get_PASSWORD_STATUS() == null) {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().hide();

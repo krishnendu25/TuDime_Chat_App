@@ -2,21 +2,12 @@ package obj.quickblox.sample.chat.java.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.view.View;
 import android.widget.TextView;
-
 import com.android.volley.VolleyError;
 import com.quickblox.auth.session.QBSettings;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import obj.quickblox.sample.chat.java.BuildConfig;
 import obj.quickblox.sample.chat.java.R;
 
 
@@ -61,7 +52,7 @@ public class AppInfoActivity extends BaseActivity {
     }
 
     public void fillUI() {
-        appVersionTextView.setText(BuildConfig.VERSION_NAME);
+      /*  appVersionTextView.setText(BuildConfig.VERSION_NAME);*/
         sdkVersionTextView.setText(com.quickblox.BuildConfig.VERSION_NAME);
         appIDTextView.setText(QBSettings.getInstance().getApplicationId());
         authKeyTextView.setText(QBSettings.getInstance().getAuthorizationKey());
@@ -70,7 +61,7 @@ public class AppInfoActivity extends BaseActivity {
         apiDomainTextView.setText(QBSettings.getInstance().getServerApiDomain());
         chatDomainTextView.setText(QBSettings.getInstance().getChatEndpoint());
 
-        if (BuildConfig.IS_QA) {
+       /* if (BuildConfig.IS_QA) {
             String appVersion = BuildConfig.VERSION_NAME;
             String versionQACode = String.valueOf(BuildConfig.VERSION_QA_CODE);
             String qaVersion = appVersion + "." + versionQACode;
@@ -81,7 +72,7 @@ public class AppInfoActivity extends BaseActivity {
             appQAVersionTextView.setVisibility(View.VISIBLE);
 
             findViewById(R.id.text_qa_version_title).setVisibility(View.VISIBLE);
-        }
+        }*/
     }
 
     @Override

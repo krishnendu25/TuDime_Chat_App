@@ -79,7 +79,7 @@ public class UsersAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.loginTextView.setSelected(true);
         if (isUserMe(user)) {
           holder.loginTextView.setText(user.getFullName()+"   "+context.getString(R.string.placeholder_username_you));
             holder.text_loginid.setText(user.getLogin());

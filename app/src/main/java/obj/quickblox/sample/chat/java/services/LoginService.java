@@ -106,10 +106,8 @@ public class LoginService extends Service {
             startSuitableActions();
         }catch (Exception e)
         {
-            DashBoard.start(this);
             e.printStackTrace();
         }
-
 
         return START_REDELIVER_INTENT;
     }
@@ -248,11 +246,6 @@ public class LoginService extends Service {
                 pendingIntent.send(LoginService.this, Consts.EXTRA_LOGIN_RESULT_CODE, intent);
                 stopForeground(true);
             } catch (Exception e) {
-                String errorMessageSendingResult = e.getMessage();
-                Log.d(TAG, errorMessageSendingResult != null
-                        ? errorMessageSendingResult
-                        : "Error sending result to activity");
-                DashBoard.start(this);
             }
         }
     }

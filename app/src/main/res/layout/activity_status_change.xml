@@ -9,14 +9,10 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/sky_blue"
         android:elevation="8dp"
-        app:titleTextColor="@color/primary_grey_dark"
-        android:minHeight="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+        app:titleTextColor="@color/primary_grey_dark"/>
 
 
     <LinearLayout

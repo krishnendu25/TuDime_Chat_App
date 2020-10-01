@@ -9,10 +9,11 @@
         android:layout_height="wrap_content"
         android:text="@string/choose_wish_card"
         android:textColor="@color/white"
-        android:textSize="@dimen/dimen_25dp"
+        android:textSize="@dimen/dimen_16dp"
         android:fontFamily="@font/avenirnextbold"
         android:gravity="center"
         android:layout_marginTop="20dp"/>
+
 
     <TableLayout
         android:layout_width="match_parent"
@@ -52,7 +53,7 @@
                     android:text = "@string/love"
                     android:textColor="@color/white"
                     android:singleLine="true"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
 
@@ -79,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:text = "@string/bday"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:singleLine="true"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
@@ -109,7 +110,7 @@
                     android:singleLine="true"
                     android:textColor="@color/white"
                     android:fontFamily="@font/avenirnextbold"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -145,7 +146,7 @@
                     android:textColor="@color/white"
                     android:singleLine="true"
                     android:fontFamily="@font/avenirnextbold"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -172,7 +173,7 @@
                     android:text = "@string/missing"
                     android:textColor="@color/white"
                     android:singleLine="true"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
 
@@ -200,7 +201,7 @@
                     android:text = "@string/congraxx"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
 
@@ -236,7 +237,7 @@
                     android:text = "@string/good_luck"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
 
@@ -264,7 +265,7 @@
                     android:text = "@string/get_well"
                     android:textColor="@color/white"
                     android:singleLine="true"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
 
@@ -292,7 +293,7 @@
                     android:text = "@string/holidays"
                     android:singleLine="true"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
@@ -318,7 +319,7 @@
                     android:layout_height="wrap_content"
                     android:text = "@string/invitations"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:singleLine="true"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
@@ -356,7 +357,7 @@
                     android:text = "@string/thanking"
                     android:textColor="@color/white"
                     android:singleLine="true"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:layout_gravity="center"/>
 
@@ -382,7 +383,7 @@
                     android:layout_height="wrap_content"
                     android:text = "@string/sooryy"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
+                    android:textSize="@dimen/dimen_14dp"
                     android:fontFamily="@font/avenirnextbold"
                     android:singleLine="true"
                     android:layout_gravity="center"/>

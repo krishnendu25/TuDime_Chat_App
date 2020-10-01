@@ -122,7 +122,7 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
     private QBIncomingMessagesManager incomingMessagesManager;
     private DialogsManager dialogsManager;
     private QBUser currentUser, currentUser_qb;
-    private TextView Select_Contact_view, Archive_Chat_Go;
+    private TextView Select_Contact_view, Archive_Chat_Go,Select_For_view;
     private List<QBChatDialog> filteredDataList;
     private int Offline_Chat_Count=0;
     private int globalVar = 0;
@@ -150,6 +150,7 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
 
         View view = inflater.inflate(R.layout.chat_fragment_layout, container, false);
         dbManager = QbUsersDbManager.getInstance(getContext());
+        Select_For_view = view.findViewById(R.id.Select_For_view);
         Select_Contact_view = view.findViewById(R.id.Select_Contact_view);
         Archive_Chat_Go = view.findViewById(R.id.Archive_Chat_Go);
         Shimmer_Effect = view.findViewById(R.id.Shimmer_Effect);
@@ -694,34 +695,27 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         {
             boolean isIncomingCall = SharedPrefsHelper.getInstance().get(Consts.EXTRA_IS_INCOMING_CALL, false);
             if (isCallServiceRunning(CallService.class)) {
-                Log.d(TAG, "CallService is running now");
                 CallActivity.start(getActivity(), isIncomingCall);
             }
         }
         Archive_Reload();
         clearAppNotifications();
-        if (SharedPrefsHelper.getInstance().get_E_CARD_URL() != null) {
-            if (SharedPrefsHelper.getInstance().get_E_CARD_URL().equalsIgnoreCase("")) {
-                Select_Contact_view.setVisibility(View.GONE);
-
-            } else {
+        try {
+            if (!SharedPrefsHelper.getInstance().get_E_CARD_URL().equalsIgnoreCase("")) {
+                Select_Contact_view.setText(getString(R.string.Send_Ecard));
                 Select_Contact_view.setVisibility(View.VISIBLE);
-                Select_Contact_view.setText(getResources().getString(R.string.Send_Ecard));
-            }
-        } else {
-            Select_Contact_view.setVisibility(View.GONE);
+            }else{Select_Contact_view.setVisibility(View.GONE);}
+        }catch (Exception e) {  Select_Contact_view.setVisibility(View.GONE);
         }
 
-        if (SharedPrefsHelper.getInstance().get_FORWARD() != null) {
-            if (SharedPrefsHelper.getInstance().get_FORWARD().equalsIgnoreCase("")) {
-                Select_Contact_view.setVisibility(View.GONE);
-            } else {
-                Select_Contact_view.setVisibility(View.VISIBLE);
-                Select_Contact_view.setText(getResources().getString(R.string.Forward_chat));
-            }
-        } else {
-            Select_Contact_view.setVisibility(View.GONE);
+        try {
+            if (!SharedPrefsHelper.getInstance().get_FORWARD().equalsIgnoreCase("")) {
+                Select_For_view.setText(getString(R.string.Forward_chat));
+                Select_For_view.setVisibility(View.VISIBLE);
+            }else{Select_For_view.setVisibility(View.GONE);}
+        }catch (Exception e) {  Select_For_view.setVisibility(View.GONE);
         }
+
     }
 
     private boolean isCallServiceRunning(Class<?> serviceClass) {

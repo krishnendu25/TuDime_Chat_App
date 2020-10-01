@@ -623,7 +623,7 @@ public class Contact_chat_Fragment extends BaseFragment implements Go_to_Chat,Cr
             for (int i = 0; i < mListAdapter.getCount(); i++) {
                 View listItem = mListAdapter.getView(i, null, mListView);
                 listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-                height += listItem.getMeasuredHeight()+25;
+                height += listItem.getMeasuredHeight()+80;
             }
             ViewGroup.LayoutParams params = mListView.getLayoutParams();
             params.height = height + (mListView.getDividerHeight() * (mListAdapter.getCount() - 1));
