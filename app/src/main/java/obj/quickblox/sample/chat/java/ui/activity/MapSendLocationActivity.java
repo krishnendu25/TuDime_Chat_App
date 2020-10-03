@@ -410,7 +410,7 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
         mGoogleMap.setMyLocationEnabled(true);
         LatLng latLng = new LatLng(mCurrentLatitude, mCurrentLongitude);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
-        mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.current_location_marker)));
+        mGoogleMap.addMarker(new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.current_location_marker))).setDraggable(false);
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
 
@@ -423,14 +423,6 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
 
         }
     }
-
-    /**
-     * To know the location of the current marker, if searched from LatLng
-     *
-     * @param location
-     * @param context
-     * @return
-     */
     public String getLocality(LatLng location, Context context) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
@@ -455,28 +447,6 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
 
     private void hitApiRequest(int reqType) {
         String url;
-   /*     Class className;
-        switch (reqType) {
-           //
-            case 0:
-                StringBuilder builder = new StringBuilder();
-                builder.append(BASE_URL_FOURSQAURE);
-                builder.append("?ll=").append(mCurrentLatitude + "," + mCurrentLongitude);
-                builder.append("&client_id=").append(FOURSQUARE_CLIENT_ID);
-                builder.append("&client_secret=").append(FOURSQUARE_CLIENT_SECRET);
-                builder.append("&v=").append(timeMilisToString(System.currentTimeMillis()));
-                if (!StringUtils.isNullOrEmpty(mQueryString)) {
-                    builder.append("&query=").append(mQueryString);
-                }
-                url = builder.toString();
-                className = FourSquareNearbyPlaceResponseModel.class;
-                break;
-            default:
-                url = "";
-                className = null;
-                break;
-        }
-*/
         url = "https://api.foursquare.com/v2/venues/search?ll=" + 22.5688291 + "," + 88.4317944 + "&client_id=YKSFTFURQKGZUFYEFGUDXHRLUEGTLEOXMBYUTU3AYA4LLKX5&client_secret=BH3IPIEM33UPG14QTDVCICC142Q3M34TN0EVT55NNBOZY4GX&v=" + timeMilisToString(System.currentTimeMillis()) + "&query=" + mQueryString;
         // showProgressDialog(R.string.load);
         JSONObject Agent_Array_Object = new JSONObject();

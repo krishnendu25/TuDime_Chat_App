@@ -368,6 +368,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
         JSONObject Params_Object = new JSONObject();
         JSONRequestResponse mResponse = new JSONRequestResponse(this);
         Bundle parms = new Bundle();
+        parms.putString("task","send_mail");
         parms.putString("email",trim);
         parms.putString("text",OTP);
         MyVolley.init(this);

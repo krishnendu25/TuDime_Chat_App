@@ -312,6 +312,7 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
     }
 
     private void logout() {
+
         if (QBPushManager.getInstance().isSubscribedToPushes()) {
             QBPushManager.getInstance().addListener(new QBPushSubscribeListenerImpl() {
                 @Override
@@ -321,11 +322,12 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
                     QBPushManager.getInstance().removeListener(this);
                 }
             });
-            try{ SubscribeService.unSubscribeFromPushes(DialogsActivity.this);   }catch (Exception e){}
+            try{ SubscribeService.unSubscribeFromPushes(DialogsActivity.this);}catch (Exception e){}
 
         } else {
             logoutREST();
         }
+
     }
 
     private void logoutREST() {

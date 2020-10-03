@@ -213,40 +213,35 @@ public class Email_Signup_Process extends BaseActivity implements View.OnClickLi
     @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
         if (requestCode==286) {
-            hideProgressDialog();
-            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
-            hideProgressDialog();
-            SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
-            SignUpVerificationActivity.OTP = OTP_AllRa;
-            SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
-            startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
-        }
+            try{
+                if (response.getString("status").equalsIgnoreCase("success"))
+                {
+                    hideProgressDialog();
+                    ToastUtils.longToast("OTP mail Sent Successfully in Yout Email");
+                    hideProgressDialog();
+                    SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
+                    SignUpVerificationActivity.OTP = OTP_AllRa;
+                    SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
+                    startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
+                }else
+                {
+                    hideProgressDialog();
+                    ToastUtils.longToast(response.getString("error_message"));
+                }
 
+            }catch (Exception e)
+            {
+                hideProgressDialog();
+                ToastUtils.longToast("Some Error Occurred");
+            }
+        }
     }
 
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
-        if (requestCode==286) {
-            hideProgressDialog();
-            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
-            hideProgressDialog();
-            SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
-            SignUpVerificationActivity.OTP = OTP_AllRa;
-            SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
-            startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
-        }
     }
 
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
-        if (requestCode==286) {
-            hideProgressDialog();
-            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
-            hideProgressDialog();
-            SignUpVerificationActivity.User_Email = login_with_email.getText().toString().trim();
-            SignUpVerificationActivity.OTP = OTP_AllRa;
-            SignUpVerificationActivity.Nick_Name =login_with_nickname.getText().toString();
-            startActivity(new Intent(getApplicationContext(), SignUpVerificationActivity.class));
-        }
     }
 }

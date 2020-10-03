@@ -152,6 +152,11 @@ public class Constant
         }
 
     }
+    public static String GET_timeStamp() {
+        String timeStamp = String.valueOf(TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis()));
+        return timeStamp;
+
+    }
 
     public static String Get_back_date(String timeStamp) {
         try {

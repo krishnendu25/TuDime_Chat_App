@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.Manifest.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-feature
         android:name="android.hardware.microphone"
         android:required="false" />
@@ -44,18 +45,18 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/AppTheme"
         android:requestLegacyExternalStorage="true"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.activity.Webview"/>
+        <activity android:name=".ui.activity.TestActivity"></activity>
+        <activity android:name=".ui.activity.Webview" />
         <activity
             android:name=".ui.activity.Video_Player"
             android:configChanges="orientation|screenSize|keyboardHidden"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".ui.activity.TuDime_Membership"
-            />
-        <activity android:name=".Internet_Calling.quickstart.VoiceActivity"/>
-        <activity android:name=".Internet_Calling.Internet_Calling_Activity"/>
+            android:screenOrientation="landscape" />
+        <activity android:name=".ui.activity.TuDime_Membership" />
+        <activity android:name=".Internet_Calling.quickstart.VoiceActivity" />
+        <activity android:name=".Internet_Calling.Internet_Calling_Activity" />
         <activity android:name=".ui.activity.PriceRatesWebView" />
         <activity android:name=".ui.activity.TuDime_CAN" />
         <activity android:name=".ui.activity.Buy_TuDime_Subscription" />
@@ -127,8 +128,7 @@
         <activity
             android:name=".ui.activity.ChatActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/ChatActivityTheme"
-            />
+            android:theme="@style/ChatActivityTheme" />
         <activity
             android:name=".ui.activity.ChatInfoActivity"
             android:label="@string/chat_info"
@@ -224,9 +224,7 @@
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
-        </receiver>
-       <!-- Relese -->
-
+        </receiver> <!-- Relese -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDuAiQ17474Bq7BOAZTwS3jCcR4UHJv7uk" /> <!-- DEBUG -->

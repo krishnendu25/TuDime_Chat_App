@@ -105,9 +105,7 @@ public class LoginService extends Service {
         try {
             startSuitableActions();
         }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        {  }
 
         return START_REDELIVER_INTENT;
     }

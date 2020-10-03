@@ -52,9 +52,10 @@ public class Ecards3D_Activity extends BaseActivity implements AdapterView.OnIte
 
         final ArrayList<String> language_aaray = new ArrayList<>();
         language_aaray.add(getString(R.string.select_your_language));
+        language_aaray.add(getString(R.string.eng));
         language_aaray.add(getString(R.string.spanish));
         language_aaray.add(getString(R.string.hindi));
-        language_aaray.add(getString(R.string.Thai));
+       /* language_aaray.add(getString(R.string.Thai));
         language_aaray.add(getString(R.string.Ben));
         language_aaray.add(getString(R.string.Tel));
         language_aaray.add(getString(R.string.Mar));
@@ -65,7 +66,7 @@ public class Ecards3D_Activity extends BaseActivity implements AdapterView.OnIte
         language_aaray.add(getString(R.string.Jap));
         language_aaray.add(getString(R.string.Mal));
         language_aaray.add(getString(R.string.Por));
-        language_aaray.add(getString(R.string.Vie));
+        language_aaray.add(getString(R.string.Vie));*/
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(Ecards3D_Activity.this, android.R.layout.simple_list_item_1, language_aaray);
         lang_sel.setAdapter(adapter);

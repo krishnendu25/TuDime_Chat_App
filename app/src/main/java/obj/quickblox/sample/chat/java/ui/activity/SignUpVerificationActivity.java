@@ -60,8 +60,6 @@ import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
 import com.quickblox.videochat.webrtc.QBRTCConfig;
-import com.stfalcon.smsverifycatcher.OnSmsCatchListener;
-import com.stfalcon.smsverifycatcher.SmsVerifyCatcher;
 
 import org.jivesoftware.smack.util.StringUtils;
 import org.jivesoftware.smackx.ping.PingFailedListener;
@@ -85,7 +83,6 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
     private EditText etVerificationCode;
     private Button btnDone;
     private String last2Digit = ".com";
-    private SmsVerifyCatcher smsVerifyCatcher;
     QBUser user_api;
     private String OTP_re;
 
@@ -119,14 +116,6 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
                     VerifyOTP(etVerificationCode.getText().toString().trim());
                 }
 
-            }
-        });
-        smsVerifyCatcher = new SmsVerifyCatcher(this, new OnSmsCatchListener<String>() {
-            @Override
-            public void onSmsCatch(String message) {
-                String code = parseCode(message);//Parse verification code
-                etVerificationCode.setText(code);//set code in edit text
-                //then you can send verification code to server
             }
         });
 
@@ -383,44 +372,36 @@ public class SignUpVerificationActivity extends BaseActivity implements View.OnC
             }
         }
         if (requestCode==286) {
-            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
-            hideProgressDialog();
-            SignUpVerificationActivity.OTP = OTP_re;
-            hideProgressDialog();
-        }
+            try{
+                if (response.getString("status").equalsIgnoreCase("success"))
+                {
+                    hideProgressDialog();
+                    ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.");
+                    hideProgressDialog();
+                    SignUpVerificationActivity.OTP = OTP_re;
+                    hideProgressDialog();
+                }else
+                {
+                    hideProgressDialog();
+                    ToastUtils.longToast(response.getString("error_message"));
+                }
 
+            }catch (Exception e)
+            {
+                hideProgressDialog();
+                ToastUtils.longToast("Some Error Occurred");
+            }
+        }
     }
+
 
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
-        if (requestCode==286) {
-            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
-            hideProgressDialog();
-            SignUpVerificationActivity.OTP = OTP_re;
-            hideProgressDialog();
-        }
+
     }
 
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
-        if (requestCode==286) {
-            ToastUtils.longToast("OTP mail Sent Successfully in Yout Email.\nPlease Check Your Spam box in mail for OTP mail");
-            hideProgressDialog();
-            SignUpVerificationActivity.OTP = OTP_re;
-            hideProgressDialog();
-        }
-    }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        smsVerifyCatcher.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        smsVerifyCatcher.onStop();
     }
 }

@@ -3,12 +3,20 @@ package obj.quickblox.sample.chat.java;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
+
+import com.devs.acr.AutoErrorReporter;
 import com.quickblox.auth.session.QBSettings;
+import com.zxy.recovery.callback.RecoveryCallback;
+import com.zxy.recovery.core.Recovery;
+
 import obj.quickblox.sample.chat.java.managers.BackgroundListener;
 import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
 import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
+import obj.quickblox.sample.chat.java.ui.activity.TestActivity;
 import obj.quickblox.sample.chat.java.util.QBResRequestExecutor;
 import obj.quickblox.sample.chat.java.utils.ActivityLifecycle;
+import obj.quickblox.sample.chat.java.utils.Constant;
 
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDex;
@@ -56,7 +64,49 @@ public class App extends Application {
                     public void uncaughtException(Thread thread, Throwable e) {
                         handleUncaughtException (thread,e);
                     }});
+
+        AutoErrorReporter.get(this)
+                .setEmailAddresses("otptudime@gmail.com")
+                .setEmailSubject("Crash Report:-->  "+ Constant.Get_back_date(Constant.GET_timeStamp()))
+                .start();
+
+        Recovery.getInstance()
+                .debug(true)
+                .recoverInBackground(false)
+                .recoverStack(true)
+                .mainPage(DashBoard.class)
+                .recoverEnabled(true)
+                .callback(new MyCrashCallback())
+                .silent(true, Recovery.SilentMode.RECOVER_ACTIVITY_STACK)
+                .skip(TestActivity.class)
+                .init(this);
     }
+
+    static final class MyCrashCallback implements RecoveryCallback {
+        @Override
+        public void stackTrace(String exceptionMessage) {
+            Log.e("zxy", "exceptionMessage:" + exceptionMessage);
+        }
+
+        @Override
+        public void cause(String cause) {
+            Log.e("zxy", "cause:" + cause);
+        }
+
+        @Override
+        public void exception(String exceptionType, String throwClassName, String throwMethodName, int throwLineNumber) {
+            Log.e("zxy", "exceptionClassName:" + exceptionType);
+            Log.e("zxy", "throwClassName:" + throwClassName);
+            Log.e("zxy", "throwMethodName:" + throwMethodName);
+            Log.e("zxy", "throwLineNumber:" + throwLineNumber);
+        }
+
+        @Override
+        public void throwable(Throwable throwable) {
+
+        }
+    }
+
 
     private void initApplication()
     {

@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.provider.Contacts;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,6 +58,7 @@ import com.quickblox.messages.QBPushNotifications;
 import com.quickblox.messages.model.QBEnvironment;
 import com.quickblox.messages.model.QBNotificationChannel;
 import com.quickblox.messages.model.QBSubscription;
+import com.quickblox.messages.services.SubscribeService;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCClientSessionCallbacks;
@@ -94,6 +96,7 @@ import obj.quickblox.sample.chat.java.utils.InternetConnection;
 import obj.quickblox.sample.chat.java.utils.KeyboardUtils;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.ToastUtils;
+import obj.quickblox.sample.chat.java.utils.UsersUtils;
 
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_profile;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_tudime_fetch_my_call_balence;
@@ -263,25 +266,25 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         image1 = (ImageView) v.findViewById(R.id.image_drawer);
         image_bg = (ImageView) v.findViewById(R.id.imge_bg);
         v.findViewById(R.id.image_drawer).setOnClickListener(this);
-        View vv = v.findViewById(R.id.listView1);
-        vv.findViewById(R.id.linear_encounter123).setVisibility(View.VISIBLE);
-        vv.findViewById(R.id.text_new_gp).setOnClickListener(this);
-        vv.findViewById(R.id.text_new_bd).setOnClickListener(this);
-        vv.findViewById(R.id.text_setting).setOnClickListener(this);
-        vv.findViewById(R.id.sigout).setOnClickListener(this);
-        vv.findViewById(R.id.text_encounters).setOnClickListener(this);
-        vv.findViewById(R.id.txt_schedule_event).setOnClickListener(this);
-        vv.findViewById(R.id.total_credit).setOnClickListener(this);
-        vv.findViewById(R.id.text_ecards).setOnClickListener(this);
-        showAppVersion =   vv.findViewById(R.id.showAppVersion);
-        vv.findViewById(R.id.text_schedule_events).setOnClickListener(this);
-        vv.findViewById(R.id.text_change_language).setOnClickListener(this);
-        vv.findViewById(R.id.Subscrption_managment).setOnClickListener(this);
-        vv.findViewById(R.id.Subscrption_managment).setSelected(true);
-        vv.findViewById(R.id.call_directly).setOnClickListener(this);
-        vv.findViewById(R.id.text_call_credit).setOnClickListener(this);
-        vv.findViewById(R.id.text_feedback).setOnClickListener(this);
-        total_credit = (TextView) vv.findViewById(R.id.total_credit);
+        //View vv = v.findViewById(R.id.listView1);
+       v.findViewById(R.id.linear_encounter123).setVisibility(View.VISIBLE);
+       v.findViewById(R.id.text_new_gp).setOnClickListener(this);
+       v.findViewById(R.id.text_new_bd).setOnClickListener(this);
+       v.findViewById(R.id.text_setting).setOnClickListener(this);
+       v.findViewById(R.id.sigout).setOnClickListener(this);
+       v.findViewById(R.id.text_encounters).setOnClickListener(this);
+       v.findViewById(R.id.txt_schedule_event).setOnClickListener(this);
+       v.findViewById(R.id.total_credit).setOnClickListener(this);
+       v.findViewById(R.id.text_ecards).setOnClickListener(this);
+        showAppVersion =  v.findViewById(R.id.showAppVersion);
+       v.findViewById(R.id.text_schedule_events).setOnClickListener(this);
+       v.findViewById(R.id.text_change_language).setOnClickListener(this);
+       v.findViewById(R.id.Subscrption_managment).setOnClickListener(this);
+       v.findViewById(R.id.Subscrption_managment).setSelected(true);
+       v.findViewById(R.id.call_directly).setOnClickListener(this);
+       v.findViewById(R.id.text_call_credit).setOnClickListener(this);
+       v.findViewById(R.id.text_feedback).setOnClickListener(this);
+        total_credit = (TextView)v.findViewById(R.id.total_credit);
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(adapterViewPager);
         adapterViewPager.notifyDataSetChanged();
@@ -437,6 +440,9 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 break;
             case R.id.sigout:
                 try {
+                    try{
+                        logOut();
+                    }catch (Exception e){}
                     SharedPrefsHelper.clearAllData();
                     CiaoPrefrences.getInstance(this).clearPrefrences();
                     Intent ii = new Intent(getApplicationContext(), SetLanguage.class);
@@ -453,7 +459,12 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 break;
         }
     }
-
+    private void logOut() {
+        SubscribeService.unSubscribeFromPushes(this);
+        LoginService.logout(this);
+        UsersUtils.removeUserData(getApplicationContext());
+        requestExecutor.signOut();
+    }
     @Override
     public void onReceiveNewSession(QBRTCSession qbrtcSession) { }
 

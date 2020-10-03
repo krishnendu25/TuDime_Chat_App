@@ -16,7 +16,7 @@ public interface ApiConstants {
 	public static final String detectlanguage="http://18.219.14.108/tudime_sms/detectlanguage.php";
 	public static final String Upload_File="http://18.219.14.108/tudime_sms/images_tudime.php";
 	public static final String accessToken_url="http://18.191.179.161:3000/accessToken.php";
-	public static final String sendMailUrl="http://iptvplatforms.com/send_mail_api/send_mail.php";
+	public static final String sendMailUrl="http://18.219.14.108/tudime_sms/send_mail_tudime/tudime_mail.php";
 	public interface REQUEST {
 		public static final int UPDATE_LOCATION = 17;
 	}

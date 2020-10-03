@@ -110,6 +110,14 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
                 .enableAutoManage(this, this)
                 .addApi(Auth.CREDENTIALS_API)
                 .build();
+        loginEt = findViewById(R.id.login);
+        /*usernameEt = findViewById(R.id.user_name);*/
+        btnAgree = findViewById(R.id.btnAgree);
+        login_with_nickname_ph = findViewById(R.id.login_with_nickname_ph);
+        btnAgree.setOnClickListener(this);
+        txvCountry =(TextView)findViewById(R.id.txvCountry);
+        txvCountry.setOnClickListener(this);
+        txtCCode = (TextView)findViewById(R.id.txtCCode);
 
         try{
             getphonenumber();
@@ -157,15 +165,7 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
         });
 
 
-        loginEt = findViewById(R.id.login);
-        /*usernameEt = findViewById(R.id.user_name);*/
-        btnAgree = findViewById(R.id.btnAgree);
-        login_with_nickname_ph = findViewById(R.id.login_with_nickname_ph);
-        btnAgree.setOnClickListener(this);
-        txvCountry =(TextView)findViewById(R.id.txvCountry);
-        txvCountry.setOnClickListener(this);
-        txtCCode = (TextView)findViewById(R.id.txtCCode);
-        txtCCode.setText(country_code);
+
 
 
         int PERMISSION_ALL = 1;
