@@ -77,6 +77,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.sentry.Sentry;
 import obj.quickblox.sample.chat.java.App;
 import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
 import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;

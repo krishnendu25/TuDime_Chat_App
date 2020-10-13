@@ -9,7 +9,7 @@ import java.util.Map;
 
 import obj.quickblox.sample.chat.java.App;
 import obj.quickblox.sample.chat.java.R;
-import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
+import obj.quickblox.sample.chat.java.ui.activity.Splash_Activity;
 import obj.quickblox.sample.chat.java.utils.ActivityLifecycle;
 import obj.quickblox.sample.chat.java.utils.NotificationUtils;
 
@@ -18,7 +18,7 @@ public class PushListenerService extends QBFcmPushListenerService {
     private static final int NOTIFICATION_ID = 1;
 
     protected void showNotification(String message) {
-        NotificationUtils.showNotification(App.getInstance(), SplashActivity.class,
+        NotificationUtils.showNotification(App.getInstance(), Splash_Activity.class,
                 App.getInstance().getString(R.string.notification_title), message,
                 R.drawable.notification_icon, NOTIFICATION_ID);
     }

@@ -12,7 +12,6 @@ import com.zxy.recovery.core.Recovery;
 
 import obj.quickblox.sample.chat.java.managers.BackgroundListener;
 import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
-import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
 import obj.quickblox.sample.chat.java.ui.activity.TestActivity;
 import obj.quickblox.sample.chat.java.util.QBResRequestExecutor;
 import obj.quickblox.sample.chat.java.utils.ActivityLifecycle;

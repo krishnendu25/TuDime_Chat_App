@@ -672,9 +672,6 @@ public class VoiceActivity extends BaseActivity {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (action != null && (action.equals(Constants.ACTION_INCOMING_CALL) || action.equals(Constants.ACTION_CANCEL_CALL))) {
-                /*
-                 * Handle the incoming or cancelled call invite
-                 */
                 handleIncomingCallIntent(intent);
             }
         }

@@ -554,6 +554,27 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                             {
                                 language_translator.Language_Translator(chatMessage.getBody(),
                                         SharedPrefsHelper.getInstance().get_Language(), String.valueOf(position));
+                            }else if (i == R.id.item_for)
+                            {
+                                SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
+                                Intent intent = new Intent(context, DashBoard.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                context.startActivity(intent);
+                            }else if (i == R.id.item3) {
+                                QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid, Bundle bundle) {
+                                        chatMessages.remove(position);
+                                        notifyDataSetChanged();
+                                        updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
+
+                                    }
+                                    @Override
+                                    public void onError(QBResponseException e) {
+
+                                    }
+                                });
+
                             }
                             else {
                                 return onMenuItemClick(item);
@@ -594,11 +615,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     private void fillAttachmentHolder(ImageAttachHolder holder, QBChatMessage chatMessage, int position, boolean isLeftMessage) {
         setDateSentAttach(holder, chatMessage);
         displayAttachment(holder, position);
-
-
-
-
-
 
         if (isLeftMessage==false)
         {
@@ -1134,8 +1150,6 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     private static class VideoMessageHolder extends MessageViewHolder {
         private ImageView video_play,msg_image_attach;
         private TextView msg_attach_status_message;
-
-
         private VideoMessageHolder(View itemView,@IdRes int timeId, @IdRes int video_play_t, @IdRes int msg_image_attach_) {
             super(itemView);
 

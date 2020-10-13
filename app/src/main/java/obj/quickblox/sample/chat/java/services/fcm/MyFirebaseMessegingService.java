@@ -16,8 +16,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import obj.quickblox.sample.chat.java.R;
-import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
-import obj.quickblox.sample.chat.java.utils.Constant;
+import obj.quickblox.sample.chat.java.ui.activity.Splash_Activity;
 
 /**
  * Created by Krishnendu on 2019.
@@ -68,7 +67,7 @@ public class MyFirebaseMessegingService extends FirebaseMessagingService
     }
 
     private void sendNotification(String messageBody) {
-        Intent intent = new Intent(this, SplashActivity.class);
+        Intent intent = new Intent(this, Splash_Activity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

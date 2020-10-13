@@ -128,7 +128,8 @@ public class CallService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Notification notification = initNotification();
         startForeground(SERVICE_ID, notification);
-        return super.onStartCommand(intent, flags, startId);
+        /*return super.onStartCommand(intent, flags, startId);*/
+        return START_STICKY_COMPATIBILITY;
     }
 
     @Override

@@ -19,15 +19,12 @@ import com.quickblox.chat.listeners.QBVideoChatSignalingManagerListener;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 
-import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
-import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
 import obj.quickblox.sample.chat.java.util.ChatPingAlarmManager;
 import obj.quickblox.sample.chat.java.utils.Consts;
 import obj.quickblox.sample.chat.java.utils.InternetConnection;
 import obj.quickblox.sample.chat.java.utils.SettingsUtil;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.WebRtcSessionManager;
-import obj.quickblox.sample.chat.java.utils.chat.ChatHelper;
 
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
@@ -95,19 +92,21 @@ public class LoginService extends Service {
     public void onCreate() {
         super.onCreate();
         createChatService();
+
         Log.d(TAG, "Service onCreate()");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d(TAG, "Service started");
-        parseIntentExtras(intent);
+
         try {
+            Log.d(TAG, "Service started");
+            parseIntentExtras(intent);
             startSuitableActions();
         }catch (Exception e)
         {  }
 
-        return START_REDELIVER_INTENT;
+        return START_STICKY_COMPATIBILITY;
     }
 
     private void parseIntentExtras(Intent intent) {

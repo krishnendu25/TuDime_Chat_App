@@ -6,9 +6,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 
 import obj.quickblox.sample.chat.java.R;
-import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
+import obj.quickblox.sample.chat.java.ui.activity.Splash_Activity;
 
 public class AlarmService extends WakeIntentService {
 
@@ -20,7 +18,7 @@ public class AlarmService extends WakeIntentService {
     void doReminderWork(Intent intent) {
         NotificationManager manager = (NotificationManager)
                 getSystemService(NOTIFICATION_SERVICE);
-        Intent notificationIntent = new Intent(this, SplashActivity.class);
+        Intent notificationIntent = new Intent(this, Splash_Activity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0,
                 notificationIntent, PendingIntent.FLAG_ONE_SHOT);
         Notification note = new Notification(R.drawable.calendar, "Alarm",

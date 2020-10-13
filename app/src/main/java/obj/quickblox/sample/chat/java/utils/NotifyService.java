@@ -13,7 +13,6 @@ import androidx.core.app.NotificationCompat;
 
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.ui.activity.ScheduleTaskActivity;
-import obj.quickblox.sample.chat.java.ui.activity.SplashActivity;
 
 public class NotifyService extends Service {
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
