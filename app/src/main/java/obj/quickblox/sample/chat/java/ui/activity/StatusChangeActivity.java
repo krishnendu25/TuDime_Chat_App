@@ -41,16 +41,11 @@ import static obj.quickblox.sample.chat.java.constants.ApiConstants.update_user_
 
 /* renamed from: com.tudime.ui.activity.StatusChangeActivity */
 public class StatusChangeActivity extends BaseActivity implements IJSONParseListener,View.OnClickListener {
-    /* access modifiers changed from: private */
     public StatusListAdapter adapter;
     private ListView lsvStatus;
     protected String mSelectedStatus = "";
-    /* access modifiers changed from: private */
     public TextView showEditStatus;
-    /* access modifiers changed from: private */
     public ArrayList<String> statusList;
-    Toolbar toolbar;
-    /* access modifiers changed from: protected */
     public void onCreate(Bundle arg0) {
         super.onCreate(arg0);
         SetLan(SharedPrefsHelper.getInstance().get_Language());
@@ -73,7 +68,7 @@ public class StatusChangeActivity extends BaseActivity implements IJSONParseList
                 StatusChangeActivity.this.hitApiStatusUpdate(SharedPrefsHelper.getInstance().getUSERID(),statusList.get(position).trim());
             }
         });
-        toolbar.setTitle("Change Your Status");
+
     }
 
     /* access modifiers changed from: protected */

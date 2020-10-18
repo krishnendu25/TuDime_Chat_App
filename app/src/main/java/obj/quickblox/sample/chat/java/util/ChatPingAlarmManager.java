@@ -31,6 +31,8 @@ public class ChatPingAlarmManager {
     private static final BroadcastReceiver ALARM_BROADCAST_RECEIVER = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.v(TAG, "Ping Alarm broadcast received");
+
             if (enabled) {
                 Log.d(TAG, "Calling pingServer for connection");
                 final QBPingManager pingManager = QBChatService.getInstance().getPingManager();
@@ -76,14 +78,21 @@ public class ChatPingAlarmManager {
     public static synchronized ChatPingAlarmManager getInstanceFor() {
         if (instance == null) {
             instance = new ChatPingAlarmManager();
-            setEnabled(true);
         }
         return instance;
     }
 
+    /**
+     * Register a pending intent with the AlarmManager to be broadcasted every
+     * half hour and register the alarm broadcast receiver to receive this
+     * intent. The receiver will check all known questions if a ping is
+     * Necessary when invoked by the alarm intent.
+     *
+     * @param context
+     */
     public static void onCreate(Context context) {
         sContext = context;
-        context.registerReceiver(ALARM_BROADCAST_RECEIVER, new IntentFilter(PING_ALARM_ACTION));
+        try{context.registerReceiver(ALARM_BROADCAST_RECEIVER, new IntentFilter(PING_ALARM_ACTION));}catch (Exception e){}
         sAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         sPendingIntent = PendingIntent.getBroadcast(context, 0, new Intent(PING_ALARM_ACTION), 0);
         sAlarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
@@ -93,9 +102,9 @@ public class ChatPingAlarmManager {
     public static void onDestroy() {
         if (sContext != null) {
             try {
-                setEnabled(false);
                 sContext.unregisterReceiver(ALARM_BROADCAST_RECEIVER);
             } catch (Exception ignored) {
+                Log.d (TAG, "Receiver not registered before");
             }
         }
         if (sAlarmManager != null) {

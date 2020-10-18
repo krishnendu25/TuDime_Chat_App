@@ -111,10 +111,7 @@ public class CallService extends Service {
 
     @Override
     public void onCreate() {
-        try {
-            currentSession = WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession();
-        }catch (Exception e){}
-
+        currentSession = WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession();
         clearButtonsState();
         initNetworkChecker();
         initRTCClient();
@@ -128,8 +125,7 @@ public class CallService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Notification notification = initNotification();
         startForeground(SERVICE_ID, notification);
-        /*return super.onStartCommand(intent, flags, startId);*/
-        return START_STICKY_COMPATIBILITY;
+        return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
@@ -643,30 +639,24 @@ public class CallService extends Service {
 
         @Override
         public void onSessionStartClose(QBRTCSession session) {
-            try {
-                if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
-                    CallService.stop(getApplicationContext());
-                }
-            }catch (Exception e){}
-
+            if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
+                CallService.stop(getApplicationContext());
+            }
         }
 
         @Override
         public void onReceiveHangUpFromUser(QBRTCSession session, Integer userID, Map<String, String> map) {
-            try {
-                stopRingtone();
-                if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
-                    Log.d(TAG, "Initiator HangUp the Call");
-                    if (userID.equals(session.getCallerID()) && currentSession != null) {
-                        currentSession.hangUp(new HashMap<>());
-                    }
-
-                    QBUser participant = QbUsersDbManager.getInstance(getApplicationContext()).getUserById(userID);
-                    String participantName = participant != null ? participant.getFullName() : userID.toString();
-                    //   ToastUtils.shortToast("User " + participantName + " " + getString(R.string.text_status_hang_up) + " conversation");
+            stopRingtone();
+            if (session == WebRtcSessionManager.getInstance(getApplicationContext()).getCurrentSession()) {
+                Log.d(TAG, "Initiator HangUp the Call");
+                if (userID.equals(session.getCallerID()) && currentSession != null) {
+                    currentSession.hangUp(new HashMap<>());
                 }
-            }catch (Exception e){}
 
+                QBUser participant = QbUsersDbManager.getInstance(getApplicationContext()).getUserById(userID);
+                String participantName = participant != null ? participant.getFullName() : userID.toString();
+                //   ToastUtils.shortToast("User " + participantName + " " + getString(R.string.text_status_hang_up) + " conversation");
+            }
         }
 
         @Override

@@ -3,9 +3,11 @@ android.applicationVariants.all {
         def appName
         //Check if an applicationName property is supplied; if not use the name of the parent project.
         if (project.hasProperty("applicationName")) {
-            appName = applicationName
+          //  appName = applicationName
+            appName = "TuDime"
         } else {
-            appName = project.projectDir.getName()
+           // appName = project.projectDir.getName()
+            appName = "TuDime"
         }
 
         variant.outputs.each {
@@ -18,13 +20,14 @@ android.applicationVariants.all {
                 } else {
                     apkEndName = "-unaligned.apk"
                 }
-                newApkName = "${appName}-${variant.buildType.name}-${getDate()}-code-${variant.versionCode}-version-${variant.versionName}" + apkEndName
+                newApkName = "${appName}-${getDate()}" + apkEndName
+               // newApkName = "${appName}-${variant.buildType.name}-${getDate()}-code-${variant.versionCode}-version-${variant.versionName}" + apkEndName
                 output.outputFileName = newApkName
         }
 }
 
 def getDate() {
     def date = new Date()
-    def formattedDate = date.format('yyyyMMdd')
+    def formattedDate = date.format('dd-MM-yyyy')
     return formattedDate
 }

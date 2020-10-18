@@ -19,12 +19,14 @@ import com.quickblox.chat.listeners.QBVideoChatSignalingManagerListener;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 
+import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
 import obj.quickblox.sample.chat.java.util.ChatPingAlarmManager;
 import obj.quickblox.sample.chat.java.utils.Consts;
 import obj.quickblox.sample.chat.java.utils.InternetConnection;
 import obj.quickblox.sample.chat.java.utils.SettingsUtil;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.WebRtcSessionManager;
+import obj.quickblox.sample.chat.java.utils.chat.ChatHelper;
 
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
@@ -53,8 +55,6 @@ public class LoginService extends Service {
     private QBUser currentUser;
 
     public static void start(Context context, QBUser qbUser, PendingIntent pendingIntent) {
-
-
         SharedPrefsHelper.getInstance().set_LOGIN_SERVICE_STATUS("start");
         Intent intent = new Intent(context, LoginService.class);
         intent.putExtra(EXTRA_COMMAND_TO_SERVICE, COMMAND_LOGIN);
@@ -92,21 +92,23 @@ public class LoginService extends Service {
     public void onCreate() {
         super.onCreate();
         createChatService();
-
         Log.d(TAG, "Service onCreate()");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-
+        Log.d(TAG, "Service started");
+        parseIntentExtras(intent);
         try {
-            Log.d(TAG, "Service started");
-            parseIntentExtras(intent);
             startSuitableActions();
         }catch (Exception e)
-        {  }
+        {
+            DashBoard.start(this);
+            e.printStackTrace();
+        }
 
-        return START_STICKY_COMPATIBILITY;
+
+        return START_REDELIVER_INTENT;
     }
 
     private void parseIntentExtras(Intent intent) {
@@ -138,7 +140,7 @@ public class LoginService extends Service {
         if (chatService == null) {
             QBTcpConfigurationBuilder configurationBuilder = new QBTcpConfigurationBuilder();
             configurationBuilder.setSocketTimeout(0);
-         //   QBChatService.setConnectionFabric(new QBTcpChatConnectionFabric(configurationBuilder));
+            //   QBChatService.setConnectionFabric(new QBTcpChatConnectionFabric(configurationBuilder));
             QBChatService.setDebugEnabled(true);
             chatService = QBChatService.getInstance();
         }
@@ -223,11 +225,9 @@ public class LoginService extends Service {
         QBRTCConfig.setDebugEnabled(true);
         SettingsUtil.configRTCTimers(LoginService.this);
 
-        try {
-            rtcClient.addSessionCallbacksListener(WebRtcSessionManager.getInstance(this));
-            rtcClient.prepareToProcessCalls();
-        }catch (Exception e){}
-
+        // Add service as callback to RTCClient
+        rtcClient.addSessionCallbacksListener(WebRtcSessionManager.getInstance(this));
+        rtcClient.prepareToProcessCalls();
 
 
     }
@@ -243,6 +243,11 @@ public class LoginService extends Service {
                 pendingIntent.send(LoginService.this, Consts.EXTRA_LOGIN_RESULT_CODE, intent);
                 stopForeground(true);
             } catch (Exception e) {
+                String errorMessageSendingResult = e.getMessage();
+                Log.d(TAG, errorMessageSendingResult != null
+                        ? errorMessageSendingResult
+                        : "Error sending result to activity");
+                DashBoard.start(this);
             }
         }
     }

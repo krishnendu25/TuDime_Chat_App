@@ -6,13 +6,18 @@
     android:background="@color/gray_light_bg"
     android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/sky_blue"
-        android:elevation="8dp"
-        app:titleTextColor="@color/primary_grey_dark"/>
+        android:text="Change Your Status"
+        android:gravity="center|start"
+        android:padding="@dimen/padding_10"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dimen_20dp"
+        android:textStyle="bold"/>
 
 
     <LinearLayout
@@ -106,6 +111,6 @@
             android:divider="@color/grey"
             android:dividerHeight="0.5dp"
             android:listSelector="@color/transparent"
-            android:paddingLeft="5dp"></ListView>
+            android:paddingLeft="5dp"/>
     </LinearLayout>
 </LinearLayout>
