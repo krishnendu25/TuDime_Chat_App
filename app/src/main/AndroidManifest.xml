@@ -42,11 +42,8 @@
         android:anyDensity="true"
         android:largeScreens="true"
         android:normalScreens="true"
-        android:resizeable="true"
         android:smallScreens="true"
-        android:xlargeScreens="true"
-        android:requiresSmallestWidthDp="600"
-        android:compatibleWidthLimitDp="720" />
+        android:xlargeScreens="true" />
 
     <application
         android:name=".App"

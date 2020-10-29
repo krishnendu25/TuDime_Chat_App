@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.devs.acr.AutoErrorReporter;
 import com.quickblox.auth.session.QBSettings;
+import com.stripe.android.PaymentConfiguration;
 import com.zxy.recovery.callback.RecoveryCallback;
 import com.zxy.recovery.core.Recovery;
 
@@ -57,6 +58,10 @@ public class App extends Application {
         checkChatSettings();
         initCredentials();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new BackgroundListener());
+
+        PaymentConfiguration.init(getApplicationContext(), "pk_test_51HfT6xFkSCzGK3GZroGBOYtRboQorMUsqrSoEUgrB9RzuYsJ9DnxUrI5eLjdXGZpJtHnBeCNGInNwen7MLFLRa2V007KjYEZCz");
+
+
        Thread.setDefaultUncaughtExceptionHandler(
                 new Thread.UncaughtExceptionHandler() {
                     @Override

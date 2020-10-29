@@ -3,6 +3,7 @@ package obj.quickblox.sample.chat.java.ui.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -93,6 +94,7 @@ import obj.quickblox.sample.chat.java.ui.fragments.Calls_Fragment;
 import obj.quickblox.sample.chat.java.ui.fragments.Chat_Fragment;
 import obj.quickblox.sample.chat.java.ui.fragments.Contact_chat_Fragment;
 import obj.quickblox.sample.chat.java.utils.Constant;
+import obj.quickblox.sample.chat.java.utils.Consts;
 import obj.quickblox.sample.chat.java.utils.InternetConnection;
 import obj.quickblox.sample.chat.java.utils.KeyboardUtils;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
@@ -144,6 +146,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         setContentView(R.layout.activity_dash_board);
         ButterKnife.bind(this);
         Initialization();
+        startLoginService();
         hideActionbar();
         int PERMISSION_ALL = 1;
         String[] PERMISSIONS = {Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS,
@@ -199,10 +202,19 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
     }
 
     private void startLoginService() {
-        if (sharedPrefsHelper.hasQbUser()) {
-            QBUser qbUser = sharedPrefsHelper.getQbUser();
-            LoginService.start(this, qbUser);
-        }
+        try{
+            if (InternetConnection.checkConnection(this)) {
+                if (sharedPrefsHelper.hasQbUser()) {
+                    QBUser qbUser = sharedPrefsHelper.getQbUser();
+                    Intent tempIntent = new Intent(getApplicationContext(), LoginService.class);
+                    PendingIntent pendingIntent = createPendingResult(Consts.EXTRA_LOGIN_RESULT_CODE, tempIntent, 0);
+                    LoginService.start(this, qbUser,pendingIntent);
+                }
+            }
+        }catch (Exception e){}
+
+
+
     }
 
     private void Initialization() {
@@ -374,14 +386,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
 
     protected void onResume() {
         super.onResume();
-        try{
-            if (InternetConnection.checkConnection(this)) {
-                try {
-                    LoginService.start(getApplicationContext(), sharedPrefsHelper.getQbUser());
-                } catch (Exception e) {
-                }
-            }
-        }catch (Exception e){}
+
        try{
            Update_Profile_Update(SharedPrefsHelper.getInstance().getUSERID()
                    , SharedPrefsHelper.getInstance().getUserName(),
@@ -465,6 +470,10 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         LoginService.logout(this);
         UsersUtils.removeUserData(getApplicationContext());
         requestExecutor.signOut();
+    }
+    private void logOut_() {
+        SubscribeService.unSubscribeFromPushes(this);
+        LoginService.logout(this);
     }
     @Override
     public void onReceiveNewSession(QBRTCSession qbrtcSession) { }
@@ -761,4 +770,11 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         }
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        try{
+            logOut_();
+        }catch (Exception e){}
+    }
 }

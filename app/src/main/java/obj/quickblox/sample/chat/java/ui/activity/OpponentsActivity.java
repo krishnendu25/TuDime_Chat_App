@@ -2,6 +2,7 @@ package obj.quickblox.sample.chat.java.ui.activity;
 
 import android.app.ActivityManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -231,7 +232,9 @@ public class OpponentsActivity extends BaseActivity {
     private void startLoginService() {
         if (sharedPrefsHelper.hasQbUser()) {
             QBUser qbUser = sharedPrefsHelper.getQbUser();
-            LoginService.start(this, qbUser);
+            Intent tempIntent = new Intent(getApplicationContext(), LoginService.class);
+            PendingIntent pendingIntent = createPendingResult(Consts.EXTRA_LOGIN_RESULT_CODE, tempIntent, 0);
+            LoginService.start(this, qbUser,pendingIntent);
         }
     }
 

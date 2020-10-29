@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -1318,7 +1319,9 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         if (Constant.isOnline(getApplicationContext())) {
             if (sharedPrefsHelper.hasQbUser()) {
                 QBUser qbUser = sharedPrefsHelper.getQbUser();
-                LoginService.start(this, qbUser);
+                Intent tempIntent = new Intent(getApplicationContext(), LoginService.class);
+                PendingIntent pendingIntent = createPendingResult(Consts.EXTRA_LOGIN_RESULT_CODE, tempIntent, 0);
+                LoginService.start(this, qbUser,pendingIntent);
             }
         }
 
