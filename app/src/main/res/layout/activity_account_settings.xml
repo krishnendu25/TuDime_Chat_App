@@ -80,6 +80,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="10dp"
                 android:id="@+id/Archive_Chat"
+                android:visibility="gone"
                 android:drawablePadding="10dp"
                 android:drawableRight="@drawable/next_page_arrow1"
                 android:gravity="center_vertical"
@@ -91,6 +92,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="0.5dp"
+                android:visibility="gone"
                 android:background="@color/lines_color" />
             <TextView
                 android:layout_width="fill_parent"

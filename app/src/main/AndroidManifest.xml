@@ -245,14 +245,13 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver> <!-- Relese -->
-        <meta-data
+       <!-- <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDuAiQ17474Bq7BOAZTwS3jCcR4UHJv7uk" /> <!-- DEBUG -->
-        <!--
+            android:value="AIzaSyDuAiQ17474Bq7BOAZTwS3jCcR4UHJv7uk" /> -->
+        <!-- DEBUG -->
    <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDjl2LKFfzPUuFlVPARbS0-01rGHgCJhfE" />
-        -->
         <receiver
             android:name=".util.MySMSBroadcastReceiver"
             android:exported="true"
