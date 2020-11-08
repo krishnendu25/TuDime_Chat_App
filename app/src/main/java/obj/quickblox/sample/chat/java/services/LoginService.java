@@ -98,6 +98,7 @@ public class LoginService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.d(TAG, "Service started");
+        if (intent!=null)
         parseIntentExtras(intent);
         try {
             startSuitableActions();

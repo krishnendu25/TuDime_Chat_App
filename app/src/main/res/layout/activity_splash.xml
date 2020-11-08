@@ -42,6 +42,7 @@
 <ProgressBar
     android:layout_width="@dimen/dimen_30dp"
     android:layout_height="@dimen/dimen_30dp"
+    android:visibility="gone"
     android:layout_alignParentBottom="true"
     android:layout_centerHorizontal="true"
     android:layout_marginBottom="150dp"/>

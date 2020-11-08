@@ -32,6 +32,7 @@ public abstract class WakeIntentService extends IntentService {
     @Override
     final protected void onHandleIntent(Intent intent) {
         try {
+            if (intent!=null)
             doReminderWork(intent);
         } finally {
             getLock(this).release();

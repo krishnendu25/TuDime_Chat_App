@@ -17,6 +17,8 @@ public interface ApiConstants {
 	public static final String Upload_File="http://18.219.14.108/tudime_sms/images_tudime.php";
 	public static final String accessToken_url="http://18.191.179.161:3000/accessToken.php";
 	public static final String sendMailUrl="http://18.219.14.108/tudime_sms/send_mail_tudime/tudime_mail.php";
+	public static final String ephemeral_key="http://18.219.14.108/tudime_sms/stripe_php_payment_gateway/ephemeralKey.php";
+	public static final String payforsubscrption="http://18.219.14.108/tudime_sms/stripe_php_payment_gateway/config.php";
 	public interface REQUEST {
 		public static final int UPDATE_LOCATION = 17;
 	}

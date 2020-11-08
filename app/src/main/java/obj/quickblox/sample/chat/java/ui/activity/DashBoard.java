@@ -226,6 +226,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                     public void onSuccess(InstanceIdResult instanceIdResult) {
                         Global_FCM_TOKEN = instanceIdResult.getToken();
                         try {
+                            if (Global_FCM_TOKEN!=null)
                             subscribeToPushNotifications(Global_FCM_TOKEN);
                         } catch (Exception e) {
                         }
@@ -674,7 +675,10 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
     }
 
     private String getCurrentDeviceId() {
+        if ( Utils.generateDeviceId(this)!=null)
         return Utils.generateDeviceId(this);
+        else
+            return "[1111]";
     }
 
     private void Filter_Subscription(String account_create) {

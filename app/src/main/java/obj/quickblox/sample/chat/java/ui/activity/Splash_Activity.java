@@ -39,8 +39,7 @@ public class Splash_Activity extends BaseActivity {
         SharedPrefsHelper.getInstance().set_LOGIN_SERVICE_STATUS("stop");
     hideActionbar();
         UpeerICIv = findViewById(R.id.UpeerICIv);
-        Animation animSlide = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade);
-        UpeerICIv.startAnimation(animSlide);
+
 
 
         if (SharedPrefsHelper.getInstance().get_PASSWORD_STATUS() == null) {

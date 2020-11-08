@@ -281,7 +281,9 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
     public void onStop() {
         super.onStop();
         try {
+            if (br!=null)
             unregisterReceiver(this.br);
+            if (br_delever!=null)
             unregisterReceiver(this.br_delever);
         } catch (Exception e) {
             e.printStackTrace();

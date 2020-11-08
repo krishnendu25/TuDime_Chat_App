@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "184656604055-8c49l2sie7l75e1as9c6gqsd9saq7r1r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "obj.quickblox.sample.chat.java",
+            "certificate_hash": "12f5c2fe533eb93549dd3a7b7cbc9e02ed9e63cd"
+          }
+        },
+        {
           "client_id": "184656604055-o93cfgp7taj4rvfv5fvt4up55s6f2tff.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -38,6 +46,13 @@
             {
               "client_id": "184656604055-351no5v2tbv2s8e1hg9at58fh1226ooc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "184656604055-bcc15t4ms52ai31slp4nn07vk0241lef.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dev.TuDime"
+              }
             }
           ]
         }

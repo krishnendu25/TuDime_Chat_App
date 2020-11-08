@@ -11,6 +11,7 @@ import com.stripe.android.PaymentConfiguration;
 import com.zxy.recovery.callback.RecoveryCallback;
 import com.zxy.recovery.core.Recovery;
 
+import obj.quickblox.sample.chat.java.constants.AppConstants;
 import obj.quickblox.sample.chat.java.managers.BackgroundListener;
 import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
 import obj.quickblox.sample.chat.java.ui.activity.TestActivity;
@@ -59,7 +60,8 @@ public class App extends Application {
         initCredentials();
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new BackgroundListener());
 
-        PaymentConfiguration.init(getApplicationContext(), "pk_test_51HfT6xFkSCzGK3GZroGBOYtRboQorMUsqrSoEUgrB9RzuYsJ9DnxUrI5eLjdXGZpJtHnBeCNGInNwen7MLFLRa2V007KjYEZCz");
+        //Stripe - Configaration
+        PaymentConfiguration.init(getApplicationContext(), AppConstants.Stripe_Publishable_key);
 
 
        Thread.setDefaultUncaughtExceptionHandler(
@@ -85,6 +87,8 @@ public class App extends Application {
                 .skip(TestActivity.class)
                 .init(this);
     }
+
+
 
     static final class MyCrashCallback implements RecoveryCallback {
         @Override

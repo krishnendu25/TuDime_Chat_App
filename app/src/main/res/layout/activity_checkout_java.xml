@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#25000000"
+    android:gravity="center"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ui.activity.CheckoutActivityJava">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_20dp"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="@dimen/padding_10"
+        android:paddingBottom="@dimen/dimen_20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="?actionBarSize"
+                android:layout_marginTop="@dimen/dimen_30dp"
+                android:src="@drawable/ic_stripe"/>
+            <EditText
+                android:id="@+id/enter_email"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_edit"
+                android:hint="Enter Your Email Address"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:textColor="@color/active_fonts"
+                android:textColorHint="#674767"
+                android:textSize="18sp" />
+            <com.stripe.android.view.CardInputWidget
+                android:id="@+id/cardInputWidget"
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_margin="@dimen/dimen_20dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/dimen_14dp"
+                android:layout_marginStart="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
+                android:gravity="center"
+                android:fontFamily="@font/avenirnextbold"
+                android:textColor="#3F51B5"
+                android:textStyle="italic"
+                android:text="**After Complete Your Payment .You Receive A Invoice In Your Email Address.**"/>
+            <Button
+                android:id="@+id/payButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_marginStart="@dimen/padding_15"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/padding_15"
+                android:background="@drawable/bg_btn_white"
+                android:text="Pay Now"
+                android:layout_marginBottom="@dimen/dimen_30dp"
+                android:fontFamily="@font/avenirnext_heavy"
+                android:textColor="#fff"
+                android:textSize="@dimen/dimen_16dp"/>
+            <ImageView
+                android:id="@+id/UpeerICIv"
+                android:layout_width="100dp"
+                android:layout_marginBottom="@dimen/dimen_20dp"
+                android:layout_height="@dimen/dimen_50dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="center"
+                android:src="@drawable/verification_logo_tudime"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</LinearLayout>
