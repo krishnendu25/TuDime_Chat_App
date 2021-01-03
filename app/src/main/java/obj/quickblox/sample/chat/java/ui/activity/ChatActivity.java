@@ -1,14 +1,18 @@
 package obj.quickblox.sample.chat.java.ui.activity;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -41,13 +45,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -56,16 +58,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.quickblox.chat.QBChatService;
-import com.quickblox.chat.QBIncomingMessagesManager;
 import com.quickblox.chat.QBMessageStatusesManager;
 import com.quickblox.chat.QBRestChatService;
 import com.quickblox.chat.QBRoster;
 import com.quickblox.chat.QBSystemMessagesManager;
 import com.quickblox.chat.exception.QBChatException;
-import com.quickblox.chat.listeners.QBChatDialogMessageListener;
 import com.quickblox.chat.listeners.QBChatDialogTypingListener;
 import com.quickblox.chat.listeners.QBMessageStatusListener;
 import com.quickblox.chat.listeners.QBRosterListener;
@@ -87,6 +85,7 @@ import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.QBRTCClient;
 import com.quickblox.videochat.webrtc.QBRTCSession;
 import com.quickblox.videochat.webrtc.QBRTCTypes;
+import com.squareup.picasso.Picasso;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import org.jivesoftware.smack.ConnectionListener;
@@ -97,8 +96,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
@@ -120,7 +121,6 @@ import obj.quickblox.sample.chat.java.EmojiKeyBoard.EmojiKeyboard;
 import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
 import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;
 import obj.quickblox.sample.chat.java.R;
-import obj.quickblox.sample.chat.java.constants.ApiConstants;
 import obj.quickblox.sample.chat.java.db.QbUsersDbManager;
 import obj.quickblox.sample.chat.java.doodle.utils.views.DoodleActivity;
 import obj.quickblox.sample.chat.java.managers.DialogsManager;
@@ -128,7 +128,7 @@ import obj.quickblox.sample.chat.java.services.CallService;
 import obj.quickblox.sample.chat.java.services.LoginService;
 import obj.quickblox.sample.chat.java.ui.Callback.ChatConstants;
 import obj.quickblox.sample.chat.java.ui.Callback.Language_Translator;
-import obj.quickblox.sample.chat.java.ui.Callback.Refresh_Chat;
+import obj.quickblox.sample.chat.java.ui.Callback.QouteChatTrigger;
 import obj.quickblox.sample.chat.java.ui.Callback.send_contact;
 import obj.quickblox.sample.chat.java.ui.Model.Call_model;
 import obj.quickblox.sample.chat.java.ui.Model.Contact_Model;
@@ -140,7 +140,6 @@ import obj.quickblox.sample.chat.java.ui.adapter.listeners.AttachClickListener;
 import obj.quickblox.sample.chat.java.ui.adapter.listeners.SetclickCallback;
 import obj.quickblox.sample.chat.java.ui.dialog.ProgressDialogFragment;
 import obj.quickblox.sample.chat.java.ui.widget.AttachmentPreviewAdapterView;
-import obj.quickblox.sample.chat.java.util.FileUtils;
 import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.Consts;
 import obj.quickblox.sample.chat.java.utils.PermissionsChecker;
@@ -163,7 +162,7 @@ import static obj.quickblox.sample.chat.java.constants.ApiConstants.Upload_File;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.detectlanguage;
 import static obj.quickblox.sample.chat.java.ui.activity.Chat_profile.QB_User_Id;
 
-public class ChatActivity extends BaseActivity implements Language_Translator, AdapterView.OnItemSelectedListener, SetclickCallback, View.OnClickListener, send_contact, OnImagePickedListener, QBMessageStatusListener, DialogsManager.ManagingDialogsCallbacks {
+public class ChatActivity extends BaseActivity implements QouteChatTrigger, Language_Translator, AdapterView.OnItemSelectedListener, SetclickCallback, View.OnClickListener, send_contact, OnImagePickedListener, QBMessageStatusListener, DialogsManager.ManagingDialogsCallbacks {
     public static final String EXTRA_DIALOG_ID = "dialogId";
     public static final String IS_SERECT_CHAT = "false";
     public static final String EXTRA_IS_NEW_DIALOG = "isNewDialog";
@@ -182,6 +181,7 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
             ContactsContract.Contacts.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER
     };
+    public static String USER_NAME = "";
     public static String Class_Name = "", SMS_VALUE = "";
     private static String CHAT_DIALOG_TYPE = "0";
     private final Handler handler = new Handler();
@@ -200,6 +200,8 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     Runnable updater;
     Handler timerHandler = null;
     TestAsync testAsk = null;
+    @BindView(R.id.QouteChatName)
+    TextView QouteChatName;
     private EditText messageEditText;
     private ImageView speech_text, imgOptions;
     private LinearLayout attachmentPreviewContainerLayout;
@@ -219,6 +221,9 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     private boolean checkAdapterInit;
     private PermissionsChecker checker;
     private QBUser currentUser;
+    LinearLayout chatBoxSubMenu;
+    ImageView showChatSubMenu;
+
     private EmojiKeyboard emojiKeyboard;
     //Other_View
     private CardView OTHER_SHOW_View;
@@ -243,6 +248,11 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     private View progressBar;
     private String SelectLang_Code = "";
     private int adapter_position;
+    private Bitmap bitmap;
+    private File destination;
+    LinearLayout QouteChatView;
+    TextView QouteChatTV;
+    TextView closeQouteChat;
 
     public static void startForResult(Activity activity, int code, QBChatDialog dialogId) {
         Intent intent = new Intent(activity, ChatActivity.class);
@@ -501,12 +511,14 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         updater = new Runnable() {
             @Override
             public void run() {
-                try{
-                    if (testAsk==null)
-                    {new TestAsync().execute();
-                    }else{ testAsk.execute();}
-                }catch (Exception e)
-                { }
+                try {
+                    if (testAsk == null) {
+                        new TestAsync().execute();
+                    } else {
+                        testAsk.execute();
+                    }
+                } catch (Exception e) {
+                }
                 timerHandler.postDelayed(updater, 30000);
             }
         };
@@ -541,6 +553,10 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         speech_to_text = (ImageView) findViewById(R.id.speech_to_text);
         dismiss = (ImageView) findViewById(R.id.dismiss);
         tranlate_btn = (Button) findViewById(R.id.tranlate_btn);
+        chatBoxSubMenu = (LinearLayout) findViewById(R.id.chatBoxSubMenu);
+        showChatSubMenu = (ImageView) findViewById(R.id.showChatSubMenu);
+        chatBoxSubMenu.setOnClickListener(this);
+        showChatSubMenu.setOnClickListener(this);
         tranlate_btn.setOnClickListener(this);
         speech_to_text.setOnClickListener(this);
         dismiss.setOnClickListener(this);
@@ -551,6 +567,10 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         imgOptions = (ImageView) findViewById(R.id.imgOptions);
         dialogsManager = new DialogsManager();
         dialogsManager.addManagingDialogsCallbackListener(this);
+        QouteChatView = (LinearLayout) findViewById(R.id.QouteChatView);
+        QouteChatTV = (TextView) findViewById(R.id.QouteChatTV);
+        closeQouteChat = (TextView) findViewById(R.id.closeQouteChat);
+        closeQouteChat.setOnClickListener(this);
         systemMessagesManager = QBChatService.getInstance().getSystemMessagesManager();
         systemMessagesListener = new SystemMessagesListener();
         try {
@@ -653,11 +673,26 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.closeQouteChat:
+                QouteChatView.setVisibility(View.GONE);
+                QouteChatTV.setText("");
+                SharedPrefsHelper.getInstance().setQuotes("");
+                break;
+            case R.id.showChatSubMenu:
+                if (chatBoxSubMenu.getVisibility() == View.GONE) {
+                    chatBoxSubMenu.setVisibility(View.VISIBLE);
+                } else {
+                    chatBoxSubMenu.setVisibility(View.GONE);
+                }
+                break;
+
             case R.id.my_theme:
                 OTHER_SHOW_View.setVisibility(View.GONE);
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, 598);
+                try {
+                    selectImage();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.tranlate_btn:
                 if (SelectLang_Code.equalsIgnoreCase("")) {
@@ -740,11 +775,45 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
                 }
                 break;
             case R.id.speech_to_text:
+                chatBoxSubMenu.setVisibility(View.GONE);
                 displaySpeechRecognizer(1212);
                 break;
 
         }
 
+    }
+
+    private void selectImage() {
+        try {
+            PackageManager pm = getPackageManager();
+            int hasPerm = pm.checkPermission(Manifest.permission.CAMERA, getPackageName());
+            if (hasPerm == PackageManager.PERMISSION_GRANTED) {
+                final CharSequence[] options = {"Take Photo", "Choose From Gallery", "Cancel"};
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Select Option");
+                builder.setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int item) {
+                        if (options[item].equals("Take Photo")) {
+                            dialog.dismiss();
+                            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(intent, 895);
+                        } else if (options[item].equals("Choose From Gallery")) {
+                            dialog.dismiss();
+                            Intent pickPhoto = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(pickPhoto, 598);
+                        } else if (options[item].equals("Cancel")) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
+                builder.show();
+            } else
+                Toast.makeText(this, "Camera Permission error", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Camera Permission error", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
     }
 
     private void Translet_send(String SMS, String SelectLang_Code) {
@@ -899,8 +968,17 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
 
             if (!qbChatDialog.getPhoto().equalsIgnoreCase("")) {
                 if (qbChatDialog.getType() != QBDialogType.GROUP) {
-                    int iconResId = Integer.valueOf(qbChatDialog.getPhoto());
-                    wallpaper_et.setBackground(getResources().getDrawable(iconResId));
+
+                    if (qbChatDialog.getPhoto().contains("http")) {
+                        try {
+                            Picasso.get().load(qbChatDialog.getPhoto().trim()).placeholder(R.drawable.theme_2).into(wallpaper_et);
+                        } catch (Exception e) {
+                            wallpaper_et.setBackground(getResources().getDrawable(R.drawable.theme_2));
+                        }
+                    } else {
+                        int iconResId = Integer.valueOf(qbChatDialog.getPhoto());
+                        wallpaper_et.setBackground(getResources().getDrawable(iconResId));
+                    }
                 } else {
                     wallpaper_et.setBackground(getResources().getDrawable(R.drawable.theme_2));
                 }
@@ -963,6 +1041,7 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     @Override
     protected void onPause() {
         super.onPause();
+        SharedPrefsHelper.getInstance().setQuotes("");
         if (Constant.isOnline(this)) {
             chatAdapter.removeAttachImageClickListener();
             ChatHelper.getInstance().removeConnectionListener(chatConnectionListener);
@@ -975,6 +1054,7 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     @Override
     public void onDestroy() {
         super.onDestroy();
+        SharedPrefsHelper.getInstance().setQuotes("");
         if (Constant.isOnline(this)) {
             if (timerHandler != null)
                 timerHandler.removeCallbacks(updater);
@@ -1218,8 +1298,18 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         } else {
             Call_model call_model = new Call_model();
             call_model.setDB_CALL_COUNT("1");
-            call_model.setDB_CALL_RECIPIENTID(qbChatDialog.getRecipientId().toString());
-            call_model.setDB_CALL_RECIPIENTNAME(QbUsersHolder.getInstance().getUserById(qbChatDialog.getRecipientId()).getFullName());
+
+            try {
+                call_model.setDB_CALL_RECIPIENTID(qbChatDialog.getRecipientId().toString());
+            } catch (Exception e) {
+                call_model.setDB_CALL_RECIPIENTID("");
+            }
+            try {
+                call_model.setDB_CALL_RECIPIENTNAME(QbUsersHolder.getInstance().getUserById(qbChatDialog.getRecipientId()).getFullName());
+            } catch (Exception e) {
+                call_model.setDB_CALL_RECIPIENTNAME("");
+            }
+
             if (isVideoCall) {
                 call_model.setDB_CALL_TYPE("video");
             } else {
@@ -1321,7 +1411,7 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
                 QBUser qbUser = sharedPrefsHelper.getQbUser();
                 Intent tempIntent = new Intent(getApplicationContext(), LoginService.class);
                 PendingIntent pendingIntent = createPendingResult(Consts.EXTRA_LOGIN_RESULT_CODE, tempIntent, 0);
-                LoginService.start(this, qbUser,pendingIntent);
+                LoginService.start(this, qbUser, pendingIntent);
             }
         }
 
@@ -1334,15 +1424,15 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         Log.d(TAG, "onActivityResult with resultCode: " + resultCode + " requestCode: " + requestCode);
         if (resultCode == RESULT_OK) {
 
-            if (requestCode == 598) {
-                dialogsManager.sendMessageTheamSet(qbChatDialog, "Custom Theme Set Successfully");
+           /* if (requestCode == 598) {
+
                 Uri uri = data.getData();
                 wallpaper_et.setImageURI(null);
                 wallpaper_et.setBackground(null);
                 wallpaper_et.setImageURI(uri);
                 THEAME_VIEW.setVisibility(View.GONE);
                 OTHER_SHOW_View.setVisibility(View.GONE);
-            }
+            }*/
             if (requestCode == REQUEST_CODE_SELECT_PEOPLE) {
                 show_dialog();
                 final ArrayList<QBUser> selectedUsers = (ArrayList<QBUser>) data.getSerializableExtra(
@@ -1411,8 +1501,54 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
 
                 }
             }
+            String imgPath;
+            if (requestCode == 895) {
+                try {
+                    Uri selectedImage = data.getData();
+                    bitmap = (Bitmap) data.getExtras().get("data");
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+                    hit_bothsidecustomtheam(SaveImagetoSDcard(String.valueOf(System.currentTimeMillis()), bitmap, this));
+                    wallpaper_et.setImageURI(null);
+                    wallpaper_et.setBackground(null);
+                    wallpaper_et.setImageBitmap(bitmap);
+                    THEAME_VIEW.setVisibility(View.GONE);
+                    OTHER_SHOW_View.setVisibility(View.GONE);
+                    dialogsManager.sendMessageTheamSet(qbChatDialog, "Custom Theme Set Successfully");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == 598) {
+                Uri selectedImage = data.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+                    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, bytes);
+                    Log.e("Activity", "Pick from Gallery::>>> ");
+                    hit_bothsidecustomtheam(SaveImagetoSDcard(String.valueOf(System.currentTimeMillis()), bitmap, this));
+                    imgPath = getRealPathFromURI(selectedImage);
+                    destination = new File(imgPath.toString());
+                    wallpaper_et.setImageURI(null);
+                    wallpaper_et.setBackground(null);
+                    wallpaper_et.setImageBitmap(bitmap);
+                    THEAME_VIEW.setVisibility(View.GONE);
+                    OTHER_SHOW_View.setVisibility(View.GONE);
+                    dialogsManager.sendMessageTheamSet(qbChatDialog, "Custom Theme Set Successfully");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
 
         }
+    }
+
+    public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = {MediaStore.Audio.Media.DATA};
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
     }
 
     private void hit_log_upload(String Path_Name) {
@@ -1430,6 +1566,23 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         }
         mResponse.getResponse(Request.Method.POST, url, 370, this, parms, false, false, Params_Object);
     }
+
+    private void hit_bothsidecustomtheam(String Path_Name) {
+        showProgressDialog(R.string.dlg_loading);
+        String url = Upload_File;
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        MyVolley.init(this);
+        try {
+            if (Path_Name != null) {
+                mResponse.setFile("store_chat_file", Path_Name);
+            }
+        } catch (Exception e) {
+        }
+        mResponse.getResponse(Request.Method.POST, url, 243, this, parms, false, false, Params_Object);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -1477,6 +1630,7 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
     }
 
     public void onAttachmentsClick(View view) {
+        chatBoxSubMenu.setVisibility(View.GONE);
         if (attachmentPreviewAdapter.getCount() >= MAX_UPLOAD_FILES) {
             ToastUtils.shortToast(R.string.restriction_upload_files + MAX_UPLOAD_FILES);
         } else {
@@ -1550,7 +1704,7 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
             try {
                 messagesList = (ArrayList<QBChatMessage>) getIntent().getSerializableExtra("AllChat");
                 qbChatDialog = (QBChatDialog) getIntent().getSerializableExtra(EXTRA_DIALOG_ID);
-                String USER_NAME = getIntent().getStringExtra("USER_NAME");
+                USER_NAME = getIntent().getStringExtra("USER_NAME");
                 ActionBar ab = getSupportActionBar();
                 ab.setTitle(USER_NAME);
                 setActionbarSubTitle("Offline");
@@ -1575,9 +1729,28 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
             } else {
                 chatMessage.setBody(text);
                 if (CHAT_DIALOG_TYPE.equalsIgnoreCase("0")) {
-                    chatMessage.setBody(text);
+                    if (SharedPrefsHelper.getInstance().getQuotes() != null) {
+                        if (!SharedPrefsHelper.getInstance().getQuotes().trim().equalsIgnoreCase("")) {
+                            chatMessage.setBody(SharedPrefsHelper.getInstance().getQuotes() + "\n" + text.trim());
+                            SharedPrefsHelper.getInstance().setQuotes("");
+                            QouteChatView.setVisibility(View.GONE);
+                        } else {
+                            chatMessage.setBody(text);
+                        }
+                    } else {
+                        chatMessage.setBody(text);
+                    }
                 } else {
-                    chatMessage.setBody(text + "\n" + "@SERECT569821545");
+                    if (SharedPrefsHelper.getInstance().getQuotes() != null) {
+                        if (!SharedPrefsHelper.getInstance().getQuotes().trim().equalsIgnoreCase("")) {
+                            chatMessage.setBody(SharedPrefsHelper.getInstance().getQuotes() + text + "\n" + "@SERECT569821545");
+                        } else {
+                            chatMessage.setBody(text + "\n" + "@SERECT569821545");
+                        }
+                    } else {
+                        chatMessage.setBody(text + "\n" + "@SERECT569821545");
+                    }
+
                 }
 
             }
@@ -1900,25 +2073,35 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         wallpaper_et.setImageURI(null);
         wallpaper_et.setBackground(null);
         wallpaper_et.setBackground(getResources().getDrawable(iconResId));
-        qbChatDialog.setPhoto(Photo_Name);
+        bothSideTheamUpdate(Photo_Name);
+        THEAME_VIEW.setVisibility(View.GONE);
+        OTHER_SHOW_View.setVisibility(View.GONE);
+        ToastUtils.longToast(R.string.Theme_Set_Successfully);
+    }
 
+
+    private void bothSideTheamUpdate(String ImageNAME) {
+        show_dialog();
+        qbChatDialog.setPhoto(ImageNAME);
         QBRequestUpdateBuilder requestBuilder = new QBRequestUpdateBuilder();
-
         QBRestChatService.updateChatDialog(qbChatDialog, requestBuilder).performAsync(new QBEntityCallback<QBChatDialog>() {
             @Override
             public void onSuccess(QBChatDialog updatedDialog, Bundle bundle) {
                 qbChatDialog = updatedDialog;
-                dialogsManager.sendMessageTheamSet(qbChatDialog, getString(R.string.Both_Side));
+                hide_dialog();
+                ToastUtils.longToast(getString(R.string.Both_Side));
+                try {
+                    Constant.showErrorAlert(getApplicationContext(),getString(R.string.Both_Side));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
             public void onError(QBResponseException e) {
-
+                hide_dialog();
             }
         });
-        THEAME_VIEW.setVisibility(View.GONE);
-        OTHER_SHOW_View.setVisibility(View.GONE);
-        ToastUtils.longToast(R.string.Theme_Set_Successfully);
     }
 
     @Override
@@ -2074,6 +2257,17 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
                 hideProgressDialog();
             }
         }
+
+        if (requestCode == 243) {
+            hideProgressDialog();
+            try {
+                if (response.getString("status").equalsIgnoreCase("success")) {
+                    bothSideTheamUpdate(response.getString("data").toString());
+                }
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     @Override
@@ -2146,6 +2340,18 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
         Shimmer_Effect.stopShimmerAnimation();
         Shimmer_Effect.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public void openQuoteChat(String txt) {
+        try {
+            JSONObject jsonObject = new JSONObject(txt);
+            QouteChatName.setText(jsonObject.getString("name"));
+            QouteChatView.setVisibility(View.VISIBLE);
+            QouteChatTV.setText(jsonObject.getString("sms"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private class ChatMessageListener extends QbChatDialogMessageListenerImp {
@@ -2267,5 +2473,34 @@ public class ChatActivity extends BaseActivity implements Language_Translator, A
 
     }
 
+    public static String SaveImagetoSDcard(String imagename, Bitmap img, Activity mActivity) {
+        File mydir = new File(mActivity.getFilesDir() + "/" + System.currentTimeMillis() + "_Tudime/");
+        if (!mydir.exists()) {
+            mydir.mkdir();
+        }
+        File image = new File(mydir, imagename + ".png");
+
+        boolean success = false;
+        FileOutputStream outStream;
+        try {
+
+            outStream = new FileOutputStream(image);
+            img.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+            success = true;
+        } catch (FileNotFoundException e) {
+
+        } catch (Exception e) {
+
+        }
+        if (success) {
+            String finalimageurl = mydir.toString() + "/" + imagename + ".png";
+            return finalimageurl;
+        } else {
+            return "";
+        }
+
+    }
 
 }

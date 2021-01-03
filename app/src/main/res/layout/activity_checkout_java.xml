@@ -40,15 +40,19 @@
                 android:layout_marginEnd="@dimen/dimen_20dp"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="10dp"
+
                 android:singleLine="true"
+                android:imeOptions="actionDone"
                 android:textColor="@color/active_fonts"
                 android:textColorHint="#674767"
                 android:textSize="18sp" />
-            <com.stripe.android.view.CardInputWidget
+
+            <com.stripe.android.view.CardMultilineWidget
                 android:id="@+id/cardInputWidget"
                 android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"
-                android:layout_margin="@dimen/dimen_20dp" />
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_5"
+               />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

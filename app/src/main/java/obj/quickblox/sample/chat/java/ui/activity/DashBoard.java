@@ -10,24 +10,15 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.Contacts;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -78,7 +69,6 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import io.sentry.Sentry;
 import obj.quickblox.sample.chat.java.App;
 import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
 import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;
@@ -96,7 +86,6 @@ import obj.quickblox.sample.chat.java.ui.fragments.Contact_chat_Fragment;
 import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.Consts;
 import obj.quickblox.sample.chat.java.utils.InternetConnection;
-import obj.quickblox.sample.chat.java.utils.KeyboardUtils;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.ToastUtils;
 import obj.quickblox.sample.chat.java.utils.UsersUtils;
@@ -132,7 +121,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
     private String Global_FCM_TOKEN;
     private SearchView searchView;
     private TextView showAppVersion;
-
+    String Balence_Api;
     public static void start(Context context) {
         Intent intent = new Intent(context, DashBoard.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -422,7 +411,9 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 startActivity(new Intent(DashBoard.this, ScheduleTaskActivity.class));
                 break;
             case R.id.call_directly:
-                startActivity(new Intent(DashBoard.this, TuDime_CAN.class));
+                Intent i23 = new Intent(DashBoard.this, TuDime_CAN.class);
+                i23.putExtra("myBlance", Balence_Api);
+                startActivity(i23);
                 break;
             case R.id.text_change_language:
                 Intent i2 = new Intent(DashBoard.this, SetLanguage.class);
@@ -516,7 +507,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         if (requestCode == 715) {
             hideProgressDialog();
             try {
-                String Balence_Api;
+
                 if (response.getString("status").equalsIgnoreCase("success")) {
                     JSONArray data = response.getJSONArray("data");
 
@@ -599,6 +590,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                     Filter_Subscription(Account_Create);
                 } else {
                     ToastUtils.shortToast("Oops...something went wrong...");
+                    //Filter_Subscription(Account_Create);
                 }
             } catch (JSONException e) {
                 hideProgressDialog();
@@ -687,9 +679,14 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         String timeStamp = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
         Integer Day_Count = (int) Constant.getDateDiff(Acount_Create, timeStamp);
 
+        if (Subscription_Model.size() == 0) {
+                 Open_Subscrption_alert(DashBoard.this,true,45-Integer.valueOf(Day_Count));
+        }
 
 
-            if (Subscription_Model.size() > 0) {
+
+
+          /*  if (Subscription_Model.size() > 0) {
                 int count = 0;
                 for (int i = 0; i < Subscription_Model.size(); i++) {
 
@@ -710,19 +707,24 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                 } else {
                     Open_Subscrption_alert(DashBoard.this);
                 }
-            }
+            }*/
     }
 
-    private void Open_Subscrption_alert(Activity mActivity) {
+    private void Open_Subscrption_alert(Activity mActivity, boolean b, int dayCount) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = (this).getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.no_subscription, null);
         dialogBuilder.setView(dialogView);
-        dialogBuilder.setCancelable(false);
+        dialogBuilder.setCancelable(b);
         TextView Application_Close = (TextView) dialogView.findViewById(R.id.Application_Close);
+        TextView bodyTv = (TextView) dialogView.findViewById(R.id.bodyTv);
         TextView buy_membership = (TextView) dialogView.findViewById(R.id.buy_membership);
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        if (dayCount<1)
+        bodyTv.setText( "25% discount if you join with in\n"+dayCount+" days $11.25");
+
+
         Application_Close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

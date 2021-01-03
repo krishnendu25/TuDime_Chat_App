@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import  obj.quickblox.sample.chat.java.Internet_Calling.*;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -24,8 +24,6 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import obj.quickblox.sample.chat.java.Internet_Calling.Internet_Calling_Activity;
-import obj.quickblox.sample.chat.java.Internet_Calling.quickstart.VoiceActivity;
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.utils.ToastUtils;
 
@@ -70,12 +68,13 @@ public class TuDime_CAN extends BaseActivity {
     ImageView callBtn;
     @BindView(R.id.call_rates)
     TextView callRates;
-
+    String myBlance="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tu_dime_can);
         ButterKnife.bind(this);
+        myBlance = getIntent().getStringExtra("myBlance");
         requestPermission();
 
     }
@@ -146,12 +145,11 @@ public class TuDime_CAN extends BaseActivity {
             case R.id.txt_11:
                 break;
             case R.id.call_btn:
-                if(editTextToCall.getText().toString().startsWith("+")) {
-                    /*CallClient callClient = sinchClient.getCallClient();
-                    callClient.callPhoneNumber(editTextToCall.getText().toString().trim());*/
-                    Intent intent1 = new Intent(this, VoiceActivity.class);
-                   // intent1.putExtra("number",editTextToCall.getText().toString().trim());
-                    startActivity(intent1);
+                if(editTextToCall.getText().toString().trim().startsWith("+")) {
+                Intent intent1 = new Intent(getApplicationContext(),Internet_Calling_Activity.class);
+                intent1.putExtra("PHONE_NO",editTextToCall.getText().toString().trim());
+                intent1.putExtra("myBlance",myBlance);
+                startActivity(intent1);
                 }  else{
                     ToastUtils.shortToast("Enter Country Code With +");
                 }

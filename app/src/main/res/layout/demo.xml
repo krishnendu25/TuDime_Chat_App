@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/chatBoxSubMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/padding_10"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:background="@drawable/contacts_bg_circle">
+                <ImageView
+                    android:id="@+id/speech_text"
+                    android:layout_width="@dimen/dimen_30dp"
+                    android:layout_height="@dimen/dimen_30dp"
+                    android:src="@drawable/speec_text" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:background="@drawable/contacts_bg_circle">
+                <ImageView
+                    android:id="@+id/openCam"
+                    android:clickable="true"
+                    android:onClick="onAttachmentsClick"
+                    android:src="@drawable/ic_chatboxcam"
+                    android:layout_width="@dimen/dimen_30dp"
+                    android:layout_height="@dimen/dimen_30dp"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:orientation="horizontal"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_margin="3dp"
+                android:layout_height="match_parent"
+                android:weightSum="6"
+                android:background="@drawable/writeonchat"
+                android:layout_weight="4.2">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".8">
+
+                    <ImageView
+                        android:id="@+id/showChatSubMenu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:padding="3dp"
+                        android:src="@drawable/plus_chatbox"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+                <EditText
+                    android:id="@+id/edit_chat_message"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center|start"
+                    android:paddingStart="3dp"
+                    android:paddingEnd="3dp"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:textColor="@color/primary_blue"
+                    android:background="@color/transparent"
+                    android:hint="@string/chat_edit_text_hint"
+                    android:inputType="textShortMessage"
+                    android:layout_weight="4.4"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".8">
+                    <ImageView
+                        android:id="@+id/imgOptions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:padding="3dp"
+                        android:src="@drawable/smily_icon"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".8">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="onSendChatClick"
+                    android:padding="@dimen/padding_5"
+                    android:src="@drawable/ic_sendchat"
+                    android:text="@string/chat_send" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

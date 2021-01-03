@@ -12,7 +12,9 @@
         android:title="@string/delete_for_me" />
     <item  android:id="@+id/item2"
         android:title="@string/delete_for_everyone" />
-
+    <item  android:id="@+id/item_quotes"
+        android:title="@string/quotes"
+        />
 
 
   </menu>

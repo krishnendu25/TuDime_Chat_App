@@ -21,6 +21,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import in.myinnos.awesomeimagepicker.activities.AlbumSelectActivity;
+import in.myinnos.awesomeimagepicker.helpers.ConstantsCustomGallery;
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;

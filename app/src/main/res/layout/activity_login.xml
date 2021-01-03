@@ -157,6 +157,7 @@
                                 android:gravity="center_vertical"
                                 android:layout_marginLeft="5dp"
                                 android:layout_marginRight="5dp"
+
                                 android:text="@string/select_your_country"
                                 android:textSize="17dp"
                                 android:textColor="@color/active_fonts" />
@@ -182,6 +183,7 @@
 
                             <EditText
                                 android:id="@+id/txtCCode"
+                                android:imeOptions="actionDone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_horizontal"
@@ -202,6 +204,7 @@
                             <EditText
                                 android:id="@+id/login"
                                 android:layout_width="0dip"
+                                android:imeOptions="actionDone"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:gravity="center_vertical"
@@ -211,7 +214,6 @@
                                 android:layout_weight="1"
                                 android:hint="@string/ph_number"
                                 android:inputType="phone"
-                                android:maxLength="11"
                                 android:textColor="@color/active_fonts"
                                 android:textColorHint="#676767"
                                 android:textCursorDrawable="@null" />
@@ -227,6 +229,7 @@
                             android:layout_below="@id/llPhone"
                             android:textSize="17sp"
                             android:textAllCaps="true"
+                            android:imeOptions="actionDone"
                             android:layout_marginLeft="20dp"
                             android:layout_marginRight="20dp"
                             android:layout_marginTop="10dp"
@@ -258,7 +261,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="@dimen/dimen_30dp"
                     android:gravity="center"
                     android:layout_below="@id/relarive"
                     android:layout_alignParentBottom="true">

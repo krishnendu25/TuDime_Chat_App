@@ -13,7 +13,9 @@ import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +40,9 @@ import com.android.volley.Request;
 import com.quickblox.chat.QBChatService;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
 import obj.quickblox.sample.chat.java.App;
 import obj.quickblox.sample.chat.java.NetworkOperation.IJSONParseListener;
 import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
@@ -45,6 +50,7 @@ import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.util.NetworkChangeReceiver;
 import obj.quickblox.sample.chat.java.util.QBResRequestExecutor;
+import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.ErrorUtils;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.chat.ChatHelper;
@@ -54,11 +60,15 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.util.Locale;
+import java.util.Random;
 
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.SMS_URL;
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.deleteMultipleFile;
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.getMultipleFile;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_profile;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_profile_qb_reference;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_tudime_subscription;
@@ -163,8 +173,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
                     if (progressDialog == null) {
                         progressDialog = new ProgressDialog(this);
                         progressDialog.setIndeterminate(true);
-                        progressDialog.setCancelable(false);
-                        progressDialog.setCanceledOnTouchOutside(false);
+                        progressDialog.setCancelable(true);
+                        progressDialog.setCanceledOnTouchOutside(true);
 
                         // Disable the back button
                         DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
@@ -310,7 +320,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
         {
             if (SharedPrefsHelper.getInstance().getProfilePhotostatus().equalsIgnoreCase(""))
             {
-                parms.putString("privacy_status",getString(R.string.public_profile));
+                parms.putString("privacy_status",getString(R.string.private_profile));
             }
         }
         parms.putString("QB_User_id",QB_User_id);
@@ -331,8 +341,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
                 447, this, parms, false,false,Params_Object);
     }
      void Fetch_Membership_Details(String userid) {
-
-        showProgressDialog(R.string.dlg_loading);
         JSONObject Params_Object = new JSONObject();
         JSONRequestResponse mResponse = new JSONRequestResponse(this);
         Bundle parms = new Bundle();
@@ -374,5 +382,49 @@ public abstract class BaseActivity extends AppCompatActivity implements IJSONPar
         MyVolley.init(this);
         mResponse.getResponse(Request.Method.POST, sendMailUrl,
                 286, this, parms, false,false,Params_Object);
+    }
+
+    public  void fetchAllthePhotos(@Nullable String userid){
+        showProgressDialog(R.string.load);
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("UserID",userid);
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, getMultipleFile,
+                579, this, parms, false,false,Params_Object);
+
+    }
+
+
+
+    public void hitDeleteApi(String userid,String picId) {
+        showProgressDialog(R.string.load);
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("UserID",userid);
+        parms.putString("PhotoID",picId);
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, deleteMultipleFile,
+                519, this, parms, false,false,Params_Object);
+
+    }
+
+
+
+    public void hitProfilePicApi(Bitmap file) {
+        showProgressDialog(R.string.load);
+        final int min = 1;
+        final int max = 96595966;
+        final String random = String.valueOf(new Random().nextInt((max - min) + 1) + min);
+        JSONObject Agent_Array_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("userid", SharedPrefsHelper.getInstance().getUSERID());
+        MyVolley.init(this);
+        mResponse.setFile("Cover_pic", Constant.SaveImagetoSDcard(random, file, this));
+        mResponse.getResponse(Request.Method.POST, update_user_profile,
+                248, this, parms, false, false, Agent_Array_Object);
     }
 }

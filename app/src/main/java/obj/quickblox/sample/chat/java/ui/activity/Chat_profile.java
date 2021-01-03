@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
@@ -16,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -25,12 +25,15 @@ import obj.quickblox.sample.chat.java.R;
 
 public class Chat_profile extends BaseActivity {
 
+    public static String QB_User_Id;
     TextView User_Name_tv, show_status_tv, show_phone_number, show_Email_number;
     ImageView profile_picture_iv;
     String User_Name, User_Login, User_Image_url;
     @BindView(R.id.Cover_Picture_iv)
     ImageView CoverPictureIv;
-    public static String QB_User_Id;
+    @BindView(R.id.privateWindow)
+    RelativeLayout privateWindow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,8 +42,9 @@ public class Chat_profile extends BaseActivity {
         Instantiation();
         hideActionbar();
         Set_Details();
-        if (QB_User_Id!=null)
-        {Fetch_User_QB(QB_User_Id);}
+        if (QB_User_Id != null) {
+            Fetch_User_QB(QB_User_Id);
+        }
 
 
     }
@@ -103,57 +107,59 @@ public class Chat_profile extends BaseActivity {
 
     @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
-        if (requestCode==208)
-        {hideProgressDialog();
+        if (requestCode == 208) {
+            hideProgressDialog();
 
             try {
-                if (response.getString("status").equalsIgnoreCase("success"))
-                {
-                    if (response.getJSONArray("data").length()==0)
-                    {User_Name_tv.setText(User_Name);
+                if (response.getString("status").equalsIgnoreCase("success")) {
+                    if (response.getJSONArray("data").length() == 0) {
+                        User_Name_tv.setText(User_Name);
                         show_status_tv.setText(getResources().getString(R.string.status_default_ciaom));
 
                         Picasso.get().load(User_Image_url).placeholder(R.drawable.navigation_drawer_pro_pic)
                                 .into(profile_picture_iv);
                         CoverPictureIv.setImageDrawable(getResources().getDrawable(R.drawable.navigation_drawer_cover_bg));
-                    }else
-                    {
-                        if (!response.getJSONArray("data").getJSONObject(0).getString("name").equalsIgnoreCase(""))
-                        {User_Name_tv.setText(response.getJSONArray("data").getJSONObject(0).getString("name"));}else
-                        {User_Name_tv.setText(User_Name);}
+                    } else {
+                        if (!response.getJSONArray("data").getJSONObject(0).getString("name").equalsIgnoreCase("")) {
+                            User_Name_tv.setText(response.getJSONArray("data").getJSONObject(0).getString("name"));
+                        } else {
+                            User_Name_tv.setText(User_Name);
+                        }
 
-                        if (!response.getJSONArray("data").getJSONObject(0).getString("Bio").equalsIgnoreCase(""))
-                        {show_status_tv.setText(response.getJSONArray("data").getJSONObject(0).getString("Bio"));}
-                        else
-                        {show_status_tv.setText(getResources().getString(R.string.status_default_ciaom));}//
+                        if (!response.getJSONArray("data").getJSONObject(0).getString("Bio").equalsIgnoreCase("")) {
+                            show_status_tv.setText(response.getJSONArray("data").getJSONObject(0).getString("Bio"));
+                        } else {
+                            show_status_tv.setText(getResources().getString(R.string.status_default_ciaom));
+                        }//
 
-
-                        if (!response.getJSONArray("data").getJSONObject(0).getString("Cover_pic_url").equalsIgnoreCase(""))
-                        {
+                        if (!response.getJSONArray("data").getJSONObject(0).getString("privacy_status").equalsIgnoreCase("")) {
+                            if (!response.getJSONArray("data").getJSONObject(0).getString("privacy_status").equalsIgnoreCase("Public")) {
+                                privateWindow.setVisibility(View.VISIBLE);
+                            } else {
+                                privateWindow.setVisibility(View.GONE);
+                            }
+                        } else {
+                            privateWindow.setVisibility(View.GONE);
+                        }
+                        if (!response.getJSONArray("data").getJSONObject(0).getString("Cover_pic_url").equalsIgnoreCase("")) {
                             try {
-                                Picasso.get().load(response.getJSONArray("data").getJSONObject(0).getString("Cover_pic_url") ).placeholder(R.drawable.navigation_drawer_pro_pic)
+                                Picasso.get().load(response.getJSONArray("data").getJSONObject(0).getString("Cover_pic_url")).placeholder(R.drawable.navigation_drawer_pro_pic)
                                         .into(profile_picture_iv);
                                 Picasso.get().load(response.getJSONArray("data").getJSONObject(0).getString("pic1_url")).placeholder(R.drawable.default_image_call)
                                         .into(CoverPictureIv);
-                            }catch (Exception e)
-                            {
+                            } catch (Exception e) {
                                 Picasso.get().load("").placeholder(R.drawable.navigation_drawer_pro_pic).into(profile_picture_iv);
                                 CoverPictureIv.setImageDrawable(getResources().getDrawable(R.drawable.navigation_drawer_cover_bg));
-                                hideProgressDialog(); }
-                        }
-                        else
-                        {
+                                hideProgressDialog();
+                            }
+                        } else {
                             Picasso.get().load(User_Image_url).placeholder(R.drawable.navigation_drawer_pro_pic)
                                     .into(profile_picture_iv);
                         }
                     }
 
 
-
-
-
-
-        }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -18,8 +18,6 @@ import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 import com.quickblox.videochat.webrtc.AppRTCAudioManager;
 import com.squareup.picasso.Picasso;
-import com.twilio.audioswitch.selection.AudioDevice;
-import com.twilio.audioswitch.selection.AudioDeviceSelector;
 
 import java.util.ArrayList;
 import java.util.List;

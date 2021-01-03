@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="#d0f1ff"
     android:id="@+id/coordinatorLayout"
     tools:context=".Internet_Calling.Internet_Calling_Activity"
     android:orientation="vertical">
@@ -22,27 +22,30 @@
 
         <TextView
             android:id="@+id/txvCallernumber"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
+            android:fontFamily="@font/avenirnext_heavy"
             android:singleLine="true"
+            android:gravity="center"
             android:ellipsize="marquee"
             android:textColor="@color/active_fonts"
-            android:textSize="40sp" />
+            android:textSize="@dimen/dimen_25dp" />
         <Chronometer
             android:id="@+id/chrnTimer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/connectionStatus"
             android:layout_centerInParent="true"
+            android:fontFamily="@font/avenirnextbold"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/active_fonts"
-            android:textSize="14sp"
-            android:visibility="gone" />
+            android:textSize="@dimen/dimen_16dp"
+            android:visibility="visible" />
 
         <TextView
             android:id="@+id/connectionStatus"
@@ -50,12 +53,12 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_marginBottom="3dp"
-            android:maxLength="13"
+            android:textSize="@dimen/dimen_16dp"
             android:layout_below="@+id/txvCallernumber"
             android:singleLine="true"
+            android:fontFamily="@font/avenirnextbold"
             android:text="@string/text_status_connect"
-            android:textColor="@color/active_fonts"
-            android:textSize="14sp" />
+            android:textColor="@color/active_fonts" />
 
     </RelativeLayout>
     <RelativeLayout
@@ -69,7 +72,7 @@
             android:layout_height="100dp"
             android:id="@+id/linear_buttons"
             android:orientation="horizontal"
-            android:background="#d0f1ff"
+            android:background="@color/colorPrimary"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
@@ -100,6 +103,7 @@
         <include
             layout="@layout/elements_of_phone_call"
             android:layout_width="fill_parent"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             android:layout_above="@id/linear_buttons"
             android:layout_centerHorizontal="true"
@@ -124,9 +128,12 @@
 
         <ImageView
             android:id="@+id/imageView3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dimen_40dp"
+            android:src="@drawable/verification_logo_tudime"
             android:layout_gravity="center_horizontal"
             android:layout_above="@id/element_set_video_buttons"
 

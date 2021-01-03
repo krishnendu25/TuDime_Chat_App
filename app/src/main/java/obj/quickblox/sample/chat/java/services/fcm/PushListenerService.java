@@ -41,7 +41,7 @@ public class PushListenerService extends QBFcmPushListenerService {
         Log.v(TAG, "From: " + from);
         Log.v(TAG, "Message: " + message);
 
-            showNotification(message);
+            showNotification("You Have Received A New Message/Call");
 
     }
 }

@@ -33,7 +33,7 @@
                 android:paddingTop="5dp"
                 android:src="@drawable/back_button_icon" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edtLocationSearch"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -67,6 +67,7 @@
         android:id="@+id/txvShowLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_above="@id/listviewLocations"
         android:background="@color/white"
         android:drawableLeft="@drawable/location_show"
@@ -110,5 +111,9 @@
         tools:context=".ui.activity.MapSendLocationActivity" />
 
 
-
+    <fragment android:id="@+id/autocomplete_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+        />
 </RelativeLayout>

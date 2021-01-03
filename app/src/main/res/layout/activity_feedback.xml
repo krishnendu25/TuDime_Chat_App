@@ -16,6 +16,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:imeOptions="actionDone"
                 android:layout_margin="15dp"
                 android:background="@color/white"
                 android:hint="@string/feedback_write"

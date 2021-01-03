@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,7 +30,9 @@ import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.QBUsers;
 import com.quickblox.users.model.QBUser;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +62,7 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
     private File photo;
     private Bitmap mImageBitmap;
     private File mImageFileToUpload;
-    private TextView txvPhoneNum;
+    private TextView txvPhoneNum,profilePhotoGallery;
     private File file1, file;
     private ImageView image;
     private EditText check_password;
@@ -76,8 +79,6 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
         ButterKnife.bind(this);
         hideActionbar();
         insi();
-
-
     }
 
 
@@ -87,6 +88,8 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
         txvPhoneNum = (TextView) findViewById(R.id.txvPhoneNum);
         findViewById(R.id.back_image).setOnClickListener(this);
         txvPhoneNum.setOnClickListener(this);
+        profilePhotoGallery  = findViewById(R.id.profilePhotoGallery);
+        profilePhotoGallery.setOnClickListener(this);
         findViewById(R.id.imgCall).setOnClickListener(this);
         findViewById(R.id.imgPhotoEdit).setOnClickListener(this);
         findViewById(R.id.imgProfileUpdate).setOnClickListener(this);
@@ -119,6 +122,7 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
 
             case R.id.imgProfileUpdate:
 
+
                 break;
 
             case R.id.imgNameEdit:
@@ -140,7 +144,9 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
             case R.id.notification:
 
                 break;
-
+            case R.id.profilePhotoGallery:
+                startActivity(new Intent(this,MyPhotoLibery.class));
+                break;
             case R.id.back_image:
                 finish();
                 break;
@@ -310,7 +316,7 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
             public void onSuccess(QBFile qbFile, Bundle bundle) {
                 int uploadedFileID = qbFile.getId();
                 QBUser user = sharedPrefsHelper.getQbUser();
-                user.setId(300);
+                user.setId(Integer.parseInt(SharedPrefsHelper.getInstance().getUserId()));
                 user.setFileId(uploadedFileID);
                 QBUsers.updateUser(user).performAsync(new QBEntityCallback<QBUser>() {
                     @Override
@@ -378,7 +384,6 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
         Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
         return resizedBitmap;
     }
-
 
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {

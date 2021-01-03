@@ -33,6 +33,7 @@
             android:id="@+id/msg_box"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:imeOptions="actionDone"
             android:singleLine="true"
             android:layout_marginTop="5dp"
             android:background="#EDE3ED"

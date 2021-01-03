@@ -1,5 +1,6 @@
 package obj.quickblox.sample.chat.java.ui.activity;
 
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,6 +47,13 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +62,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -71,110 +81,60 @@ import obj.quickblox.sample.chat.java.util.LocationTracker;
 public class MapSendLocationActivity extends BaseActivity implements IJSONParseListener, View.OnClickListener, OnMapReadyCallback {
     double mCurrentLatitude;
     double mCurrentLongitude;
-    private String BASE_URL_FOURSQAURE = "https://api.foursquare.com/v2/venues/search";
-    private String FOURSQUARE_CLIENT_ID = "YKSFTFURQKGZUFYEFGUDXHRLUEGTLEOXMBYUTU3AYA4LLKX5";
-    private String FOURSQUARE_CLIENT_SECRET = "BH3IPIEM33UPG14QTDVCICC142Q3M34TN0EVT55NNBOZY4GX";
-    private String mQueryString;
     private GoogleMap mGoogleMap;
-    private String mLocality;
     private TextView txvShowLocation;
-    private EditText edtLocationSearch;
-    private ListView listviewLocations;
-    private boolean mIsViewHidden = true;
-    private float density;
-    private int end;
-    private int start;
+    private TextView edtLocationSearch;
     private int Bounce_Count = 0;
-    private ArrayList<Location_Venues> mVenuesList = new ArrayList<>();
-    private LocationsListAdapter adapter;
-    private LocationTracker locationTracker;
-    private boolean isInitialized = false;
     private LocationManager locationManager;
- /*   private BroadcastReceiver mLocationBroadcast = new BroadcastReceiver() {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            mCurrentLatitude = intent.getDoubleExtra(AppConstants.EXTRA_LOCATION_LATITUDE, 0.0);
-            mCurrentLongitude = intent.getDoubleExtra(AppConstants.EXTRA_LOCATION_LONGITUDE, 0.0);
-            mLocality = getLocality(new LatLng(mCurrentLatitude, mCurrentLatitude), MapSendLocationActivity.this);
-            hitApiRequest(ApiConstants.REQUEST.UPDATE_LOCATION);
-            locationTracker.disconnectClient();
-            isInitialized = true;
-        }
-    };*/
-    private TextWatcher mTextWatcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence chars, int arg1, int arg2, int arg3) {
-            if (chars.length() > 0) {
-                mQueryString = chars.toString();
-                hitApiRequest(0);
-            } else {
-                mQueryString = "";
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
-        }
-
-        @Override
-        public void afterTextChanged(Editable arg0) {
-        }
-    };
+    private String PlaceApiKEY = "AIzaSyB7Uf8EW3nIERD6A6HBbc36hNlfxPfYgW0";
+    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private AutocompleteSupportFragment autocompleteFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map_send_location);
         hideActionbar();
-        locationTracker = new LocationTracker(this);
-        density = getResources().getDisplayMetrics().density;
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), PlaceApiKEY);
+        }
+        PlacesClient placesClient = Places.createClient(this);
+        autocompleteFragment = (AutocompleteSupportFragment) getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+
+
         findViewById(R.id.imgBack).setOnClickListener(this);
-        edtLocationSearch = (EditText) findViewById(R.id.edtLocationSearch);
-        listviewLocations = (ListView) findViewById(R.id.listviewLocations);
+        edtLocationSearch = (TextView) findViewById(R.id.edtLocationSearch);
         findViewById(R.id.txvSendLocation).setOnClickListener(this);
         txvShowLocation = (TextView) findViewById(R.id.txvShowLocation);
         txvShowLocation.setOnClickListener(this);
-        listviewLocations.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //  sendLocation(mVenuesList.get(position).getLocation().getLat(), mVenuesList.get(position).getLocation().getLng(), mVenuesList.get(position).getName());
-                sendLocation(Double.valueOf(mVenuesList.get(position).getLat()), Double.valueOf(mVenuesList.get(position).getLng()), mVenuesList.get(position).getName());
-            }
-        });
-        hitApiRequest(ApiConstants.REQUEST.UPDATE_LOCATION);
+        edtLocationSearch.setOnClickListener(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_frame);
         mapFragment.getMapAsync(this);
-        adapter = new LocationsListAdapter(this);
-        listviewLocations.setAdapter(adapter);
     }
-
 
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.edtLocationSearch:
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.ADDRESS, Place.Field.LAT_LNG);
+                Intent df = new Autocomplete.IntentBuilder(AutocompleteActivityMode.FULLSCREEN, fields).build(MapSendLocationActivity.this);
+                startActivityForResult(df, AUTOCOMPLETE_REQUEST_CODE);
+            break;
             case R.id.imgBack:
                 finish();
                 break;
-            case R.id.txvShowLocation:
-                // animateListView();
-                showHideListView();
-                break;
             case R.id.txvSendLocation:
-
                 if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     buildAlertMessageNoGps();
-
                 } else if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                     try {
                         get_Current_User_Location();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    sendLocation(mCurrentLatitude, mCurrentLongitude, mLocality);
+                    sendLocation(mCurrentLatitude, mCurrentLongitude);
                 }
                 break;
 
@@ -317,96 +277,27 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
         alert.show();
     }
 
-    private void sendLocation(double lat, double lng, String locality) {
-       /* Intent intent = new Intent();
-        intent.putExtra(ChatConstants.EXTRA_CHAT_LOCATION, lat + "," + lng + "," + locality);
-        setResult(RESULT_OK, intent);*/
-       ChatActivity.Class_Name="MapSendLocationActivity";
-       ChatActivity.SMS_VALUE="http://www.google.com/maps/place/"+lat+","+lng;
-
-
+    private void sendLocation(double lat, double lng) {
+        ChatActivity.Class_Name = "MapSendLocationActivity";
+        ChatActivity.SMS_VALUE = "http://www.google.com/maps/place/" + lat + "," + lng;
         finish();
-
-
-
-
     }
-
-    private void showHideListView() {
-        final RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) listviewLocations.getLayoutParams();
-        if (mIsViewHidden) {
-            txvShowLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.location_hide, 0, 0, 0);
-            txvShowLocation.setText(getString(R.string.hide_locations));
-            // params.height = (int) (250 * density);
-            end = 250;
-            start = 0;
-        } else {
-            txvShowLocation.setCompoundDrawablesWithIntrinsicBounds(R.drawable.location_show, 0, 0, 0);
-            txvShowLocation.setText(getString(R.string.show_locations));
-            // params.height = (int) (0 * density);
-            end = 0;
-            start = 250;
-        }
-        try {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (start != end) {
-                        if (mIsViewHidden) {
-                            start = start + 5;
-                        } else {
-                            start = start - 5;
-                        }
-                        new Handler(getMainLooper()).post(new Runnable() {
-                            @Override
-                            public void run() {
-                                params.height = (int) (start * density);
-                                listviewLocations.setLayoutParams(params);
-                            }
-                        });
-                        try {
-                            Thread.sleep(20);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    if (start == end) {
-                        mIsViewHidden = !mIsViewHidden;
-                    }
-                }
-            }).start();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        edtLocationSearch.addTextChangedListener(mTextWatcher);
-     /*   LocalBroadcastManager.getInstance(this).registerReceiver(mLocationBroadcast, new IntentFilter(AppConstants.LOCAL_BRAODCAST_LOCATION));*/
-
-   /*     if (!isInitialized && !StringUtils.isNullOrEmpty(SharedPrefsHelper.getInstance().getLatitude())) {
-            mCurrentLatitude = Double.parseDouble(ChatPrefrence.getInstance(this).getLatitude());
-            mCurrentLongitude = Double.parseDouble(ChatPrefrence.getInstance(this).getLongitude());
-            mLocality = getLocality(new LatLng(mCurrentLatitude, mCurrentLatitude), this);
-            hitApiRequest(ChatConstants.ApiConstants.REQUEST_FOURSQUARE_NEARBY_PLACES);
-
-            isInitialized = true;
-        }*/
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-       /* LocalBroadcastManager.getInstance(this).unregisterReceiver(mLocationBroadcast);*/
-        edtLocationSearch.removeTextChangedListener(mTextWatcher);
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         mGoogleMap = map;
-        // Showing the current location in Google Map
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         mGoogleMap.setMyLocationEnabled(true);
         LatLng latLng = new LatLng(mCurrentLatitude, mCurrentLongitude);
         mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 13));
@@ -423,29 +314,8 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
 
         }
     }
-    public String getLocality(LatLng location, Context context) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
-            StringBuilder builder = new StringBuilder();
-            if (addresses != null && addresses.size() > 0) {
-                int addressLineCount = addresses.get(0).getMaxAddressLineIndex();
-                for (int i = 0; i < addressLineCount; i++) {
-                    builder.append(addresses.get(0).getAddressLine(i));
-                    if (i != (addressLineCount - 1)) {
-                        builder.append(", ");
-                    }
-                }
-                return builder.toString();
-            }
-            return "";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "";
-        }
-    }
 
-    private void hitApiRequest(int reqType) {
+   /* private void hitApiRequest(int reqType) {
         String url;
         url = "https://api.foursquare.com/v2/venues/search?ll=" + 22.5688291 + "," + 88.4317944 + "&client_id=YKSFTFURQKGZUFYEFGUDXHRLUEGTLEOXMBYUTU3AYA4LLKX5&client_secret=BH3IPIEM33UPG14QTDVCICC142Q3M34TN0EVT55NNBOZY4GX&v=" + timeMilisToString(System.currentTimeMillis()) + "&query=" + mQueryString;
         // showProgressDialog(R.string.load);
@@ -457,7 +327,7 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
                 454, this, parms, false, false, Agent_Array_Object);
 
 
-    }
+    }*/
 
     private String timeMilisToString(long milis) {
         SimpleDateFormat sd = new SimpleDateFormat("yyyyMMdd", Locale.GERMAN);
@@ -472,34 +342,7 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
 
     @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
-        try {
-            if (requestCode == 454) {
-                //    hideProgressDialog();
-                Object o = response;
-                Log.e("mVenuesList-->", response.toString());
-                JSONObject meta = response.getJSONObject("meta");
-                JSONObject responseE = response.getJSONObject("response");
-                JSONArray venues = responseE.getJSONArray("venues");
-                mVenuesList.clear();
-                if (meta.getString("code").equals("200")) {
-                    for (int i = 0; i < venues.length(); i++) {
-                        JSONObject V_Obj = venues.getJSONObject(i);
-                        String lat = V_Obj.getJSONObject("location").getString("lat");
-                        String lng = V_Obj.getJSONObject("location").getString("lng");
-                        String distance = V_Obj.getJSONObject("location").getString("distance");
-                        Location_Venues L = new Location_Venues(V_Obj.getString("name"), lat, lng, distance);
-                        mVenuesList.add(L);
-                    }
-                    adapter.setListData(mVenuesList);
-                    adapter.notifyDataSetChanged();
 
-                }
-
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -531,5 +374,36 @@ public class MapSendLocationActivity extends BaseActivity implements IJSONParseL
             }
         });
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                mCurrentLatitude = place.getLatLng().latitude;
+                mCurrentLongitude = place.getLatLng().longitude;
+                mGoogleMap.clear();
+                MarkerOptions markerOptions = new MarkerOptions().position(new LatLng(
+                        place.getLatLng().latitude, place.getLatLng().longitude));
+                // ROSE color icon
+                markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.current_location_marker));
+                markerOptions.position( place.getLatLng());
+                markerOptions.draggable(true);
+                // adding markerOptions
+                Marker marker = mGoogleMap.addMarker(markerOptions);
+                setMarkerBounce(marker);
+                mGoogleMap.moveCamera(CameraUpdateFactory.newLatLng(place.getLatLng()));
+                mGoogleMap.animateCamera(CameraUpdateFactory.zoomTo(16));
+                edtLocationSearch.setText(place.getAddress());
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                Status status = Autocomplete.getStatusFromIntent(data);
+            } else if (resultCode == RESULT_CANCELED) {
+            }
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 
 }

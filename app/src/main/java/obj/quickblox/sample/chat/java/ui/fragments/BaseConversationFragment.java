@@ -198,7 +198,12 @@ public abstract class BaseConversationFragment extends BaseToolBarFragment imple
                 actionButtonsEnabled(false);
                 handUpVideoCall.setEnabled(false);
                 handUpVideoCall.setActivated(false);
-                CallService.stop(getContext());
+                try{
+                    CallService.stop(getContext());
+                }catch (Exception e){
+
+                }
+
 
                 if (conversationFragmentCallback != null) {
                     conversationFragmentCallback.onHangUpCurrentSession();

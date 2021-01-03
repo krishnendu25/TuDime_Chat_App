@@ -1,5 +1,7 @@
 package obj.quickblox.sample.chat.java.ui.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -58,25 +60,49 @@ public class AccountSettingsActivity extends BaseActivity implements View.OnClic
     }
 
     private void Delete_Your_Account(int getUserId) {
-        showProgressDialog(R.string.dlg_loading);
-        QBUsers.deleteUser(getUserId).performAsync(new QBEntityCallback<Void>() {
-            @Override
-            public void onSuccess(Void aVoid, Bundle bundle) {
-                SharedPrefsHelper.clearAllData();
-                CiaoPrefrences.getInstance(getApplicationContext()).clearPrefrences();
-                Intent ii = new Intent(getApplicationContext(), SetLanguage.class);
-                ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(ii);
-                finish();
-                ToastUtils.longToast(R.string.DELETED_SUCCESSFULLY);
-                hideProgressDialog();
-            }
 
-            @Override
-            public void onError(QBResponseException e) {
-                hideProgressDialog();
-            }
-        });
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
+        builder1.setMessage("Deleting account will permanently remove their account from TuDime, and this cannot be recovered. Also advise that if they had already paid for Yearly membership or have TuDime CAN credit data on file, that this will NOT be refunded. If they select \"Yes, I understand that by agreeing to remove my account, all my data will not be able to be recovered.");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        showProgressDialog(R.string.dlg_loading);
+                        QBUsers.deleteUser(getUserId).performAsync(new QBEntityCallback<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid, Bundle bundle) {
+                                SharedPrefsHelper.clearAllData();
+                                CiaoPrefrences.getInstance(getApplicationContext()).clearPrefrences();
+                                Intent ii = new Intent(getApplicationContext(), SetLanguage.class);
+                                ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(ii);
+                                finish();
+                                ToastUtils.longToast(R.string.DELETED_SUCCESSFULLY);
+                                hideProgressDialog();
+                            }
+
+                            @Override
+                            public void onError(QBResponseException e) {
+                                hideProgressDialog();
+                            }
+                        });
+
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     @Override

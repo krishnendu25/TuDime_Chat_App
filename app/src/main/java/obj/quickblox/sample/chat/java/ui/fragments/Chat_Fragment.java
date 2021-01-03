@@ -174,10 +174,16 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
             if (!ChatHelper.getInstance().isLogged()) {
                 restartApp(getActivity());
             }
+            try {
+                //Load Offline Data.1st
+                updateDialogsAdapter();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (QbDialogHolder.getInstance().getDialogs().size() > 0) {
                 loadDialogsFromQb(true, true);
             } else {
-                loadDialogsFromQb(false, true);
+                loadDialogsFromQb(true, true);
             }
         } else {
             updateDialogsAdapter();
@@ -187,11 +193,16 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
         Archive_Chat_Go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (SharedPrefsHelper.getInstance().get_PASSWORD_STATUS().equals("true")){
-                    Show_Password_alert();
-                }else{
+                try{
+                    if (SharedPrefsHelper.getInstance().get_PASSWORD_STATUS().equals("true")){
+                        Show_Password_alert();
+                    }else{
+                        startActivity(new Intent(getContext(), Archive_Chat.class));
+                    }
+                }catch (Exception e){
                     startActivity(new Intent(getContext(), Archive_Chat.class));
                 }
+
 
             }
         });
@@ -940,6 +951,7 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
                     return;
                 } else {
                     alertDialog.dismiss();
+                    alertDialog.hide();
                     startActivity(new Intent(getContext(), Archive_Chat.class));
                 }
             }

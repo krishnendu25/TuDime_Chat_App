@@ -135,11 +135,39 @@
                     android:visibility="gone" />
 
             </RelativeLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="?actionBarSize"
+                android:layout_gravity="center">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center|start"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/dimen_30dp"
+                            android:layout_height="@dimen/dimen_25dp"
+                            android:layout_marginStart="@dimen/padding_10"
+                            android:background="@drawable/camera_icon_s"/>
+
+                        <TextView
+                            android:id="@+id/profilePhotoGallery"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center|start"
+                            android:paddingStart="@dimen/padding_10"
+                            android:textSize="@dimen/dimen_18dp"
+                            android:textColor="@color/primary_blue"
+                            android:fontFamily="@font/avenirnextbold"
+                            android:text="@string/profile_photo_gallery"/>
+                    </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding_5"
                 >
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,6 +184,7 @@
                         android:layout_weight="0.3"
                         android:layout_gravity="center_vertical"
                         android:singleLine="true"
+                        android:fontFamily="@font/avenirnextbold"
                         android:textColor="@color/active_fonts"
                         android:textSize="16sp" />
 
@@ -163,7 +192,6 @@
                         android:id="@+id/tvProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/public_profile"
                         android:layout_weight="1"
                         android:singleLine="true"
                         android:layout_gravity="center_vertical"
@@ -282,6 +310,7 @@
                         android:padding="10dp"
                         android:text="@string/status1"
                         android:textSize="16sp"
+                        android:fontFamily="@font/avenirnextbold"
                         android:textColor="@color/active_fonts"
                         android:textStyle="bold" />
 

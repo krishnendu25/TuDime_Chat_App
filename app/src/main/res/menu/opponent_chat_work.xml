@@ -4,6 +4,8 @@
         android:title="@string/copy" />
     <item  android:id="@+id/item_for"
         android:title="@string/forward" />
+    <item  android:id="@+id/item_quotes"
+        android:title="@string/quotes" />
     <item  android:id="@+id/item3"
         android:title="@string/delete_for_me" />
     <item  android:id="@+id/TRANSLATE"

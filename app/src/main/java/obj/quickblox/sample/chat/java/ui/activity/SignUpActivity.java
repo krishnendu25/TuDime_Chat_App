@@ -146,13 +146,14 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
         }
 
         try {
-            txtCCode.setText(country_code);
-            txvCountry.setText(country_name);
+             if (country_name!=null){
+                if (!country_name.equalsIgnoreCase("")){
+                    txvCountry.setText(country_name);
+                }
+            }
         }catch (Exception e)
         {
-            country_code="+91";country_name="India";
-            txtCCode.setText(country_code);
-            txvCountry.setText(country_name);
+
 
         }
 
@@ -211,7 +212,7 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
                 if (credential != null) {
                     if (credential.getId().length() > 10) {
                         try {
-                            String phon = credential.getId().replaceAll(" ","");
+                            String phon = credential.getId().trim().replaceAll(" ","");
                             loginEt.setText(phon.substring(phon.length() - 10));
                         }catch (Exception e)
                         {loginEt.setText(credential.getId().substring(credential.getId().length() - 10));}
@@ -238,8 +239,6 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
     }
     private void SendOTP()
     {
-
-
         showProgressDialog(R.string.dlg_loading);
         JSONObject Params_Object = new JSONObject();
         JSONRequestResponse mResponse = new JSONRequestResponse(this);
@@ -249,8 +248,6 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
         MyVolley.init(this);
         mResponse.getResponse(Request.Method.POST, SMS_URL,
                 875, this, parms, false,false,Params_Object);
-
-
     }
 
     @Override
@@ -267,11 +264,14 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
                     loginEt.setError("Please enter your phone number");
                     loginEt.requestFocus();
                     return; }
-                if (login_with_nickname_ph.getText().toString().equalsIgnoreCase("") || login_with_nickname_ph.getText().toString().isEmpty()) {
+              else  if (login_with_nickname_ph.getText().toString().equalsIgnoreCase("") || login_with_nickname_ph.getText().toString().isEmpty()) {
                     login_with_nickname_ph.setError("Please enter your nickname");
                     login_with_nickname_ph.requestFocus();
-                    return;}
-                SendOTP();
+                    return;}else
+                {
+                    SendOTP();
+                }
+
                 break;
         }
     }
@@ -348,7 +348,11 @@ public class SignUpActivity extends BaseActivity implements IJSONParseListener, 
       /*  LocalBroadcastManager.getInstance(this).registerReceiver(this.mLocalBroadcastSmsReceiver, new IntentFilter(AppConstants.LOCAL_BROADCAST_SMS));*/
         try {
             txtCCode.setText(country_code);
-            txvCountry.setText(country_name);
+            if (country_name!=null){
+                if (!country_name.equalsIgnoreCase("")){
+                    txvCountry.setText(country_name);
+                }
+            }
         }catch (Exception e)
         {
             e.printStackTrace();

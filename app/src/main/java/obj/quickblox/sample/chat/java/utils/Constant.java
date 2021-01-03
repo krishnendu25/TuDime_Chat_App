@@ -102,12 +102,9 @@ public class Constant
         } else {
             alertDialogBuilder = new AlertDialog.Builder(c);
         }
-
-
-        alertDialogBuilder.setTitle("সতর্কতা!");
         alertDialogBuilder.setMessage(text);
-        alertDialogBuilder.setCancelable(false);
-        alertDialogBuilder.setPositiveButton("ঠিক আছে", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setCancelable(true);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -118,13 +115,13 @@ public class Constant
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.setCanceledOnTouchOutside(true);
         alertDialog.show();
 
     }
 
     public static String SaveImagetoSDcard(String imagename, Bitmap img, Activity mActivity) {
-        File mydir =  new File(Environment.getExternalStorageDirectory(), "Tudime");
+        File mydir =  new File(Environment.getExternalStorageDirectory(), "TuDime");
         if (!mydir.exists()) {
             mydir.mkdir();
         }

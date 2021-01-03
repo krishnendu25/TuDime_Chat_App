@@ -80,6 +80,7 @@
 
             <EditText
                 android:id="@+id/login_with_email"
+                android:imeOptions="actionDone"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -95,6 +96,7 @@
             <EditText
                 android:id="@+id/login_with_nickname"
                 android:layout_width="match_parent"
+                android:imeOptions="actionDone"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="fill"

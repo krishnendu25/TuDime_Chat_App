@@ -60,6 +60,7 @@
                                 android:id="@+id/enter_name"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
+                                android:imeOptions="actionDone"
                                 android:singleLine="true"
                                 android:background="@drawable/bg_edit"
                                 android:paddingLeft="10dp"

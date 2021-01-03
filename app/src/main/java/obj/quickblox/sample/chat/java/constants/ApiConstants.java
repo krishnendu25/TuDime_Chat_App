@@ -19,6 +19,13 @@ public interface ApiConstants {
 	public static final String sendMailUrl="http://18.219.14.108/tudime_sms/send_mail_tudime/tudime_mail.php";
 	public static final String ephemeral_key="http://18.219.14.108/tudime_sms/stripe_php_payment_gateway/ephemeralKey.php";
 	public static final String payforsubscrption="http://18.219.14.108/tudime_sms/stripe_php_payment_gateway/config.php";
+
+	public static final String uploadMultipleFile="http://18.219.14.108/tudime_sms/user_profile_images.php";
+	public static final String getMultipleFile="http://18.219.14.108/tudime_sms/get_user_profile_images.php";
+	public static final String deleteMultipleFile="http://18.219.14.108/tudime_sms/delete_user_profile_images.php";
+
+
+
 	public interface REQUEST {
 		public static final int UPDATE_LOCATION = 17;
 	}

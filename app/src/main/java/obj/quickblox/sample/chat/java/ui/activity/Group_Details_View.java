@@ -112,9 +112,9 @@ public class Group_Details_View extends BaseActivity implements IJSONParseListen
         PerticipantsCount.setText(String.valueOf(Group_Dialog.getOccupants().size()) + "  Perticipants");
         UserNameTv.setText(Group_Dialog.getName());
         try {
-            Picasso.get().load(Group_Dialog.getPhoto()).placeholder(R.drawable.group_icon).into(profilePictureIv);
+            Picasso.get().load(Group_Dialog.getPhoto()).into(profilePictureIv);
         } catch (Exception e) {
-            Picasso.get().load(Group_Dialog.getPhoto()).placeholder(R.drawable.group_icon).into(profilePictureIv);
+            Picasso.get().load(Group_Dialog.getPhoto()).into(profilePictureIv);
         }
 
         groupe_participants_adapter = new Groupe_Participants_Adapter(this, Group_Dialog.getOccupants());

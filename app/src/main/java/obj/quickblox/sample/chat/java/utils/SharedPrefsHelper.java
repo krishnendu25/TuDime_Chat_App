@@ -34,6 +34,7 @@ public class SharedPrefsHelper {
     private static final String QB_USER_TAGS = "qb_user_tags";
     private static final String Language_Set="set_language";
     private static final String Dialog_Name="Dialog_Name";
+    private static final String Quotes_Name="Quotes_Name";
     private static SharedPrefsHelper instance;
     private static SharedPreferences sharedPreferences,mPreferences;
     SharedPreferences.Editor mEditor;
@@ -231,7 +232,7 @@ public class SharedPrefsHelper {
     }
 
     public void setServerUrl(String serverUrl) {
-        mEditor.putString(PREFS_SERVER_URL, serverUrl).apply();
+        mEditor.putString(PREFS_SERVER_URL, serverUrl). commit();
     }
 
     public String getProfilePhotostatus() {
@@ -239,7 +240,7 @@ public class SharedPrefsHelper {
     }
 
     public void setProfilePhotostatus(String value) {
-        mEditor.putString("Profile_pfoto", value).apply();
+        mEditor.putString("Profile_pfoto", value). commit();
     }
 
     public String getUserId() {
@@ -247,7 +248,7 @@ public class SharedPrefsHelper {
     }
 
     public void setUserId(String value) {
-        mEditor.putString(PREFS_USER_ID, value).apply();
+        mEditor.putString(PREFS_USER_ID, value). commit();
     }
 
 
@@ -256,7 +257,7 @@ public class SharedPrefsHelper {
     }
 
     public void setPasswordForSecretChat(String value) {
-        mEditor.putString("password", value).apply();
+        mEditor.putString("password", value). commit();
     }
 
     public String getProfileId() {
@@ -264,7 +265,7 @@ public class SharedPrefsHelper {
     }
 
     public void setProfileId(String value) {
-        mEditor.putString("PROFILE_ID", value).apply();
+        mEditor.putString("PROFILE_ID", value). commit();
     }
 
     public String getAppLang() {
@@ -272,7 +273,7 @@ public class SharedPrefsHelper {
     }
 
     public void setAppLang(String value) {
-        mEditor.putString("app_lang", value).apply();
+        mEditor.putString("app_lang", value). commit();
     }
 
     public String getEcardAppLang() {
@@ -280,7 +281,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEcardAppLang(String value) {
-        mEditor.putString("ecard_app_lang", value).apply();
+        mEditor.putString("ecard_app_lang", value). commit();
     }
 
     public String getEconuterUsers() {
@@ -288,7 +289,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEconuterUsers(String value) {
-        mEditor.putString("user", value).apply();
+        mEditor.putString("user", value). commit();
     }
 
     public Boolean getPasswordSet() {
@@ -296,7 +297,7 @@ public class SharedPrefsHelper {
     }
 
     public void setPasswordSet(Boolean value) {
-        mEditor.putBoolean("pass", value).apply();
+        mEditor.putBoolean("pass", value). commit();
     }
 
     public String getReminderNotify() {
@@ -304,7 +305,7 @@ public class SharedPrefsHelper {
     }
 
     public void setReminderNotify(String value) {
-        mEditor.putString("notify", value).apply();
+        mEditor.putString("notify", value). commit();
     }
 
     public String getHideSpecificFriends() {
@@ -312,7 +313,7 @@ public class SharedPrefsHelper {
     }
 
     public void setHideSpecificFriends(String value) {
-        mEditor.putString("hide_specific", value).apply();
+        mEditor.putString("hide_specific", value). commit();
     }
 
 
@@ -321,7 +322,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCallInfo(String value) {
-        mEditor.putString("CallInfo", value).apply();
+        mEditor.putString("CallInfo", value). commit();
     }
 
 
@@ -330,7 +331,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLastSeen(Boolean value) {
-        mEditor.putBoolean("Last_Seen", value).apply();
+        mEditor.putBoolean("Last_Seen", value). commit();
     }
 
     public Boolean getHideOnlineStatus() {
@@ -338,7 +339,7 @@ public class SharedPrefsHelper {
     }
 
     public void setHideOnlineStatus(Boolean value) {
-        mEditor.putBoolean("hide", value).apply();
+        mEditor.putBoolean("hide", value). commit();
     }
 
     public Boolean getEncountersUse() {
@@ -346,7 +347,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEncountersUse(Boolean value) {
-        mEditor.putBoolean("use", value).apply();
+        mEditor.putBoolean("use", value). commit();
     }
 
     public Boolean getTuDimeMemebershipExpire() {
@@ -354,7 +355,7 @@ public class SharedPrefsHelper {
     }
 
     public void setTuDimeMemebershipExpire(Boolean value) {
-        mEditor.putBoolean("expire", value).apply();
+        mEditor.putBoolean("expire", value). commit();
     }
 
     public String  getEncounterMsg() {
@@ -362,7 +363,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEncounterMsg(String  value) {
-        mEditor.putString("en_msg", value).apply();
+        mEditor.putString("en_msg", value). commit();
     }
 
     public String getChatBackupStatus() {
@@ -370,7 +371,7 @@ public class SharedPrefsHelper {
     }
 
     public void setChatBackupStatus(String  value) {
-        mEditor.putString("backup_chat", value).apply();
+        mEditor.putString("backup_chat", value). commit();
     }
 
     public Boolean isDiscoverMe() {
@@ -378,7 +379,7 @@ public class SharedPrefsHelper {
     }
 
     public void setDsicoverMe(boolean value) {
-        mEditor.putBoolean(PREFS_DISCOVER_ME, value).apply();
+        mEditor.putBoolean(PREFS_DISCOVER_ME, value). commit();
     }
 
     public String getSelectedDate() {
@@ -386,14 +387,14 @@ public class SharedPrefsHelper {
     }
 
     public void setSelectedDate(String SelectedDate) {
-        mEditor.putString("SelectedDate", SelectedDate).apply();
+        mEditor.putString("SelectedDate", SelectedDate). commit();
     }
     public String getSelectedTime() {
         return mPreferences.getString("SelectedTime", "");
     }
 
     public void setSelectedTime(String SelectedTime) {
-        mEditor.putString("SelectedTime", SelectedTime).apply();
+        mEditor.putString("SelectedTime", SelectedTime). commit();
     }
 
     public String getMembershipdialogDate() {
@@ -401,7 +402,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMembershipdialogDate(String SelectedDate) {
-        mEditor.putString("mem_date", SelectedDate).apply();
+        mEditor.putString("mem_date", SelectedDate). commit();
     }
 
     public Boolean getVersion() {
@@ -409,7 +410,7 @@ public class SharedPrefsHelper {
     }
 
     public void setVersion(Boolean SelectedDate) {
-        mEditor.putBoolean("version", SelectedDate).apply();
+        mEditor.putBoolean("version", SelectedDate). commit();
     }
 
     public String getQbUserId() {
@@ -417,7 +418,7 @@ public class SharedPrefsHelper {
     }
 
     public void setQbUserId(String value) {
-        mEditor.putString(PREFS_QB_USER_ID, value).apply();
+        mEditor.putString(PREFS_QB_USER_ID, value). commit();
     }
 
     public String getSessionToken() {
@@ -425,7 +426,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSessionToken(String value) {
-        mEditor.putString(PREFS_SESSION_TOKEN, value).apply();
+        mEditor.putString(PREFS_SESSION_TOKEN, value). commit();
     }
 
     public String getDeviceToken() {
@@ -433,7 +434,7 @@ public class SharedPrefsHelper {
     }
 
     public void setDeviceToken(String regid) {
-        mEditor.putString(PREFS_DEVICE_TOKEN, regid).apply();
+        mEditor.putString(PREFS_DEVICE_TOKEN, regid). commit();
     }
 
     public String getDisableAccount() {
@@ -441,7 +442,7 @@ public class SharedPrefsHelper {
     }
 
     public void setDisableAccount(String regid) {
-        mEditor.putString("account_diable", regid).apply();
+        mEditor.putString("account_diable", regid). commit();
     }
 
     public String getUserName() {
@@ -449,14 +450,14 @@ public class SharedPrefsHelper {
     }
 
     public void setUserName(String userName) {
-        mEditor.putString(PREFS_USERNAME, userName).apply();
+        mEditor.putString(PREFS_USERNAME, userName). commit();
     }
 
     public void setPhoneNum(String phoneNumber) {
-        mEditor.putString(PREFS_PHONE_NUM, phoneNumber).apply();
+        mEditor.putString(PREFS_PHONE_NUM, phoneNumber). commit();
     }
     public void setUSERID(String USERID) {
-        mEditor.putString(PREFS_USERID, USERID).apply();
+        mEditor.putString(PREFS_USERID, USERID). commit();
     }
 
     public String getUSERID() {
@@ -467,7 +468,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCountryName(String countryName) {
-        mEditor.putString(PREFS_COUNTRY_NAME, countryName).apply();
+        mEditor.putString(PREFS_COUNTRY_NAME, countryName). commit();
     }
 
     public String getCountryName() {
@@ -475,11 +476,11 @@ public class SharedPrefsHelper {
     }
 
     public void setCountryCode(String countryName) {
-        mEditor.putString(PREFS_COUNTRY_CODE, countryName).apply();
+        mEditor.putString(PREFS_COUNTRY_CODE, countryName). commit();
     }
 
     public void set_wallpaper(String wallpaper) {
-        mEditor.putString(CHAT_WINDOW_WALLPAPER, wallpaper).apply();
+        mEditor.putString(CHAT_WINDOW_WALLPAPER, wallpaper). commit();
     }
     public String get__wallpaper(){
         return mPreferences.getString(CHAT_WINDOW_WALLPAPER, "");
@@ -490,7 +491,7 @@ public class SharedPrefsHelper {
     }
 
     public void setNumberVerified(boolean isNumberVerified) {
-        mEditor.putBoolean(PREFS_IS_NUMBER_VERIFIED, isNumberVerified).apply();
+        mEditor.putBoolean(PREFS_IS_NUMBER_VERIFIED, isNumberVerified). commit();
     }
 
     public boolean isNumberVerified() {
@@ -498,7 +499,7 @@ public class SharedPrefsHelper {
     }
 
     public void setAgreementAccepted(boolean isAgreementAccepted) {
-        mEditor.putBoolean(PREFS_IS_AGREEMENT_ACCEPTED, isAgreementAccepted).apply();
+        mEditor.putBoolean(PREFS_IS_AGREEMENT_ACCEPTED, isAgreementAccepted). commit();
     }
 
     public boolean isAgreementAccepted() {
@@ -506,7 +507,7 @@ public class SharedPrefsHelper {
     }
 
     public void setProfileRegistrationDone(boolean isProfileRegistered) {
-        mEditor.putBoolean(PREFS_IS_PROFILE_REGISTERED, isProfileRegistered).apply();
+        mEditor.putBoolean(PREFS_IS_PROFILE_REGISTERED, isProfileRegistered). commit();
     }
 
     public boolean isProfileRegistered() {
@@ -554,11 +555,11 @@ public class SharedPrefsHelper {
             if (!statusList.contains(status))
                 statusList.add(0, status);
         }
-        mEditor.putString(PREFS_ALL_STATUS, gson.toJson(statusList)).apply();
+        mEditor.putString(PREFS_ALL_STATUS, gson.toJson(statusList)). commit();
     }
 
     public void setKeyboardHeight(int keyboardHeight) {
-        mEditor.putInt(PREFS_KEYBOARD_HEIGHT, keyboardHeight).apply();
+        mEditor.putInt(PREFS_KEYBOARD_HEIGHT, keyboardHeight). commit();
     }
 
     public int getKeyboardHeight() {
@@ -570,11 +571,11 @@ public class SharedPrefsHelper {
     }
 
     public void setProfilePic(String profielPic) {
-        mEditor.putString(PREFS_PROFILE_PIC, profielPic).apply();
+        mEditor.putString(PREFS_PROFILE_PIC, profielPic). commit();
     }
 
     public void setWallpaperName(String wallpaperName) {
-        mEditor.putString(PREFS_WALLPAPER, wallpaperName).apply();
+        mEditor.putString(PREFS_WALLPAPER, wallpaperName). commit();
     }
 
     public String getWallpaperName() {
@@ -582,7 +583,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCurrentStatus(String status) {
-        mEditor.putString(PREFS_CURRENT_STATUS, status).apply();
+        mEditor.putString(PREFS_CURRENT_STATUS, status). commit();
     }
 
     public String getCurrentStatus() {
@@ -590,7 +591,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRandomUserId(String randomUserId) {
-        mEditor.putString(PREFS_RANDOM_ID_FOR_CONTACT, randomUserId).apply();
+        mEditor.putString(PREFS_RANDOM_ID_FOR_CONTACT, randomUserId). commit();
     }
 
     public String getRandomUserId() {
@@ -599,7 +600,7 @@ public class SharedPrefsHelper {
 
 
     public void setRingtoneTitle(String selectedRingTone) {
-        mEditor.putString(PREFS_RINGTONE_TITLE, selectedRingTone).apply();
+        mEditor.putString(PREFS_RINGTONE_TITLE, selectedRingTone). commit();
     }
 
     public String getRingtoneTitle() {
@@ -607,7 +608,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRingtoneUri(String selectedRingToneUri) {
-        mEditor.putString(PREFS_RINGTONE_URI, selectedRingToneUri).apply();
+        mEditor.putString(PREFS_RINGTONE_URI, selectedRingToneUri). commit();
     }
 
     public String getTotalCredit() {
@@ -615,7 +616,7 @@ public class SharedPrefsHelper {
     }
 
     public void setTotalCredit(String total_credit) {
-        mEditor.putString("Total_credit", total_credit).apply();
+        mEditor.putString("Total_credit", total_credit). commit();
     }
 
 
@@ -624,7 +625,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRingtoneUriEncounter(String selectedRingToneUriEncounter) {
-        mEditor.putString("encounter_uri", selectedRingToneUriEncounter).apply();
+        mEditor.putString("encounter_uri", selectedRingToneUriEncounter). commit();
     }
 
     public String getRingtoneUriEncounter() {
@@ -633,7 +634,7 @@ public class SharedPrefsHelper {
 
 
     public void setRingtoneTitleGroup(String selectedRingToneGroup) {
-        mEditor.putString(PREFS_RINGTONE_TITLE_GROUP, selectedRingToneGroup).apply();
+        mEditor.putString(PREFS_RINGTONE_TITLE_GROUP, selectedRingToneGroup). commit();
     }
 
     public String getRingtoneTitleGroup() {
@@ -641,7 +642,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRingtoneUriGroup(String selectedRingToneUriGroup) {
-        mEditor.putString(PREFS_RINGTONE_URI_GROUP, selectedRingToneUriGroup).apply();
+        mEditor.putString(PREFS_RINGTONE_URI_GROUP, selectedRingToneUriGroup). commit();
     }
 
     public String getRingtoneUriGroup() {
@@ -649,7 +650,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRingtoneTitleCall(String selectedRingToneCall) {
-        mEditor.putString(PREFS_RINGTONE_TITLE_CALL, selectedRingToneCall).apply();
+        mEditor.putString(PREFS_RINGTONE_TITLE_CALL, selectedRingToneCall). commit();
     }
 
     public String getRingtoneTitleCall() {
@@ -657,7 +658,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRingtoneTitleEncounters(String selectedRingToneCall) {
-        mEditor.putString("ringtone_encounter", selectedRingToneCall).apply();
+        mEditor.putString("ringtone_encounter", selectedRingToneCall). commit();
     }
 
     public String getRingtoneTitleEncounters() {
@@ -665,7 +666,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRingtoneUriCall(String selectedRingToneUriCall) {
-        mEditor.putString(PREFS_RINGTONE_URI_CALL, selectedRingToneUriCall).apply();
+        mEditor.putString(PREFS_RINGTONE_URI_CALL, selectedRingToneUriCall). commit();
     }
 
     public String getRingtoneUriCall() {
@@ -674,7 +675,7 @@ public class SharedPrefsHelper {
 
 
     public void setVibration(String selectedVibration) {
-        mEditor.putString(PREFS_VIBRATE, selectedVibration).apply();
+        mEditor.putString(PREFS_VIBRATE, selectedVibration). commit();
     }
 
     public String getVibration() {
@@ -686,7 +687,7 @@ public class SharedPrefsHelper {
     }
 
     public void setVibrationGroup(String selectedVibration) {
-        mEditor.putString(PREFS_VIBRATE_GROUP, selectedVibration).apply();
+        mEditor.putString(PREFS_VIBRATE_GROUP, selectedVibration). commit();
     }
 
     public String getVibrationCall() {
@@ -694,7 +695,7 @@ public class SharedPrefsHelper {
     }
 
     public void setVibrationCall(String selectedVibration) {
-        mEditor.putString(PREFS_VIBRATE_CALL, selectedVibration).apply();
+        mEditor.putString(PREFS_VIBRATE_CALL, selectedVibration). commit();
     }
 
     public String getVibrationEncounters() {
@@ -702,12 +703,12 @@ public class SharedPrefsHelper {
     }
 
     public void setVibrationEncounters(String selectedVibration) {
-        mEditor.putString("vibrate_encounters", selectedVibration).apply();
+        mEditor.putString("vibrate_encounters", selectedVibration). commit();
     }
 
 
     public void setContactSync(boolean isUpdated) {
-        mEditor.putBoolean("conSyn", isUpdated).apply();
+        mEditor.putBoolean("conSyn", isUpdated). commit();
     }
 
     public boolean getContactSync() {
@@ -716,7 +717,7 @@ public class SharedPrefsHelper {
 
 
     public void setVoiceMsg(boolean isVoice) {
-        mEditor.putBoolean("isVoice", isVoice).apply();
+        mEditor.putBoolean("isVoice", isVoice). commit();
     }
 
     public boolean getVoiceMsg() {
@@ -725,7 +726,7 @@ public class SharedPrefsHelper {
 
 
     public void setQbUserIdUpdatedOnServer(boolean isUpdated) {
-        mEditor.putBoolean(PREFS_IS_QB_USER_ID_UPDATED_ON_SERVER, isUpdated).apply();
+        mEditor.putBoolean(PREFS_IS_QB_USER_ID_UPDATED_ON_SERVER, isUpdated). commit();
     }
 
     public boolean getQbUserIdUpdatedOnServer() {
@@ -733,7 +734,7 @@ public class SharedPrefsHelper {
     }
 
     public void setShowChatMessagePreview(boolean isChecked) {
-        mEditor.putBoolean(PREFS_SHOW_MESSAGE_PREVIEW, isChecked).apply();
+        mEditor.putBoolean(PREFS_SHOW_MESSAGE_PREVIEW, isChecked). commit();
     }
 
     public boolean isShowChatMessagePreview() {
@@ -741,7 +742,7 @@ public class SharedPrefsHelper {
     }
 
     public void setAutoDownloadMedia(boolean isChecked) {
-        mEditor.putBoolean(PREFS_AUTO_DOWNLOAD_MEDIA, isChecked).apply();
+        mEditor.putBoolean(PREFS_AUTO_DOWNLOAD_MEDIA, isChecked). commit();
     }
 
     public boolean isAutoDownloadMedia() {
@@ -753,7 +754,7 @@ public class SharedPrefsHelper {
     }
 
     public void setTimeLineResponse(String value) {
-        mEditor.putString(PREFS_TIMELINE_RESPONSE, value).apply();
+        mEditor.putString(PREFS_TIMELINE_RESPONSE, value). commit();
     }
 
 
@@ -762,7 +763,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRadarDistance(int value) {
-        mEditor.putInt(PREFS_RADAR_DISTANCE, value).apply();
+        mEditor.putInt(PREFS_RADAR_DISTANCE, value). commit();
     }
 
     public int getPrivacyPosition() {
@@ -770,7 +771,7 @@ public class SharedPrefsHelper {
     }
 
     public void setPrivacyPosition(int value) {
-        mEditor.putInt(PREFS_PRIVACY_SELECTED_POSITION, value).apply();
+        mEditor.putInt(PREFS_PRIVACY_SELECTED_POSITION, value). commit();
     }
 
     //Timeline settings
@@ -779,7 +780,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLikeNotification(boolean isLike) {
-        mEditor.putBoolean(PREFS_TIMELINE_SETTING_LIKES, isLike).apply();
+        mEditor.putBoolean(PREFS_TIMELINE_SETTING_LIKES, isLike). commit();
     }
 
 
@@ -788,7 +789,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCommentNotification(boolean isComment) {
-        mEditor.putBoolean(PREFS_TIMELINE_SETTING_COMMENTS, isComment).apply();
+        mEditor.putBoolean(PREFS_TIMELINE_SETTING_COMMENTS, isComment). commit();
     }
 
     public boolean getEcardstype() {
@@ -796,7 +797,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEcardstype(boolean isComment) {
-        mEditor.putBoolean("ecardstype", isComment).apply();
+        mEditor.putBoolean("ecardstype", isComment). commit();
     }
 
     public boolean getEcardsUrl() {
@@ -804,7 +805,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEcardsUrl(boolean ecardsUrl) {
-        mEditor.putBoolean("ecardsUrl", ecardsUrl).apply();
+        mEditor.putBoolean("ecardsUrl", ecardsUrl). commit();
     }
 
     public String getEncounterPosition() {
@@ -812,7 +813,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEncounterPosition(String position) {
-        mEditor.putString("position", position).apply();
+        mEditor.putString("position", position). commit();
     }
 
     public String getEncounterNAme() {
@@ -820,7 +821,7 @@ public class SharedPrefsHelper {
     }
 
     public void setEncounterNAme(String position) {
-        mEditor.putString("name", position).apply();
+        mEditor.putString("name", position). commit();
     }
 
     public String getChattingPersonData() {
@@ -828,7 +829,7 @@ public class SharedPrefsHelper {
     }
 
     public void setChattingPersonData(String position) {
-        mEditor.putString("getChattingPersonData", position).apply();
+        mEditor.putString("getChattingPersonData", position). commit();
     }
 
     public boolean getTudimeSendCardStatus() {
@@ -836,7 +837,7 @@ public class SharedPrefsHelper {
     }
 
     public void setTudimeSendCardStatus(boolean position) {
-        mEditor.putBoolean("getTudimeSendCardStatus", position).apply();
+        mEditor.putBoolean("getTudimeSendCardStatus", position). commit();
     }
 
     public boolean getAllowTagNotification() {
@@ -844,7 +845,7 @@ public class SharedPrefsHelper {
     }
 
     public void setAllowTagNotification(boolean isTagNotification) {
-        mEditor.putBoolean(PREFS_TIMELINE_SETTING_ALLOW_TAG, isTagNotification).apply();
+        mEditor.putBoolean(PREFS_TIMELINE_SETTING_ALLOW_TAG, isTagNotification). commit();
     }
 
     public String getRelationshipStatus() {
@@ -852,7 +853,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRelationshipStatus(String rel) {
-        mEditor.putString("rel", rel).apply();
+        mEditor.putString("rel", rel). commit();
     }
 
     public String getSexualityStatus() {
@@ -860,7 +861,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSexualityStatus(String sexuality) {
-        mEditor.putString("sexuality", sexuality).apply();
+        mEditor.putString("sexuality", sexuality). commit();
     }
 
     public String getKnownLanguage() {
@@ -868,7 +869,7 @@ public class SharedPrefsHelper {
     }
 
     public void setKnownLanguage(String language) {
-        mEditor.putString("language", language).apply();
+        mEditor.putString("language", language). commit();
     }
 
     public String getInterest() {
@@ -876,7 +877,7 @@ public class SharedPrefsHelper {
     }
 
     public void setInterest(String interest) {
-        mEditor.putString("interest", interest).apply();
+        mEditor.putString("interest", interest). commit();
     }
 
     public String getAge() {
@@ -885,7 +886,7 @@ public class SharedPrefsHelper {
 
 
     public void setAge(String age) {
-        mEditor.putString("age", age).apply();
+        mEditor.putString("age", age). commit();
     }
 
     public String getHereTo() {
@@ -893,7 +894,7 @@ public class SharedPrefsHelper {
     }
 
     public void setHereTo(String here) {
-        mEditor.putString("here", here).apply();
+        mEditor.putString("here", here). commit();
     }
 
     public String getDateBday() {
@@ -901,7 +902,7 @@ public class SharedPrefsHelper {
     }
 
     public void setDateBday(String here) {
-        mEditor.putString("date", here).apply();
+        mEditor.putString("date", here). commit();
     }
 
     public String getMonth() {
@@ -909,7 +910,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMonth(String here) {
-        mEditor.putString("mnth", here).apply();
+        mEditor.putString("mnth", here). commit();
     }
 
     public String getAboutYourself() {
@@ -917,7 +918,7 @@ public class SharedPrefsHelper {
     }
 
     public void setAboutYourself(String about) {
-        mEditor.putString("about", about).apply();
+        mEditor.putString("about", about). commit();
     }
 
     public String getCurrentLocation() {
@@ -925,7 +926,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCurrentLocation(String loc) {
-        mEditor.putString("loc", loc).apply();
+        mEditor.putString("loc", loc). commit();
     }
 
     public String getMinAgeRange() {
@@ -933,7 +934,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMinAgeRange(String age) {
-        mEditor.putString("MinageRange", age).apply();
+        mEditor.putString("MinageRange", age). commit();
     }
 
     public String getMinRange() {
@@ -941,7 +942,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMinRange(String age) {
-        mEditor.putString("MinRange", age).apply();
+        mEditor.putString("MinRange", age). commit();
     }
 
     public String getMaxAgeRange() {
@@ -949,7 +950,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMaxAgeRange(String age) {
-        mEditor.putString("MaxageRange", age).apply();
+        mEditor.putString("MaxageRange", age). commit();
     }
 
     public String getMaxRange() {
@@ -957,7 +958,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMaxRange(String age) {
-        mEditor.putString("MaxRange", age).apply();
+        mEditor.putString("MaxRange", age). commit();
     }
 
     public String getProfileEncounters() {
@@ -965,7 +966,7 @@ public class SharedPrefsHelper {
     }
 
     public void setProfileEncounters(String age) {
-        mEditor.putString("EProfile", age).apply();
+        mEditor.putString("EProfile", age). commit();
     }
 
     public String getRangeType() {
@@ -973,7 +974,7 @@ public class SharedPrefsHelper {
     }
 
     public void setRangeType(String age) {
-        mEditor.putString("rangeType", age).apply();
+        mEditor.putString("rangeType", age). commit();
     }
 
     public String getLookingFor() {
@@ -981,7 +982,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLookingFor(String age) {
-        mEditor.putString("looking", age).apply();
+        mEditor.putString("looking", age). commit();
     }
 
     public String getLoveLoadCount() {
@@ -989,7 +990,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLoveLoadCount(String age) {
-        mEditor.putString("love_count", age).apply();
+        mEditor.putString("love_count", age). commit();
     }
 
     public String getBdayLoadCount() {
@@ -997,7 +998,7 @@ public class SharedPrefsHelper {
     }
 
     public void setBdayLoadCount(String age) {
-        mEditor.putString("Bday_count", age).apply();
+        mEditor.putString("Bday_count", age). commit();
     }
 
     public String getFriendLoadCount() {
@@ -1005,7 +1006,7 @@ public class SharedPrefsHelper {
     }
 
     public void setFriendLoadCount(String age) {
-        mEditor.putString("Friend_count", age).apply();
+        mEditor.putString("Friend_count", age). commit();
     }
 
     public String getSomeSpecLoadCount() {
@@ -1013,7 +1014,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSomeSpecLoadCount(String age) {
-        mEditor.putString("SomeSpec_count", age).apply();
+        mEditor.putString("SomeSpec_count", age). commit();
     }
 
     public String getMissLoadCount() {
@@ -1021,7 +1022,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMissLoadCount(String age) {
-        mEditor.putString("Miss_count", age).apply();
+        mEditor.putString("Miss_count", age). commit();
     }
 
     public String getCongoLoadCount() {
@@ -1029,7 +1030,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCongoLoadCount(String age) {
-        mEditor.putString("Congo_count", age).apply();
+        mEditor.putString("Congo_count", age). commit();
     }
 
     public String getLuckLoadCount() {
@@ -1037,7 +1038,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLuckLoadCount(String age) {
-        mEditor.putString("luck_count", age).apply();
+        mEditor.putString("luck_count", age). commit();
     }
 
     public String getWelleLoadCount() {
@@ -1045,7 +1046,7 @@ public class SharedPrefsHelper {
     }
 
     public void setWellLoadCount(String age) {
-        mEditor.putString("Well_count", age).apply();
+        mEditor.putString("Well_count", age). commit();
     }
 
     public String getInviteLoadCount() {
@@ -1053,7 +1054,7 @@ public class SharedPrefsHelper {
     }
 
     public void setInviteLoadCount(String age) {
-        mEditor.putString("Invite_count", age).apply();
+        mEditor.putString("Invite_count", age). commit();
     }
 
     public String getThankLoadCount() {
@@ -1061,7 +1062,7 @@ public class SharedPrefsHelper {
     }
 
     public void setThankLoadCount(String age) {
-        mEditor.putString("Thank_count", age).apply();
+        mEditor.putString("Thank_count", age). commit();
     }
 
     public String getSorryLoadCount() {
@@ -1069,7 +1070,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSorryLoadCount(String age) {
-        mEditor.putString("Sorry_count", age).apply();
+        mEditor.putString("Sorry_count", age). commit();
     }
 
     public String getLoveLoadCountHindi() {
@@ -1077,7 +1078,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLoveLoadCountHindi(String age) {
-        mEditor.putString("love_countHindi", age).apply();
+        mEditor.putString("love_countHindi", age). commit();
     }
 
     public String getBdayLoadCountHindi() {
@@ -1085,7 +1086,7 @@ public class SharedPrefsHelper {
     }
 
     public void setBdayLoadCountHindi(String age) {
-        mEditor.putString("Bday_countHindi", age).apply();
+        mEditor.putString("Bday_countHindi", age). commit();
     }
 
     public String getFriendLoadCountHindi() {
@@ -1093,7 +1094,7 @@ public class SharedPrefsHelper {
     }
 
     public void setFriendLoadCountHindi(String age) {
-        mEditor.putString("Friend_countHindi", age).apply();
+        mEditor.putString("Friend_countHindi", age). commit();
     }
 
     public String getSomeSpecLoadCountHindi() {
@@ -1101,7 +1102,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSomeSpecLoadCountHindi(String age) {
-        mEditor.putString("SomeSpec_countHindi", age).apply();
+        mEditor.putString("SomeSpec_countHindi", age). commit();
     }
 
     public String getMissLoadCountHindi() {
@@ -1109,7 +1110,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMissLoadCountHindi(String age) {
-        mEditor.putString("Miss_countHindi", age).apply();
+        mEditor.putString("Miss_countHindi", age). commit();
     }
 
     public String getCongoLoadCountHindi() {
@@ -1117,7 +1118,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCongoLoadCountHindi(String age) {
-        mEditor.putString("Congo_countHindi", age).apply();
+        mEditor.putString("Congo_countHindi", age). commit();
     }
 
     public String getLuckLoadCountHindi() {
@@ -1125,7 +1126,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLuckLoadCountHindi(String age) {
-        mEditor.putString("luck_countHindi", age).apply();
+        mEditor.putString("luck_countHindi", age). commit();
     }
 
     public String getWelleLoadCountHindi() {
@@ -1133,7 +1134,7 @@ public class SharedPrefsHelper {
     }
 
     public void setWellLoadCountHindi(String age) {
-        mEditor.putString("Well_countHindi", age).apply();
+        mEditor.putString("Well_countHindi", age). commit();
     }
 
     public String getInviteLoadCountHindi() {
@@ -1141,7 +1142,7 @@ public class SharedPrefsHelper {
     }
 
     public void setInviteLoadCountHindi(String age) {
-        mEditor.putString("Invite_countHindi", age).apply();
+        mEditor.putString("Invite_countHindi", age). commit();
     }
 
     public String getThankLoadCountHindi() {
@@ -1149,7 +1150,7 @@ public class SharedPrefsHelper {
     }
 
     public void setThankLoadCountHindi(String age) {
-        mEditor.putString("Thank_countHindi", age).apply();
+        mEditor.putString("Thank_countHindi", age). commit();
     }
 
     public String getSorryLoadCountHindi() {
@@ -1157,7 +1158,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSorryLoadCountHindi(String age) {
-        mEditor.putString("Sorry_countHindi", age).apply();
+        mEditor.putString("Sorry_countHindi", age). commit();
     }
 
     public String getLoveLoadCountSpanish() {
@@ -1165,7 +1166,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLoveLoadCountSpanish(String age) {
-        mEditor.putString("love_countSpanish", age).apply();
+        mEditor.putString("love_countSpanish", age). commit();
     }
 
     public String getBdayLoadCountSpanish() {
@@ -1173,7 +1174,7 @@ public class SharedPrefsHelper {
     }
 
     public void setBdayLoadCountSpanish(String age) {
-        mEditor.putString("Bday_countSpanish", age).apply();
+        mEditor.putString("Bday_countSpanish", age). commit();
     }
 
     public String getFriendLoadCountSpanish() {
@@ -1181,7 +1182,7 @@ public class SharedPrefsHelper {
     }
 
     public void setFriendLoadCountSpanish(String age) {
-        mEditor.putString("Friend_countSpanish", age).apply();
+        mEditor.putString("Friend_countSpanish", age). commit();
     }
 
     public String getSomeSpecLoadCountSpanish() {
@@ -1189,7 +1190,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSomeSpecLoadCountSpanish(String age) {
-        mEditor.putString("SomeSpec_countSpanish", age).apply();
+        mEditor.putString("SomeSpec_countSpanish", age). commit();
     }
 
     public String getMissLoadCountSpanish() {
@@ -1197,7 +1198,7 @@ public class SharedPrefsHelper {
     }
 
     public void setMissLoadCountSpanish(String age) {
-        mEditor.putString("Miss_countSpanish", age).apply();
+        mEditor.putString("Miss_countSpanish", age). commit();
     }
 
     public String getCongoLoadCountSpanish() {
@@ -1205,7 +1206,7 @@ public class SharedPrefsHelper {
     }
 
     public void setCongoLoadCountSpanish(String age) {
-        mEditor.putString("Congo_countSpanish", age).apply();
+        mEditor.putString("Congo_countSpanish", age). commit();
     }
 
     public String getLuckLoadCountSpanish() {
@@ -1213,7 +1214,7 @@ public class SharedPrefsHelper {
     }
 
     public void setLuckLoadCountSpanish(String age) {
-        mEditor.putString("luck_countSpanish", age).apply();
+        mEditor.putString("luck_countSpanish", age). commit();
     }
 
     public String getWelleLoadCountSpanish() {
@@ -1221,7 +1222,7 @@ public class SharedPrefsHelper {
     }
 
     public void setWellLoadCountSpanish(String age) {
-        mEditor.putString("Well_countSpanish", age).apply();
+        mEditor.putString("Well_countSpanish", age). commit();
     }
 
     public String getInviteLoadCountSpanish() {
@@ -1229,7 +1230,7 @@ public class SharedPrefsHelper {
     }
 
     public void setInviteLoadCountSpanish(String age) {
-        mEditor.putString("Invite_countSpanish", age).apply();
+        mEditor.putString("Invite_countSpanish", age). commit();
     }
 
     public String getThankLoadCountSpanish() {
@@ -1237,7 +1238,7 @@ public class SharedPrefsHelper {
     }
 
     public void setThankLoadCountSpanish(String age) {
-        mEditor.putString("Thank_countSpanish", age).apply();
+        mEditor.putString("Thank_countSpanish", age). commit();
     }
 
     public String getSorryLoadCountSpanish() {
@@ -1245,7 +1246,7 @@ public class SharedPrefsHelper {
     }
 
     public void setSorryLoadCountSpanish(String age) {
-        mEditor.putString("Sorry_countSpanish", age).apply();
+        mEditor.putString("Sorry_countSpanish", age). commit();
     }
 
     public boolean getAutoEcardSend() {
@@ -1253,7 +1254,7 @@ public class SharedPrefsHelper {
     }
 
     public void setAutoEcardSend(boolean age) {
-        mEditor.putBoolean("getAutoEcardSend", age).apply();
+        mEditor.putBoolean("getAutoEcardSend", age). commit();
     }
 
     public Collection<QBChatDialog> getQBChatDialog_DB() {
@@ -1267,7 +1268,7 @@ public class SharedPrefsHelper {
     public void setQBChatDialog_DB(Collection<QBChatDialog> value) {
         Gson gson = new Gson();
         String json = gson.toJson(value);
-        mEditor.putString(QBChatDialog_DB,json).apply();
+        mEditor.putString(QBChatDialog_DB,json). commit();
     }
 
 
@@ -1283,7 +1284,14 @@ public class SharedPrefsHelper {
     public void setQBChatMessage_Offline(ArrayList<ArrayList<QBChatMessage>> value) {
         Gson gson = new Gson();
         String json = gson.toJson(value);
-        mEditor.putString(QBChatMessage_Offline,json).apply();
+        mEditor.putString(QBChatMessage_Offline,json). commit();
     }
-
+    public void setQuotes(String save)
+    {
+        save(Quotes_Name,save);
+    }
+    public String getQuotes()
+    {
+        return get(Quotes_Name);
+    }
 }

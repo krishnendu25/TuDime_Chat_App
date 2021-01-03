@@ -91,6 +91,7 @@
             <EditText
                 android:id="@+id/etVerificationCode"
                 android:layout_width="fill_parent"
+                android:imeOptions="actionDone"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="20dp"

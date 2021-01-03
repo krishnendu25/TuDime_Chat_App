@@ -823,7 +823,7 @@
     <string name="my_balance">My Balance</string>
     <string name="enter_amount">Enter Amount</string>
     <string name="buy_call_credit">BUY CALL CREDIT</string>
-    <string name="active_tudime_pin">Active TuDime Pin</string>
+    <string name="active_tudime_pin">Activate TuDime Pin</string>
     <string name="no_status">*** no status ***</string>
     <string name="for_any_changes_in_details_please_contact_support">For any changes in details, Please contact support</string>
     <string name="plan_type">Plan Type</string>
@@ -855,4 +855,7 @@
     <string name="No_Subscription_Yet">No Subscription Yet</string>
     <string name="share_on_sms">Share On SMS</string>
     <string name="long_tap_on_date_to_set_schedule">Long Tap On Date To Set Schedule</string>
+    <string name="quotes">QUOTE REPLY</string>
+    <string name="profile_photo_gallery">Profile Photo Gallery</string>
+    <string name="menu_save_attachment">Save attachment</string>
 </resources>

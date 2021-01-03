@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseIntArray;
@@ -42,6 +44,7 @@ import com.quickblox.core.helper.CollectionsUtil;
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.managers.DialogsManager;
 import obj.quickblox.sample.chat.java.ui.Callback.Language_Translator;
+import obj.quickblox.sample.chat.java.ui.Callback.QouteChatTrigger;
 import obj.quickblox.sample.chat.java.ui.Callback.Refresh_Chat;
 import obj.quickblox.sample.chat.java.ui.activity.ChatActivity;
 import obj.quickblox.sample.chat.java.ui.activity.DashBoard;
@@ -63,6 +66,8 @@ import com.quickblox.users.model.QBUser;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -85,6 +90,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import static obj.quickblox.sample.chat.java.constants.AppConstants.PASS_URL;
 import static obj.quickblox.sample.chat.java.constants.AppConstants.VIDEO_URL;
+import static obj.quickblox.sample.chat.java.ui.activity.ChatActivity.USER_NAME;
 
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHolder> implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder> {
     private static final String TAG = ChatAdapter.class.getSimpleName();
@@ -100,6 +106,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     private static final int TYPE_ATTACH_LEFT_VIDEO = 6;
     private static final int TYPE_NOTIFICATION_CENTER = 5;
     String TrAnSlAtEdTeXt="";
+    QouteChatTrigger qouteChatTrigger;
     //Message TextView click listener
     //
     private MessageLinkClickListener messageTextViewLinkClickListener;
@@ -131,6 +138,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         this.chatMessages = chatMessages;
         this.inflater = LayoutInflater.from(context);
         language_translator = (ChatActivity) context;
+        qouteChatTrigger = (ChatActivity)context;
     }
 
     public void updateStatusDelivered(String messageID, Integer userId) {
@@ -361,35 +369,87 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 TrAnSlAtEdTeXt = "";
                                 ToastUtils.longToast(R.string.clipboard);
                             } else if (i == R.id.item2) {
-                                QBRestChatService.deleteMessages(messagesIds, true).performAsync(new QBEntityCallback<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid, Bundle bundle) {
-                                        chatMessages.remove(position);
-                                        notifyDataSetChanged();
-                                        // refresh_chat.Refresh();
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                builder1.setTitle("WARNING");
+                                builder1.setMessage("Are you REALLY sure you want to delete this chat? It will be unrecoverable if you continue");
+                                builder1.setCancelable(true);
 
-                                    }
+                                builder1.setPositiveButton(
+                                        "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                QBRestChatService.deleteMessages(messagesIds, true).performAsync(new QBEntityCallback<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid, Bundle bundle) {
+                                                        chatMessages.remove(position);
+                                                        notifyDataSetChanged();
+                                                        // refresh_chat.Refresh();
 
-                                    @Override
-                                    public void onError(QBResponseException e) {
+                                                    }
 
-                                    }
-                                });
+                                                    @Override
+                                                    public void onError(QBResponseException e) {
+
+                                                    }
+                                                });
+
+                                                dialog.cancel();
+
+                                            }
+                                        });
+
+                                builder1.setNegativeButton(
+                                        "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
                             } else if (i == R.id.item3) {
-                                QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid, Bundle bundle) {
-                                        chatMessages.remove(position);
-                                        notifyDataSetChanged();
-                                        updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
 
-                                    }
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                builder1.setTitle("WARNING");
+                                builder1.setMessage("Are you REALLY sure you want to delete this chat? It will be unrecoverable if you continue");
+                                builder1.setCancelable(true);
 
-                                    @Override
-                                    public void onError(QBResponseException e) {
+                                builder1.setPositiveButton(
+                                        "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid, Bundle bundle) {
+                                                        chatMessages.remove(position);
+                                                        notifyDataSetChanged();
+                                                        updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
 
-                                    }
-                                });
+                                                    }
+
+                                                    @Override
+                                                    public void onError(QBResponseException e) {
+
+                                                    }
+                                                });
+
+                                                dialog.cancel();
+
+                                            }
+                                        });
+
+                                builder1.setNegativeButton(
+                                        "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+
 
                             } else if (i == R.id.item4) {
 
@@ -400,8 +460,24 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 Intent intent = new Intent(context, DashBoard.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 context.startActivity(intent);
-                            }
+                            }else if (i == R.id.item_quotes){
+                                String sms = chatMessage.getBody();
+                                qouteChatTrigger.openQuoteChat(sms);
+                                QBUser user = QbUsersHolder.getInstance().getUserById(chatMessage.getSenderId());
+                                String userName = user.getFullName();
+                                String quotes = "";
+                                String New_quotes = userName+": "+"''"+sms+"''";
+                                try {
+                                    JSONObject jsonObject = new JSONObject();
+                                    jsonObject.put("name",getSenderName(chatMessage));
+                                    jsonObject.put("sms",chatMessage.getBody());
+                                    qouteChatTrigger.openQuoteChat(jsonObject.toString());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
+                                SharedPrefsHelper.getInstance().setQuotes(New_quotes);
+                            }
                             else {
                                 return onMenuItemClick(item);
                             }
@@ -561,22 +637,65 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 context.startActivity(intent);
                             }else if (i == R.id.item3) {
-                                QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid, Bundle bundle) {
-                                        chatMessages.remove(position);
-                                        notifyDataSetChanged();
-                                        updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
 
-                                    }
-                                    @Override
-                                    public void onError(QBResponseException e) {
+                                AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                builder1.setTitle("WARNING");
+                                builder1.setMessage("Are you REALLY sure you want to delete this chat? It will be unrecoverable if you continue");
+                                builder1.setCancelable(true);
 
-                                    }
-                                });
+                                builder1.setPositiveButton(
+                                        "Yes",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid, Bundle bundle) {
+                                                        chatMessages.remove(position);
+                                                        notifyDataSetChanged();
+                                                        updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
 
-                            }
-                            else {
+                                                    }
+                                                    @Override
+                                                    public void onError(QBResponseException e) {
+
+                                                    }
+                                                });
+                                                dialog.cancel();
+
+                                            }
+                                        });
+
+                                builder1.setNegativeButton(
+                                        "No",
+                                        new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                dialog.cancel();
+                                            }
+                                        });
+
+                                AlertDialog alert11 = builder1.create();
+                                alert11.show();
+
+
+
+                            }else if (i == R.id.item_quotes){
+                                String sms = chatMessage.getBody();
+                                qouteChatTrigger.openQuoteChat(sms);
+                                QBUser user = QbUsersHolder.getInstance().getUserById(chatMessage.getSenderId());
+                                String userName = user.getFullName();
+                                String quotes = "";
+                                String New_quotes = userName+": "+"''"+sms+"''";
+                                try {
+                                    JSONObject jsonObject = new JSONObject();
+                                    jsonObject.put("name",getSenderName(chatMessage));
+                                    jsonObject.put("sms",chatMessage.getBody());
+                                    qouteChatTrigger.openQuoteChat(jsonObject.toString());
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                                SharedPrefsHelper.getInstance().setQuotes(New_quotes);
+                            } else {
                                 return onMenuItemClick(item);
                             }
                             return true;
@@ -616,8 +735,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         setDateSentAttach(holder, chatMessage);
         displayAttachment(holder, position);
 
-        if (isLeftMessage==false)
-        {
+      /*  if (isLeftMessage==false)
+        {*/
             holder.bubbleFrame.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
@@ -630,55 +749,96 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
                     }
                     final PopupMenu popup = new PopupMenu(context, v);
-                    popup.getMenuInflater().inflate(R.menu.chat_sms_work, popup.getMenu());
+                    popup.getMenuInflater().inflate(R.menu.chat_sms_work_image, popup.getMenu());
                     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                         public boolean onMenuItemClick(MenuItem item) {
-
                             int i = item.getItemId();
-                            popup.getMenu().findItem(R.id.item1).setVisible(false);
-                            popup.getMenu().findItem(R.id.item_for).setVisible(false);
-                            popup.getMenu().findItem(R.id.item4).setVisible(false);
-                            popup.getMenu().findItem(R.id.TRANSLATE).setVisible(false);
-                            if (i == R.id.item1) {
-                                Constant.setClipboard(context,chatMessage.getBody());
-                                TrAnSlAtEdTeXt="";
-                                ToastUtils.longToast(R.string.clipboard);
-                            }
-                            else  if (i == R.id.item2) {
-                                QBRestChatService.deleteMessages(messagesIds, true).performAsync(new QBEntityCallback<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid, Bundle bundle) {
-                                        chatMessages.remove(position);
-                                        notifyDataSetChanged();
-                                        updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
+                         if (i == R.id.item2) {
 
-                                    }
-                                    @Override
-                                    public void onError(QBResponseException e) {
+                             try {
+                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                 builder1.setTitle("WARNING");
+                                 builder1.setMessage("Are you REALLY sure you want to delete this chat? It will be unrecoverable if you continue");
+                                 builder1.setCancelable(true);
 
-                                    }
-                                });
-                            }else  if (i == R.id.item3) {
-                                QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid, Bundle bundle) {
-                                        chatMessages.remove(position);
-                                        notifyDataSetChanged();
+                                 builder1.setPositiveButton(
+                                         "Yes",
+                                         new DialogInterface.OnClickListener() {
+                                             public void onClick(DialogInterface dialog, int id) {
+                                                 QBRestChatService.deleteMessages(messagesIds, true).performAsync(new QBEntityCallback<Void>() {
+                                                     @Override
+                                                     public void onSuccess(Void aVoid, Bundle bundle) {
+                                                         chatMessages.remove(position);
+                                                         notifyDataSetChanged();
+                                                         updateStatusDelivered(chatMessage.getId(),chatDialog.getUserId());
 
-                                    }
-                                    @Override
-                                    public void onError(QBResponseException e) {
+                                                     }
+                                                     @Override
+                                                     public void onError(QBResponseException e) {
 
-                                    }
-                                });
-                            }else  if (i == R.id.item4) {
-                                Show_Edit_Message(position,context,chatDialog.getDialogId(),chatMessage.getId(),chatMessage.getBody());
-                            }else if (i == R.id.item_for)
-                            {
-                                SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
-                                Intent intent = new Intent(context, DashBoard.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                context.startActivity(intent);
+                                                     }
+                                                 });
+                                                 dialog.cancel();
+
+                                             }
+                                         });
+
+                                 builder1.setNegativeButton(
+                                         "No",
+                                         new DialogInterface.OnClickListener() {
+                                             public void onClick(DialogInterface dialog, int id) {
+                                                 dialog.cancel();
+                                             }
+                                         });
+
+                                 AlertDialog alert11 = builder1.create();
+                                 alert11.show();
+
+                             } catch (Exception e) {
+                                 e.printStackTrace();
+                             }
+                         }else  if (i == R.id.item3) {
+                             try {
+                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);
+                                 builder1.setTitle("WARNING");
+                                 builder1.setMessage("Are you REALLY sure you want to delete this chat? It will be unrecoverable if you continue");
+                                 builder1.setCancelable(true);
+
+                                 builder1.setPositiveButton(
+                                         "Yes",
+                                         new DialogInterface.OnClickListener() {
+                                             public void onClick(DialogInterface dialog, int id) {
+                                                 QBRestChatService.deleteMessages(messagesIds, false).performAsync(new QBEntityCallback<Void>() {
+                                                     @Override
+                                                     public void onSuccess(Void aVoid, Bundle bundle) {
+                                                         chatMessages.remove(position);
+                                                         notifyDataSetChanged();
+
+                                                     }
+                                                     @Override
+                                                     public void onError(QBResponseException e) {
+
+                                                     }
+                                                 });
+                                                 dialog.cancel();
+
+                                             }
+                                         });
+
+                                 builder1.setNegativeButton(
+                                         "No",
+                                         new DialogInterface.OnClickListener() {
+                                             public void onClick(DialogInterface dialog, int id) {
+                                                 dialog.cancel();
+                                             }
+                                         });
+
+                                 AlertDialog alert11 = builder1.create();
+                                 alert11.show();
+
+                             } catch (Exception e) {
+                                 e.printStackTrace();
+                             }
                             }
                             else {
                                 return onMenuItemClick(item);
@@ -690,7 +850,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                     return false;
                 }
             });
-        }
+        /*}*/
 
 
         int valueType = getItemViewType(position);
@@ -1332,4 +1492,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         int endIndex = Math.min(lastQMPos, lastHashPos);
         return url.substring(startIndex, endIndex);
     }
+
+
+
+
+
+
 }

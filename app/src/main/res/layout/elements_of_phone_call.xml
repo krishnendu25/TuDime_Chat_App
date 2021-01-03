@@ -23,15 +23,15 @@
             android:id="@+id/dynamicToggleVideoCall"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/call_speaker_toggle_background"
             android:layout_gravity="center|center_horizontal"
-            />
+            android:background="@drawable/call_speaker_toggle_background" />
 
-    <TextView
+        <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/speaker"
         android:layout_marginTop="2dp"
+            android:fontFamily="@font/avenirnextbold"
         android:textColor="@color/white"
         android:textSize="16sp"
         />
@@ -62,7 +62,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/mute"
+            android:textAllCaps="true"
             android:layout_marginTop="2dp"
+            android:fontFamily="@font/avenirnextbold"
             android:textColor="@color/white"
             android:textSize="16sp"
             />

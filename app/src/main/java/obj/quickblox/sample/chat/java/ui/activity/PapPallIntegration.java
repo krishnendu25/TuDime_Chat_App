@@ -11,12 +11,6 @@ import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
-import com.paypal.android.sdk.payments.PayPalConfiguration;
-import com.paypal.android.sdk.payments.PayPalPayment;
-import com.paypal.android.sdk.payments.PayPalService;
-import com.paypal.android.sdk.payments.PaymentActivity;
-import com.paypal.android.sdk.payments.PaymentConfirmation;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,8 +28,7 @@ import obj.quickblox.sample.chat.java.utils.ToastUtils;
 
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.buy_call_balence_update;
 import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_tudime_fetch_my_call_balence;
-import static obj.quickblox.sample.chat.java.constants.PAYPAL_CONFIGURATION.CLIENT_ID;
-import static obj.quickblox.sample.chat.java.constants.PAYPAL_CONFIGURATION.MERCHENT_NAME;
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.sendMailUrl;
 
 public class PapPallIntegration extends BaseActivity {
 
@@ -44,19 +37,10 @@ public class PapPallIntegration extends BaseActivity {
     @BindView(R.id.amount_paypal)
     Button amountPaypal;
     private static final String TAG = "paymentExample";
-    //  private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_PRODUCTION;
-    // private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_SANDBOX;
-    private static final String CONFIG_ENVIRONMENT = PayPalConfiguration.ENVIRONMENT_NO_NETWORK;
-    private static final int REQUEST_CODE_PAYMENT = 1;
-    private static PayPalConfiguration config = new PayPalConfiguration()
-            .environment(CONFIG_ENVIRONMENT)
-            .clientId(CLIENT_ID)
-            .merchantName(MERCHENT_NAME)
-            .merchantPrivacyPolicyUri(Uri.parse("http://18.219.14.108/tudime_sms/Mobile_en.html"))
-            .merchantUserAgreementUri(Uri.parse("http://18.219.14.108/tudime_sms/Mobile_en.html"));
     @BindView(R.id.My_Balence)
     TextView MyBalence;
-    private String Balence_Api;
+    private String Balence_Api="";
+    private String stripe_token="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,47 +51,27 @@ public class PapPallIntegration extends BaseActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("Buy Call Credit");
-
+        getEphemeral_key();
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_PAYMENT) {
-            if (resultCode == Activity.RESULT_OK) {
-                PaymentConfirmation confirm =
-                        data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                if (confirm != null) {
-                    try {
-                        Log.i("paymentExample", confirm.toJSONObject().toString());
-                        Verify_Payment(confirm.toJSONObject());
-                    } catch (Exception e) {
-                        Log.e(TAG, "an extremely unlikely failure occurred: ", e);
-                    }
-                }
-            } else if (resultCode == Activity.RESULT_CANCELED) {
-                Log.i(TAG, "The user canceled.");
-            } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-                Log.i(
-                        TAG,
-                        "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
-            }
-        }
-    }
 
-    private void Verify_Payment(JSONObject toJSONObject) {
+
+    private void Verify_Payment(String toJSONObject) {
         try {
-            if (toJSONObject.getJSONObject("response").getString("state").equalsIgnoreCase("approved")) {
-                hit_Call_Balance(toJSONObject.getJSONObject("response").getString("id"), enterAmount.getText().toString());
-            } else {
-                ToastUtils.longToast("Transaction Successful");
-            }
+
+                hit_Call_Balance(toJSONObject, enterAmount.getText().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
+    private void getEphemeral_key() {
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.GET, stripe_token, 548, this, parms, false, false, Params_Object);
+    }
     private void hit_Call_Balance(String paypal_ency, String price) {
         int Total_Balance = 0;
         if (Balence_Api != null) {
@@ -144,22 +108,50 @@ public class PapPallIntegration extends BaseActivity {
     }
 
     public void onBuyPressed() {
-        PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
-        Intent intent = new Intent(this, PaymentActivity.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
-        startActivityForResult(intent, REQUEST_CODE_PAYMENT);
-    }
+        Intent intent = new Intent(this, CheckoutActivityJava.class);
+        intent.putExtra("Membership_Price", enterAmount.getText().toString().trim());
+        intent.putExtra("stripe_token", stripe_token);
+        startActivityForResult(intent,325);
 
-    private PayPalPayment getThingToBuy(String paymentIntent) {
-        return new PayPalPayment(new BigDecimal(enterAmount.getText().toString()), "USD", "Call Credit",
-                paymentIntent);
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 325) {
+            if(resultCode == Activity.RESULT_OK){
+                String result=data.getStringExtra("invoice");
+                String email=data.getStringExtra("email");
+                hitSendEmail(result,email);
+                Verify_Payment(result);
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                ToastUtils.longToast("Payment Failure");
+            }
+        }
+    }//onActivityResult
+
+    private void hitSendEmail(String invoice, String email) {
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("task","send_mail");
+        parms.putString("email",email);
+        parms.putString("text","Tax Invoice of TuDime CAN Credit Recharge"+"\n\n"+invoice);
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, sendMailUrl,
+                286, this, parms, false,false,Params_Object);
+    }
+
+   /* private PayPalPayment getThingToBuy(String paymentIntent) {
+        return new PayPalPayment(new BigDecimal(enterAmount.getText().toString()), "USD", "Call Credit",
+                paymentIntent);
+    }*/
+
+    @Override
     public void onDestroy() {
-        // Stop service when done
-        stopService(new Intent(this, PayPalService.class));
+
         super.onDestroy();
     }
 
@@ -215,7 +207,15 @@ public class PapPallIntegration extends BaseActivity {
                 hideProgressDialog();
             }
         }
+        if (requestCode == 548) {
+            try {
+                if (response.getString("status").equalsIgnoreCase("success")) {
+                    stripe_token = response.getJSONObject("data").getString("secret");
+                }
+            } catch (JSONException e) {
 
+            }
+        }
     }
 
     private void Fetch_My_Call_Balence(String userid) {

@@ -149,20 +149,20 @@ public class Buy_TuDime_Subscription extends BaseActivity {
 
             }
 
-            if (requestCode==286) {
-                try{
-                    if (response.getString("status").equalsIgnoreCase("success"))
-                    {
-                        ToastUtils.longToast("Your Annual TuDime Subscription Tax Invoice Send To Your Email");
-                    }
 
-                }catch (Exception e)
-                {
-                }
-            }
 
         }
+        if (requestCode==286) {
+            try{
+                if (response.getString("status").equalsIgnoreCase("success"))
+                {
+                    ToastUtils.longToast("Your Annual TuDime Subscription Tax Invoice Send To Your Email");
+                }
 
+            }catch (Exception e)
+            {
+            }
+        }
         if (requestCode == 447) {
             hideProgressDialog();
             try {

@@ -24,11 +24,15 @@ import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.constants.ApiConstants;
 import obj.quickblox.sample.chat.java.utils.Constant;
 import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
+import obj.quickblox.sample.chat.java.utils.ToastUtils;
+
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.sendMailUrl;
 
 public class FeedbackActivity extends BaseActivity implements View.OnClickListener, IJSONParseListener {
 
     EditText edt_feedback;
     Button submit_feedback;
+    String Loginid="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +44,11 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
         edt_feedback = findViewById(R.id.edt_feedback);
         submit_feedback = findViewById(R.id.submit_feedback);
         submit_feedback.setOnClickListener(this);
+        try {
+            Loginid = SharedPrefsHelper.getInstance().getQbUser().getLogin();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -75,6 +84,22 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
     }
 
+    private void hitSendEmail(String feedBack) {
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("task","send_mail");
+        parms.putString("email","InsuranceHunter@aol.com");
+        parms.putString("FeedBack","User Name-->"+ SharedPrefsHelper.getInstance().getUserName()+"\n"+
+                        "User Login ID-->"+Loginid+"\n"+"FeedBack--> "+
+                feedBack);
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, sendMailUrl,
+                286, this, parms, false,false,Params_Object);
+    }
+
+
+
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
         hideProgressDialog();
@@ -85,17 +110,29 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
         if (requestCode==965)
         {
-            hideProgressDialog();
+
             try {
                 if (response.getString("status").equals("1")) {
+                    hitSendEmail(edt_feedback.getText().toString().trim());
                     Toast.makeText(FeedbackActivity.this, "" + getString(R.string.feedback_received), Toast.LENGTH_SHORT).show();
-                    finish();
+
                 } else {
                     hideProgressDialog();
                 }
             } catch (JSONException e) {
                 hideProgressDialog();
                 e.printStackTrace();
+            }
+        }if (requestCode==286) {
+            try{
+                if (response.getString("status").equalsIgnoreCase("success"))
+                {
+                    finish();
+                    hideProgressDialog();
+                    Toast.makeText(FeedbackActivity.this, "" + getString(R.string.feedback_received), Toast.LENGTH_SHORT).show();
+                }
+            }catch (Exception e)
+            {
             }
         }
     }

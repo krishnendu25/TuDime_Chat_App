@@ -10,5 +10,6 @@
         android:id="@+id/edittext_dialog_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:imeOptions="actionDone"
         android:maxLines="1" />
 </LinearLayout>

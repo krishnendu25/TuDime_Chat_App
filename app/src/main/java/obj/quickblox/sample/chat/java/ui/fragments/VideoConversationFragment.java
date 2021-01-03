@@ -40,7 +40,6 @@ import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionEventsCallback;
 import com.quickblox.videochat.webrtc.callbacks.QBRTCSessionStateCallback;
 import com.quickblox.videochat.webrtc.view.QBRTCSurfaceView;
 import com.quickblox.videochat.webrtc.view.QBRTCVideoTrack;
-import com.twilio.audioswitch.selection.AudioDeviceSelector;
 
 import org.webrtc.CameraVideoCapturer;
 import org.webrtc.RendererCommon;

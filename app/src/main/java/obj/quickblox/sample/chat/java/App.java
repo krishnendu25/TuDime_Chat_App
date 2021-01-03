@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-
-import com.devs.acr.AutoErrorReporter;
 import com.quickblox.auth.session.QBSettings;
 import com.stripe.android.PaymentConfiguration;
 import com.zxy.recovery.callback.RecoveryCallback;
@@ -71,21 +69,18 @@ public class App extends Application {
                         handleUncaughtException (thread,e);
                     }});
 
-        AutoErrorReporter.get(this)
-                .setEmailAddresses("otptudime@gmail.com")
-                .setEmailSubject("Crash Report:-->  "+ Constant.Get_back_date(Constant.GET_timeStamp()))
-                .start();
-
         Recovery.getInstance()
                 .debug(true)
-                .recoverInBackground(false)
+                .recoverInBackground(true)
                 .recoverStack(true)
                 .mainPage(DashBoard.class)
                 .recoverEnabled(true)
                 .callback(new MyCrashCallback())
                 .silent(true, Recovery.SilentMode.RECOVER_ACTIVITY_STACK)
-                .skip(TestActivity.class)
+                .skip(DashBoard.class)
                 .init(this);
+
+
     }
 
 
@@ -114,6 +109,8 @@ public class App extends Application {
 
         }
     }
+
+
 
 
     private void initApplication()

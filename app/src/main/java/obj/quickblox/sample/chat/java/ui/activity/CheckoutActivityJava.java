@@ -10,7 +10,7 @@ import android.widget.EditText;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.stripe.android.Stripe;
-import com.stripe.android.view.CardInputWidget;
+import com.stripe.android.view.CardMultilineWidget;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,12 +43,12 @@ public class CheckoutActivityJava extends BaseActivity {
     String state;
     String country;
     String amount;
-    @BindView(R.id.cardInputWidget)
-    CardInputWidget cardInputWidget;
     @BindView(R.id.payButton)
     Button payButton;
     @BindView(R.id.enter_email)
     EditText enterEmail;
+    @BindView(R.id.cardInputWidget)
+    CardMultilineWidget cardInputWidget;
     private String Membership_Price = "", stripe_token = "";
     private Stripe stripe;
 
@@ -71,41 +71,39 @@ public class CheckoutActivityJava extends BaseActivity {
 
     @OnClick(R.id.payButton)
     public void onViewClicked() {
-        try{
-            if (cardInputWidget.getCard().getNumber() == null||cardInputWidget.getCard().getExpMonth() == null||cardInputWidget.getCard().getExpYear() == null||cardInputWidget.getCard().getCvc() == null) {
+        try {
+            if (cardInputWidget.getCard().getNumber() == null || cardInputWidget.getCard().getExpMonth() == null || cardInputWidget.getCard().getExpYear() == null || cardInputWidget.getCard().getCvc() == null) {
                 ToastUtils.shortToast("Enter A All Payment Related Details");
                 return;
-            }else if (cardInputWidget.getCard().getNumber().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getNumber().toString().equalsIgnoreCase("")||
-                    cardInputWidget.getCard().getExpMonth().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getExpMonth().toString().equalsIgnoreCase("")||
-                    cardInputWidget.getCard().getExpYear().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getExpYear().toString().equalsIgnoreCase("")||
+            } else if (cardInputWidget.getCard().getNumber().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getNumber().toString().equalsIgnoreCase("") ||
+                    cardInputWidget.getCard().getExpMonth().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getExpMonth().toString().equalsIgnoreCase("") ||
+                    cardInputWidget.getCard().getExpYear().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getExpYear().toString().equalsIgnoreCase("") ||
                     cardInputWidget.getCard().getCvc().toString().equalsIgnoreCase("null") || cardInputWidget.getCard().getCvc().toString().equalsIgnoreCase("")) {
                 ToastUtils.shortToast("Enter A All Payment Related Details");
                 return;
-            }else if(enterEmail.getText().toString().trim().equalsIgnoreCase(""))
-            { ToastUtils.shortToast("Enter A Email Address");
+            } else if (enterEmail.getText().toString().trim().equalsIgnoreCase("")) {
+                ToastUtils.shortToast("Enter A Email Address");
                 return;
-            }else   if (!Patterns.EMAIL_ADDRESS.matcher(enterEmail.getText().toString()).matches()) {
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(enterEmail.getText().toString()).matches()) {
                 ToastUtils.shortToast("Enter A Valid Email Address");
                 return;
-            }
-            else{
-                number = cardInputWidget.getCard().getNumber()==null ? "" : cardInputWidget.getCard().getNumber().toString();
-                exp_month =  cardInputWidget.getCard().getExpMonth()==null ? "" : cardInputWidget.getCard().getExpMonth().toString();
-                exp_year = cardInputWidget.getCard().getExpYear()==null ? "" : cardInputWidget.getCard().getExpYear().toString();
-                cvc = cardInputWidget.getCard().getCvc()==null ? "" : cardInputWidget.getCard().getCvc().toString();
+            } else {
+                number = cardInputWidget.getCard().getNumber() == null ? "" : cardInputWidget.getCard().getNumber().toString();
+                exp_month = cardInputWidget.getCard().getExpMonth() == null ? "" : cardInputWidget.getCard().getExpMonth().toString();
+                exp_year = cardInputWidget.getCard().getExpYear() == null ? "" : cardInputWidget.getCard().getExpYear().toString();
+                cvc = cardInputWidget.getCard().getCvc() == null ? "" : cardInputWidget.getCard().getCvc().toString();
                 name = SharedPrefsHelper.getInstance().getUserName();
-                line1 = cardInputWidget.getCard().getAddressLine1()==null ? "" : cardInputWidget.getCard().getAddressLine1().toString();
-                postal_code = cardInputWidget.getCard().getAddressZip()==null ? "" : cardInputWidget.getCard().getAddressZip().toString();
-                city = cardInputWidget.getCard().getAddressCity()==null ? "" : cardInputWidget.getCard().getAddressCity().toString();
-                state = cardInputWidget.getCard().getAddressState()==null ? "" : cardInputWidget.getCard().getAddressState().toString();
-                country =  cardInputWidget.getCard().getCountry()==null ? "" : cardInputWidget.getCard().getCountry().toString();
+                line1 = cardInputWidget.getCard().getAddressLine1() == null ? "" : cardInputWidget.getCard().getAddressLine1().toString();
+                postal_code = cardInputWidget.getCard().getAddressZip() == null ? "" : cardInputWidget.getCard().getAddressZip().toString();
+                city = cardInputWidget.getCard().getAddressCity() == null ? "" : cardInputWidget.getCard().getAddressCity().toString();
+                state = cardInputWidget.getCard().getAddressState() == null ? "" : cardInputWidget.getCard().getAddressState().toString();
+                country = cardInputWidget.getCard().getCountry() == null ? "" : cardInputWidget.getCard().getCountry().toString();
                 amount = Membership_Price;
                 hitPaymentApi();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             ToastUtils.shortToast("Please Enter All The Details");
         }
-
 
 
     }

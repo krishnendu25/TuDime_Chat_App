@@ -138,6 +138,7 @@
 
             <EditText
                 android:id="@+id/text_main"
+                android:imeOptions="actionDone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
@@ -492,6 +493,7 @@
                     android:layout_marginTop="2dp">
                     <EditText
                         android:layout_width="wrap_content"
+                        android:imeOptions="actionDone"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:minHeight="50dp"
@@ -534,6 +536,7 @@
 
                     <EditText
                         android:layout_width="match_parent"
+                        android:imeOptions="actionDone"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
