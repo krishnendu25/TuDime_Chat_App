@@ -113,9 +113,10 @@ public class FeedbackActivity extends BaseActivity implements View.OnClickListen
 
             try {
                 if (response.getString("status").equals("1")) {
-                    hitSendEmail(edt_feedback.getText().toString().trim());
                     Toast.makeText(FeedbackActivity.this, "" + getString(R.string.feedback_received), Toast.LENGTH_SHORT).show();
-
+                    finish();
+                    hideProgressDialog();
+                    hitSendEmail(edt_feedback.getText().toString().trim());
                 } else {
                     hideProgressDialog();
                 }

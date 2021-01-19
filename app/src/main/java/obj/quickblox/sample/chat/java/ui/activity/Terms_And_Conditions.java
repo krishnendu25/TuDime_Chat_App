@@ -33,26 +33,27 @@ public class Terms_And_Conditions extends BaseActivity implements IJSONParseList
         SetLan(SharedPrefsHelper.getInstance().get_Language());
         setContentView(R.layout.activity_terms__and__conditions);
         Intial();
-        hideActionbar();
+
 
     }
 
     private void Intial()
     {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       /* setSupportActionBar(toolbar);*/
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_button_icon);
         getSupportActionBar().setTitle(getString(R.string.terms10));
 
         web = (WebView)findViewById(R.id.webview);
-
         // Enable Javascript
         WebSettings webSettings = web.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
+
+
         try{
-            web.loadUrl("http://tudime.net/terms");
+            web.loadUrl("file:///android_asset/terms_condition.html");
             //hitApi();
         }catch(Exception e){
             e.printStackTrace();

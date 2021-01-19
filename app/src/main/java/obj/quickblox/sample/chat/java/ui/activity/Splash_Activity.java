@@ -336,10 +336,6 @@ public class Splash_Activity extends BaseActivity {
                     }
 
                 }
-
-
-
-
             }
         });
         alertDialog.show();

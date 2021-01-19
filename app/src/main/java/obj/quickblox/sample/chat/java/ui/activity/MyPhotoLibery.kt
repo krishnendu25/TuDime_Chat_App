@@ -260,33 +260,42 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.image1 -> {
+                if (!image1?.getTag().toString().isNullOrBlank())
                 clickOnImages(0, image1?.getTag().toString())
             }
             R.id.image2 -> {
+                if (!image2?.getTag().toString().isNullOrBlank())
                 clickOnImages(1, image2?.getTag().toString())
             }
             R.id.image3 -> {
+                if (!image3?.getTag().toString().isNullOrBlank())
                 clickOnImages(2, image3?.getTag().toString())
             }
             R.id.image4 -> {
+                if (!image4?.getTag().toString().isNullOrBlank())
                 clickOnImages(3, image4?.getTag().toString())
             }
             R.id.image5 -> {
                 clickOnImages(4, image5?.getTag().toString())
             }
             R.id.image6 -> {
+                if (!image6?.getTag().toString().isNullOrBlank())
                 clickOnImages(5, image6?.getTag().toString())
             }
             R.id.image7 -> {
+                if (!image7?.getTag().toString().isNullOrBlank())
                 clickOnImages(6, image7?.getTag().toString())
             }
             R.id.image8 -> {
+                if (!image8?.getTag().toString().isNullOrBlank())
                 clickOnImages(7, image8?.getTag().toString())
             }
             R.id.image9 -> {
+                if (!image9?.getTag().toString().isNullOrBlank())
                 clickOnImages(8, image9?.getTag().toString())
             }
             R.id.image10 -> {
+                if (!image10?.getTag().toString().isNullOrBlank())
                 clickOnImages(9, image10?.getTag().toString())
             }
             R.id.pickThePicture -> {
@@ -321,24 +330,6 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     override fun onPrepareLoad(placeHolderDrawable: Drawable) {}
                 })
     }
-    /*private fun hitQuickblox(s: String) {
-     *//*   val file = File(s)
-        QBContent.uploadFileTask(file, true, null) { }.performAsync(object : QBEntityCallback<QBFile> {
-            override fun onSuccess(qbFile: QBFile, bundle: Bundle) {
-                val uploadedFileID = qbFile.id
-                val user = sharedPrefsHelper.qbUser
-                user.id = SharedPrefsHelper.getInstance().userId.toInt()
-                user.fileId = uploadedFileID
-                QBUsers.updateUser(user).performAsync(object : QBEntityCallback<QBUser?> {
-                    override fun onSuccess(qbUser: QBUser?, bundle: Bundle) {
-                        // SharedPrefsHelper.getInstance().saveQbUser(qbUser);
-                    }
-                    override fun onError(e: QBResponseException) {}
-                })
-            }
-            override fun onError(e: QBResponseException) {}
-        })*//*
-    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -393,6 +384,13 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                         jsonObject = JSONObject(output)
                         if (jsonObject.getString("status").equals("Success", ignoreCase = true)) {
                             ToastUtils.shortToast("Media Upload successfully")
+                            try {
+                                finish();
+                                startActivity(getIntent());
+                            } catch (e:Exception) {
+
+                            }
+
                         } else {
                             ToastUtils.shortToast("Media Upload Failed")
                         }
@@ -420,7 +418,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image1?.getTag() == null) {
                         image1?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image1)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image1)
                         } catch (e: Exception) {
                         }
                     }
@@ -431,7 +429,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image2?.getTag() == null) {
                         image2?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image2)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image2)
                         } catch (e: Exception) {
                         }
                     }
@@ -451,7 +449,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image4?.getTag() == null) {
                         image4?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image4)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image4)
                         } catch (e: Exception) {
                         }
                     }
@@ -461,7 +459,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image5?.getTag() == null) {
                         image5?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image5)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image5)
                         } catch (e: Exception) {
                         }
                     }
@@ -471,7 +469,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image6?.getTag() == null) {
                         image6?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image6)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image6)
                         } catch (e: Exception) {
                         }
                     }
@@ -481,7 +479,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image7?.getTag() == null) {
                         image7?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image7)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image7)
                         } catch (e: Exception) {
                         }
                     }
@@ -491,7 +489,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image8?.getTag() == null) {
                         image8?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image8)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image8)
                         } catch (e: Exception) {
                         }
                     }
@@ -501,7 +499,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image9?.getTag() == null) {
                         image9?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image9)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image9)
                         } catch (e: Exception) {
                         }
                     }
@@ -511,7 +509,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                     if (image10?.getTag() == null) {
                         image10?.setTag(photoID)
                         try {
-                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).into(image10)
+                            Picasso.get().load(url).memoryPolicy(MemoryPolicy.NO_CACHE).placeholder( R.drawable.progress_animation ).into(image10)
                         } catch (e: Exception) {
                         }
                     }

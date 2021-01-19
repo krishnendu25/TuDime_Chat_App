@@ -196,7 +196,7 @@ public class SetLanguage extends BaseActivity implements AdapterView.OnItemSelec
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
-                            startActivity(new Intent(SetLanguage.this, Choose_Sign_Up_type.class));
+                            startActivity(new Intent(SetLanguage.this, InitialTermsActivity.class));
                         }
 
                     } else {

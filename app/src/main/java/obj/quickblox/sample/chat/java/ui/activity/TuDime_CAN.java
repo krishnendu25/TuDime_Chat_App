@@ -16,19 +16,26 @@ import  obj.quickblox.sample.chat.java.Internet_Calling.*;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
+import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;
 import obj.quickblox.sample.chat.java.R;
+import obj.quickblox.sample.chat.java.utils.Constant;
+import obj.quickblox.sample.chat.java.utils.SharedPrefsHelper;
 import obj.quickblox.sample.chat.java.utils.ToastUtils;
 
 import static android.Manifest.permission.RECORD_AUDIO;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static obj.quickblox.sample.chat.java.constants.ApiConstants.get_user_tudime_fetch_my_call_balence;
 
 public class TuDime_CAN extends BaseActivity {
 
@@ -68,13 +75,15 @@ public class TuDime_CAN extends BaseActivity {
     ImageView callBtn;
     @BindView(R.id.call_rates)
     TextView callRates;
-    String myBlance="";
+    String Balence_Api ="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tu_dime_can);
         ButterKnife.bind(this);
-        myBlance = getIntent().getStringExtra("myBlance");
+
+       Balence_Api = getIntent().getStringExtra("myBlance");
         requestPermission();
 
     }
@@ -145,13 +154,21 @@ public class TuDime_CAN extends BaseActivity {
             case R.id.txt_11:
                 break;
             case R.id.call_btn:
-                if(editTextToCall.getText().toString().trim().startsWith("+")) {
-                Intent intent1 = new Intent(getApplicationContext(),Internet_Calling_Activity.class);
-                intent1.putExtra("PHONE_NO",editTextToCall.getText().toString().trim());
-                intent1.putExtra("myBlance",myBlance);
-                startActivity(intent1);
-                }  else{
-                    ToastUtils.shortToast("Enter Country Code With +");
+                try {
+                    if (Balence_Api.equalsIgnoreCase("0")){
+                        ToastUtils.longToast("You have no credit. Recharge Please!");
+                    }else{
+                        if(editTextToCall.getText().toString().trim().startsWith("+")) {
+                            Intent intent1 = new Intent(getApplicationContext(),Internet_Calling_Activity.class);
+                            intent1.putExtra("PHONE_NO",editTextToCall.getText().toString().trim());
+                            intent1.putExtra("myBlance", Balence_Api);
+                            startActivity(intent1);
+                        }  else{
+                            ToastUtils.shortToast("Enter Country Code With +");
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 break;
             case R.id.call_rates:
@@ -205,7 +222,29 @@ public class TuDime_CAN extends BaseActivity {
 
     @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
+        if (requestCode == 715) {
+            hideProgressDialog();
+            try {
 
+                if (response.getString("status").equalsIgnoreCase("success")) {
+                    JSONArray data = response.getJSONArray("data");
+
+                    if (data.length() != 0) {
+                        if (Balence_Api.equalsIgnoreCase("")) {
+                            Balence_Api = "0";
+                        }
+                       // total_credit.setText("$" + Balence_Api);
+                    } else {
+                        Balence_Api = "0";
+                      //  total_credit.setText("$" + Balence_Api);
+                    }
+
+                } else {
+                }
+            } catch (JSONException e) {
+                hideProgressDialog();
+            }
+        }
     }
 
     @Override
@@ -216,5 +255,21 @@ public class TuDime_CAN extends BaseActivity {
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
 
+    }
+
+    private void Fetch_My_Call_Balence(String userid) {
+        showProgressDialog(R.string.load);
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("useid", userid);
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, get_user_tudime_fetch_my_call_balence, 715, this, parms, false, false, Params_Object);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Fetch_My_Call_Balence(SharedPrefsHelper.getInstance().getUSERID());
     }
 }

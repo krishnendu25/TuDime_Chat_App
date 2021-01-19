@@ -76,3 +76,13 @@
 
 -keep class java.beans.** { *; }
 -dontwarn java.beans.**
+
+-keepclasseswithmembernames class * {
+    native <methods>;
+}
+
+-dontwarn org.apache.http.annotation.**
+
+-keep class com.sinch.** { *; }
+-keep interface com.sinch.** { *; }
+-keep class org.webrtc.** { *; }
