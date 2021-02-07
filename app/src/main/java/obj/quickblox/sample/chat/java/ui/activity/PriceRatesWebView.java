@@ -25,27 +25,16 @@ import obj.quickblox.sample.chat.java.constants.ApiConstants;
 
 public class PriceRatesWebView extends BaseActivity {
     private WebView web;
-    private String url_price = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_terms__and__conditions);
-        hideActionbar();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_button_icon);
-        getSupportActionBar().setTitle(getString(R.string.call_credit_rates));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.back_button_icon);
-        getSupportActionBar().setTitle(getString(R.string.call_credit_rates));
         web = (WebView) findViewById(R.id.webview);
         WebSettings webSettings = web.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
         try {
-            web.loadUrl("http://tudime.com/price/");
+            web.loadUrl("https://tudime.net/price-page-for-app/");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -62,18 +51,6 @@ public class PriceRatesWebView extends BaseActivity {
         }
 
     }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {

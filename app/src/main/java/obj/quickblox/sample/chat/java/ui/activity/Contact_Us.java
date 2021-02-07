@@ -64,14 +64,8 @@ public class Contact_Us extends BaseActivity implements IJSONParseListener {
         }else if (phoneEd.getText().toString().isEmpty())
         { ToastUtils.shortToast(R.string.ph_number);
             return;
-        }else if (addressEd.getText().toString().isEmpty())
-        {ToastUtils.shortToast(R.string.adress_enter);
-            return;
         }else if (contryEd.getText().toString().isEmpty())
         {ToastUtils.shortToast(R.string.country_enter);
-            return;
-        }else if (pincodeEd.getText().toString().isEmpty())
-        {ToastUtils.shortToast(R.string.pincode_enter);
             return;
         }else if (commentsEd.getText().toString().isEmpty())
         {ToastUtils.shortToast(R.string.comments_enter);
@@ -84,9 +78,9 @@ public class Contact_Us extends BaseActivity implements IJSONParseListener {
             hit_contact_us(nameEd.getText().toString(),
                     emailEd.getText().toString(),
                     phoneEd.getText().toString(),
-                    addressEd.getText().toString(),
+                    "",
                     contryEd.getText().toString(),
-                    pincodeEd.getText().toString(),
+                    "",
                     commentsEd.getText().toString());
         }
 

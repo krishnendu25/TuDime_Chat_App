@@ -4,6 +4,9 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+
+import com.instabug.library.Instabug;
+import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.quickblox.auth.session.QBSettings;
 import com.stripe.android.PaymentConfiguration;
 import com.zxy.recovery.callback.RecoveryCallback;
@@ -60,7 +63,11 @@ public class App extends Application {
 
         //Stripe - Configaration
         PaymentConfiguration.init(getApplicationContext(), AppConstants.Stripe_Publishable_key);
-
+        new Instabug.Builder(this, "bc072653f183e82159b7fee537620c61")
+                .setInvocationEvents(
+                        InstabugInvocationEvent.SHAKE,
+                        InstabugInvocationEvent.FLOATING_BUTTON)
+                .build();
 
        Thread.setDefaultUncaughtExceptionHandler(
                 new Thread.UncaughtExceptionHandler() {

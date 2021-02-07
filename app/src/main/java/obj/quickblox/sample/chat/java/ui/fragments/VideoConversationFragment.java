@@ -364,7 +364,7 @@ public class VideoConversationFragment extends BaseConversationFragment implemen
     @Override
     public void onCallStopped() {
         super.onCallStopped();
-        CallService.stop(getActivity());
+      //  CallService.stop(getActivity());
         Log.i(TAG, "onCallStopped");
     }
 

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:background="@color/sky_blue"
         android:elevation="8dp"
+        app:title="Enter Your Status"
         android:minHeight="?attr/actionBarSize"
         app:layout_scrollFlags="scroll|enterAlways"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"

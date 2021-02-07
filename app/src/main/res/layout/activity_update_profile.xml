@@ -100,6 +100,7 @@
                     android:id="@+id/imgPhotoEdit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_alignBottom="@id/imgProfileUpdate"
                     android:layout_alignRight="@id/imgProfileUpdate"
                     android:padding="10dp"

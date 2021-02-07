@@ -141,6 +141,7 @@ public class Archive_Adapter extends RecyclerView.Adapter<Archive_Adapter.MyView
                     Intent intent = new Intent(context, Chat_profile.class);
                     QB_User_Id = String.valueOf(dialog.getRecipientId());
                     intent.putExtra("User_Name",user.getFullName());
+                    intent.putExtra("QB_User_Id",QB_User_Id);
                     intent.putExtra("User_Login",user.getLogin());
                     intent.putExtra("User_Image_url",user.getWebsite());
                     QB_User_Id = user.getId().toString();

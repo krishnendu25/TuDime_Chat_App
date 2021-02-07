@@ -63,6 +63,16 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_IS_QBUSER = "DB_IS_QBUSER";
 
 
+
+
+
+
+
+
+
+
+
+
     private static final String DB_NAME = "groupchatwebrtcDB";
     private String TAG = DbHelper.class.getSimpleName();
 

@@ -125,7 +125,7 @@ public class CallService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Notification notification = initNotification();
         if (notification!=null)
-        startForeground(SERVICE_ID, notification);
+            startForeground(SERVICE_ID, notification);
         return super.onStartCommand(intent, flags, startId);
     }
 

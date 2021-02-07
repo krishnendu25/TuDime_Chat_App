@@ -42,19 +42,19 @@ public class Chat_profile extends BaseActivity {
         Instantiation();
         hideActionbar();
         Set_Details();
-        if (QB_User_Id != null) {
-            Fetch_User_QB(QB_User_Id);
-        }
+
 
 
     }
 
     private void Set_Details() {
-
+        QB_User_Id= getIntent().getStringExtra("QB_User_Id");
         User_Name = getIntent().getStringExtra("User_Name");
         User_Login = getIntent().getStringExtra("User_Login");
         User_Image_url = getIntent().getStringExtra("User_Image_url");
-
+        if (QB_User_Id != null) {
+            Fetch_User_QB(QB_User_Id);
+        }
         if (User_Login.contains("@")) {
             show_Email_number.setVisibility(View.VISIBLE);
             show_phone_number.setVisibility(View.GONE);
@@ -119,7 +119,9 @@ public class Chat_profile extends BaseActivity {
                         Picasso.get().load(User_Image_url).placeholder(R.drawable.navigation_drawer_pro_pic)
                                 .into(profile_picture_iv);
                         CoverPictureIv.setImageDrawable(getResources().getDrawable(R.drawable.navigation_drawer_cover_bg));
-                    } else {
+                    }
+                    else
+                        {
                         if (!response.getJSONArray("data").getJSONObject(0).getString("name").equalsIgnoreCase("")) {
                             User_Name_tv.setText(response.getJSONArray("data").getJSONObject(0).getString("name"));
                         } else {

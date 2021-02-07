@@ -32,20 +32,23 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <uses-feature
-        android:name="android.hardware.microphone"
-        android:required="false" />
-    <uses-feature android:name="android.hardware.camera" />
+        android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-
+    <uses-feature android:name="android.hardware.telephony" android:required="false" />
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false"/>
+    <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.nfc" android:required="false"/>
     <supports-screens
-        android:anyDensity="true"
+        android:xlargeScreens="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:smallScreens="true"
-        android:xlargeScreens="true" />
+        android:anyDensity="true"
+        />
 
     <application
         android:name=".App"
@@ -69,56 +72,57 @@
             android:name=".ui.activity.Video_Player"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.TuDime_Membership" />
-        <activity android:name=".Internet_Calling.Internet_Calling_Activity" />
-        <activity android:name=".ui.activity.PriceRatesWebView" />
-        <activity android:name=".ui.activity.TuDime_CAN" />
-        <activity android:name=".ui.activity.Buy_TuDime_Subscription" />
-        <activity android:name=".ui.activity.Contact_Us" />
-        <activity android:name=".ui.activity.Add_Participants" />
-        <activity android:name=".ui.activity.Group_Details_View" />
-        <activity android:name=".ui.activity.Secret_Chat" />
-        <activity android:name=".ui.activity.Archive_Chat" />
-        <activity android:name=".ui.activity.Chat_profile" />
-        <activity android:name=".ui.activity.PrivacyActivity" />
-        <activity android:name=".ui.activity.FeedbackActivity" />
-        <activity android:name=".ui.activity.ExtraFaqActivity" />
-        <activity android:name=".ui.activity.NotificationsSettingsActivity" />
-        <activity android:name=".ui.activity.AccountSettingsActivity" />
-        <activity android:name=".ui.activity.AboutAndHelpSetting" />
-        <activity android:name=".ui.activity.Settings_Tudime" />
-        <activity android:name=".doodle.utils.views.DoodleActivity" />
-        <activity android:name=".doodle.utils.doodleutils.photosortr.PhotoSortrActivity" />
-        <activity android:name=".doodle.utils.doodleutils.visualizer2.MultiTouchVisualizerActivity" />
-        <activity android:name=".doodle.utils.views.EditTextViewActivity" />
-        <activity android:name=".ui.activity.MapSendLocationActivity" />
-        <activity android:name=".ui.activity.StatusEditActivity" />
-        <activity android:name=".ui.activity.StatusChangeActivity" />
-        <activity android:name=".ui.activity.AddSignatureEcards" />
-        <activity android:name=".ui.activity.Ecards_EditPage" />
-        <activity android:name=".ui.activity.EcardsWebView" />
-        <activity android:name=".ui.activity.Ecards3D_Activity" />
-        <activity android:name=".ui.activity.Email_Signup_Process" />
-        <activity android:name=".ui.activity.Choose_Sign_Up_type" />
-        <activity android:name=".ui.activity.UpdateProfileNameActivity" />
-        <activity android:name=".ui.activity.Terms_And_Conditions" />
-        <activity android:name=".ui.activity.InitialTermsActivity" />
-        <activity android:name=".ui.activity.Encounter_Yes_or_no" />
-        <activity android:name=".ui.activity.EncountersActivity" />
-        <activity android:name=".ui.activity.PapPallIntegration" />
-        <activity android:name=".ui.activity.SetLanguage" />
-        <activity android:name=".ui.activity.ScheduleTaskActivity" />
-        <activity android:name=".ui.activity.NotificationCenterActivity" />
-        <activity android:name=".ui.activity.UpdateProfileActivity" />
+        <activity android:name=".ui.activity.TuDime_Membership"  android:screenOrientation="portrait" />
+        <activity android:name=".Internet_Calling.Internet_Calling_Activity"  android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.PriceRatesWebView"  android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.TuDime_CAN"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Buy_TuDime_Subscription"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Contact_Us"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Add_Participants" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Group_Details_View" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Secret_Chat"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Archive_Chat"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Chat_profile"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.PrivacyActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.FeedbackActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.ExtraFaqActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.NotificationsSettingsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.AccountSettingsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.AboutAndHelpSetting"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Settings_Tudime"  android:screenOrientation="portrait"/>
+        <activity android:name=".doodle.utils.views.DoodleActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".doodle.utils.doodleutils.photosortr.PhotoSortrActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".doodle.utils.doodleutils.visualizer2.MultiTouchVisualizerActivity" android:screenOrientation="portrait" />
+        <activity android:name=".doodle.utils.views.EditTextViewActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.MapSendLocationActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.StatusEditActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.StatusChangeActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.AddSignatureEcards" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Ecards_EditPage" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.EcardsWebView"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.Ecards3D_Activity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Email_Signup_Process" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Choose_Sign_Up_type"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.UpdateProfileNameActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Terms_And_Conditions" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.InitialTermsActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.Encounter_Yes_or_no" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.EncountersActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.PapPallIntegration" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.SetLanguage" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.ScheduleTaskActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.NotificationCenterActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ui.activity.UpdateProfileActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.DashBoard"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ui.activity.ShowCountryList" />
-        <activity android:name=".ui.activity.SignUpVerificationActivity" />
+        <activity android:name=".ui.activity.ShowCountryList"  android:screenOrientation="portrait"/>
+        <activity android:name=".ui.activity.SignUpVerificationActivity"  android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.Splash_Activity"
             android:label="@string/app_name"
@@ -267,6 +271,10 @@
                 <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
             </intent-filter>
         </receiver>
+
+
+
+
     </application>
 
 </manifest>

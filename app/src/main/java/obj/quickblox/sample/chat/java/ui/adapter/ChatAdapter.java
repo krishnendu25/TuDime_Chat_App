@@ -456,10 +456,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 Show_Edit_Message(position,context, chatDialog.getDialogId(), chatMessage.getId(), chatMessage.getBody());
                             } else if (i == R.id.item_for)
                             {
-                                SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
-                                Intent intent = new Intent(context, DashBoard.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                context.startActivity(intent);
+                                try {
+                                    SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
+                                    Intent intent = new Intent(context, DashBoard.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    context.startActivity(intent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }else if (i == R.id.item_quotes){
                                 String sms = chatMessage.getBody();
                                 qouteChatTrigger.openQuoteChat(sms);
@@ -632,10 +636,14 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                         SharedPrefsHelper.getInstance().get_Language(), String.valueOf(position));
                             }else if (i == R.id.item_for)
                             {
-                                SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
-                                Intent intent = new Intent(context, DashBoard.class);
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                context.startActivity(intent);
+                                try {
+                                    SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
+                                    Intent intent = new Intent(context, DashBoard.class);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    context.startActivity(intent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }else if (i == R.id.item3) {
 
                                 AlertDialog.Builder builder1 = new AlertDialog.Builder(context);

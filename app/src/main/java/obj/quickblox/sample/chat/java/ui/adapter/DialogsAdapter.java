@@ -141,6 +141,7 @@ public class DialogsAdapter extends BaseAdapter {
                         Intent intent = new Intent(context, Chat_profile.class);
                         QB_User_Id = String.valueOf(selectedDialog.getRecipientId());
                         intent.putExtra("User_Name",user.getFullName());
+                        intent.putExtra("QB_User_Id", String.valueOf(selectedDialog.getRecipientId()));
                         intent.putExtra("User_Login",user.getLogin());
                         intent.putExtra("User_Image_url",user.getWebsite());
                         context.startActivity(intent);

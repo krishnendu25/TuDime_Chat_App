@@ -3,6 +3,8 @@ package obj.quickblox.sample.chat.java.ui.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -94,6 +96,8 @@ public class StatusEditActivity extends BaseActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.txvCancel:
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
                 break;
             case R.id.txvDone:
@@ -139,6 +143,9 @@ public class StatusEditActivity extends BaseActivity implements View.OnClickList
                     if (response.getString("status").equalsIgnoreCase("success"))
                     {
                         Toast.makeText(StatusEditActivity.this, R.string.Status_Updated_Successfully, Toast.LENGTH_SHORT).show();
+                        Intent returnIntent = new Intent();
+                        setResult(Activity.RESULT_OK, returnIntent);
+                        finish();
                     }else
                     {
                         Toast.makeText(StatusEditActivity.this, "Oops...some error occurred", Toast.LENGTH_SHORT).show();

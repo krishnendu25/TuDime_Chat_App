@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.ui.activity.ChatActivity;
@@ -23,9 +26,9 @@ public class WallpaperGridAdapter extends BaseAdapter {
     private LayoutInflater mInflator;
     SetclickCallback setclickCallback;
   /*  protected OnWallpaperSelectedListener	onWallpaperSelectedListener;*/
-
-    ArrayList<Integer> imgArr = new ArrayList<Integer>();
-    public WallpaperGridAdapter(Context mContext, ArrayList<Integer> imgArr) {
+    
+    List<String> imgArr = new ArrayList<>();
+    public WallpaperGridAdapter(Context mContext, List<String> imgArr) {
         this.mContext = mContext;
         this.imgArr=imgArr;
         mInflator = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,7 +61,8 @@ public class WallpaperGridAdapter extends BaseAdapter {
             imgSticker = (ImageView) convertView.getTag();
         }
         try{
-            imgSticker.setBackground(mContext.getResources().getDrawable(imgArr.get(position)));
+            Picasso.get().load(imgArr.get(position)).placeholder(R.drawable.theme_2)
+                    .into(imgSticker);
         }catch (Exception e)
         {
             e.printStackTrace();

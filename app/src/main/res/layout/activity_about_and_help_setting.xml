@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:text="@string/FAQ"
+                android:visibility="gone"
                 android:id="@+id/FAQ"
                 android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
@@ -51,6 +52,7 @@
 
             <View android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:visibility="gone"
                 android:background="@color/lines_color"
                 android:layout_marginTop="15dp"/>
 

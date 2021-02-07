@@ -293,6 +293,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
         adapterViewPager.notifyDataSetChanged();
         pager.setCurrentItem(1);
         mSelectedTabPosition = 1;
+        Fetch_Membership_Details(SharedPrefsHelper.getInstance().getUSERID(), "");
         add_contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -546,7 +547,7 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
             try {
                 if (response.getString("status").equalsIgnoreCase("success")) {
                     Account_Create = response.getJSONArray("data").getJSONObject(0).getString("create_dt_timestamp");
-                    Fetch_Membership_Details(SharedPrefsHelper.getInstance().getUSERID(), "");
+
                     if (response.getJSONArray("data").length() == 0) {
                         try {
                             Picasso.get().load(SharedPrefsHelper.getInstance().getQbUser().getWebsite()).placeholder(R.drawable.navigation_drawer_pro_pic)

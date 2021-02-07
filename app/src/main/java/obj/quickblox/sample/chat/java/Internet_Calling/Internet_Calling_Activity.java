@@ -3,10 +3,12 @@ package obj.quickblox.sample.chat.java.Internet_Calling;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.SystemClock;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
@@ -26,9 +28,18 @@ import com.sinch.android.rtc.SinchError;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallListener;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -75,6 +86,7 @@ public class Internet_Calling_Activity extends BaseActivity {
     private MediaPlayer playr;
     private AudioManager audioManager;
     private Handler handler;
+    private double callChargePerMinute=0.005;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,6 +225,7 @@ public class Internet_Calling_Activity extends BaseActivity {
     private void iniView() {
         myBlance = getIntent().getStringExtra("myBlance");
         phoneNum = getIntent().getStringExtra("PHONE_NO");
+        new normalizePhoneNumberTask().execute(phoneNum);
         txvCallernumber.setText(phoneNum);
         chrnTimer.setText("-----");
         getCountryNameFromNumber(phoneNum);
@@ -374,7 +387,7 @@ public class Internet_Calling_Activity extends BaseActivity {
         if (!time.equalsIgnoreCase("-----")) {
             String TotalBlance = String.valueOf(Double.valueOf(myBlance)*100);//in cent
             String finalTime = time.replaceAll(":", ".");
-            String totalCost = String.valueOf(Double.valueOf(finalTime)*3.45);
+            String totalCost = String.valueOf(Double.valueOf(finalTime)*Double.valueOf(callChargePerMinute));
             String current_blance = String.valueOf((Double.valueOf(TotalBlance)-Double.valueOf(totalCost))/100);
             hit_Call_Balance(current_blance);
         }
@@ -390,6 +403,56 @@ public class Internet_Calling_Activity extends BaseActivity {
         parms.putString("Payment_Referance_no", "debitMoney");
         MyVolley.init(this);
         mResponse.getResponse(Request.Method.POST, buy_call_balence_update, 892, this, parms, false, false, Params_Object);
+    }
+
+
+
+    class normalizePhoneNumberTask extends AsyncTask<String, Void, String> {
+        private String appKey = "e33bc940-7df1-461d-9096-455d78ce3927";
+        private String appSecret = "2aIOtRyFM02z3CKQwS4uPg==";
+
+        //takes phone number string as an argument
+        @Override
+        protected String doInBackground(String... params) {
+            String normalizedPhoneNumber = "";
+            try {
+                //get ready to make a get request to normalize the phone number
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet httpGet = new HttpGet("https://callingapi.sinch.com/v1/calling/query/number/" + params[0].replaceAll("\\s+", ""));
+                //sinch uses basic authentication
+                String usernamePassword = "application:" + appKey + ":" + appSecret;
+                String encoded = Base64.encodeToString(usernamePassword.getBytes(), Base64.NO_WRAP);
+                httpGet.addHeader("Authorization", "Basic " + encoded);
+                //handle the response
+                HttpResponse response = httpclient.execute(httpGet);
+                ResponseHandler<String> handler = new BasicResponseHandler();
+                //parse JSON response from Sinch to get phone number
+                normalizedPhoneNumber = parseJSONResponse(handler.handleResponse(response));
+            } catch (ClientProtocolException e) {
+                Log.d("ClientProtocolException", e.getMessage());
+            } catch (IOException e) {
+                Log.d("IOException", e.getMessage());
+            }
+            return normalizedPhoneNumber;
+        }
+        //once the asynctask is complete, display a toast message with the normalized phone number
+        @Override
+        protected void onPostExecute(String normalizedPhoneNumber) {
+            callChargePerMinute = Float.parseFloat(normalizedPhoneNumber);
+
+        }
+    }
+
+
+    private String parseJSONResponse(String jsonString) {
+        String returnString = "";
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            returnString = jsonObject.getJSONObject("number").getJSONObject("rate").getString("amount");
+        } catch (JSONException e) {
+            Log.d("JSONException", e.getMessage());
+        }
+        return returnString;
     }
 
 

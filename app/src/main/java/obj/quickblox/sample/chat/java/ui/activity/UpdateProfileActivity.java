@@ -68,6 +68,7 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
     private EditText check_password;
     private Bitmap bitmap;
     private Uri mImageUri;
+    private TextView tvProfile;
     protected static final int CAMERA_REQUEST = 201, GALLERY_PICTURE = 215;
     String Pic_toggole;
 
@@ -98,6 +99,7 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
         findViewById(R.id.complete_profile).setOnClickListener(this);
         findViewById(R.id.pripub_photo).setOnClickListener(this);
         findViewById(R.id.notification).setOnClickListener(this);
+        tvProfile = findViewById(R.id.tvProfile);
         if ( SharedPrefsHelper.getInstance().getQbUser().getLogin().contains("@"))
         {
             ((TextView) findViewById(R.id.txvPhoneNum)).setText(SharedPrefsHelper.getInstance().getQbUser().getLogin());
@@ -158,20 +160,26 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
         final AlertDialog dialog;
         final String[] array = new String[]{getString(R.string.public_profile), getString(R.string.private_profile)};
         final AlertDialog.Builder ab = new AlertDialog.Builder(UpdateProfileActivity.this);
+        int selectProfile=-1;
+        if(tvProfile.getText().toString().equalsIgnoreCase(getString(R.string.public_profile))){
+            selectProfile=0;
+        }else{
+            selectProfile=1;
+        }
         ab.setTitle(getString(R.string.profile1));
-        ab.setSingleChoiceItems(array, -1, new DialogInterface.OnClickListener() {
+        ab.setSingleChoiceItems(array, selectProfile, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 switch (i) {
                     case 0:
                         SharedPrefsHelper.getInstance().setProfilePhotostatus(array[0]);
-                        ((TextView) findViewById(R.id.tvProfile)).setText(array[i]);
+                        tvProfile.setText(array[i]);
                         hitProfileGetApi(getString(R.string.public_profile));
                         //((TextView) findViewById(R.id.tvNickName)).
                         break;
                     case 1:
                         SharedPrefsHelper.getInstance().setProfilePhotostatus(array[1]);
-                        ((TextView) findViewById(R.id.tvProfile)).setText(array[i]);
+                        tvProfile.setText(array[i]);
                         hitProfileGetApi("private");
                         break;
                 }
@@ -430,7 +438,7 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
                         SharedPrefsHelper.getInstance().setProfilePhotostatus(getString(R.string.public_profile));
                         SharedPrefsHelper.getInstance().setCurrentStatus(getResources().getString(R.string.status_default_ciaom));
                         ((TextView) findViewById(R.id.tvNickName)).setText(SharedPrefsHelper.getInstance().getUserName());
-                        ((TextView) findViewById(R.id.tvProfile)).setText(SharedPrefsHelper.getInstance().getProfilePhotostatus());
+                        tvProfile.setText(SharedPrefsHelper.getInstance().getProfilePhotostatus());
                     }else
                     {
                         if (!jsonObject.getJSONArray("data").getJSONObject(0).getString("name").equalsIgnoreCase(""))
@@ -442,11 +450,11 @@ public class UpdateProfileActivity extends BaseActivity implements View.OnClickL
                         SharedPrefsHelper.getInstance().setProfilePhotostatus(jsonObject.getJSONArray("data").getJSONObject(0).getString("privacy_status"));
                         SharedPrefsHelper.getInstance().setCurrentStatus(jsonObject.getJSONArray("data").getJSONObject(0).getString("Bio"));
                         ((TextView) findViewById(R.id.tvNickName)).setText(SharedPrefsHelper.getInstance().getUserName());
-                        ((TextView) findViewById(R.id.tvProfile)).setText(SharedPrefsHelper.getInstance().getProfilePhotostatus());
+                        tvProfile.setText(SharedPrefsHelper.getInstance().getProfilePhotostatus());
                         if (SharedPrefsHelper.getInstance().getProfilePhotostatus().equals("")) {
-                            ((TextView) findViewById(R.id.tvProfile)).setText(getString(R.string.public_profile));
+                            tvProfile.setText(getString(R.string.public_profile));
                         } else {
-                            ((TextView) findViewById(R.id.tvProfile)).setText(SharedPrefsHelper.getInstance().getProfilePhotostatus());
+                            tvProfile.setText(SharedPrefsHelper.getInstance().getProfilePhotostatus());
                         }
                         if (SharedPrefsHelper.getInstance().getCurrentStatus().equals("")) {
                             ((TextView) findViewById(R.id.txvStatus)).setText(getString(R.string.status_default_ciaom));

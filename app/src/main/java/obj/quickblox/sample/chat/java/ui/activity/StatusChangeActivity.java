@@ -1,6 +1,7 @@
 package obj.quickblox.sample.chat.java.ui.activity;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -103,13 +104,16 @@ public class StatusChangeActivity extends BaseActivity implements IJSONParseList
     /* access modifiers changed from: protected */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 1006) {
-            this.statusList =  SharedPrefsHelper.getInstance().getAllStatus(StatusChangeActivity.this);
+        if (requestCode == 1006) {
+            /*this.statusList =  SharedPrefsHelper.getInstance().getAllStatus(StatusChangeActivity.this);
             this.adapter.setListData(this.statusList);
             SharedPrefsHelper.getInstance().setCurrentStatus((String) this.statusList.get(0));
             this.adapter.setSelected(0);
             this.adapter.notifyDataSetChanged();
-            this.showEditStatus.setText( SharedPrefsHelper.getInstance().getCurrentStatus());
+            this.showEditStatus.setText( SharedPrefsHelper.getInstance().getCurrentStatus());*/
+            if (resultCode== Activity.RESULT_OK){
+                finish();
+            }
         }
     }
 

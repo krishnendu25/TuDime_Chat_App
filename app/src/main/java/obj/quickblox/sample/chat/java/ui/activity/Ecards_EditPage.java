@@ -1,20 +1,13 @@
 package obj.quickblox.sample.chat.java.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.ViewCompat;
-import androidx.fragment.app.FragmentActivity;
-
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.Typeface;
-import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -24,7 +17,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.Telephony;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Gravity;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -33,10 +26,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.view.ViewCompat;
+
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.bumptech.glide.Glide;
-import com.quickblox.core.request.QueryRule;
 
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
@@ -47,12 +41,10 @@ import java.io.FileOutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Calendar;
-import java.util.HashMap;
 
 import obj.quickblox.sample.chat.java.NetworkOperation.IJSONParseListener;
 import obj.quickblox.sample.chat.java.NetworkOperation.JSONRequestResponse;
 import obj.quickblox.sample.chat.java.NetworkOperation.MyVolley;
-import obj.quickblox.sample.chat.java.Prefrences.CiaoPrefrences;
 import obj.quickblox.sample.chat.java.R;
 import obj.quickblox.sample.chat.java.constants.ApiConstants;
 import obj.quickblox.sample.chat.java.constants.AppConstants;
@@ -69,7 +61,7 @@ import obj.quickblox.sample.chat.java.utils.VoiceMemoDialog;
 
 import static obj.quickblox.sample.chat.java.constants.AppConstants.REQUEST_CODE_CAMERA;
 
-public class Ecards_EditPage extends BaseActivity implements View.OnClickListener , IJSONParseListener {
+public class Ecards_EditPage extends BaseActivity implements View.OnClickListener, IJSONParseListener {
     private Uri uriFilePath;
     private File file, file_imaage, file_voice;
     private int PIC_CROP = 1;
@@ -85,14 +77,15 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
     private File file1;
     private String value;
     private byte[] dataSign;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ecards__edit_page);
         hideActionbar();
-        image = (ImageView) findViewById(R.id.image_photo);
-        image_frame = (ImageView) findViewById(R.id.image_frame);
-        textView = (TextView) findViewById(R.id.text_part);
+        image = findViewById(R.id.image_photo);
+        image_frame = findViewById(R.id.image_frame);
+        textView = findViewById(R.id.text_part);
         findViewById(R.id.photo_part).setOnClickListener(this);
         findViewById(R.id.text_part_layout).setOnClickListener(this);
         findViewById(R.id.signature_part).setOnClickListener(this);
@@ -114,8 +107,7 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
 
 
     @Override
-    public void onClick(View view)
-    {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.photo_part:
                 showPhotoOptionsDialog();
@@ -144,7 +136,7 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                 showShareDialogBox("pre");
                 break;
             case R.id.go:
-                    showShareDialogBox();
+                showShareDialogBox();
                 break;
             case R.id.back_button:
                 finish();
@@ -220,29 +212,26 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         }
 
 
-
-
-
     }
 
     private void showShareDialogBox(String pre) {
-        try{
-        if (!imageEncoded.equals("")) {
-            value="pre";
-            hitSignatureApi(file, "pre");
-        } else if (file_voice != null) {
-            value="pre";
-            hitUploadFileApiRequest(file_voice, "pre");
+        try {
+            if (!imageEncoded.equals("")) {
+                value = "pre";
+                hitSignatureApi(file, "pre");
+            } else if (file_voice != null) {
+                value = "pre";
+                hitUploadFileApiRequest(file_voice, "pre");
 
-        } else {
-            value="pre";
+            } else {
+                value = "pre";
+                hitApi(file_imaage, "pre");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            value = "pre";
             hitApi(file_imaage, "pre");
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-        value="pre";
-        hitApi(file_imaage, "pre");
-    }
     }
 
     @Override
@@ -250,10 +239,8 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
     }
 
     @Override
-    public void SuccessResponse(JSONObject jsonObject, int requestCode)
-    {
-        if (requestCode==969)
-        {
+    public void SuccessResponse(JSONObject jsonObject, int requestCode) {
+        if (requestCode == 969) {
             hideProgressDialog();
             try {
 
@@ -267,19 +254,18 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
 
         }
 
-        if (requestCode==951)
-        {
+        if (requestCode == 951) {
             try {
                 hideProgressDialog();
                 if (!jsonObject.getString("status").equals("1")) {
                     return;
                 }
                 if (value.equals("go")) {
-                        Intent share = new Intent("android.intent.action.SEND");
-                        share.setType(HTTP.PLAIN_TEXT_TYPE);
-                        share.putExtra("android.intent.extra.TEXT", jsonObject.getString("msg"));
-                        Ecards_EditPage.this.startActivity(Intent.createChooser(share, Ecards_EditPage.this.getString(R.string.share_with)));
-                        return;
+                    Intent share = new Intent("android.intent.action.SEND");
+                    share.setType(HTTP.PLAIN_TEXT_TYPE);
+                    share.putExtra("android.intent.extra.TEXT", jsonObject.getString("msg"));
+                    Ecards_EditPage.this.startActivity(Intent.createChooser(share, Ecards_EditPage.this.getString(R.string.share_with)));
+                    return;
                 } else if (value.equals("pre")) {
                     Intent i = new Intent(Ecards_EditPage.this, EcardsWebView.class);
                     i.putExtra("type", "custom");
@@ -288,11 +274,11 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                     return;
                 } else if (value.equals("tudime")) {
                     SharedPrefsHelper.getInstance().set_E_CARD_URL(jsonObject.getString("msg"));
-                  Intent intent = new Intent(this, DashBoard.class);
+                    Intent intent = new Intent(this, DashBoard.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                  startActivity(intent);
+                    startActivity(intent);
                     return;
-                }else if (value.equals("tudime_sms")) {
+                } else if (value.equals("tudime_sms")) {
                     String shareBody = jsonObject.getString("msg");
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) //At least KitKat
                     {
@@ -300,17 +286,14 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
                         Intent sendIntent = new Intent(Intent.ACTION_SEND);
                         sendIntent.setType("text/plain");
                         sendIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                        if (defaultSmsPackageName != null)
-                        {
+                        if (defaultSmsPackageName != null) {
                             sendIntent.setPackage(defaultSmsPackageName);
                         }
                         startActivity(sendIntent);
-                    }
-                    else
-                    {
+                    } else {
                         Intent sendIntent = new Intent(Intent.ACTION_VIEW);
                         sendIntent.setData(Uri.parse("sms:"));
-                        sendIntent.putExtra("sms_body",shareBody);
+                        sendIntent.putExtra("sms_body", shareBody);
                         startActivity(sendIntent);
                     }
                     return;
@@ -323,8 +306,7 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
             }
         }
 
-        if (requestCode==753)
-        {
+        if (requestCode == 753) {
             hideProgressDialog();
             try {
                 if (jsonObject.getString("status").equals("1")) {
@@ -347,14 +329,15 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
     }
 
 
-
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
     }
 
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
-    } private void animationSlideUp(int animation, View view) {
+    }
+
+    private void animationSlideUp(int animation, View view) {
         Animation animateIn = AnimationUtils.loadAnimation(this, animation);
         view.startAnimation(animateIn);
     }
@@ -370,19 +353,19 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
             public void onClick(View view) {
                 try {
                     if (!imageEncoded.equals("")) {
-                        value="go";
+                        value = "go";
                         hitSignatureApi(file, "go");
                     } else if (file_voice != null) {
-                        value="go";
+                        value = "go";
                         hitUploadFileApiRequest(file_voice, "go");
 
                     } else {
-                        value="go";
+                        value = "go";
                         hitApi(file_imaage, "go");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    value="go";
+                    value = "go";
                     hitApi(file_imaage, "go");
                 }
                 dialog.dismiss();
@@ -394,17 +377,17 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
             public void onClick(View view) {
                 try {
                     if (!imageEncoded.equals("")) {
-                        value="tudime";
+                        value = "tudime";
                         hitSignatureApi(file, "tudime");
                     } else if (file_voice != null) {
-                        value="tudime";
+                        value = "tudime";
                         hitUploadFileApiRequest(file_voice, "tudime");
                     } else {
-                        value="tudime";
+                        value = "tudime";
                         hitApi(file_imaage, "tudime");
                     }
                 } catch (Exception e) {
-                    value="tudime";
+                    value = "tudime";
                     hitApi(file_imaage, "tudime");
                 }
                 dialog.dismiss();
@@ -412,25 +395,23 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         });
 
 
-
-
         dialog.findViewById(R.id.share_on_sms).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
                     if (!imageEncoded.equals("")) {
-                        value="tudime_sms";
+                        value = "tudime_sms";
                         hitSignatureApi(file, "tudime_sms");
                     } else if (file_voice != null) {
-                        value="tudime_sms";
+                        value = "tudime_sms";
                         hitUploadFileApiRequest(file_voice, "tudime_sms");
                     } else {
-                        value="tudime_sms";
+                        value = "tudime_sms";
                         hitApi(file_imaage, "tudime_sms");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    value="tudime_sms";
+                    value = "tudime_sms";
                     hitApi(file_imaage, "tudime_sms");
                 }
                 dialog.dismiss();
@@ -438,7 +419,6 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         });
 
     }
-
 
 
     public void showText(String str, Typeface myTypeFace1, int mColorPickerViewColor, int fontSize, String textfontStyle, int alignment) {
@@ -478,13 +458,12 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
     }
 
     public void startCamera() {
-        try{
-           Intent intent1 =  new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent1, REQUEST_CODE_CAMERA);
+        try {
+            Intent intent1 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent1, REQUEST_CODE_CAMERA);
 
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -534,8 +513,8 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         if (requestCode == REQUEST_CODE_CAMERA) {
             if (resultCode == RESULT_OK) {
                 try {
-                    Bitmap  bitmap = (Bitmap) data.getExtras().get("data");
-                    this.image_path  = Constant.SaveImagetoSDcard("IMG_" + Calendar.getInstance().getTimeInMillis(), bitmap, Ecards_EditPage.this);
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    this.image_path = Constant.SaveImagetoSDcard("IMG_" + Calendar.getInstance().getTimeInMillis(), bitmap, Ecards_EditPage.this);
                     image.setImageBitmap(bitmap);
                     this.file_imaage = new File(new URI("file://" + this.image_path.replace(" ", "%20")));
                 } catch (Exception e) {
@@ -680,8 +659,7 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         }
     }
 
-    private void hitUploadFileApiRequest(final File file, final String value)
-    {
+    private void hitUploadFileApiRequest(final File file, final String value) {
         showProgressDialog(R.string.load);
         String url = ApiConstants.BASE_URL1;
         JSONObject Agent_Array_Object = new JSONObject();
@@ -691,16 +669,14 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         parms.putString("fileType", "3");
         parms.putString(ChatConstants.PARAM_POST_THUMB, "");
         MyVolley.init(this);
-        mResponse.setFile("file",file.getAbsolutePath());
+        mResponse.setFile("file", file.getAbsolutePath());
         mResponse.getResponse(Request.Method.POST, url,
-                969, this, parms, false,false,Agent_Array_Object);
-
-
+                969, this, parms, false, false, Agent_Array_Object);
 
 
     }
-    private void hitSignatureApi(File file, String go)
-    {
+
+    private void hitSignatureApi(File file, String go) {
         showProgressDialog(R.string.load);
         String url = ApiConstants.BASE_URL1;
         JSONObject Agent_Array_Object = new JSONObject();
@@ -708,44 +684,47 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
         Bundle parms = new Bundle();
         parms.putString("rule", "card_sig");
         MyVolley.init(this);
-        mResponse.setFile("file",file.getAbsolutePath());
+        mResponse.setFile("file", file.getAbsolutePath());
         mResponse.getResponse(Request.Method.POST, url,
-                753, this, parms, false,false,Agent_Array_Object);
+                753, this, parms, false, false, Agent_Array_Object);
 
     }
-    private void hitApi(File file_imaage, String value)
-    {
-        showProgressDialog(R.string.load);
+
+    private void hitApi(File file_imaage, String value) {
+        try {
+            String newText = this.textView.getText().toString().trim();
+            byte[] data = newText.getBytes("UTF-8");
+            String base64Text = Base64.encodeToString(data, Base64.DEFAULT);
+            showProgressDialog(R.string.load);
+            String url = ApiConstants.BASE_URL1;
+            JSONObject Agent_Array_Object = new JSONObject();
+            JSONRequestResponse mResponse = new JSONRequestResponse(this);
+            Bundle parms = new Bundle();
+            parms.putString("rule", "card_edit");
+            parms.putString("text", base64Text);
+            parms.putString("fontsize", String.valueOf(this.textView.getTextSize()));
+            parms.putString("fontcolor", String.format("#%06X", Integer.valueOf(this.fontcolor & ViewCompat.MEASURED_SIZE_MASK)));
+            parms.putString("fontstyle", this.fontStyle);
+            parms.putString("file2", this.signature_url);
+            parms.putString("frame", this.frame_value);
+            parms.putString("category", getIntent().getStringExtra("category"));
+            parms.putString("card_id", getIntent().getStringExtra("card_id"));
+            parms.putString("voice_msg", this.voice_url);
+            if (this.textView.getGravity() == 3) {
+                parms.putString("fontalignment", "left");
+            } else if (this.textView.getGravity() == 17) {
+                parms.putString("fontalignment", "center");
+            } else if (this.textView.getGravity() == 5) {
+                parms.putString("fontalignment", "right");
+            }
+            MyVolley.init(this);
+            mResponse.setFile("file", file_imaage.getAbsolutePath());
+            mResponse.getResponse(Request.Method.POST, url,
+                    951, this, parms, false, false, Agent_Array_Object);
 
 
-        String url = ApiConstants.BASE_URL1;
-        JSONObject Agent_Array_Object = new JSONObject();
-        JSONRequestResponse mResponse = new JSONRequestResponse(this);
-        Bundle parms = new Bundle();
-        parms.putString("rule", "card_edit");
-        parms.putString("text", this.textView.getText().toString());
-        parms.putString("fontsize", String.valueOf(this.textView.getTextSize()));
-        parms.putString("fontcolor", String.format("#%06X", new Object[]{Integer.valueOf(this.fontcolor & ViewCompat.MEASURED_SIZE_MASK)}));
-        parms.putString("fontstyle", this.fontStyle);
-        parms.putString("file2", this.signature_url);
-        parms.putString("frame", this.frame_value);
-        parms.putString("category", getIntent().getStringExtra("category"));
-        parms.putString("card_id", getIntent().getStringExtra("card_id"));
-        parms.putString("voice_msg", this.voice_url);
-        if (this.textView.getGravity() == 3) {
-            parms.putString("fontalignment","left");
-        } else if (this.textView.getGravity() == 17) {
-            parms.putString("fontalignment","center");
-        } else if (this.textView.getGravity() == 5) {
-            parms.putString("fontalignment","right");
+        } catch (Exception e) {
+
         }
-        MyVolley.init(this);
-        mResponse.setFile("file",file_imaage.getAbsolutePath());
-        mResponse.getResponse(Request.Method.POST, url,
-                951, this, parms, false,false,Agent_Array_Object);
-
-
-
-
     }
 }

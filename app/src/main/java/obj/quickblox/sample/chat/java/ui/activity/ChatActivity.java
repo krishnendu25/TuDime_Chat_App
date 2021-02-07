@@ -104,6 +104,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -620,11 +621,14 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         txvDone.setOnClickListener(this);
         txvCancel.setOnClickListener(this);
         new MyTask().execute("my string parameter");
-        ArrayList<Integer> imgArr = new ArrayList<Integer>();
+        /*ArrayList<Integer> imgArr = new ArrayList<Integer>();
         for (int i = 0; i < 107; i++) {
             imgArr.add(getResources().getIdentifier("theme_thumb_" + (i + 1), "drawable", getPackageName()));
-        }
-        wallpaperGridAdapter = new WallpaperGridAdapter(this, imgArr);
+        }*/
+
+        String[]  tab_titles = getApplicationContext().getResources().getStringArray(R.array.theam_1);
+        List<String> wordList =  Arrays.asList(tab_titles);
+        wallpaperGridAdapter = new WallpaperGridAdapter(this, wordList);
         grdWallpapers.setAdapter(wallpaperGridAdapter);
 
         language_aaray.add(getString(R.string.select_your_language));//0
@@ -1174,6 +1178,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                         Intent intent = new Intent(this, Chat_profile.class);
                         QB_User_Id = String.valueOf(selectedDialog.getRecipientId());
                         intent.putExtra("User_Name", user.getFullName());
+                        intent.putExtra("QB_User_Id", String.valueOf(selectedDialog.getRecipientId()));
                         intent.putExtra("User_Login", user.getLogin());
                         intent.putExtra("User_Image_url", user.getWebsite());
                         startActivity(intent);
@@ -2068,11 +2073,14 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
     @Override
     public void set_walpaper(String Photo_Name) {
-
-        int iconResId = Integer.valueOf(Photo_Name);
         wallpaper_et.setImageURI(null);
         wallpaper_et.setBackground(null);
-        wallpaper_et.setBackground(getResources().getDrawable(iconResId));
+        try {
+            Picasso.get().load(Photo_Name).placeholder(R.drawable.theme_2).into(wallpaper_et);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         bothSideTheamUpdate(Photo_Name);
         THEAME_VIEW.setVisibility(View.GONE);
         OTHER_SHOW_View.setVisibility(View.GONE);

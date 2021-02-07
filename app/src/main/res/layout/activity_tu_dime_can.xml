@@ -52,11 +52,12 @@
                         android:fontFamily="@font/manrope_extrabold"
                         android:maxLength="15"
                         android:background="@null"
+                        android:singleLine="true"
                         android:cursorVisible="true"
                         android:paddingLeft="10dp"
                         android:textColor="@color/active_fonts"
                         android:textColorHint="@color/grey"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/dimen_14dp"
                         />
 
                     <ImageView
