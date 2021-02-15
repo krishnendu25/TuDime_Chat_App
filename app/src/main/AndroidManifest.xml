@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    package="obj.quickblox.sample.chat.java">
+    package="com.TuDime">
 
     <uses-permission android:name="com.quickblox.sample.chat.java.permission.C2D_MESSAGE" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -51,7 +51,7 @@
         />
 
     <application
-        android:name=".App"
+        android:name="com.TuDime.App"
         android:allowBackup="false"
         android:clearTaskOnLaunch="true"
         android:hardwareAccelerated="false"
@@ -63,68 +63,68 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:allowBackup">
-        <activity android:name=".ui.activity.New.AttachmentVideoActivity"/>
-        <activity android:name=".ui.activity.MyPhotoLibery" />
-        <activity android:name=".ui.activity.CheckoutActivityJava" />
-        <activity android:name=".ui.activity.TestActivity" />
-        <activity android:name=".ui.activity.Webview" />
+        <activity android:name="com.TuDime.ui.activity.New.AttachmentVideoActivity"/>
+        <activity android:name="com.TuDime.ui.activity.MyPhotoLibery" />
+        <activity android:name="com.TuDime.ui.activity.CheckoutActivityJava" />
+        <activity android:name="com.TuDime.ui.activity.TestActivity" />
+        <activity android:name="com.TuDime.ui.activity.Webview" />
         <activity
-            android:name=".ui.activity.Video_Player"
+            android:name="com.TuDime.ui.activity.Video_Player"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="landscape" />
-        <activity android:name=".ui.activity.TuDime_Membership"  android:screenOrientation="portrait" />
-        <activity android:name=".Internet_Calling.Internet_Calling_Activity"  android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.PriceRatesWebView"  android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.TuDime_CAN"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Buy_TuDime_Subscription"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Contact_Us"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Add_Participants" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Group_Details_View" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Secret_Chat"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Archive_Chat"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Chat_profile"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.PrivacyActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.FeedbackActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ExtraFaqActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.NotificationsSettingsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.AccountSettingsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.AboutAndHelpSetting"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Settings_Tudime"  android:screenOrientation="portrait"/>
-        <activity android:name=".doodle.utils.views.DoodleActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".doodle.utils.doodleutils.photosortr.PhotoSortrActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".doodle.utils.doodleutils.visualizer2.MultiTouchVisualizerActivity" android:screenOrientation="portrait" />
-        <activity android:name=".doodle.utils.views.EditTextViewActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.MapSendLocationActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.StatusEditActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.StatusChangeActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.AddSignatureEcards" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Ecards_EditPage" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.EcardsWebView"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Ecards3D_Activity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Email_Signup_Process" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Choose_Sign_Up_type"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.UpdateProfileNameActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Terms_And_Conditions" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.InitialTermsActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.Encounter_Yes_or_no" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.EncountersActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.PapPallIntegration" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.SetLanguage" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.ScheduleTaskActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.NotificationCenterActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.UpdateProfileActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.TuDime_Membership"  android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.Internet_Calling.Internet_Calling_Activity"  android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.PriceRatesWebView"  android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.TuDime_CAN"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Buy_TuDime_Subscription"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Contact_Us"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Add_Participants" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Group_Details_View" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Secret_Chat"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Archive_Chat"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Chat_profile"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.PrivacyActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.FeedbackActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.ExtraFaqActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.NotificationsSettingsActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.AccountSettingsActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.AboutAndHelpSetting"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Settings_Tudime"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.doodle.utils.views.DoodleActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.doodle.utils.doodleutils.photosortr.PhotoSortrActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.doodle.utils.doodleutils.visualizer2.MultiTouchVisualizerActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.doodle.utils.views.EditTextViewActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.MapSendLocationActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.StatusEditActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.StatusChangeActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.AddSignatureEcards" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Ecards_EditPage" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.EcardsWebView"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.Ecards3D_Activity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Email_Signup_Process" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Choose_Sign_Up_type"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.UpdateProfileNameActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Terms_And_Conditions" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.InitialTermsActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.Encounter_Yes_or_no" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.EncountersActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.PapPallIntegration" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.SetLanguage" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.ScheduleTaskActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.NotificationCenterActivity" android:screenOrientation="portrait" />
+        <activity android:name="com.TuDime.ui.activity.UpdateProfileActivity" android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.DashBoard"
+            android:name="com.TuDime.ui.activity.DashBoard"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".ui.activity.ShowCountryList"  android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.SignUpVerificationActivity"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.ShowCountryList"  android:screenOrientation="portrait"/>
+        <activity android:name="com.TuDime.ui.activity.SignUpVerificationActivity"  android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.Splash_Activity"
+            android:name="com.TuDime.ui.activity.Splash_Activity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -134,63 +134,63 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.SignUpActivity"
+            android:name="com.TuDime.ui.activity.SignUpActivity"
             android:label="@string/login_title"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SelectUsersActivity"
+            android:name="com.TuDime.ui.activity.SelectUsersActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.DialogsActivity"
+            android:name="com.TuDime.ui.activity.DialogsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.ChatActivity"
+            android:name="com.TuDime.ui.activity.ChatActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ChatActivityTheme" />
         <activity
-            android:name=".ui.activity.ChatInfoActivity"
+            android:name="com.TuDime.ui.activity.ChatInfoActivity"
             android:label="@string/chat_info"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.AttachmentImageActivity"
+            android:name="com.TuDime.ui.activity.AttachmentImageActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Dark" />
         <activity
-            android:name=".ui.activity.AppInfoActivity"
+            android:name="com.TuDime.ui.activity.AppInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.OpponentsActivity"
+            android:name="com.TuDime.ui.activity.OpponentsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.PermissionsActivity"
+            android:name="com.TuDime.ui.activity.PermissionsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.CallActivity"
+            android:name="com.TuDime.ui.activity.CallActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme" />
         <activity
-            android:name=".ui.activity.SettingsActivity"
+            android:name="com.TuDime.ui.activity.SettingsActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".services.LoginService"
+            android:name="com.TuDime.services.LoginService"
             android:exported="false" />
         <service
-            android:name=".services.CallService"
+            android:name="com.TuDime.services.CallService"
             android:exported="false" />
-        <service android:name=".services.fcm.PushListenerService">
+        <service android:name="com.TuDime.services.fcm.PushListenerService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name=".fcm.PushListenerService"
+            android:name="com.TuDime.fcm.PushListenerService"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -211,10 +211,10 @@
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
 
-        <receiver android:name=".services.OnAlarmReceiver" />
+        <receiver android:name="com.TuDime.services.OnAlarmReceiver" />
 
         <service
-            android:name=".services.AlarmService"
+            android:name="com.TuDime.services.AlarmService"
             android:exported="false" />
 
         <meta-data
@@ -248,7 +248,7 @@
             android:name="io.sentry.dsn"
             android:value="https://2624f5719fa74e0593321c93f7b98606@o460045.ingest.sentry.io/5459774" />
 
-        <receiver android:name=".util.NetworkChangeReceiver">
+        <receiver android:name="com.TuDime.util.NetworkChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
@@ -264,7 +264,7 @@
             android:value="AIzaSyDjl2LKFfzPUuFlVPARbS0-01rGHgCJhfE" />
 
         <receiver
-            android:name=".util.MySMSBroadcastReceiver"
+            android:name="com.TuDime.util.MySMSBroadcastReceiver"
             android:exported="true"
             android:permission="com.google.android.gms.auth.api.phone.permission.SEND">
             <intent-filter>

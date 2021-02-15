@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.Choose_Sign_Up_type">
+    tools:context="com.TuDime.ui.activity.Choose_Sign_Up_type">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

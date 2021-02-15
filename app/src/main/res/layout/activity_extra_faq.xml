@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.ExtraFaqActivity">
+    tools:context="com.TuDime.ui.activity.ExtraFaqActivity">
     <ExpandableListView
         android:id="@+id/elv_faq"
         android:layout_width="fill_parent"

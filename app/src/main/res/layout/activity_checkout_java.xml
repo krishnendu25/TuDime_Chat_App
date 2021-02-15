@@ -8,7 +8,7 @@
     android:background="#25000000"
     android:gravity="center"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.activity.CheckoutActivityJava">
+    tools:context="com.TuDime.ui.activity.CheckoutActivityJava">
 
 
     <androidx.cardview.widget.CardView

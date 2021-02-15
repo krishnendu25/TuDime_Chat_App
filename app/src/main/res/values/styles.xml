@@ -24,7 +24,15 @@
         <item name="colorControlNormal">#fff</item>
     </style>
 
-
+    <style name="ProgressBar" parent="@android:style/Widget.ProgressBar">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:visibility">gone</item>
+        <item name="fontFamily">@font/manrope_extrabold</item>
+        <item name="android:textColor">@color/blue</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:indeterminateDrawable">@drawable/circular_progress_dialog</item>
+    </style>
     <style name="AppTheme.Dark" parent="AppTheme">
         <item name="android:background">@color/white_transparent_80</item>
         <item name="colorPrimary">@color/white_transparent_80</item>

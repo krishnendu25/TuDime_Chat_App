@@ -1,58 +1,42 @@
 {
   "project_info": {
-    "project_number": "184656604055",
-    "firebase_url": "https://tudime-c65c6.firebaseio.com",
-    "project_id": "tudime-c65c6",
-    "storage_bucket": "tudime-c65c6.appspot.com"
+    "project_number": "135237676999",
+    "project_id": "tudimechatapp-9e024",
+    "storage_bucket": "tudimechatapp-9e024.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:184656604055:android:7df64f09e063cda8e772d2",
+        "mobilesdk_app_id": "1:135237676999:android:7f6199caad9c52d14033e2",
         "android_client_info": {
-          "package_name": "obj.quickblox.sample.chat.java"
+          "package_name": "com.TuDime"
         }
       },
       "oauth_client": [
         {
-          "client_id": "184656604055-8c49l2sie7l75e1as9c6gqsd9saq7r1r.apps.googleusercontent.com",
+          "client_id": "135237676999-iq8oggfrpo7s0fee0hj3kc5t638vgksr.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "obj.quickblox.sample.chat.java",
+            "package_name": "com.TuDime",
             "certificate_hash": "12f5c2fe533eb93549dd3a7b7cbc9e02ed9e63cd"
           }
         },
         {
-          "client_id": "184656604055-o93cfgp7taj4rvfv5fvt4up55s6f2tff.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "obj.quickblox.sample.chat.java",
-            "certificate_hash": "2cb12737ab1e47e6fe312d58e65ce8a778522c91"
-          }
-        },
-        {
-          "client_id": "184656604055-351no5v2tbv2s8e1hg9at58fh1226ooc.apps.googleusercontent.com",
+          "client_id": "135237676999-0jjmb171ci5gdat4ehlg52h8fsqfap8e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrgnoXryGGoCfhbKaPaNhPl0jVINnzaxw"
+          "current_key": "AIzaSyC3z84H09ssXrMnHCSxuxFIcoBWMDQiXb0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "184656604055-351no5v2tbv2s8e1hg9at58fh1226ooc.apps.googleusercontent.com",
+              "client_id": "135237676999-0jjmb171ci5gdat4ehlg52h8fsqfap8e.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "184656604055-bcc15t4ms52ai31slp4nn07vk0241lef.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.dev.TuDime"
-              }
             }
           ]
         }

@@ -3,6 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="obj.quickblox.sample.chat.java.ui.activity.Encounter_Yes_or_no">
+    tools:context="com.TuDime.ui.activity.Encounter_Yes_or_no">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

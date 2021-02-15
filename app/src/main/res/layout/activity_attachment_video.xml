@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.activity.New.AttachmentVideoActivity">
+    tools:context="com.TuDime.ui.activity.New.AttachmentVideoActivity">
 
 <VideoView
     android:id="@+id/vv_full_view"

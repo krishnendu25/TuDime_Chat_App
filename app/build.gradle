@@ -8,45 +8,29 @@ buildscript {
 repositories {
     google()
     jcenter()
-    maven {
-        url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"
-    }
+    maven {url "https://github.com/QuickBlox/quickblox-android-sdk-releases/raw/master/"}
     flatDir { dirs 'libs' }
 }
 android {
-    def versionQACode = 4
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-   // flavorDimensions dimensionDefault
 
     defaultConfig {
-        applicationId "obj.quickblox.sample.chat.java"
+        applicationId "com.TuDime"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 12800
-        versionName '1.2.8.0.0'
+        versionCode 11
+        versionName '1.2.0'
         multiDexEnabled true
-      //  ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
     }
-   /* productFlavors {
-        dev {
-            dimension dimensionDefault
-            buildConfigField('boolean', "IS_QA", "false")
-            buildConfigField("int", "VERSION_QA_CODE", versionQACode.toString())
-        }
 
-        qa {
-            dimension dimensionDefault
-            buildConfigField("boolean", "IS_QA", "true")
-            buildConfigField("int", "VERSION_QA_CODE", versionQACode.toString())
-        }
-    }*/
 
     buildTypes {
         release {
-            /*//Enable the proguard
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "proguard-rules.pro"
+            /*//Enable the proguard
+
             //Other parameters
             debuggable false
             jniDebuggable false
@@ -98,7 +82,6 @@ dependencies
             implementation "com.quickblox:quickblox-android-sdk-core:$rootProject.qbSdkVersion"
             implementation "com.quickblox:quickblox-android-sdk-videochat-webrtc:$rootProject.qbSdkVersion"
             implementation 'com.google.android.gms:play-services-basement:17.4.0'
-            implementation "com.google.firebase:firebase-core:17.5.0"
             implementation "com.google.android.material:material:1.2.1"
             implementation "androidx.fragment:fragment:1.2.5"
             implementation "androidx.lifecycle:lifecycle-viewmodel:2.2.0"
@@ -113,9 +96,6 @@ dependencies
             implementation 'com.android.support:multidex:1.0.3'
             implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
             implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-            implementation 'com.google.firebase:firebase-perf:19.0.9'
-            implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
-            implementation 'com.google.firebase:firebase-analytics:17.5.0'
             annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
             implementation('org.apache.httpcomponents:httpmime:4.3.6') {
                 exclude module: 'httpclient'
@@ -131,8 +111,7 @@ dependencies
             //Place-AutoComplete Search
             implementation 'com.google.android.libraries.places:places:2.4.0'
             implementation 'com.google.android.gms:play-services-places:17.0.0'
-            implementation 'com.google.firebase:firebase-messaging:20.2.1'
-            // implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'
+
             implementation("com.google.android.gms:play-services-auth:18.1.0")
             //CALENDAR VIEW
             implementation 'com.github.prolificinteractive:material-calendarview:2.0.0'
@@ -154,11 +133,25 @@ dependencies
             implementation 'com.google.code.gson:gson:2.8.6'
             implementation 'com.zxy.android:recovery:1.0.0'
             implementation 'com.instabug.library:instabug:10.3.0'
+            //All FireBase
+           /* implementation "com.google.firebase:firebase-core:17.5.0"
+            implementation 'com.google.firebase:firebase-perf:19.0.9'
+            implementation 'com.google.firebase:firebase-crashlytics:17.2.2'
+            implementation 'com.google.firebase:firebase-analytics:17.5.0'
+            implementation 'com.google.firebase:firebase-messaging:20.2.1'
+            // implementation 'com.google.firebase:firebase-crashlytics:17.0.0-beta01'*/
+            // Import the Firebase BoM
+            implementation platform('com.google.firebase:firebase-bom:26.4.0')
+            implementation 'com.google.firebase:firebase-analytics'
+            implementation 'com.google.firebase:firebase-messaging'
+            implementation 'com.google.firebase:firebase-crashlytics'
+
+
+
         }
 
 apply from: "../artifacts.gradle"
 apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.firebase-perf'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'kotlin-android'
 configurations.all { exclude group: 'com.android.support', module: 'support-v13' }

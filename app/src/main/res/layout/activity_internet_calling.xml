@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#d0f1ff"
     android:id="@+id/coordinatorLayout"
-    tools:context=".Internet_Calling.Internet_Calling_Activity"
+    tools:context="com.TuDime.Internet_Calling.Internet_Calling_Activity"
     android:orientation="vertical">
 
     <RelativeLayout

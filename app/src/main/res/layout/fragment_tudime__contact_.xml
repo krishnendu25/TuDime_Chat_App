@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.Tudime_Contact_Fragment">
+    tools:context="com.TuDime.ui.fragments.Tudime_Contact_Fragment">
 
     <ListView
         android:id="@+id/list_select_users_fr"

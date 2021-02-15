@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<obj.quickblox.sample.chat.java.ui.widget.MessageTextViewRight
+<com.TuDime.ui.widget.MessageTextViewRight
 
     style="@style/ListItemTextMessage.Right" />
