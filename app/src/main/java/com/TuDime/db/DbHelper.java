@@ -61,23 +61,30 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_PASSWORD = "DB_PASSWORD";
     public static final String DB_IS_QBUSER = "DB_IS_QBUSER";
 
+    //OFFLINE CHAT STORE
+    public static final String DB_CHAT_STORE_TABLE = "DB_CHAT_STORE_TABLE";
+    public static final String DCS_ID = "DCS_ID";
+    public static final String DCS_CHAT_OBJECT_JSON = "DCS_CHAT_OBJECT_JSON";
+    public static final String DCS_USER_ID = "DCS_USER_ID";
+    public static final String DB_TIMESTAMP  = "DB_TIMESTAMP";
+
+
+    //OFFLINE MESSAGE STORE
+    public static final String DB_MESSAGE_TABLE= "DB_MESSAGE_TABLE";
+    public static final String DM_ID = "DM_ID";
+    public static final String DM_MESSAGE_JSON = "DM_MESSAGE_JSON";
+    public static final String DM_USER_ID = "DM_USER_ID";
+    public static final String DM_TIMESTAMP  = "DM_TIMESTAMP";
 
 
 
 
-
-
-
-
-
-
-
-    private static final String DB_NAME = "groupchatwebrtcDB";
+    private static final String DB_NAME = "TuDimeLocal";
     private String TAG = DbHelper.class.getSimpleName();
 
 
     public DbHelper(Context context) {
-        super(context, DB_NAME, null, 1);
+        super(context, DB_NAME, null, 3);
     }
 
     @Override
@@ -135,6 +142,23 @@ public class DbHelper extends SQLiteOpenHelper {
                 + DB_PASSWORD + " text,"
                 + DB_IS_QBUSER + " text"
                 + ");");
+
+
+        db.execSQL("create table " + DB_CHAT_STORE_TABLE + " ("
+                + DCS_ID + " integer primary key autoincrement,"
+                + DCS_CHAT_OBJECT_JSON + " text ,"
+                + DCS_USER_ID + " text,"
+                + DB_TIMESTAMP + " text"
+                + ");");
+
+
+        db.execSQL("create table " + DB_MESSAGE_TABLE + " ("
+                + DM_ID + " integer primary key autoincrement,"
+                + DM_MESSAGE_JSON + " text ,"
+                + DM_USER_ID + " text,"
+                + DM_TIMESTAMP + " text"
+                + ");");
+
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -144,6 +168,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.execSQL(" DROP TABLE IF EXISTS " + DB_QBChat_TABLE);
         db.execSQL(" DROP TABLE IF EXISTS " + DB_QB_TABLE);
         db.execSQL(" DROP TABLE IF EXISTS " + DB_TABLE_NAME);
+        db.execSQL(" DROP TABLE IF EXISTS " + DB_CHAT_STORE_TABLE);
+        db.execSQL(" DROP TABLE IF EXISTS " + DB_MESSAGE_TABLE);
         onCreate(db);
     }
 }

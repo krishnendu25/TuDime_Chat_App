@@ -39,13 +39,14 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_weight="4"
+                    android:background="@drawable/blue_edittext"
                     android:orientation="horizontal"
-                    android:background="@drawable/box_icon">
+                    >
                     <EditText
                         android:id="@+id/editText_to_call"
                         android:layout_width="0dp"
                         android:imeOptions="actionDone"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:hint="@string/ph_number"
@@ -57,7 +58,7 @@
                         android:paddingLeft="10dp"
                         android:textColor="@color/active_fonts"
                         android:textColorHint="@color/grey"
-                        android:textSize="@dimen/dimen_14dp"
+                        android:textSize="@dimen/padding_10"
                         />
 
                     <ImageView

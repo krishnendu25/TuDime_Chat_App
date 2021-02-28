@@ -387,7 +387,7 @@
                                 android:gravity="center"
                                 android:textStyle="bold"
                                 android:text="@string/call_credit"
-                                android:textColor="#EE3596"
+                                android:textColor="@color/primary_blue"
                                 android:textSize="16dp" />
 
                             <TextView
@@ -399,7 +399,6 @@
                                 android:gravity="center_vertical|right"
                                 android:paddingRight="10dp"
                                 android:text="$0"
-                                android:maxLength="6"
                                 android:fontFamily="@font/avenirnextbold"
                                 android:textColor="@color/sky_blue"
                                 android:textSize="@dimen/dimen_14dp" />

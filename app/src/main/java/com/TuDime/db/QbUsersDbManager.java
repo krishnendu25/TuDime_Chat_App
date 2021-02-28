@@ -6,10 +6,16 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.quickblox.chat.model.QBChatDialog;
+import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.core.helper.StringifyArrayList;
 import com.quickblox.users.model.QBUser;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.TuDime.ui.Model.Calender_Model;
@@ -25,6 +31,7 @@ import static com.TuDime.db.DbHelper.DB_CALL_RECIPIENTNAME;
 import static com.TuDime.db.DbHelper.DB_CALL_START_TIME;
 import static com.TuDime.db.DbHelper.DB_CALL_TABLE;
 import static com.TuDime.db.DbHelper.DB_CALL_TYPE;
+import static com.TuDime.db.DbHelper.DB_CHAT_STORE_TABLE;
 import static com.TuDime.db.DbHelper.DB_EMAIL;
 import static com.TuDime.db.DbHelper.DB_EVENT_DATE;
 import static com.TuDime.db.DbHelper.DB_EVENT_DESC;
@@ -34,12 +41,19 @@ import static com.TuDime.db.DbHelper.DB_EVENT_TIME;
 import static com.TuDime.db.DbHelper.DB_FULLNAME;
 import static com.TuDime.db.DbHelper.DB_IS_QBUSER;
 import static com.TuDime.db.DbHelper.DB_LOGIN;
+import static com.TuDime.db.DbHelper.DB_MESSAGE_TABLE;
 import static com.TuDime.db.DbHelper.DB_PASSWORD;
 import static com.TuDime.db.DbHelper.DB_PHONE;
 import static com.TuDime.db.DbHelper.DB_QBChatDialog;
 import static com.TuDime.db.DbHelper.DB_QBChat_USER_ID;
 import static com.TuDime.db.DbHelper.DB_QB_USER_ID;
+import static com.TuDime.db.DbHelper.DB_TIMESTAMP;
 import static com.TuDime.db.DbHelper.DB_WEBSITE;
+import static com.TuDime.db.DbHelper.DCS_CHAT_OBJECT_JSON;
+import static com.TuDime.db.DbHelper.DCS_USER_ID;
+import static com.TuDime.db.DbHelper.DM_MESSAGE_JSON;
+import static com.TuDime.db.DbHelper.DM_TIMESTAMP;
+import static com.TuDime.db.DbHelper.DM_USER_ID;
 import static com.TuDime.db.DbHelper.QB_LOCAL_ChatDialog;
 import static com.TuDime.db.DbHelper.QB_LOCAL_DIALOG_ALL;
 import static com.TuDime.db.DbHelper.QB_LOCAL_USER_ID;
@@ -414,9 +428,114 @@ public class QbUsersDbManager {
             db.close();
         }
 
+    }
+
+    public void insertChatJSon(Collection<QBChatDialog> value, String userID, String timeStamp) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT DCS_CHAT_OBJECT_JSON FROM DB_CHAT_STORE_TABLE WHERE DCS_USER_ID = '" + userID + "'", null);
+        Gson gson = new Gson();
+        String chatJSON = gson.toJson(value);
+
+        if (cursor.getCount() != 0) {
+            ContentValues args = new ContentValues();
+            args.put(DCS_CHAT_OBJECT_JSON, chatJSON);
+            args.put(DB_TIMESTAMP, String.valueOf(timeStamp));
+            db.update(DB_CHAT_STORE_TABLE, args, DCS_USER_ID + "=" + userID, null);
+
+        }else{
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DCS_CHAT_OBJECT_JSON,chatJSON);
+            contentValues.put(DCS_USER_ID,userID);
+            contentValues.put(DB_TIMESTAMP, String.valueOf(timeStamp));
+             db.insert(DB_CHAT_STORE_TABLE, null, contentValues);
+        }
+    }
+
+    //GET get_event_by_user
+    public Collection<QBChatDialog> getChatJSon(String userId) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Gson gson = new Gson();
+        String chatJSON = "" ;
+        Type type = new TypeToken<Collection<QBChatDialog>>() {
+        }.getType();
+        Cursor cursor = db.rawQuery("SELECT DCS_CHAT_OBJECT_JSON FROM DB_CHAT_STORE_TABLE WHERE DCS_USER_ID = '" + userId + "'", null);
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                chatJSON =   cursor.getString(0);
+            }
+        }
+        if (chatJSON!=null){
+            if (!chatJSON.equalsIgnoreCase("")){
+                try{
+                    return gson.fromJson(chatJSON, type);
+                }catch (Exception e){
+                    return  null;
+                }
+            }else {
+                return  null;
+            }
+        }else{
+            return  null;
+        }
 
     }
 
+
+
+    public void insertMessageJSon(ArrayList<ArrayList<QBChatMessage>> value, String userID, String timeStamp) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT DM_MESSAGE_JSON FROM DB_MESSAGE_TABLE WHERE DM_USER_ID = '" + userID + "'", null);
+        Gson gson = new Gson();
+        String chatJSON = gson.toJson(value);
+
+        if (cursor.getCount() != 0) {
+            ContentValues args = new ContentValues();
+            args.put(DM_MESSAGE_JSON, chatJSON);
+            args.put(DM_TIMESTAMP, String.valueOf(timeStamp));
+            db.update(DB_MESSAGE_TABLE, args, DM_USER_ID + "=" + userID, null);
+
+        }else{
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(DM_MESSAGE_JSON,chatJSON);
+            contentValues.put(DM_USER_ID,userID);
+            contentValues.put(DM_TIMESTAMP, String.valueOf(timeStamp));
+            db.insert(DB_MESSAGE_TABLE, null, contentValues);
+        }
+    }
+
+
+
+    //GET get_event_by_user
+    public ArrayList<ArrayList<QBChatMessage>> getMessageJSon(String userId) {
+        DbHelper dbHelper = new DbHelper(mContext);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Gson gson = new Gson();
+        String chatJSON = "" ;
+        Type type = new TypeToken<ArrayList<ArrayList<QBChatMessage>>>() {
+        }.getType();
+        Cursor cursor = db.rawQuery("SELECT DM_MESSAGE_JSON FROM DB_MESSAGE_TABLE WHERE DM_USER_ID = '" + userId + "'", null);
+        if (cursor.getCount() != 0) {
+            while (cursor.moveToNext()) {
+                chatJSON =   cursor.getString(0);
+            }
+        }
+        if (chatJSON!=null){
+            if (!chatJSON.equalsIgnoreCase("")){
+                try{
+                    return gson.fromJson(chatJSON, type);
+                }catch (Exception e){
+                    return   new ArrayList<ArrayList<QBChatMessage>>();
+                }
+            }else {
+                return  new ArrayList<ArrayList<QBChatMessage>>();
+            }
+        }else{
+            return   new ArrayList<ArrayList<QBChatMessage>>();
+        }
+    }
 
 
 }

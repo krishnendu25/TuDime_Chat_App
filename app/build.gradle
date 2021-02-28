@@ -19,8 +19,8 @@ android {
         applicationId "com.TuDime"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 11
-        versionName '1.2.0'
+        versionCode 14
+        versionName '1.4.0'
         multiDexEnabled true
     }
 
@@ -29,14 +29,6 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), "proguard-rules.pro"
-            /*//Enable the proguard
-
-            //Other parameters
-            debuggable false
-            jniDebuggable false
-            renderscriptDebuggable false
-            pseudoLocalesEnabled false
-            zipAlignEnabled true*/
         }
     }
 

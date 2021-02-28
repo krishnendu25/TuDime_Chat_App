@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.TuDime.db.QbUsersDbManager;
 import com.quickblox.chat.model.QBChatDialog;
 import com.quickblox.chat.model.QBChatMessage;
 import com.quickblox.chat.model.QBDialogType;
@@ -161,18 +162,21 @@ public class DialogsAdapter extends BaseAdapter {
                     }
                 }else
                 {
+                    QbUsersDbManager  dbManager = QbUsersDbManager.getInstance(context); 
+                    ArrayList<ArrayList<QBChatMessage>> MessageJSon =  dbManager.getMessageJSon(String.valueOf(SharedPrefsHelper.getInstance().getQbUser().getId()));
                     ArrayList<QBChatMessage> qbChatMessages = new ArrayList<>();
-                    for (int i=0 ; i<SharedPrefsHelper.getInstance().getQBChatMessage_Offline().size(); i++)
+                    for (int i=0 ; i<MessageJSon.size(); i++)
                     {
-                        if (SharedPrefsHelper.getInstance().getQBChatMessage_Offline().get(i).size()>0)
+                        if (MessageJSon.get(i).size()>0)
                         {
-                            if (SharedPrefsHelper.getInstance().getQBChatMessage_Offline().get(i).get(0).getDialogId().equalsIgnoreCase(dialogs.get(position).getDialogId()))
+                            if (MessageJSon.get(i).get(0).getDialogId().equalsIgnoreCase(dialogs.get(position).getDialogId()))
                             {
-                                qbChatMessages = SharedPrefsHelper.getInstance().getQBChatMessage_Offline().get(i);
+                                qbChatMessages = MessageJSon.get(i);
                                 break;
                             }
                         }
-                    }QBChatDialog selectedDialog = (QBChatDialog) dialogs.get(position);
+                    }
+                    QBChatDialog selectedDialog = (QBChatDialog) dialogs.get(position);
                     Intent intent_c = new Intent(context,ChatActivity.class);
                     intent_c.putExtra("AllChat",qbChatMessages);
                     intent_c.putExtra(EXTRA_DIALOG_ID,selectedDialog);

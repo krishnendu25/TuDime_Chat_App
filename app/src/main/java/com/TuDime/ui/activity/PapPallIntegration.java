@@ -22,6 +22,8 @@ import com.TuDime.R;
 import com.TuDime.Prefrences.SharedPrefsHelper;
 import com.TuDime.utils.ToastUtils;
 
+import java.text.DecimalFormat;
+
 import static com.TuDime.constants.ApiConstants.buy_call_balence_update;
 import static com.TuDime.constants.ApiConstants.get_user_tudime_fetch_my_call_balence;
 import static com.TuDime.constants.ApiConstants.sendMailUrl;
@@ -181,7 +183,7 @@ public class PapPallIntegration extends BaseActivity {
 
                     if (data.length()<1)
                     { Balence_Api="0";
-                        MyBalence.setText("$"+Balence_Api);
+                        MyBalence.setText("$"+new DecimalFormat("##.##").format(Balence_Api));
                     }else
                     {
                         Balence_Api = data.getJSONObject(0).getString("plan_price");
@@ -189,7 +191,7 @@ public class PapPallIntegration extends BaseActivity {
                         {
                             Balence_Api="0";
                         }
-                        MyBalence.setText("$"+Balence_Api);
+                        MyBalence.setText("$"+new DecimalFormat("##.##").format(Balence_Api));
                         enterAmount.setText("");
                     }
 

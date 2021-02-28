@@ -1255,7 +1255,7 @@ public class SharedPrefsHelper {
         mEditor.putBoolean("getAutoEcardSend", age). commit();
     }
 
-    public Collection<QBChatDialog> getQBChatDialog_DB() {
+   /* public Collection<QBChatDialog> getQBChatDialog_DB() {
         Gson gson = new Gson();
         String json = mPreferences.getString(QBChatDialog_DB, "");
             Type type = new TypeToken<Collection<QBChatDialog>>() {
@@ -1267,23 +1267,23 @@ public class SharedPrefsHelper {
         Gson gson = new Gson();
         String json = gson.toJson(value);
         mEditor.putString(QBChatDialog_DB,json). commit();
-    }
+    }*/
 
 
 
-    public ArrayList<ArrayList<QBChatMessage>> getQBChatMessage_Offline() {
+   /* public ArrayList<ArrayList<QBChatMessage>> getQBChatMessage_Offline() {
         Gson gson = new Gson();
         String json = mPreferences.getString(QBChatMessage_Offline, "");
         Type type = new TypeToken<ArrayList<ArrayList<QBChatMessage>>>() {
         }.getType();
         return gson.fromJson(json, type);
 
-    }
-    public void setQBChatMessage_Offline(ArrayList<ArrayList<QBChatMessage>> value) {
+    }*/
+   /* public void setQBChatMessage_Offline(ArrayList<ArrayList<QBChatMessage>> value) {
         Gson gson = new Gson();
         String json = gson.toJson(value);
         mEditor.putString(QBChatMessage_Offline,json). commit();
-    }
+    }*/
     public void setQuotes(String save)
     {
         save(Quotes_Name,save);

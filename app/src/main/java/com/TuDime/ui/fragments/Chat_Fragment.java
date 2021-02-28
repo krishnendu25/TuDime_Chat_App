@@ -571,7 +571,10 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
     public void updateDialogsAdapter() {
         if (Constant.isOnline(getActivity())) {
             Collection<QBChatDialog> Backup_List = QbDialogHolder.getInstance().getDialogs().values();
-            SharedPrefsHelper.getInstance().setQBChatDialog_DB(Backup_List);
+            dbManager.insertChatJSon(Backup_List,String.valueOf(SharedPrefsHelper.getInstance().getQbUser().getId()),
+                  String.valueOf(System.currentTimeMillis()));
+
+
             ArrayList<QBChatDialog> listDialogs = new ArrayList<>(Backup_List);
             ArrayList<String> temp_dialog = new ArrayList<>();
             try {
@@ -597,7 +600,8 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
             }
             method1();
         } else {
-            Collection<QBChatDialog> Backup_List = SharedPrefsHelper.getInstance().getQBChatDialog_DB();
+            Collection<QBChatDialog> Backup_List = dbManager.getChatJSon(String.valueOf(SharedPrefsHelper.getInstance().getQbUser().getId()));
+          //  Collection<QBChatDialog> Backup_List = SharedPrefsHelper.getInstance().getQBChatDialog_DB();
             ArrayList<QBChatDialog> listDialogs = new ArrayList<>(Backup_List);
             ArrayList<String> temp_dialog = new ArrayList<>();
             try {
@@ -688,6 +692,15 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
             if (isCallServiceRunning(CallService.class)) {
                 CallActivity.start(getActivity(), isIncomingCall);
             }
+            try {
+                Collection<QBChatDialog> Backup_List = QbDialogHolder.getInstance().getDialogs().values();
+                dbManager.insertChatJSon(Backup_List,String.valueOf(SharedPrefsHelper.getInstance().getQbUser().getId()),
+                        String.valueOf(System.currentTimeMillis()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         }
         Archive_Reload();
         clearAppNotifications();
@@ -784,7 +797,9 @@ public class Chat_Fragment extends BaseFragment implements Contact_chat_Refresh,
                     globalVar++;
                     method1();
                 } else {
-                    SharedPrefsHelper.getInstance().setQBChatMessage_Offline(Full_Chat);
+                    dbManager.insertMessageJSon(Full_Chat,String.valueOf(SharedPrefsHelper.getInstance().getQbUser().getId()),
+                            String.valueOf(System.currentTimeMillis()));
+                   // SharedPrefsHelper.getInstance().setQBChatMessage_Offline(Full_Chat);
                 }
             }
 

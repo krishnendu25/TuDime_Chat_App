@@ -64,6 +64,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -546,10 +547,13 @@ public class DashBoard extends BaseActivity implements QBRTCClientSessionCallbac
                         if (Balence_Api.equalsIgnoreCase("")) {
                             Balence_Api = "0";
                         }
-                        total_credit.setText("$" + Balence_Api);
+
+
+
+                        total_credit.setText("$" +new DecimalFormat("##.##").format(Balence_Api) );
                     } else {
                         Balence_Api = "0";
-                        total_credit.setText("$" + Balence_Api);
+                        total_credit.setText("$" + new DecimalFormat("##.##").format(Balence_Api));
                     }
 
                 } else {
