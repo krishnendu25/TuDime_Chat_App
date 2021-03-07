@@ -20,7 +20,7 @@ public class PushListenerService extends QBFcmPushListenerService {
 
     protected void showNotification(String message) {
         NotificationUtils.showNotification(App.getInstance(), Splash_Activity.class,
-                App.getInstance().getString(R.string.notification_title), message,
+             "Notification", message,
                 R.drawable.ic_notification, NOTIFICATION_ID);
     }
 
@@ -28,10 +28,14 @@ public class PushListenerService extends QBFcmPushListenerService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         SharedPrefsHelper sharedPrefsHelper = SharedPrefsHelper.getInstance();
-        if (sharedPrefsHelper.hasQbUser()) {
-            QBUser qbUser = sharedPrefsHelper.getQbUser();
-            Log.d(TAG, "App has logged user" + qbUser.getId());
-            LoginService.start(this, qbUser);
+        try {
+            if (sharedPrefsHelper.hasQbUser()) {
+                QBUser qbUser = sharedPrefsHelper.getQbUser();
+                Log.d(TAG, "App has logged user" + qbUser.getId());
+                LoginService.start(this, qbUser);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@color/white"
+    app:cardBackgroundColor="@color/white"
     android:layout_width="300dp"
-    android:layout_height="wrap_content"><ScrollView
+    android:layout_height="wrap_content">
+
+    <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,10 +30,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="145dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:id="@+id/imge_bg"
                     android:alpha="0.8"
-                    android:src="@drawable/navigation_drawer_cover_bg"/>
+                    android:src="@drawable/default_image_call"/>
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/image_drawer"
@@ -79,6 +81,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dimen_20dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +89,7 @@
                 android:orientation="vertical"
                 android:layout_above="@+id/footer"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="@dimen/padding_10">
+               >
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
@@ -340,6 +343,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="7"
                         android:gravity="center"
+                        android:textStyle="bold"
                         android:layout_gravity="center_vertical"
                         android:text="@string/notifications"
                         android:textColor="#EE3596"
@@ -399,6 +403,8 @@
                                 android:gravity="center_vertical|right"
                                 android:paddingRight="10dp"
                                 android:text="$0"
+                                android:textStyle="bold"
+
                                 android:fontFamily="@font/avenirnextbold"
                                 android:textColor="@color/sky_blue"
                                 android:textSize="@dimen/dimen_14dp" />
@@ -437,7 +443,7 @@
                             android:id="@+id/text_schedule_events"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
+                            android:textStyle="bold"
                             android:gravity="center"
                             android:layout_gravity="center_vertical"
                             android:text="@string/schedule_event"
@@ -650,7 +656,7 @@
                             android:gravity="center"
                             android:layout_gravity="center_vertical"
                             android:text="@string/encounters"
-
+                            android:textStyle="bold"
                             android:textColor="#EE3596"
                             android:textSize="16dp" />
 
@@ -695,4 +701,4 @@
     </LinearLayout>
 
 </ScrollView>
-</LinearLayout>
+</androidx.cardview.widget.CardView>

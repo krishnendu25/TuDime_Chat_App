@@ -288,7 +288,7 @@ public class DialogsAdapter extends BaseAdapter {
         if (isLastMessageAttachment(chatDialog)) {
             return context.getString(R.string.chat_attachment);
         } else {
-            return chatDialog.getLastMessage();
+            return Constant.base64Controller(chatDialog.getLastMessage(),false);
         }
     }
 

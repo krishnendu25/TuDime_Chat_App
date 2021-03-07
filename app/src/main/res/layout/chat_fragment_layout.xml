@@ -18,7 +18,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_40dp"
         android:orientation="vertical">
         <TextView
             android:id="@+id/Select_Contact_view"
@@ -53,23 +52,7 @@
 
 
     </LinearLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_height="@dimen/dimen_40dp">
-        <TextView
-            android:id="@+id/Archive_Chat_Go"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/color_primary"
-            android:gravity="center"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/padding_10"
-            android:fontFamily="@font/avenirnextbold"
-            android:textSize="@dimen/dimen_16dp"
-            android:textStyle="bold"/>
-    </RelativeLayout>
+
 
 </RelativeLayout>
 

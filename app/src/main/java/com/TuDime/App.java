@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.instabug.library.Instabug;
-import com.instabug.library.invocation.InstabugInvocationEvent;
 import com.quickblox.auth.session.QBSettings;
 import com.stripe.android.PaymentConfiguration;
 import com.zxy.recovery.callback.RecoveryCallback;
@@ -61,11 +59,7 @@ public class App extends Application {
 
         //Stripe - Configaration
         PaymentConfiguration.init(getApplicationContext(), AppConstants.Stripe_Publishable_key);
-        new Instabug.Builder(this, "bc072653f183e82159b7fee537620c61")
-                .setInvocationEvents(
-                        InstabugInvocationEvent.SHAKE,
-                        InstabugInvocationEvent.FLOATING_BUTTON)
-                .build();
+
 
        Thread.setDefaultUncaughtExceptionHandler(
                 new Thread.UncaughtExceptionHandler() {
@@ -82,7 +76,6 @@ public class App extends Application {
                 .recoverEnabled(true)
                 .callback(new MyCrashCallback())
                 .silent(true, Recovery.SilentMode.RECOVER_ACTIVITY_STACK)
-                .skip(DashBoard.class)
                 .init(this);
 
 
@@ -93,20 +86,16 @@ public class App extends Application {
     static final class MyCrashCallback implements RecoveryCallback {
         @Override
         public void stackTrace(String exceptionMessage) {
-            Log.e("zxy", "exceptionMessage:" + exceptionMessage);
+
         }
 
         @Override
         public void cause(String cause) {
-            Log.e("zxy", "cause:" + cause);
+
         }
 
         @Override
         public void exception(String exceptionType, String throwClassName, String throwMethodName, int throwLineNumber) {
-            Log.e("zxy", "exceptionClassName:" + exceptionType);
-            Log.e("zxy", "throwClassName:" + throwClassName);
-            Log.e("zxy", "throwMethodName:" + throwMethodName);
-            Log.e("zxy", "throwLineNumber:" + throwLineNumber);
         }
 
         @Override
@@ -160,4 +149,5 @@ public class App extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
 }

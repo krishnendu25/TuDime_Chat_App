@@ -7,12 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.TuDime.NetworkOperation.JSONRequestResponse;
+import com.TuDime.NetworkOperation.MyVolley;
+import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.quickblox.core.QBEntityCallback;
 import com.quickblox.core.exception.QBResponseException;
 import com.quickblox.users.QBUsers;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -21,6 +25,9 @@ import com.TuDime.Prefrences.CiaoPrefrences;
 import com.TuDime.R;
 import com.TuDime.Prefrences.SharedPrefsHelper;
 import com.TuDime.utils.ToastUtils;
+
+import static com.TuDime.constants.ApiConstants.delete_user_profile;
+import static com.TuDime.constants.ApiConstants.get_user_profile_qb_reference;
 
 public class AccountSettingsActivity extends BaseActivity implements View.OnClickListener {
     TextView privacy12, disable_account;
@@ -74,14 +81,7 @@ public class AccountSettingsActivity extends BaseActivity implements View.OnClic
                         QBUsers.deleteUser(getUserId).performAsync(new QBEntityCallback<Void>() {
                             @Override
                             public void onSuccess(Void aVoid, Bundle bundle) {
-                                SharedPrefsHelper.clearAllData();
-                                CiaoPrefrences.getInstance(getApplicationContext()).clearPrefrences();
-                                Intent ii = new Intent(getApplicationContext(), SetLanguage.class);
-                                ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(ii);
-                                finish();
-                                ToastUtils.longToast(R.string.DELETED_SUCCESSFULLY);
-                                hideProgressDialog();
+                                hitRemoveAccountFromOurServer();
                             }
 
                             @Override
@@ -105,23 +105,60 @@ public class AccountSettingsActivity extends BaseActivity implements View.OnClic
         alert11.show();
     }
 
-    @Override
-    public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
+    private void hitRemoveAccountFromOurServer() {
+        showProgressDialog(R.string.load);
+        JSONObject Params_Object = new JSONObject();
+        JSONRequestResponse mResponse = new JSONRequestResponse(this);
+        Bundle parms = new Bundle();
+        parms.putString("UserID",SharedPrefsHelper.getInstance().getUSERID());
+        MyVolley.init(this);
+        mResponse.getResponse(Request.Method.POST, delete_user_profile,
+                589, this, parms, false,false,Params_Object);
+
 
     }
 
     @Override
+    public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
+        hideProgressDialog();
+    }
+
+    @Override
     public void SuccessResponse(JSONObject response, int requestCode) {
+        hideProgressDialog();
+        if (requestCode==589){
+            try {
+                if (response.getString("status").equalsIgnoreCase("Success")){
+                    SharedPrefsHelper.clearAllData();
+                    CiaoPrefrences.getInstance(getApplicationContext()).clearPrefrences();
+                    Intent ii = new Intent(getApplicationContext(), SetLanguage.class);
+                    ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(ii);
+                    finish();
+                    ToastUtils.longToast(R.string.DELETED_SUCCESSFULLY);
+                }else{
+                    SharedPrefsHelper.clearAllData();
+                    CiaoPrefrences.getInstance(getApplicationContext()).clearPrefrences();
+                    Intent ii = new Intent(getApplicationContext(), SetLanguage.class);
+                    ii.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(ii);
+                    finish();
+                    ToastUtils.longToast(R.string.DELETED_SUCCESSFULLY);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
     @Override
     public void SuccessResponseArray(JSONArray response, int requestCode) {
-
+        hideProgressDialog();
     }
 
     @Override
     public void SuccessResponseRaw(String response, int requestCode) {
-
+        hideProgressDialog();
     }
 }

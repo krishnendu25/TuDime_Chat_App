@@ -420,7 +420,11 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
                         dialogsManager.sendSystemMessageAboutCreatingDialog(systemMessagesManager, dialog);
                         ArrayList<QBChatDialog> dialogs = new ArrayList<>();
                         dialogs.add(dialog);
-                        new DialogJoinerAsyncTask(DialogsActivity.this, dialogs, false).execute();
+                        try {
+                            new DialogJoinerAsyncTask(DialogsActivity.this, dialogs, false).execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                         ChatActivity.startForResult(DialogsActivity.this, REQUEST_DIALOG_ID_FOR_UPDATE, dialog, true);
                         ProgressDialogFragment.hide(getSupportFragmentManager());
@@ -446,8 +450,12 @@ public class DialogsActivity extends BaseActivity implements DialogsManager.Mana
         ChatHelper.getInstance().getDialogs(requestBuilder, new QBEntityCallback<ArrayList<QBChatDialog>>() {
             @Override
             public void onSuccess(ArrayList<QBChatDialog> dialogs, Bundle bundle) {
-                DialogJoinerAsyncTask dialogJoinerAsyncTask = new DialogJoinerAsyncTask(DialogsActivity.this, dialogs, clearDialogHolder);
-                dialogJoinerAsyncTask.execute();
+                try {
+                    DialogJoinerAsyncTask dialogJoinerAsyncTask = new DialogJoinerAsyncTask(DialogsActivity.this, dialogs, clearDialogHolder);
+                    dialogJoinerAsyncTask.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

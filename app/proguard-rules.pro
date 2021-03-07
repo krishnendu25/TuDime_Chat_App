@@ -86,3 +86,4 @@
 -keep class com.sinch.** { *; }
 -keep interface com.sinch.** { *; }
 -keep class org.webrtc.** { *; }
+-dontwarn org.apache.poi.**

@@ -693,15 +693,13 @@ public class Ecards_EditPage extends BaseActivity implements View.OnClickListene
     private void hitApi(File file_imaage, String value) {
         try {
             String newText = this.textView.getText().toString().trim();
-            byte[] data = newText.getBytes("UTF-8");
-            String base64Text = Base64.encodeToString(data, Base64.DEFAULT);
             showProgressDialog(R.string.load);
             String url = ApiConstants.BASE_URL1;
             JSONObject Agent_Array_Object = new JSONObject();
             JSONRequestResponse mResponse = new JSONRequestResponse(this);
             Bundle parms = new Bundle();
             parms.putString("rule", "card_edit");
-            parms.putString("text", base64Text);
+            parms.putString("text", Constant.base64Controller(newText,true));
             parms.putString("fontsize", String.valueOf(this.textView.getTextSize()));
             parms.putString("fontcolor", String.format("#%06X", Integer.valueOf(this.fontcolor & ViewCompat.MEASURED_SIZE_MASK)));
             parms.putString("fontstyle", this.fontStyle);

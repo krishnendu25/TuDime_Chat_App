@@ -9,12 +9,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
+import android.util.Base64;
+
 import com.TuDime.R;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,7 +31,27 @@ import java.util.regex.Pattern;
 public class Constant
 {
 
-   
+
+    public static String base64Controller(String body,boolean encode){
+        try {
+        if (encode){
+            byte[] data = new byte[0];
+            data = body.getBytes("UTF-8");
+            return Base64.encodeToString(data, Base64.DEFAULT);
+        }else{
+            byte[] data = Base64.decode(body, Base64.DEFAULT);
+            String text = new String(data, "UTF-8");
+            return text;
+        }
+
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+
+
+
 
     public static final String CALL_SID_KEY = "CALL_SID";
     public static final String VOICE_CHANNEL_LOW_IMPORTANCE = "notification-channel-low-importance";

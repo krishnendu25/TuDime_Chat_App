@@ -26,6 +26,14 @@ public interface ApiConstants {
 
 
 
+	public static final String call_multiplier="http://tudime.com/tudimeapp/tudime.php?rule=call_multiplier";
+	public static final String delete_user_profile="http://18.219.14.108/tudime_sms/delete_user_profile.php";
+	public static final String chat_backup="http://18.219.14.108/tudime_sms/chat_backup.php";
+
+
+
+
+
 	public interface REQUEST {
 		public static final int UPDATE_LOCATION = 17;
 	}

@@ -800,7 +800,7 @@
     <string name="send_ecards">Send eCards</string>
     <string name="secret_chat">Secret Chat</string>
     <string name="unarchive">Unarchive</string>
-    <string name="delete">Delete</string>
+    <string name="delete">Delete Conversation</string>
     <string name="copy">COPY</string>
     <string name="forward">FORWARD</string>
     <string name="edit_message">EDIT MESSAGE</string>
@@ -858,4 +858,16 @@
     <string name="quotes">QUOTE REPLY</string>
     <string name="profile_photo_gallery">Profile Photo Gallery</string>
     <string name="menu_save_attachment">Save attachment</string>
+    <string name="chat_backup_msg">Back up your messages and media to Cloud. You can restore them when you reinstall TuDime. Media and messages you back up are not protected by TuDime end-to-end encryption while in Cloud.</string>
+    <string name="Never">Never</string>
+    <string name="when_tap">Only when I tap \"Back up\"</string>
+    <string name="daily">Daily</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="backup">BACK UP</string>
+    <string name="Backuop_to_cloud">Back up to Cloud</string>
+    <string name="chat_backup">Chat Backup</string>
+    <string name="long_tap_on_contact_for_group_chat"><u>Long Tap On Contact For Group Chat</u></string>
+
+
 </resources>

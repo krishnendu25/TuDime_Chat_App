@@ -13,6 +13,7 @@ public interface RetrofitCallback {
     Call<ResponseBody> uploadMultiFile(@Body RequestBody file);
 
 
-
+    @POST("http://18.219.14.108/tudime_sms/chat_backup.php")
+    Call<ResponseBody> chatBackup(@Body RequestBody file);
 
 }

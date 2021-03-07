@@ -58,14 +58,16 @@
                     android:gravity="center"
                     android:textStyle="bold"
                     android:fontFamily="@font/manrop_regular"/>
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/dimen_20dp"
-                    android:background="@drawable/no_sub"/>
 
-                    <TextView
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/padding_10"
+                    android:text="You will get 25% Discount on buying a membership of TuDime now. This membership will be of $11.25  instead of $15 . This offer is valid upto 15 days from now. After that, membership will be 3.98 . The free trial period will end 30 days thereafter and the full membership price of $15  will be required to continue using TuDime.We look forward to continue having you as a member.\n\nThank you."
+                    android:textSize="@dimen/dimen_16dp"/>
+                <TextView
                         android:id="@+id/buy_membership"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

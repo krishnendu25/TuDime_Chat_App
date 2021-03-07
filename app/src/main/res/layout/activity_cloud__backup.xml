@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.activity.Cloud_Backup">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/sky_blue"
+        android:elevation="8dp"
+        app:titleTextColor="@color/primary_grey_dark"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" >
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/back_button_icon"
+            android:id="@+id/back_image"
+            android:onClick="backonClick"
+            android:visibility="visible"
+            android:layout_marginRight="10dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cloud Backup"
+            android:textColor="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            android:id="@+id/complete_profile"
+            android:text="@string/updtae_profile"
+            android:gravity="right"
+            android:visibility="gone"
+            android:padding="10dp"
+            android:layout_marginRight="10dp"
+
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/dimen_20dp"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16dp"
+                        android:fontFamily="@font/avenirnextbold"
+                        android:textColor="@color/active_fonts"
+                        android:text="@string/chat_backup_msg"
+                        />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/chat_backup"
+                        android:background="@color/sky_blue"
+                        android:textSize="16dp"
+                        android:onClick="exportLocalSqliteDB"
+                        android:id="@+id/backup_button"
+                        android:layout_marginTop="@dimen/dimen_30dp"
+                        android:padding="8dp"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/restoreView"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/dimen_30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/timestampTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/dimen_16dp"
+                            android:fontFamily="@font/avenirnextbold"
+                            android:text="Last Backup Time: 16500215025 "
+                            android:textColor="@color/active_fonts"/>
+                        <TextView
+                            android:id="@+id/filenameTV"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/manrop_regular"
+                            android:text="FileName: TuDimeLocal"
+                            android:textColor="@color/active_fonts"
+                            android:layout_marginTop="@dimen/padding_5"
+                            />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Restore Backup"
+                            android:background="@color/pink_color"
+                            android:textSize="16dp"
+                            android:onClick="restoreChatFile"
+                            android:layout_marginTop="@dimen/dimen_30dp"
+                            android:padding="8dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white"
+                            />
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+            </ScrollView>
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

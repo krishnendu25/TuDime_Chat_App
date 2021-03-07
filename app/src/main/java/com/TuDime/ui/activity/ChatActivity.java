@@ -1521,7 +1521,6 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                     Log.e("Activity", "Pick from Gallery::>>> ");
                     hit_bothsidecustomtheam(SaveImagetoSDcard(String.valueOf(System.currentTimeMillis()), bitmap, this));
                     imgPath = getRealPathFromURI(selectedImage);
-                    destination = new File(imgPath.toString());
                     wallpaper_et.setImageURI(null);
                     wallpaper_et.setBackground(null);
                     wallpaper_et.setImageBitmap(bitmap);
@@ -1715,7 +1714,11 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         imageAttachClickListener = new ImageAttachClickListener();
     }
 
-    private void sendChatMessage(final String text, final QBAttachment attachment) {
+    private void sendChatMessage(final String textt, final QBAttachment attachment) {
+
+        String text = Constant.base64Controller(textt,true);
+
+
         if (ChatHelper.getInstance().isLogged()) {
             QBChatMessage chatMessage = new QBChatMessage();
             if (attachment != null) {
@@ -2085,7 +2088,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
             @Override
             public void onSuccess(QBChatDialog updatedDialog, Bundle bundle) {
                 qbChatDialog = updatedDialog;
-                hide_dialog();
+               hide_dialog();
                 ToastUtils.longToast(getString(R.string.Both_Side));
                 try {
                     Constant.showErrorAlert(getApplicationContext(),getString(R.string.Both_Side));
@@ -2096,6 +2099,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
             @Override
             public void onError(QBResponseException e) {
+                Constant.showErrorAlert(getApplicationContext(),e.getMessage());
                 hide_dialog();
             }
         });
@@ -2235,6 +2239,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
     @Override
     public void ErrorResponse(VolleyError error, int requestCode, JSONObject networkresponse) {
         hideProgressDialog();
+        ToastUtils.shortToast(error.getMessage());
     }
 
     @Override
@@ -2260,9 +2265,11 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
             try {
                 if (response.getString("status").equalsIgnoreCase("success")) {
                     bothSideTheamUpdate(response.getString("data").toString());
+                }else {
+                    ToastUtils.shortToast("Theam Upload Failed");
                 }
             } catch (Exception e) {
-
+                ToastUtils.shortToast("Theam Upload Failed");
             }
         }
     }

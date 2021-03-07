@@ -92,7 +92,6 @@ public class EcardsWebView   extends BaseActivity implements IJSONParseListener 
     }
 
     public void hitEcardsApi() {
-
         showProgressDialog(R.string.load);
         String url = ApiConstants.BASE_URL1 + "rule=big_cards";
         JSONObject data;

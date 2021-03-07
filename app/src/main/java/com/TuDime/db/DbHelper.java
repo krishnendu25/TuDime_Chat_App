@@ -79,7 +79,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 
 
-    private static final String DB_NAME = "TuDimeLocal";
+    public static final String DB_NAME = "TuDimeLocal";
     private String TAG = DbHelper.class.getSimpleName();
 
 

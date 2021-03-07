@@ -19,8 +19,8 @@ android {
         applicationId "com.TuDime"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 14
-        versionName '1.4.0'
+        versionCode 15
+        versionName '1.5.0'
         multiDexEnabled true
     }
 
@@ -124,7 +124,6 @@ dependencies
             //gson
             implementation 'com.google.code.gson:gson:2.8.6'
             implementation 'com.zxy.android:recovery:1.0.0'
-            implementation 'com.instabug.library:instabug:10.3.0'
             //All FireBase
            /* implementation "com.google.firebase:firebase-core:17.5.0"
             implementation 'com.google.firebase:firebase-perf:19.0.9'
@@ -137,9 +136,9 @@ dependencies
             implementation 'com.google.firebase:firebase-analytics'
             implementation 'com.google.firebase:firebase-messaging'
             implementation 'com.google.firebase:firebase-crashlytics'
-
-
-
+            //implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
+            implementation 'com.oginotihiro:cropview:1.0.0'
+            implementation 'com.github.asdoi:SQLite2XL:e1b5e4d1cb'
         }
 
 apply from: "../artifacts.gradle"

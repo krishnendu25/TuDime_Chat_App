@@ -1,6 +1,8 @@
 package com.TuDime.ui.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -45,6 +47,23 @@ public class Buy_TuDime_Subscription extends BaseActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         Fetch_Profile_Update(SharedPrefsHelper.getInstance().getUSERID());
         getEphemeral_key();
+       showPaymentDialog();
+    }
+
+    private void showPaymentDialog() {
+
+       new AlertDialog.Builder(Buy_TuDime_Subscription.this)
+                .setMessage("Buy the membership of $15  per year to use this application. Your Payment Card information will not be saved by TuDime. If you buy the membership within 15 days, a 25% discount will be given, making the first year cost $11.25  ")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+
+
+
     }
 
     private void getEphemeral_key() {

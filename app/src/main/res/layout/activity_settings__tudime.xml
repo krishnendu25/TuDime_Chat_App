@@ -74,6 +74,48 @@
             android:background="@color/normal_text"
             android:layout_marginLeft="40dp" />
         <TextView
+            android:id="@+id/chatBackTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_bacup"
+            android:drawableLeft="@drawable/ic_bacup"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:onClick="gotoChatBackUp"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="@string/chat_backup"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+        <TextView
+            android:id="@+id/hiddenChatTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_archive"
+            android:drawableLeft="@drawable/ic_archive"
+            android:gravity="center|start"
+            android:drawablePadding="10dp"
+            android:textSize="20dp"
+            android:padding="10dp"
+            android:onClick="gotoHiddenChat"
+            android:textColor="@color/normal_text"
+            android:drawableEnd="@drawable/next_page_arrow1"
+            android:text="Hidden Chat"
+            android:drawableRight="@drawable/next_page_arrow1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="40dp"
+            android:background="@color/normal_text"
+            android:layout_marginLeft="40dp" />
+        <TextView
             android:id="@+id/contact_us"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

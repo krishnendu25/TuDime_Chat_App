@@ -293,7 +293,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     }
 
     private void onBindViewNotificationHolder(NotificationHolder holder, QBChatMessage chatMessage, int position) {
-        holder.messageTextView.setText(chatMessage.getBody());
+        holder.messageTextView.setText(Constant.base64Controller(chatMessage.getBody(),false));
         TrAnSlAtEdTeXt="";
         holder.messageTimeTextView.setText(getTime(chatMessage.getDateSent()));
     }
@@ -306,21 +306,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
             holder.bubbleFrame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String extension=getMimeType(chatMessage.getBody());
+                    String extension=getMimeType(Constant.base64Controller(chatMessage.getBody(),false));
 
-                    if (chatMessage.getBody().toLowerCase().contains("file_store"))
+                    if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store"))
                     {
                         if (extension.contains("html")||extension.contains("xml")||
                                 extension.contains("json")||
                                 extension.contains("txt")||extension.contains("pdf"))
                         { Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(chatMessage.getBody()));
+                            intent.setData(Uri.parse(Constant.base64Controller(chatMessage.getBody(),false)));
                             context.startActivity(intent); }
 
                         else  if (extension.contains("docx"))
                         {
                             Intent i = new Intent(context, Webview.class);
-                            i.putExtra(PASS_URL,"http://docs.google.com/gview?embedded=true&url="+chatMessage.getBody());
+                            i.putExtra(PASS_URL,"http://docs.google.com/gview?embedded=true&url="+Constant.base64Controller(chatMessage.getBody(),false));
                             context.startActivity(i);
                         }
 
@@ -328,15 +328,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 ||extension.contains("m4v")||extension.contains("webm")||extension.contains("m3u8")||extension.contains("ts")||
                                 extension.contains("f4v")||extension.contains("flv")||extension.contains("3gpp"))
                         {  Intent i = new Intent(context, Video_Player.class);
-                            i.putExtra(VIDEO_URL,chatMessage.getBody());
+                            i.putExtra(VIDEO_URL,Constant.base64Controller(chatMessage.getBody(),false));
                             context.startActivity(i);}
                         else if (extension.contains("apk"))
                         {
-                            Update(chatMessage.getBody().trim().toString());
+                            Update(Constant.base64Controller(chatMessage.getBody(),false).trim().toString());
                         }else
                         {
                             Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(chatMessage.getBody()));
+                            intent.setData(Uri.parse(Constant.base64Controller(chatMessage.getBody(),false)));
                             context.startActivity(intent);
                         }
                     }
@@ -360,7 +360,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                             int i = item.getItemId();
 
                             if (i == R.id.item1) {
-                                Constant.setClipboard(context, chatMessage.getBody());
+                                Constant.setClipboard(context, Constant.base64Controller(chatMessage.getBody(),false));
                                 TrAnSlAtEdTeXt = "";
                                 ToastUtils.longToast(R.string.clipboard);
                             } else if (i == R.id.item2) {
@@ -448,11 +448,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
                             } else if (i == R.id.item4) {
 
-                                Show_Edit_Message(position,context, chatDialog.getDialogId(), chatMessage.getId(), chatMessage.getBody());
+                                Show_Edit_Message(position,context, chatDialog.getDialogId(), chatMessage.getId(), Constant.base64Controller(chatMessage.getBody(),false));
                             } else if (i == R.id.item_for)
                             {
                                 try {
-                                    SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
+                                    SharedPrefsHelper.getInstance().set_FORWARD(Constant.base64Controller(chatMessage.getBody(),false));
                                     Intent intent = new Intent(context, DashBoard.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     context.startActivity(intent);
@@ -460,7 +460,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                     e.printStackTrace();
                                 }
                             }else if (i == R.id.item_quotes){
-                                String sms = chatMessage.getBody();
+                                String sms = Constant.base64Controller(chatMessage.getBody(),false);
                                 qouteChatTrigger.openQuoteChat(sms);
                                 QBUser user = QbUsersHolder.getInstance().getUserById(chatMessage.getSenderId());
                                 String userName = user.getFullName();
@@ -469,7 +469,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 try {
                                     JSONObject jsonObject = new JSONObject();
                                     jsonObject.put("name",getSenderName(chatMessage));
-                                    jsonObject.put("sms",chatMessage.getBody());
+                                    jsonObject.put("sms",Constant.base64Controller(chatMessage.getBody(),false));
                                     qouteChatTrigger.openQuoteChat(jsonObject.toString());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -518,8 +518,9 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                 return;
                 }else
                 {
+                    String ChatBODY = Constant.base64Controller(msg_box.getText().toString().trim(),true);
                     QBMessageUpdateBuilder messageUpdateBuilder = new QBMessageUpdateBuilder();
-                    messageUpdateBuilder.updateText(msg_box.getText().toString().trim()+"\n"+"---Update Message---") //updates message's text
+                    messageUpdateBuilder.updateText(ChatBODY+"\n"+"---Update Message---") //updates message's text
                             .markDelivered()     //mark message as delivered on server
                             .markRead();         //mark message as read on server
 
@@ -527,7 +528,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                         @Override
                         public void onSuccess(Void aVoid, Bundle bundle)
                         {
-                            chatMessages.get(position).setBody(msg_box.getText().toString().trim()+"\n"+"---Update Message---");
+                            chatMessages.get(position).setBody(ChatBODY+"\n"+"---Update Message---");
                             notifyDataSetChanged();
                             progress_chat.setVisibility(View.GONE);
                             ToastUtils.shortToast(R.string.Update_Message_Successful);
@@ -568,21 +569,21 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
             holder.bubbleFrame.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String extension=getMimeType(chatMessage.getBody());
+                    String extension=getMimeType(Constant.base64Controller(chatMessage.getBody(),false));
 
-                if (chatMessage.getBody().toLowerCase().contains("file_store"))
+                if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store"))
                 {
                     if (extension.contains("html")||extension.contains("xml")||
                             extension.contains("json")||
                             extension.contains("txt")||extension.contains("pdf"))
                     { Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(chatMessage.getBody()));
+                        intent.setData(Uri.parse(Constant.base64Controller(chatMessage.getBody(),false)));
                         context.startActivity(intent); }
 
                   else  if (extension.contains("docx"))
                     {
                         Intent i = new Intent(context, Webview.class);
-                        i.putExtra(PASS_URL,"http://docs.google.com/gview?embedded=true&url="+chatMessage.getBody());
+                        i.putExtra(PASS_URL,"http://docs.google.com/gview?embedded=true&url="+Constant.base64Controller(chatMessage.getBody(),false));
                         context.startActivity(i);
                     }
 
@@ -590,15 +591,15 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                             ||extension.contains("m4v")||extension.contains("webm")||extension.contains("m3u8")||extension.contains("ts")||
                             extension.contains("f4v")||extension.contains("flv")||extension.contains("3gpp"))
                     {  Intent i = new Intent(context, Video_Player.class);
-                        i.putExtra(VIDEO_URL,chatMessage.getBody());
+                        i.putExtra(VIDEO_URL,Constant.base64Controller(chatMessage.getBody(),false));
                         context.startActivity(i);}
                     else if (extension.contains("apk"))
                     {
-                        Update(chatMessage.getBody().trim().toString());
+                        Update(Constant.base64Controller(chatMessage.getBody(),false).trim().toString());
                     }else
                     {
                         Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(chatMessage.getBody()));
+                        intent.setData(Uri.parse(Constant.base64Controller(chatMessage.getBody(),false)));
                         context.startActivity(intent);
                     }
                 }
@@ -622,17 +623,17 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                             int i = item.getItemId();
 
                             if (i == R.id.item1) {
-                                Constant.setClipboard(context,chatMessage.getBody());
+                                Constant.setClipboard(context,Constant.base64Controller(chatMessage.getBody(),false));
                                 TrAnSlAtEdTeXt = "";
                                 ToastUtils.longToast(R.string.clipboard);
                             }  else if (i == R.id.TRANSLATE)
                             {
-                                language_translator.Language_Translator(chatMessage.getBody(),
+                                language_translator.Language_Translator(Constant.base64Controller(chatMessage.getBody(),false),
                                         SharedPrefsHelper.getInstance().get_Language(), String.valueOf(position));
                             }else if (i == R.id.item_for)
                             {
                                 try {
-                                    SharedPrefsHelper.getInstance().set_FORWARD(chatMessage.getBody());
+                                    SharedPrefsHelper.getInstance().set_FORWARD(Constant.base64Controller(chatMessage.getBody(),false));
                                     Intent intent = new Intent(context, DashBoard.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     context.startActivity(intent);
@@ -682,7 +683,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
 
 
                             }else if (i == R.id.item_quotes){
-                                String sms = chatMessage.getBody();
+                                String sms = Constant.base64Controller(chatMessage.getBody(),false);
                                 qouteChatTrigger.openQuoteChat(sms);
                                 QBUser user = QbUsersHolder.getInstance().getUserById(chatMessage.getSenderId());
                                 String userName = user.getFullName();
@@ -691,7 +692,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                                 try {
                                     JSONObject jsonObject = new JSONObject();
                                     jsonObject.put("name",getSenderName(chatMessage));
-                                    jsonObject.put("sms",chatMessage.getBody());
+                                    jsonObject.put("sms",Constant.base64Controller(chatMessage.getBody(),false));
                                     qouteChatTrigger.openQuoteChat(jsonObject.toString());
                                 } catch (JSONException e) {
                                     e.printStackTrace();
@@ -886,62 +887,62 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         holder.linkPreviewLayout.setVisibility(View.GONE);
 
 
-        if (chatMessage.getBody().toLowerCase().contains("file_store"))
-        {holder.messageTextView.setText(getFileNameFromURL(chatMessage.getBody())); }else
-        { holder.messageTextView.setText(chatMessage.getBody()); }
+        if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store"))
+        {holder.messageTextView.setText(getFileNameFromURL(Constant.base64Controller(chatMessage.getBody(),false))); }else
+        { holder.messageTextView.setText(Constant.base64Controller(chatMessage.getBody(),false)); }
 
 
-        String extension=getMimeType(chatMessage.getBody());
+        String extension=getMimeType(Constant.base64Controller(chatMessage.getBody(),false));
 
 
-        if (chatMessage.getBody().toLowerCase().contains(".pdf") && chatMessage.getBody().toLowerCase().contains("file_store") )
+        if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".pdf") && Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.pdf_ic, 0, 0, 0);
 
 
-        }else  if (chatMessage.getBody().toLowerCase().contains(".html")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".html")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.html_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".json")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".json")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.json_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".xml")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".xml")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.xml_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".docx")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".docx")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.text_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".txt")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".txt")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.text_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".apk")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".apk")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.apk_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".mp3")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".mp3")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.audio_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".wav")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".wav")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.audio_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".mp4")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".mp4")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.video_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".3gp")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".3gp")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.video_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".mov")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".mov")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.video_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".avi")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".avi")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.video_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".flv")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".flv")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.video_ic, 0, 0, 0);
-        }else  if (chatMessage.getBody().toLowerCase().contains(".m3u8")&& chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else  if (Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains(".m3u8")&& Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.video_ic, 0, 0, 0);
-        }else if ( chatMessage.getBody().toLowerCase().contains("file_store") )
+        }else if ( Constant.base64Controller(chatMessage.getBody(),false).toLowerCase().contains("file_store") )
         {
             holder.messageTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.unknown_ic, 0, 0, 0);
         }else
@@ -965,7 +966,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
             displayAvatarImage(avatarUrl, holder.avatar);
         }
 
-        List<String> urlsList = LinkUtils.extractUrls(chatMessage.getBody());
+        List<String> urlsList = LinkUtils.extractUrls(Constant.base64Controller(chatMessage.getBody(),false));
         TrAnSlAtEdTeXt="";
         if (urlsList.isEmpty()) {
             holder.messageTextView.setMaxWidth(context.getResources().getDisplayMetrics().widthPixels);
@@ -1410,54 +1411,58 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
         return extension.toLowerCase();
     }
     public void Update(final String apkurl) {
-        new AsyncTask<Void, String, String>() {
-            String result="";
-            @Override
-            protected String doInBackground(Void... params) {
-                try {
-                    URL url = new URL(apkurl);
-                    HttpURLConnection c = (HttpURLConnection) url
-                            .openConnection();
-                    c.setRequestMethod("GET");
+        try {
+            new AsyncTask<Void, String, String>() {
+                String result="";
+                @Override
+                protected String doInBackground(Void... params) {
+                    try {
+                        URL url = new URL(apkurl);
+                        HttpURLConnection c = (HttpURLConnection) url
+                                .openConnection();
+                        c.setRequestMethod("GET");
 
-                    c.connect();
+                        c.connect();
 
-                    String PATH = Environment.getExternalStorageDirectory()
-                            + "/download/";
-                    File file = new File(PATH);
-                    file.mkdirs();
-                    File outputFile = new File(file, "app.apk");
-                    FileOutputStream fos = new FileOutputStream(outputFile);
+                        String PATH = Environment.getExternalStorageDirectory()
+                                + "/download/";
+                        File file = new File(PATH);
+                        file.mkdirs();
+                        File outputFile = new File(file, "app.apk");
+                        FileOutputStream fos = new FileOutputStream(outputFile);
 
-                    InputStream is = c.getInputStream();
+                        InputStream is = c.getInputStream();
 
-                    byte[] buffer = new byte[1024];
-                    int len1 = 0;
-                    while ((len1 = is.read(buffer)) != -1) {
-                        fos.write(buffer, 0, len1);
+                        byte[] buffer = new byte[1024];
+                        int len1 = 0;
+                        while ((len1 = is.read(buffer)) != -1) {
+                            fos.write(buffer, 0, len1);
+                        }
+                        fos.close();
+                        is.close();
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "app.apk")), "application/vnd.android.package-archive");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+
+                    } catch (IOException e) {
+                        result="Update error! "+ e.getMessage();
+                        e.printStackTrace();
+
                     }
-                    fos.close();
-                    is.close();
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setDataAndType(Uri.fromFile(new File(Environment.getExternalStorageDirectory() + "/download/" + "app.apk")), "application/vnd.android.package-archive");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-
-                } catch (IOException e) {
-                    result="Update error! "+ e.getMessage();
-                    e.printStackTrace();
-
+                    return result;
                 }
-                return result;
-            }
 
-            protected void onPostExecute(String result) {
+                protected void onPostExecute(String result) {
 
-                Toast.makeText(context, result,
-                        Toast.LENGTH_LONG).show();
-            };
+                    Toast.makeText(context, result,
+                            Toast.LENGTH_LONG).show();
+                };
 
-        }.execute();
+            }.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
     public static String getFileNameFromURL(String url) {
