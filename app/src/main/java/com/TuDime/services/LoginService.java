@@ -279,6 +279,7 @@ public class LoginService extends Service {
     public void onDestroy() {
         Log.d(TAG, "Service onDestroy()");
         super.onDestroy();
+        ChatPingAlarmManager.onDestroy();
         SharedPrefsHelper.getInstance().set_LOGIN_SERVICE_STATUS("stop");
     }
 

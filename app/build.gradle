@@ -19,8 +19,8 @@ android {
         applicationId "com.TuDime"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 15
-        versionName '1.5.0'
+        versionCode 18
+        versionName '1.8.0'
         multiDexEnabled true
     }
 

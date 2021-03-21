@@ -2288,7 +2288,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         }
         if (requestCode == 882) {
             hideProgressDialog();
-            messagesList.get(adapter_position).setBody(response);
+            messagesList.get(adapter_position).setBody(Constant.base64Controller(response,true));
             if (chatAdapter != null) {
                 if (!response.equalsIgnoreCase("")) {
                     chatAdapter.notifyDataSetChanged();

@@ -267,7 +267,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.image1 -> {
-                if (image1?.tag.toString().isNullOrBlank()) {
+                if (!image1?.tag.toString().isNullOrBlank()) {
                     clickOnImages(0, image1?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -276,7 +276,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image2 -> {
-                if (image2?.tag.toString().isNullOrBlank()) {
+                if (!image2?.tag.toString().isNullOrBlank()) {
                     clickOnImages(1, image2?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -285,7 +285,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image3 -> {
-                if (image3?.tag.toString().isNullOrBlank()) {
+                if (!image3?.tag.toString().isNullOrBlank()) {
                     clickOnImages(2, image3?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -294,7 +294,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image4 -> {
-                if (image4?.tag.toString().isNullOrBlank()) {
+                if (!image4?.tag.toString().isNullOrBlank()) {
                     clickOnImages(3, image4?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -303,7 +303,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image5 -> {
-                if (image5?.tag.toString().isNullOrBlank()) {
+                if (!image5?.tag.toString().isNullOrBlank()) {
                     clickOnImages(4, image5?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -312,7 +312,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image6 -> {
-                if (image6?.tag.toString().isNullOrBlank()) {
+                if (!image6?.tag.toString().isNullOrBlank()) {
                     clickOnImages(5, image6?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -321,7 +321,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image7 -> {
-                if (image7?.tag.toString().isNullOrBlank()) {
+                if (!image7?.tag.toString().isNullOrBlank()) {
                     clickOnImages(6, image7?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -330,7 +330,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image8 -> {
-                if (image8?.tag.toString().isNullOrBlank()) {
+                if (!image8?.tag.toString().isNullOrBlank()) {
                     clickOnImages(7, image8?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -339,7 +339,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image9 -> {
-                if (image9?.tag.toString().isNullOrBlank()) {
+                if (!image9?.tag.toString().isNullOrBlank()) {
                     clickOnImages(8, image9?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)
@@ -348,7 +348,7 @@ class MyPhotoLibery : BaseActivity(), IJSONParseListener, View.OnClickListener {
                 }
             }
             R.id.image10 -> {
-                if (image10?.tag.toString().isNullOrBlank()) {
+                if (!image10?.tag.toString().isNullOrBlank()) {
                     clickOnImages(9, image10?.tag.toString())
                 } else {
                     val intent = Intent(this, AlbumSelectActivity::class.java)

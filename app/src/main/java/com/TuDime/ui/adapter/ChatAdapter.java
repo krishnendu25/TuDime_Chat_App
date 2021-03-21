@@ -293,7 +293,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
     }
 
     private void onBindViewNotificationHolder(NotificationHolder holder, QBChatMessage chatMessage, int position) {
-        holder.messageTextView.setText(Constant.base64Controller(chatMessage.getBody(),false));
+        holder.messageTextView.setText(chatMessage.getBody());
         TrAnSlAtEdTeXt="";
         holder.messageTimeTextView.setText(getTime(chatMessage.getDateSent()));
     }

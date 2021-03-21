@@ -11,10 +11,10 @@
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 15,
-      "versionName": "1.5.0",
+      "versionCode": 18,
+      "versionName": "1.8.0",
       "enabled": true,
-      "outputFile": "TuDime-07-03-2021.apk"
+      "outputFile": "TuDime-20-03-2021.apk"
     }
   ]
 }
