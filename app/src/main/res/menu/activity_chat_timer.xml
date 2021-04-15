@@ -1,0 +1,33 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/_5_minutes"
+        android:title="@string/_5_minutes"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/_10_minutes"
+        android:title="@string/_10_minutes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/_20_minutes"
+        android:title="@string/_20_minutes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/_30_minutes"
+        android:title="@string/_30_minutes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/_40_minutes"
+        android:title="@string/_40_minutes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/_50_minutes"
+        android:title="@string/_50_minutes"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/_60_minutes"
+        android:title="@string/_60_minutes"
+        app:showAsAction="never" />
+
+</menu>

@@ -584,4 +584,5 @@
 	<string name="TuDime_Annual">デーTuDime年間会員</string>
 	<string name="Free_Trial">無料トライアル</string>
 	<string name="No_Subscription_Yet">まだサブスクリプションはありません</string>
+	<string name="chat_disappearing_timer">Chat Disappearing Timer</string>
 </resources>

@@ -584,5 +584,6 @@
 	<string name="TuDime_Annual">Keahlian Tahunan TuDime</string>
 	<string name="Free_Trial">Percubaan Percuma</string>
 	<string name="No_Subscription_Yet">Belum Langganan</string>
+	<string name="chat_disappearing_timer">Chat Disappearing Timer</string>
 
 </resources>

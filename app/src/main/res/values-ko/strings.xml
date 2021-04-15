@@ -584,5 +584,6 @@
 	<string name="TuDime_Annual">Day TuDime 연간 멤버십</string>
 	<string name="Free_Trial">무료 평가판</string>
 	<string name="No_Subscription_Yet">아직 구독 없음</string>
+	<string name="chat_disappearing_timer">Chat Disappearing Timer</string>
 
 </resources>

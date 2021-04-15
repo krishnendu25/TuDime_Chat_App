@@ -23,7 +23,10 @@
         android:id="@+id/menu_chat_action_info"
         android:title="@string/details_view"
         app:showAsAction="never" />
-
+    <item
+        android:id="@+id/menu_chat_disappearing_timer"
+        android:title="@string/chat_disappearing_timer"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_chat_action_add"
         android:title="@string/menu_add_users_to_chat"

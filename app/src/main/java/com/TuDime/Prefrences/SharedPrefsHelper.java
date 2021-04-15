@@ -46,7 +46,7 @@ public class SharedPrefsHelper {
     private static final String LOGIN_SERVICE_STATUS="stop";
     private static final String QBChatDialog_DB = "QBChatDialog";
     private static final String QBChatMessage_Offline = "QBChatMessage_Offline";
-
+    private static final String QBSerectChatTimer = "SerectChatTimer";
 
 
 
@@ -146,6 +146,15 @@ public class SharedPrefsHelper {
         } else {
             return null;
         }
+    }
+
+    public void set_Timer(String Lan)
+    {
+        save(QBSerectChatTimer,Lan);
+    }
+    public String get_Timer()
+    {
+        return get(QBSerectChatTimer);
     }
 
     public void set_Language(String Lan)

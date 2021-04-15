@@ -45,6 +45,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +57,48 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.TuDime.EmojiKeyBoard.EmojiKeyboard;
+import com.TuDime.NetworkOperation.JSONRequestResponse;
+import com.TuDime.NetworkOperation.MyVolley;
+import com.TuDime.Prefrences.SharedPrefsHelper;
+import com.TuDime.R;
+import com.TuDime.constants.Consts;
+import com.TuDime.db.QbUsersDbManager;
+import com.TuDime.managers.DialogsManager;
+import com.TuDime.services.CallService;
+import com.TuDime.services.LoginService;
+import com.TuDime.ui.Callback.ChatConstants;
+import com.TuDime.ui.Callback.Language_Translator;
+import com.TuDime.ui.Callback.QouteChatTrigger;
+import com.TuDime.ui.Callback.send_contact;
+import com.TuDime.ui.Model.Call_model;
+import com.TuDime.ui.Model.Contact_Model;
+import com.TuDime.ui.Model.SerectMessageModel;
+import com.TuDime.ui.adapter.AttachmentPreviewAdapter;
+import com.TuDime.ui.adapter.ChatAdapter;
+import com.TuDime.ui.adapter.Contact_send_adapter;
+import com.TuDime.ui.adapter.WallpaperGridAdapter;
+import com.TuDime.ui.adapter.listeners.AttachClickListener;
+import com.TuDime.ui.adapter.listeners.SetclickCallback;
+import com.TuDime.ui.dialog.ProgressDialogFragment;
+import com.TuDime.ui.widget.AttachmentPreviewAdapterView;
+import com.TuDime.util.AppUtility;
+import com.TuDime.utils.Constant;
+import com.TuDime.utils.PermissionsChecker;
+import com.TuDime.utils.PushNotificationSender;
+import com.TuDime.utils.SystemPermissionHelper;
+import com.TuDime.utils.ToastUtils;
+import com.TuDime.utils.WebRtcSessionManager;
+import com.TuDime.utils.chat.ChatHelper;
+import com.TuDime.utils.imagepick.ImagePickHelper;
+import com.TuDime.utils.imagepick.OnImagePickedListener;
+import com.TuDime.utils.qb.PaginationHistoryListener;
+import com.TuDime.utils.qb.QbChatDialogMessageListenerImp;
+import com.TuDime.utils.qb.QbDialogHolder;
+import com.TuDime.utils.qb.QbDialogUtils;
+import com.TuDime.utils.qb.QbUsersHolder;
+import com.TuDime.utils.qb.VerboseQbChatConnectionListener;
+import com.TuDime.utils.views.DoodleActivity;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -118,46 +162,6 @@ import java.util.TimerTask;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.TuDime.EmojiKeyBoard.EmojiKeyboard;
-import com.TuDime.NetworkOperation.JSONRequestResponse;
-import com.TuDime.NetworkOperation.MyVolley;
-import com.TuDime.R;
-import com.TuDime.db.QbUsersDbManager;
-import com.TuDime.utils.views.DoodleActivity;
-import com.TuDime.managers.DialogsManager;
-import com.TuDime.services.CallService;
-import com.TuDime.services.LoginService;
-import com.TuDime.ui.Callback.ChatConstants;
-import com.TuDime.ui.Callback.Language_Translator;
-import com.TuDime.ui.Callback.QouteChatTrigger;
-import com.TuDime.ui.Callback.send_contact;
-import com.TuDime.ui.Model.Call_model;
-import com.TuDime.ui.Model.Contact_Model;
-import com.TuDime.ui.adapter.AttachmentPreviewAdapter;
-import com.TuDime.ui.adapter.ChatAdapter;
-import com.TuDime.ui.adapter.Contact_send_adapter;
-import com.TuDime.ui.adapter.WallpaperGridAdapter;
-import com.TuDime.ui.adapter.listeners.AttachClickListener;
-import com.TuDime.ui.adapter.listeners.SetclickCallback;
-import com.TuDime.ui.dialog.ProgressDialogFragment;
-import com.TuDime.ui.widget.AttachmentPreviewAdapterView;
-import com.TuDime.utils.Constant;
-import com.TuDime.constants.Consts;
-import com.TuDime.utils.PermissionsChecker;
-import com.TuDime.utils.PushNotificationSender;
-import com.TuDime.Prefrences.SharedPrefsHelper;
-import com.TuDime.utils.SystemPermissionHelper;
-import com.TuDime.utils.ToastUtils;
-import com.TuDime.utils.WebRtcSessionManager;
-import com.TuDime.utils.chat.ChatHelper;
-import com.TuDime.utils.imagepick.ImagePickHelper;
-import com.TuDime.utils.imagepick.OnImagePickedListener;
-import com.TuDime.utils.qb.PaginationHistoryListener;
-import com.TuDime.utils.qb.QbChatDialogMessageListenerImp;
-import com.TuDime.utils.qb.QbDialogHolder;
-import com.TuDime.utils.qb.QbDialogUtils;
-import com.TuDime.utils.qb.QbUsersHolder;
-import com.TuDime.utils.qb.VerboseQbChatConnectionListener;
 
 import static com.TuDime.constants.ApiConstants.Upload_File;
 import static com.TuDime.constants.ApiConstants.detectlanguage;
@@ -203,6 +207,17 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
     TestAsync testAsk = null;
     @BindView(R.id.QouteChatName)
     TextView QouteChatName;
+    LinearLayout chatBoxSubMenu;
+    ImageView showChatSubMenu;
+    LinearLayout QouteChatView;
+    TextView QouteChatTV;
+    TextView closeQouteChat;
+    //Timer Popup
+    ImageView close_popup_timer;
+    TextView timer_dropdown;
+    RelativeLayout chatTimerLayout;
+    CardView saveTimerData;
+    ArrayList<SerectMessageModel> serectChatID = new ArrayList<>();
     private EditText messageEditText;
     private ImageView speech_text, imgOptions;
     private LinearLayout attachmentPreviewContainerLayout;
@@ -222,9 +237,6 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
     private boolean checkAdapterInit;
     private PermissionsChecker checker;
     private QBUser currentUser;
-    LinearLayout chatBoxSubMenu;
-    ImageView showChatSubMenu;
-
     private EmojiKeyboard emojiKeyboard;
     //Other_View
     private CardView OTHER_SHOW_View;
@@ -251,9 +263,6 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
     private int adapter_position;
     private Bitmap bitmap;
     private File destination;
-    LinearLayout QouteChatView;
-    TextView QouteChatTV;
-    TextView closeQouteChat;
 
     public static void startForResult(Activity activity, int code, QBChatDialog dialogId) {
         Intent intent = new Intent(activity, ChatActivity.class);
@@ -330,6 +339,36 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+    public static String SaveImagetoSDcard(String imagename, Bitmap img, Activity mActivity) {
+        File mydir = new File(mActivity.getFilesDir() + "/" + System.currentTimeMillis() + "_Tudime/");
+        if (!mydir.exists()) {
+            mydir.mkdir();
+        }
+        File image = new File(mydir, imagename + ".png");
+
+        boolean success = false;
+        FileOutputStream outStream;
+        try {
+
+            outStream = new FileOutputStream(image);
+            img.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+            outStream.flush();
+            outStream.close();
+            success = true;
+        } catch (FileNotFoundException e) {
+
+        } catch (Exception e) {
+
+        }
+        if (success) {
+            String finalimageurl = mydir.toString() + "/" + imagename + ".png";
+            return finalimageurl;
+        } else {
+            return "";
+        }
+
     }
 
     @Override
@@ -507,6 +546,25 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                     } else {
                         testAsk.execute();
                     }
+                    if (!SharedPrefsHelper.getInstance().get_Timer().equalsIgnoreCase("")){
+                        if (serectChatID.size() > 0) {
+                            if (SharedPrefsHelper.getInstance().get_SERCET_CHAT().equalsIgnoreCase("1")) {
+                                for (int i = 0; i < serectChatID.size(); i++) {
+                                    JSONObject jsonObject = new JSONObject(SharedPrefsHelper.getInstance().get_Timer());
+                                    int time = Integer.parseInt(jsonObject.getString("time"));
+                                    String previousTime =jsonObject.getString("fulltime");
+                                    int differce = (int) AppUtility.DateTimeDifference(System.currentTimeMillis(), Long.parseLong(previousTime), AppUtility.TimeDifference.MINUTE);
+                                    if (differce>time){
+                                        deleteSms(serectChatID.get(i));
+                                    }
+                                    serectChatID.remove(i);
+                                }
+                            }
+                        }
+                    }
+
+
+
                 } catch (Exception e) {
                 }
                 timerHandler.postDelayed(updater, 30000);
@@ -529,8 +587,38 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
     }
 
+    private void deleteSms(SerectMessageModel smsID) {
+        Set<String> messagesIds = new HashSet<String>();
+        try {
+            messagesIds.add(smsID.getMessageID());
+            messagesIds.add(smsID.getDeliveredIds().toString());
+        } catch (Exception e) {
+
+        }
+        QBRestChatService.deleteMessages(messagesIds, true).performAsync(new QBEntityCallback<Void>() {
+            @Override
+            public void onSuccess(Void aVoid, Bundle bundle) {
+
+
+            }
+
+            @Override
+            public void onError(QBResponseException e) {
+
+            }
+        });
+
+    }
+
     private void Initialization() {
         testAsk = new TestAsync();
+        chatTimerLayout = (RelativeLayout) findViewById(R.id.chatTimerLayout);
+        close_popup_timer = (ImageView) findViewById(R.id.close_popup_timer);
+        timer_dropdown = (TextView) findViewById(R.id.timer_dropdown);
+        saveTimerData = (CardView) findViewById(R.id.saveTimerData);
+        saveTimerData.setOnClickListener(this);
+        timer_dropdown.setOnClickListener(this);
+        close_popup_timer.setOnClickListener(this);
         SharedPrefsHelper.getInstance().set_SERCET_CHAT("0");
         CHAT_DIALOG_TYPE = SharedPrefsHelper.getInstance().get_SERCET_CHAT();
         wallpaper_et = findViewById(R.id.wallpaper_et);
@@ -615,8 +703,8 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
             imgArr.add(getResources().getIdentifier("theme_thumb_" + (i + 1), "drawable", getPackageName()));
         }*/
 
-        String[]  tab_titles = getApplicationContext().getResources().getStringArray(R.array.theam_1);
-        List<String> wordList =  Arrays.asList(tab_titles);
+        String[] tab_titles = getApplicationContext().getResources().getStringArray(R.array.theam_1);
+        List<String> wordList = Arrays.asList(tab_titles);
         wallpaperGridAdapter = new WallpaperGridAdapter(this, wordList);
         grdWallpapers.setAdapter(wallpaperGridAdapter);
 
@@ -666,6 +754,25 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.close_popup_timer:
+                chatTimerLayout.setVisibility(View.GONE);
+                break;
+            case R.id.timer_dropdown:
+                PopupMenu popup = new PopupMenu(ChatActivity.this, view);
+                popup.getMenuInflater()
+                        .inflate(R.menu.activity_chat_timer, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    public boolean onMenuItemClick(MenuItem item) {
+                        timer_dropdown.setText(item.getTitle().toString().trim());
+                        return true;
+                    }
+                });
+                popup.show();
+                break;
+            case R.id.saveTimerData:
+                chatTimerLayout.setVisibility(View.GONE);
+                saveTimeDataSave(timer_dropdown.getText().toString());
+                break;
             case R.id.closeQouteChat:
                 QouteChatView.setVisibility(View.GONE);
                 QouteChatTV.setText("");
@@ -774,6 +881,21 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
         }
 
+    }
+
+    private void saveTimeDataSave(String text) {
+        try {
+            if (text.trim().equalsIgnoreCase("")) {
+                ToastUtils.longToast("Please Select Timer");
+            } else {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("time",text.replaceAll("minutes", "").trim());
+                jsonObject.put("fulltime",System.currentTimeMillis());
+                SharedPrefsHelper.getInstance().set_Timer(String.valueOf(jsonObject));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void selectImage() {
@@ -1196,9 +1318,12 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                 wallpaper_et.setBackgroundColor(getResources().getColor(R.color.black));
                 skipPagination = 0;
                 checkAdapterInit = false;
-                joinGroupChat();
+                loadChatHistory();
+                //  joinGroupChat();
                 break;
-
+            case R.id.menu_chat_disappearing_timer:
+                setChatDisappearingTimer();
+                break;
             case R.id.menu_clear_chat:
                 Clear_chat_Dialog();
                 break;
@@ -1210,6 +1335,10 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                 return super.onOptionsItemSelected(item);
         }
         return false;
+    }
+
+    private void setChatDisappearingTimer() {
+        chatTimerLayout.setVisibility(View.VISIBLE);
     }
 
     private void Block_user_Dialog() {
@@ -1576,7 +1705,6 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         mResponse.getResponse(Request.Method.POST, url, 243, this, parms, false, false, Params_Object);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -1740,12 +1868,13 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                 } else {
                     if (SharedPrefsHelper.getInstance().getQuotes() != null) {
                         if (!SharedPrefsHelper.getInstance().getQuotes().trim().equalsIgnoreCase("")) {
-                            chatMessage.setBody(SharedPrefsHelper.getInstance().getQuotes() + text + "\n" + "@SERECT569821545");
+
+                            chatMessage.setBody(Constant.base64Controller(SharedPrefsHelper.getInstance().getQuotes() + text + "\n" + "@SERECT569821545", true));
                         } else {
-                            chatMessage.setBody(text + "\n" + "@SERECT569821545");
+                            chatMessage.setBody(Constant.base64Controller(textt + "\n" + "@SERECT569821545", true));
                         }
                     } else {
-                        chatMessage.setBody(text + "\n" + "@SERECT569821545");
+                        chatMessage.setBody(Constant.base64Controller(textt + "\n" + "@SERECT569821545", true));
                     }
 
                 }
@@ -1823,16 +1952,20 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                     notifyUsersAboutCreatingDialog();
                     hideProgressDialog();
                     loadDialogUsers();
+                    hide_dialog();
                 }
 
                 @Override
                 public void onError(QBResponseException e) {
                     Log.d(TAG, "Joining Dialog Error:" + e.getMessage());
                     hide_dialog();
+                    hideProgressDialog();
                     showErrorSnackbar(R.string.connection_error, e, null);
                 }
             });
         } else {
+            hide_dialog();
+            hideProgressDialog();
             loadDialogUsers();
         }
     }
@@ -1904,11 +2037,12 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
     public void loadChatHistory() {
         if (Constant.isOnline(this)) {
+            show_dialog();
             ChatHelper.getInstance().loadChatHistory(qbChatDialog, skipPagination, new QBEntityCallback<ArrayList<QBChatMessage>>() {
                 @Override
                 public void onSuccess(ArrayList<QBChatMessage> messages, Bundle args) {
                     messages.size();
-
+                    serectChatID.clear();
                     Collections.reverse(Chat_Filter(messages));
                     if (!checkAdapterInit) {
                         checkAdapterInit = true;
@@ -1952,21 +2086,27 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         if (CHAT_DIALOG_TYPE.equalsIgnoreCase("0")) {
             while (iterator.hasNext()) {
                 QBChatMessage qbChatMessage = iterator.next();
-                if (qbChatMessage.getBody().contains("@SERECT569821545")) {
+                if (Constant.base64Controller(qbChatMessage.getBody(), false).contains("@SERECT569821545")) {
                     iterator.remove();
                 }
             }
         } else {
             while (iterator.hasNext()) {
                 QBChatMessage qbChatMessage = iterator.next();
-                if (!qbChatMessage.getBody().contains("@SERECT569821545")) {
+                if (!Constant.base64Controller(qbChatMessage.getBody(), false).contains("@SERECT569821545")) {
                     iterator.remove();
                 }
             }
         }
+
         for (int i = 0; i < messagedds.size(); i++) {
-            if (messagedds.get(i).getBody().contains("@SERECT569821545")) {
-                messagedds.get(i).setBody(messagedds.get(i).getBody().replaceAll("@SERECT569821545", ""));
+            if (Constant.base64Controller(messagedds.get(i).getBody(), false).contains("@SERECT569821545")) {
+              String sms =   Constant.base64Controller(Constant.base64Controller(messagedds.get(i).getBody(), false).replaceAll("@SERECT569821545", ""), true);
+                messagedds.get(i).setBody(sms);
+                SerectMessageModel serectMessageModel = new SerectMessageModel();
+                serectMessageModel.setDeliveredIds(messagedds.get(i).getDeliveredIds());
+                serectMessageModel.setMessageID(messagedds.get(i).getId());
+                serectChatID.add(serectMessageModel);
             }
         }
         return messagedds;
@@ -2079,7 +2219,6 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         ToastUtils.longToast(R.string.Theme_Set_Successfully);
     }
 
-
     private void bothSideTheamUpdate(String ImageNAME) {
         show_dialog();
         qbChatDialog.setPhoto(ImageNAME);
@@ -2088,10 +2227,10 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
             @Override
             public void onSuccess(QBChatDialog updatedDialog, Bundle bundle) {
                 qbChatDialog = updatedDialog;
-               hide_dialog();
+                hide_dialog();
                 ToastUtils.longToast(getString(R.string.Both_Side));
                 try {
-                    Constant.showErrorAlert(getApplicationContext(),getString(R.string.Both_Side));
+                    Constant.showErrorAlert(getApplicationContext(), getString(R.string.Both_Side));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -2099,7 +2238,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
 
             @Override
             public void onError(QBResponseException e) {
-                Constant.showErrorAlert(getApplicationContext(),e.getMessage());
+                Constant.showErrorAlert(getApplicationContext(), e.getMessage());
                 hide_dialog();
             }
         });
@@ -2265,7 +2404,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
             try {
                 if (response.getString("status").equalsIgnoreCase("success")) {
                     bothSideTheamUpdate(response.getString("data").toString());
-                }else {
+                } else {
                     ToastUtils.shortToast("Theam Upload Failed");
                 }
             } catch (Exception e) {
@@ -2288,7 +2427,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         }
         if (requestCode == 882) {
             hideProgressDialog();
-            messagesList.get(adapter_position).setBody(Constant.base64Controller(response,true));
+            messagesList.get(adapter_position).setBody(Constant.base64Controller(response, true));
             if (chatAdapter != null) {
                 if (!response.equalsIgnoreCase("")) {
                     chatAdapter.notifyDataSetChanged();
@@ -2447,6 +2586,7 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
                                     @Override
                                     public void onSuccess(ArrayList<QBChatMessage> messages, Bundle args) {
                                         messages.size();
+                                        serectChatID.clear();
                                         Collections.reverse(Chat_Filter(messages));
                                         chatAdapter.addList(messages);
                                         hide_dialog();
@@ -2473,36 +2613,6 @@ public class ChatActivity extends BaseActivity implements QouteChatTrigger, Lang
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
             Log.d(TAG + " onPostExecute", "" + result);
-        }
-
-    }
-
-    public static String SaveImagetoSDcard(String imagename, Bitmap img, Activity mActivity) {
-        File mydir = new File(mActivity.getFilesDir() + "/" + System.currentTimeMillis() + "_Tudime/");
-        if (!mydir.exists()) {
-            mydir.mkdir();
-        }
-        File image = new File(mydir, imagename + ".png");
-
-        boolean success = false;
-        FileOutputStream outStream;
-        try {
-
-            outStream = new FileOutputStream(image);
-            img.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-            outStream.flush();
-            outStream.close();
-            success = true;
-        } catch (FileNotFoundException e) {
-
-        } catch (Exception e) {
-
-        }
-        if (success) {
-            String finalimageurl = mydir.toString() + "/" + imagename + ".png";
-            return finalimageurl;
-        } else {
-            return "";
         }
 
     }

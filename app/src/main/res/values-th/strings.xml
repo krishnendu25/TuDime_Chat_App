@@ -584,4 +584,5 @@
 	<string name = "TuDime_Annual"> - การเป็นสมาชิกรายปี TuDime ประจำปี </string>
 	<string name = "Free_Trial"> ทดลองใช้ฟรี </string>
 	<string name = "No_Subscription_Yet"> ยังไม่มีการสมัครสมาชิก </string>
+	<string name="chat_disappearing_timer">Chat Disappearing Timer</string>
 </resources>

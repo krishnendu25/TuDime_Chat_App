@@ -584,4 +584,5 @@
 	<string name="TuDime_Annual">-ডে টুডিম বার্ষিক সদস্যপদ</string>
 	<string name="Free_Trial">ফ্রি ট্রায়াল</string>
 	<string name="No_Subscription_Yet">এখনও সাবস্ক্রিপশন নেই</string>
+	<string name="chat_disappearing_timer">Chat Disappearing Timer</string>
 </resources>

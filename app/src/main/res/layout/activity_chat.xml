@@ -622,6 +622,12 @@
 
         </LinearLayout>
     </LinearLayout>
-
+<RelativeLayout
+    android:id="@+id/chatTimerLayout"
+    android:layout_width="match_parent"
+    android:visibility="gone"
+    android:layout_height="match_parent">
+    <include layout="@layout/chat_timer_dialog"/>
+</RelativeLayout>
 
 </RelativeLayout>

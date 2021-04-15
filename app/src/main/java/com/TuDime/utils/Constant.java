@@ -9,7 +9,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
-import android.util.Base64;
+
+
+import androidx.annotation.RequiresApi;
 
 import com.TuDime.R;
 
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -32,16 +35,18 @@ public class Constant
 {
 
 
-    public static String base64Controller(String body,boolean encode){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public static String base64Controller(String body, boolean encode){
         try {
         if (encode){
-            byte[] data = new byte[0];
-            data = body.getBytes("UTF-8");
-            return Base64.encodeToString(data, Base64.DEFAULT);
+            byte[] encodedBytes = Base64.getEncoder().encode(body.getBytes());
+            return   new String(encodedBytes);
+
         }else{
-            byte[] data = Base64.decode(body, Base64.DEFAULT);
-            String text = new String(data, "UTF-8");
-            return text;
+
+            byte[] decodedBytes = Base64.getDecoder().decode(body);
+
+            return new String(decodedBytes);
         }
 
         } catch (Exception e) {

@@ -516,11 +516,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                 {progress_chat.setVisibility(View.GONE);
                 ToastUtils.shortToast(R.string.Enter_Your_Message);
                 return;
-                }else
-                {
-                    String ChatBODY = Constant.base64Controller(msg_box.getText().toString().trim(),true);
+                }else {
+                    String ChatBODY = Constant.base64Controller(msg_box.getText().toString().trim()+"\n"+"---Update Message---",true);
                     QBMessageUpdateBuilder messageUpdateBuilder = new QBMessageUpdateBuilder();
-                    messageUpdateBuilder.updateText(ChatBODY+"\n"+"---Update Message---") //updates message's text
+                    messageUpdateBuilder.updateText(ChatBODY) //updates message's text
                             .markDelivered()     //mark message as delivered on server
                             .markRead();         //mark message as read on server
 
@@ -528,7 +527,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MessageViewHol
                         @Override
                         public void onSuccess(Void aVoid, Bundle bundle)
                         {
-                            chatMessages.get(position).setBody(ChatBODY+"\n"+"---Update Message---");
+                            chatMessages.get(position).setBody(ChatBODY);
                             notifyDataSetChanged();
                             progress_chat.setVisibility(View.GONE);
                             ToastUtils.shortToast(R.string.Update_Message_Successful);

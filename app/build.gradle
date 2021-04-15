@@ -17,10 +17,10 @@ android {
 
     defaultConfig {
         applicationId "com.TuDime"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
-        versionCode 18
-        versionName '1.8.0'
+        versionCode 21
+        versionName '2.1.0'
         multiDexEnabled true
     }
 

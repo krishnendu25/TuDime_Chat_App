@@ -81,7 +81,6 @@ public class PapPallIntegration extends BaseActivity {
                 Total_Balance = Integer.valueOf(Balence_Api) + Integer.valueOf(price);
             }
         } else {
-            Balence_Api = "0";
             Total_Balance = Integer.valueOf(Balence_Api) + Integer.valueOf(price);
         }
 
@@ -120,9 +119,10 @@ public class PapPallIntegration extends BaseActivity {
         if (requestCode == 325) {
             if(resultCode == Activity.RESULT_OK){
                 String result=data.getStringExtra("invoice");
+                Verify_Payment(result);
                 String email=data.getStringExtra("email");
                 hitSendEmail(result,email);
-                Verify_Payment(result);
+
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 ToastUtils.longToast("Payment Failure");

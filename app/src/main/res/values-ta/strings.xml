@@ -584,4 +584,5 @@
 	<string name="TuDime_Annual">-டே டுடைம் ஆண்டு உறுப்பினர்</string>
 	<string name="Free_Trial">இலவச சோதனை</string>
 	<string name="No_Subscription_Yet">இதுவரை சந்தா இல்லை</string>
+	<string name="chat_disappearing_timer">Chat Disappearing Timer</string>
 </resources>
